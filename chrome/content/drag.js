@@ -3,6 +3,7 @@ rtimushev.ffdesktop.Drag = new function () {
     var Drag = this
     var Prefs = rtimushev.ffdesktop.Prefs
     var Desktop = rtimushev.ffdesktop.Desktop
+	var Dom = rtimushev.ffdesktop.Dom
 
     this.MIN_DRAG = 10;
     this.BORDER_WIDTH = 5;
@@ -37,7 +38,7 @@ rtimushev.ffdesktop.Drag = new function () {
 
     this.onMouseDown = function (e) {
         if (e.target.nodeName == "INPUT") return;
-        if (Desktop.isLocked()) return;
+//        if (Desktop.isLocked()) return;
 
         Drag.object = e.currentTarget;
         Drag.click.x = e.pageX;
@@ -57,6 +58,18 @@ rtimushev.ffdesktop.Drag = new function () {
     this.onMouseUp = function (e) {
         var theObject = Drag.object;
         Drag.object = null;
+		if (Desktop.isLocked() && Drag.inProgress) {
+			Drag.removeGlass();
+			Drag.inProgress = false;
+			var anchor = Dom.child(theObject, "a");
+			// console.log(anchor.href);
+			var mw = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
+			var tb = mw.getBrowser();
+			var tab = tb.loadOneTab(anchor.href, {inBackground: true, relatedToCurrent: true});
+			if (e.pageY - Drag.click.y < 0)
+				mw.setTimeout(function() { tb.selectedTab = tab; }, 0);
+			return;
+		}
         if (Drag.inProgress) {
             Drag.removeGrid();
             Drag.removeGlass();
@@ -119,6 +132,15 @@ rtimushev.ffdesktop.Drag = new function () {
     };
 
     this.onMouseMove = function (e) {
+        if (Desktop.isLocked()) { 
+			if (!Drag.inProgress && Drag.object && Math.abs(Drag.click.x - e.pageX) +
+					Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG) {
+				Drag.inProgress = true;
+				Drag.createGlass();
+			}
+			return;
+		}
+
         if (!Drag.inProgress && Drag.object &&
             Math.abs(Drag.click.x - e.pageX) +
                 Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG) {

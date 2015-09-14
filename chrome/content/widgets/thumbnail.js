@@ -46,6 +46,7 @@ rtimushev.ffdesktop.Thumbnail = function () {
     }
 
     this.updateView = function () {
+//		console.log("[4] renderView->updateView");
         Thumbnail.prototype.updateView.call(this);
 
         var anchor = Dom.child(this.view, "a");
@@ -72,7 +73,7 @@ rtimushev.ffdesktop.Thumbnail = function () {
         }
 
         if (!this.properties.customImage && !getImageFile.call(this).exists()) this.refresh();
-        else this.updateView();
+        //else {console.log("[3] renderView->updateView");this.updateView();}
 
         var self = this;
 

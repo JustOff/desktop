@@ -25,7 +25,25 @@ rtimushev.ffdesktop.Widget = function () {
         this.view.style.height = this.properties.height || "";
 
         var icon = Dom.child(this.view, "icon");
-        icon.style.background = "url(" + this.getIconURL() + ")";
+//        icon.style.background = "url(" + this.getIconURL() + ")";
+		
+		if (this.properties.isFolder) {
+			icon.style.background = "url(chrome://desktop/skin/folder.png)";
+		} else if (this.properties.url) {
+			var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
+			var url = this.properties.url;
+//			console.log("url: " + url);
+			var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+			uri = ios.newURI(url, null, null);
+			fis.getFaviconURLForPage(uri, 
+				function (uri, len, data, mimeType) {
+					if (uri) {
+//						console.log("favicon: " + uri.spec);
+						icon.style.background = "url(moz-anno:favicon:" + uri.spec + ")";
+					}
+				}
+			);
+		}
 
         var title = Dom.child(this.view, "title");
         title.innerHTML = this.properties.title || "";
@@ -37,6 +55,7 @@ rtimushev.ffdesktop.Widget = function () {
         this.view.id = this.properties.id;
 
         Drag.enable(this.view);
+//		console.log("[1] renderView->updateView");
         this.updateView();
         if (this.properties.title == Prefs.getString("focus")) {
             var view = this.view;
@@ -73,6 +92,7 @@ rtimushev.ffdesktop.Widget = function () {
             self.properties.width = self.view.clientWidth;
             self.properties.height = self.view.clientHeight;
             self.save.call(self);
+//			console.log("[2] renderView->updateView");
             self.updateView.call(self);
             if (resized) {
                 self.refresh.call(self);
