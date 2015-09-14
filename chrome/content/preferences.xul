@@ -13,6 +13,8 @@
             <preference id="extensions.desktop.overrideNewTab" name="extensions.desktop.overrideNewTab" type="bool"/>
             <preference id="extensions.desktop.overrideHomePage" name="extensions.desktop.overrideHomePage"
                         type="bool"/>
+            <preference id="extensions.desktop.newtabOnLockDrag" name="extensions.desktop.newtabOnLockDrag"
+                        type="bool"/>
             <preference id="extensions.desktop.gridInterval" name="extensions.desktop.gridInterval" type="int"/>
             <preference id="extensions.desktop.backgroundStyle" name="extensions.desktop.backgroundStyle" type="int"/>
         </preferences>
@@ -25,6 +27,10 @@
             <hbox>
                 <checkbox id="useAsHomePage" label="&desktoppref.UseAsHomePage;"
                           preference="extensions.desktop.overrideHomePage"/>
+            </hbox>
+            <hbox>
+                <checkbox id="openNewtabOnLockDrag" label="&desktoppref.newtabOnLockDrag;"
+                          preference="extensions.desktop.newtabOnLockDrag"/>
             </hbox>
         </groupbox>
         <groupbox flex="1">

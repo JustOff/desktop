@@ -7,3 +7,4 @@ pref("extensions.desktop.lock", false);
 pref("extensions.desktop.showDecorations", true);
 pref("extensions.desktop.overrideNewTab", true);
 pref("extensions.desktop.overrideHomePage", false);
+pref("extensions.desktop.newtabOnLockDrag", false);

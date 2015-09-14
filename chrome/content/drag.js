@@ -38,7 +38,7 @@ rtimushev.ffdesktop.Drag = new function () {
 
     this.onMouseDown = function (e) {
         if (e.target.nodeName == "INPUT") return;
-//        if (Desktop.isLocked()) return;
+        if (!Prefs.getBool("newtabOnLockDrag") && Desktop.isLocked()) return;
 
         Drag.object = e.currentTarget;
         Drag.click.x = e.pageX;
@@ -58,7 +58,7 @@ rtimushev.ffdesktop.Drag = new function () {
     this.onMouseUp = function (e) {
         var theObject = Drag.object;
         Drag.object = null;
-		if (Desktop.isLocked() && Drag.inProgress) {
+		if (Prefs.getBool("newtabOnLockDrag") && Desktop.isLocked() && Drag.inProgress) {
 			Drag.removeGlass();
 			Drag.inProgress = false;
 			var anchor = Dom.child(theObject, "a");
@@ -132,7 +132,7 @@ rtimushev.ffdesktop.Drag = new function () {
     };
 
     this.onMouseMove = function (e) {
-        if (Desktop.isLocked()) { 
+        if (Prefs.getBool("newtabOnLockDrag") && Desktop.isLocked()) { 
 			if (!Drag.inProgress && Drag.object && Math.abs(Drag.click.x - e.pageX) +
 					Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG) {
 				Drag.inProgress = true;

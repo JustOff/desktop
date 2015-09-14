@@ -3,6 +3,7 @@
 <!ENTITY desktoppref.General "General">
 <!ENTITY desktoppref.OpenInNewTabs "Open in new tabs">
 <!ENTITY desktoppref.UseAsHomePage "Use as home page">
+<!ENTITY desktoppref.newtabOnLockDrag "Open in new tab on drag">
 
 <!ENTITY desktoppref.Background "Background">
 <!ENTITY desktoppref.BackgroundImage "Background image">
