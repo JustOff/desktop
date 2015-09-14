@@ -110,8 +110,8 @@ rtimushev.ffdesktop.Thumbnail = function () {
             return;
         }
         loading = true;
-        this.updateView();
         refreshImage.call(this);
+        this.updateView();
     }
 
     this.openProperties = function () {
@@ -133,6 +133,7 @@ rtimushev.ffdesktop.Thumbnail = function () {
 
     function refreshImage() {
         var self = this;
+		getSiteFavicon.call(self, self.properties.url);
         loadURI(this.properties.url || "about:blank", this.properties.width, this.properties.height - Widget.HEADER_HEIGHT, function (iframe) {
             if (!self.properties.title) {
                 var doc = iframe.contentDocument;
@@ -147,6 +148,37 @@ rtimushev.ffdesktop.Thumbnail = function () {
         });
     }
 
+	function getSiteFavicon(siteURI) {
+		var hostURI = "http://" + siteURI.split(/\/+/g)[1] + "/";
+		var faviconURI = hostURI + "favicon.ico";
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", siteURI, true);
+		xhr.responseType = "document";      
+		xhr.onload = xhr.onerror = function() {
+			var doc = xhr.responseXML;
+			if ( doc !== null ) {
+				var links = doc.getElementsByTagName("link");
+				[...links].forEach(
+					function(link) {
+						if (/(?:^|\s)icon(?:\s|$)/.test(link.rel.toLowerCase()))
+							faviconURI = link.href;
+					}
+				);
+			}
+			var self = this;                
+			preloadFavicon.call(self, faviconURI, siteURI); 
+		}
+		xhr.send();
+	};   
+	
+	function preloadFavicon(faviconURI, siteURI) {
+		var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+		var iconURI = ios.newURI(faviconURI, null, null);
+		var bookmarkURI = ios.newURI(siteURI, null, null);
+		var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
+		fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE);
+   };
+	
     function saveImage(iframe) {
         var self = this;
         setTimeout(function () {
