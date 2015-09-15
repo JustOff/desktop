@@ -3,7 +3,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>desktop@telega.phpnet.us</em:id>
-    <em:version>1.4.11.6-drag-favicon-patch</em:version>
+    <em:version>1.4.11.7-drag-favicon-patch</em:version>
     <em:type>2</em:type>
    
     <em:targetApplication>

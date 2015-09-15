@@ -6,6 +6,8 @@ rtimushev.ffdesktop.Widget = function () {
     var Drag = rtimushev.ffdesktop.Drag
     var Prefs = rtimushev.ffdesktop.Prefs
     var Desktop = rtimushev.ffdesktop.Desktop
+	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
+	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
     this.properties;
     this.view;
@@ -30,16 +32,13 @@ rtimushev.ffdesktop.Widget = function () {
 		if (this.properties.isFolder) {
 			icon.style.background = "url(chrome://desktop/skin/folder.png)";
 		} else if (this.properties.url) {
-			var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
-			var url = this.properties.url;
-//			console.log("url: " + url);
-			var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
-			uri = ios.newURI(url, null, null);
+//			console.log("url: " + this.properties.url);
+			uri = ios.newURI(this.properties.url, null, null);
 			fis.getFaviconURLForPage(uri, 
-				function (uri, len, data, mimeType) {
-					if (uri) {
-//						console.log("favicon: " + uri.spec);
-						icon.style.background = "url(moz-anno:favicon:" + uri.spec + ")";
+				function (furi, len, data, mimeType) {
+					if (furi) {
+//						console.log("favicon: " + furi.spec);
+						icon.style.background = "url(moz-anno:favicon:" + furi.spec + ")";
 					}
 				}
 			);
