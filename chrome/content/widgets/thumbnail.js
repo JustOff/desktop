@@ -199,8 +199,13 @@ rtimushev.ffdesktop.Thumbnail = function () {
         var doc = browserWindow.document;
 
         var iframe = doc.createElement("browser");
-        iframe.width = 1024;
-        iframe.height = iframe.width * aspect;
+		if (aspect < 1) {
+			iframe.width = 1024;
+		} else {
+			iframe.width = 600;
+		}
+		iframe.height = Math.round(iframe.width * aspect);
+		
         iframe.setAttribute("type", "content-targetable");
         iframe.style.overflow = "hidden";
         doc.getElementById("hidden-box").appendChild(iframe);
