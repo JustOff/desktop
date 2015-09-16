@@ -62,7 +62,7 @@ rtimushev.ffdesktop.Desktop = new function () {
     };
 
     this.refreshAll = function () {
-        var c = document.body.children;
+        var c = document.body.getElementsByClassName("widget");
         for (var i = 0; i < c.length; i++) {
             var r = Dom.child(c[i], "refresh");
             if (r) {

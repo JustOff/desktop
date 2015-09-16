@@ -136,9 +136,15 @@ br {
 
 body.lock-edits #menu-lock,
 body.lock-edits #menu-add,
+body.lock-edits #menu-refresh,
+body.lock-edits .button.refresh,
 body.lock-edits .button.remove,
 body.lock-edits .button.properties {
     display: none;
+}
+
+body.lock-edits .title {
+	right: 10px;
 }
 
 body.unlock-edits #menu-unlock {
