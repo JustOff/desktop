@@ -21,6 +21,10 @@
     <li id="menu-lock">Lock</li>
     <li id="menu-unlock">Unlock</li>
     <li id="menu-refresh">RefreshThumbnails</li>
+    <li id="menu-rename">Rename</li>
+    <li id="menu-properties">Properties</li>
+    <li id="menu-refreshone">RefreshThumbnail</li>
+    <li id="menu-remove">Remove</li>
     <li id="menu-prefs">Preferences</li>
 </ul>
 
@@ -37,6 +41,7 @@
     </div>
 
     <a id="thumbnail" class="thumbnail">
+		<div class="hlink"></div>
         <div class="throbber"></div>
         <img>
     </a>
@@ -62,7 +67,7 @@
 <script src="widgets/search.js"></script>
 <script>
     (function () {
-
+console.time("Desktop");
         var Utils = rtimushev.ffdesktop.Utils
         var File = rtimushev.ffdesktop.File
         var Prefs = rtimushev.ffdesktop.Prefs
@@ -111,6 +116,15 @@
         ContextMenu.enable(document, Dom.get("menu"));
 
         Dom.get("menu-add").addEventListener("click", function (e) {
+			if (Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+				Desktop.setLocked(false);
+				updateLockStatus();
+			}
+			if (Desktop.isCacheDOM() && document.location == "chrome://desktop/content/desktop.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				factory.createWidgets();
+			}
             quickstart.style.display = "none";
             factory.createWidget(e.target.type, ContextMenu.click.x, ContextMenu.click.y);
         }, false);
@@ -123,22 +137,115 @@
         }, false);
         Dom.get("menu-unlock").addEventListener("click", function (e) {
             Desktop.setLocked(false);
-			if (document.location == "chrome://desktop/content/desktop.html") {
-				window.location.reload();
-			} else {
-				updateLockStatus();
+			if (Desktop.isCacheDOM() && document.location == "chrome://desktop/content/desktop.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				factory.createWidgets();
 			}
+			updateLockStatus();
         }, false);
         Dom.get("menu-refresh").addEventListener("click", function (e) {
+			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				Desktop.setLocked(false);
+				factory.createWidgets();
+				Desktop.setLocked(true);
+			}
             Desktop.refreshAll()
         }, false);
+        Dom.get("menu-refreshone").addEventListener("click", function (e) {
+			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				Desktop.setLocked(false);
+				factory.createWidgets();
+				Desktop.setLocked(true);
+			}
+			var hoverEl = ContextMenu.click.el;
+			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
+			var r = Dom.child(c, "refresh");
+			if (r) {
+				r.click()
+			}
+        }, false);
+        Dom.get("menu-properties").addEventListener("click", function (e) {
+			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				Desktop.setLocked(false);
+				factory.createWidgets();
+				Desktop.setLocked(true);
+			}
+			var hoverEl = ContextMenu.click.el;
+			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
+			var r = Dom.child(c, "properties");
+			if (r) {
+				r.click()
+			}
+        }, false);
+        Dom.get("menu-remove").addEventListener("click", function (e) {
+			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				Desktop.setLocked(false);
+				factory.createWidgets();
+				Desktop.setLocked(true);
+			}
+			var hoverEl = ContextMenu.click.el;
+			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
+			var r = Dom.child(c, "remove");
+			if (r) {
+				r.click()
+			}
+        }, false);
+        Dom.get("menu-rename").addEventListener("click", function (e) {
+			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				Desktop.setLocked(false);
+				factory.createWidgets();
+				Desktop.setLocked(true);
+			}
+			var hoverEl = ContextMenu.click.el;
+			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
+			var r = Dom.child(c, "title");
+			if (r) {
+				var event = new MouseEvent('dblclick', {
+					'view': window,
+					'bubbles': true,
+					'cancelable': true
+					});
+				r.dispatchEvent(event);
+			}
+        }, false);
 
+        document.body.addEventListener("dblclick", function (e) {
+			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+			if (e.clientX == 0 || hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart")
+				return;
+            Desktop.toggleLocked();
+			if (Desktop.isCacheDOM() && !Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				factory.createWidgets();
+			}
+			updateLockStatus();
+        }, false);
+
+/*
+        document.body.addEventListener("click", function (e) {
+			if (document.elementFromPoint(e.clientX, e.clientY).nodeName.toLowerCase() == "body") {
+				e.preventDefault();
+			}
+        }, false);
+*/
         updateLockStatus();
 
         // Disable cache for desktop page
         window.onbeforeunload = function () {
         }
-
+console.timeEnd("Desktop");
     })();
 </script>
 

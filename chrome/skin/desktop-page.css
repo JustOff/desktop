@@ -132,15 +132,33 @@ br {
     text-align: center;
 }
 
+/* Is-widget menu */
+
+body.is-widget #menu-add,
+body.is-widget #menu-refresh,
+body.is-widget #menu-prefs {
+    display: none;
+}
+
+body.no-widget #menu-refreshone,
+body.no-widget #menu-rename,
+body.no-widget #menu-properties,
+body.no-widget #menu-remove {
+    display: none;
+}
+
 /* Lock-unlock */
 
 body.lock-edits #menu-lock,
-body.lock-edits #menu-add,
-body.lock-edits #menu-refresh,
 body.lock-edits .button.refresh,
 body.lock-edits .button.remove,
 body.lock-edits .button.properties {
     display: none;
+}
+
+body.lock-edits .hlink {
+    height: 20px;
+	margin-top: -20px;
 }
 
 body.lock-edits .title {
@@ -148,6 +166,11 @@ body.lock-edits .title {
 }
 
 body.unlock-edits #menu-unlock {
+    display: none;
+}
+
+body.unlock-edits .hlink,
+body.no-hlink .hlink {
     display: none;
 }
 

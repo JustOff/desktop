@@ -20,8 +20,9 @@ rtimushev.ffdesktop.Thumbnail = function () {
             this.properties.height = Prefs.getInt("thumbnail.height");
         }
         if (this.properties.isFolder) {
-            this.properties.url = "chrome://desktop/content/desktop.html?folder=" +
-                this.properties.id;
+            this.properties.url = "chrome://desktop/content/desktop.html?folder=" + this.properties.id;
+			if (!this.properties.title)
+				this.properties.title = "Folder " + this.properties.id;
         }
     }
 

@@ -1,7 +1,7 @@
 <!ENTITY desktoppref.Preferences "Desktop preferences">
 
 <!ENTITY desktoppref.General "General">
-<!ENTITY desktoppref.OpenInNewTabs "Open in new tabs">
+<!ENTITY desktoppref.OpenInNewTabs "Load in new tabs">
 <!ENTITY desktoppref.UseAsHomePage "Use as home page">
 <!ENTITY desktoppref.newtabOnLockDrag "Open in new tab on drag">
 

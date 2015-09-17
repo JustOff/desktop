@@ -123,12 +123,15 @@ rtimushev.ffdesktop.Widget = function () {
     }
 
     this.editTitle = function () {
-        if (Desktop.isLocked()) return;
+//        if (Desktop.isLocked()) return;
+		if (Desktop.isLocked())
+			Dom.addClass(document.body, 'no-hlink');
         var self = this;
         var title = Dom.child(self.view, "title");
 
         function removeInput() {
             title.innerHTML = self.properties.title;
+			Dom.removeClass(document.body, 'no-hlink');
         }
 
         function updateTitle() {
@@ -152,7 +155,7 @@ rtimushev.ffdesktop.Widget = function () {
         var input = title.firstChild;
         input.value = this.properties.title;
         input.focus();
-        input.select();
+//        input.select();
         input.addEventListener("blur", updateTitle, false);
         input.addEventListener("keyup", onKeyUp, false);
     }

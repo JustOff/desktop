@@ -3,10 +3,9 @@ rtimushev.ffdesktop.Factory = function (storage) {
     var Thumbnail = rtimushev.ffdesktop.Thumbnail
     var Search = rtimushev.ffdesktop.Search
     var Drag = rtimushev.ffdesktop.Drag
-	var Prefs = rtimushev.ffdesktop.Prefs
+	var Desktop = rtimushev.ffdesktop.Desktop
 	
-	rtimushev.ffdesktop.cache = {};
-	Components.utils.import("resource://desktop/cache.js", rtimushev.ffdesktop.cache);
+	Components.utils.import("resource://desktop/cache.js", rtimushev.ffdesktop);
 
     function getURL(type) {
         switch (type) {
@@ -23,7 +22,9 @@ rtimushev.ffdesktop.Factory = function (storage) {
             url:getURL(type)
         }
         storage.saveObject(properties);
-        createWidget(properties);
+		var fragment = document.createDocumentFragment();
+        createWidget(properties, fragment);
+		document.getElementById("widgets").appendChild(fragment);
     }
 
     function createWidget(properties, fragment) {
@@ -44,24 +45,28 @@ rtimushev.ffdesktop.Factory = function (storage) {
     this.createWidgets = function () {
         var objects = storage.getObjects();
         var hasWidgets = false;
-		if (!Prefs.getBool("lock") || document.location != "chrome://desktop/content/desktop.html" || !rtimushev.ffdesktop.cache.cfragment.cf) {
+		if (!Desktop.isLocked() || document.location != "chrome://desktop/content/desktop.html" || !rtimushev.ffdesktop.cache.fragment) {
 			var fragment = document.createElement('span');
+			fragment.setAttribute("id", "widgets");
 			for (var i in objects) {
 				createWidget(objects[i], fragment);
 				hasWidgets = true;
 			}
 			if (document.location == "chrome://desktop/content/desktop.html") {
-				rtimushev.ffdesktop.cache.cfragment.cf = fragment;
+				rtimushev.ffdesktop.cache.fragment = fragment;
 			}
+			Desktop.setCacheDOM(false);
 		} else if (document.location == "chrome://desktop/content/desktop.html") {
-			var fragment = rtimushev.ffdesktop.cache.cfragment.cf.cloneNode(true);
+			var fragment = rtimushev.ffdesktop.cache.fragment.cloneNode(true);
 			var x = fragment.getElementsByClassName("widget");
 			for (var i = 0; i < x.length; i++) {
 				Drag.enable(x[i]);
 			}
 			hasWidgets = true;
+			Desktop.setCacheDOM(true);
 		}
         document.body.appendChild(fragment);
+		console.log(Desktop.isCacheDOM());
         return hasWidgets;
     }
 

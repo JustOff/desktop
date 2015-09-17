@@ -5,6 +5,9 @@ rtimushev.ffdesktop.Desktop = new function () {
     var File = rtimushev.ffdesktop.File;
     var Prefs = rtimushev.ffdesktop.Prefs;
     var Dom = rtimushev.ffdesktop.Dom;
+	
+	var isLocked = true;
+	var isCacheDOM;
 
     this.isDesktop = function (doc) {
         return doc && doc.location
@@ -49,12 +52,27 @@ rtimushev.ffdesktop.Desktop = new function () {
         return Desktop.bundle.GetStringFromName(key);
     };
 
+    this.isCacheDOM = function () {
+        return isCacheDOM;
+    };
+
+    this.setCacheDOM = function (s) {
+        isCacheDOM = s;
+    };
+
     this.isLocked = function () {
-        return Prefs.getBool("lock");
+//        return Prefs.getBool("lock");
+        return isLocked;
     };
 
     this.setLocked = function (s) {
-        Prefs.setBool("lock", s);
+//        Prefs.setBool("lock", s);
+        isLocked = s;
+    };
+
+    this.toggleLocked = function () {
+//        Prefs.setBool("lock", !Prefs.getBool("lock"));
+        isLocked = !isLocked;
     };
 
     this.areDecorationsVisible = function () {

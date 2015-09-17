@@ -5,15 +5,22 @@ rtimushev.ffdesktop.ContextMenu = new function () {
     var Dom = rtimushev.ffdesktop.Dom
     var Desktop = rtimushev.ffdesktop.Desktop
 
-    this.click = { x:0, y:0 };
+    this.click = { x:0, y:0, el: null };
     this.current = null,
 
         this.enable = function (element, menu) {
             var handler = function (e) {
                 if (e.button != 2) return;
+
+				var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+				var s = hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart";
+				Dom.removeClass(document.body, s ? 'no-widget' : 'is-widget');
+				Dom.addClass(document.body, s ? 'is-widget' : 'no-widget');
+
                 e.preventDefault();
                 ContextMenu.click.x = e.pageX;
                 ContextMenu.click.y = e.pageY;
+                ContextMenu.click.el = hoverEl;
                 ContextMenu.open(menu, e.pageX, e.pageY);
             };
             element.addEventListener("contextmenu", handler, false);
