@@ -66,7 +66,7 @@ rtimushev.ffdesktop.Factory = function (storage) {
 			Desktop.setCacheDOM(true);
 		}
         document.body.appendChild(fragment);
-		console.log(Desktop.isCacheDOM());
+//		console.log(Desktop.isCacheDOM());
         return hasWidgets;
     }
 
