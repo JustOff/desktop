@@ -240,11 +240,26 @@ rtimushev.ffdesktop.Thumbnail = function () {
         var context = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.width, canvas.height);
 
+		var oc = document.createElement('canvas');
+		var octx = oc.getContext('2d');
+
+		oc.width = iframe.width;
+		oc.height = iframe.height;
+
+		octx.drawWindow(iframe.contentWindow, 0, 0, iframe.width, iframe.height, "white");
+		octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5);
+		octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5, 0, 0, oc.width * 0.25, oc.height * 0.25);
+		context.drawImage(oc, 0, 0, oc.width * 0.25, oc.height * 0.25, 0, 0, canvas.width, canvas.height);
+//		context.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5, 0, 0, canvas.width, canvas.height);
+/*
+        var width = iframe.width;
+        var height = iframe.height;
+		
         var width = iframe.width;
         var height = iframe.height;
         context.scale(canvas.width / width, canvas.height / height);
         context.drawWindow(iframe.contentWindow, 0, 0, width, height, "white");
-
+*/
 //		blurImage(context, width, height);
 		
         var dataURL = canvas.toDataURL("image/png");
