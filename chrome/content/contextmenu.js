@@ -16,6 +16,14 @@ rtimushev.ffdesktop.ContextMenu = new function () {
 				var s = hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart";
 				Dom.removeClass(document.body, s ? 'no-widget' : 'is-widget');
 				Dom.addClass(document.body, s ? 'is-widget' : 'no-widget');
+				
+				if (s) {
+					if (Dom.hasClass(hoverEl.parentNode.parentNode.parentNode,'s-widget') || Dom.hasClass(hoverEl.parentNode.parentNode,'s-widget')) {
+						Dom.addClass(document.body, 'is-search');
+					} else {
+						Dom.removeClass(document.body, 'is-search');
+					}
+				}
 
                 e.preventDefault();
                 ContextMenu.click.x = e.pageX;

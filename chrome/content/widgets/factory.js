@@ -4,6 +4,7 @@ rtimushev.ffdesktop.Factory = function (storage) {
     var Search = rtimushev.ffdesktop.Search
     var Drag = rtimushev.ffdesktop.Drag
 	var Desktop = rtimushev.ffdesktop.Desktop
+	var Dom = rtimushev.ffdesktop.Dom
 	
 	Components.utils.import("resource://desktop/cache.js", rtimushev.ffdesktop);
 
@@ -61,6 +62,12 @@ rtimushev.ffdesktop.Factory = function (storage) {
 			var x = fragment.getElementsByClassName("widget");
 			for (var i = 0; i < x.length; i++) {
 				Drag.enable(x[i]);
+				if (Dom.hasClass(x[i], "s-widget")) {
+					var title = Dom.child(x[i], "title");
+					var properties = { id: x[i].id, url: "desktop://search/", title: title.innerHTML, isFolder: false, left: x[i].style.left, top: x[i].style.top, width: x[i].style.width, height: x[i].style.height };
+					fragment.removeChild(x[i]);
+					createWidget(properties, fragment);
+				}
 			}
 			hasWidgets = true;
 			Desktop.setCacheDOM(true);

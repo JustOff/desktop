@@ -28,9 +28,11 @@ rtimushev.ffdesktop.Widget = function () {
 
         var icon = Dom.child(this.view, "icon");
 //        icon.style.background = "url(" + this.getIconURL() + ")";
-		
+
 		if (this.properties.isFolder) {
 			icon.style.background = "url(chrome://desktop/skin/folder.png)";
+		} else if (this.properties.url == "desktop://search/") {
+			icon.style.background = "url(" + this.getIconURL() + ")";
 		} else if (this.properties.url) {
 //			console.log("url: " + this.properties.url);
 			uri = ios.newURI(this.properties.url, null, null);
@@ -52,6 +54,9 @@ rtimushev.ffdesktop.Widget = function () {
         this.view = Dom.get("widget").cloneNode(true);
         Dom.child(this.view, "body").appendChild(this.createView());
         this.view.id = this.properties.id;
+		if (this.properties.url == "desktop://search/") {
+			Dom.addClass(this.view, "s-widget");
+		}
 
         Drag.enable(this.view);
 //		console.log("[1] renderView->updateView");

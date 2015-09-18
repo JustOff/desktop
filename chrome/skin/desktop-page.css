@@ -155,6 +155,11 @@ body.no-widget #menu-remove {
     display: none;
 }
 
+body.is-search #menu-refreshone,
+body.is-search #menu-rename {
+    display: none;
+}
+
 /* Lock-unlock */
 
 body.lock-edits #menu-lock,

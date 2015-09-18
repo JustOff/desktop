@@ -42,6 +42,10 @@ rtimushev.ffdesktop.Dom = new function () {
     this.removeClass = function (element, className) {
         element.className = element.className.replace(new RegExp("((^)|( +))" + className + "(( +)|($))"), " ")
     }
+	
+	this.hasClass = function (element, className) {
+		return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
+	}
 
     this.remove = function (element) {
         element.parentNode.removeChild(element);

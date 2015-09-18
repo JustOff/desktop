@@ -237,7 +237,6 @@ rtimushev.ffdesktop.Thumbnail = function () {
         var context = canvas.getContext("2d");
         canvas.width = imageWidth;
         canvas.height = imageHeight;
-
         context.clearRect(0, 0, canvas.width, canvas.height);
 		var scale = canvas.width / iframe.width;
 		var oc = document.createElement('canvas');
@@ -253,17 +252,17 @@ rtimushev.ffdesktop.Thumbnail = function () {
 			} else {
 				context.drawImage(oc, 0, 0, iframe.width * 0.5, iframe.height * 0.5, 0, 0, canvas.width, canvas.height);
 			}
-			sharpen(context, canvas.width, canvas.height, 0.1);
+			sharpenImage(context, canvas.width, canvas.height, 0.1);
 		} else {
-			octx.drawImage(oc, 0, 0, iframe.width * (0.5 * scale + 0.5), iframe.height * (0.5 * scale + 0.5));
-			context.drawImage(oc, 0, 0, iframe.width * (0.5 * scale + 0.5), iframe.height * (0.5 * scale + 0.5), 0, 0, canvas.width, canvas.height);
+			scale = 0.5 * scale + 0.5;
+			octx.drawImage(oc, 0, 0, iframe.width * scale, iframe.height * scale);
+			context.drawImage(oc, 0, 0, iframe.width * scale, iframe.height * scale, 0, 0, canvas.width, canvas.height);
 		}
-		
         var dataURL = canvas.toDataURL("image/png");
         return atob(dataURL.replace(/^data:image\/png;base64,/, ""));
     }
 
-	function sharpen(ctx, w, h, mix) {
+	function sharpenImage(ctx, w, h, mix) {
 		var weights = [0, -1, 0, -1, 5, -1, 0, -1, 0],
 			side = Math.round(Math.sqrt(weights.length)),
 			half = Math.floor(side * 0.5),
@@ -298,18 +297,16 @@ rtimushev.ffdesktop.Thumbnail = function () {
 		ctx.putImageData(dstData, 0, 0);
 	}
 	
-	function grayscaleImage(context, width, height) {
-		var imageData = context.getImageData(0, 0, width, height);
+	function grayscaleImage(ctx, w, h) {
+		var imageData = ctx.getImageData(0, 0, w, h);
 		var data = imageData.data;
-		
 	    for (var i = 0; i < data.length; i += 4) {
 			var avg = (data[i] + data[i +1] + data[i +2]) / 3;
-			data[i]     = avg; // red
-			data[i + 1] = avg; // green
-			data[i + 2] = avg; // blue
+			data[i]     = avg;
+			data[i + 1] = avg;
+			data[i + 2] = avg;
 		}
-		
-		context.putImageData(imageData, 0, 0);
+		ctx.putImageData(imageData, 0, 0);
 	}
 }
 

@@ -178,7 +178,14 @@ console.time("Desktop");
 				Desktop.setLocked(true);
 			}
 			var hoverEl = ContextMenu.click.el;
-			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
+			if (Dom.hasClass(hoverEl.parentNode.parentNode.parentNode,'widget')) {
+				var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
+			} else if (Dom.hasClass(hoverEl.parentNode.parentNode,'widget')) {
+				var c = document.getElementById(hoverEl.parentNode.parentNode.id);
+			} else {
+				console.log("Err!");
+				return;
+			}
 			var r = Dom.child(c, "properties");
 			if (r) {
 				r.click()
@@ -193,7 +200,14 @@ console.time("Desktop");
 				Desktop.setLocked(true);
 			}
 			var hoverEl = ContextMenu.click.el;
-			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
+			if (Dom.hasClass(hoverEl.parentNode.parentNode.parentNode,'widget')) {
+				var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
+			} else if (Dom.hasClass(hoverEl.parentNode.parentNode,'widget')) {
+				var c = document.getElementById(hoverEl.parentNode.parentNode.id);
+			} else {
+				console.log("Err!");
+				return;
+			}
 			var r = Dom.child(c, "remove");
 			if (r) {
 				r.click()
