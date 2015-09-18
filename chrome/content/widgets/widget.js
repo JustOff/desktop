@@ -107,7 +107,9 @@ rtimushev.ffdesktop.Widget = function () {
     }
 
     this.remove = function () {
-        if (Utils.confirm(Desktop.translate("dialogRemoveWidget"))) {
+		console.log(this.view);
+		console.log(this.properties);
+        if (Utils.confirm("\"" + this.properties.title + "\"\n" + Desktop.translate("dialogRemoveWidget"))) {
             if (this.view) Dom.remove(this.view);
             this.storage.removeObject(this.properties.id);
             return true;
