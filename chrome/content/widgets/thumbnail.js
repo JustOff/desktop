@@ -234,97 +234,68 @@ rtimushev.ffdesktop.Thumbnail = function () {
 
     function createImage(iframe, imageWidth, imageHeight) {
         var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
         canvas.width = imageWidth;
         canvas.height = imageHeight;
 
-        var context = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.width, canvas.height);
-
+		var scale = canvas.width / iframe.width;
 		var oc = document.createElement('canvas');
 		var octx = oc.getContext('2d');
-
 		oc.width = iframe.width;
 		oc.height = iframe.height;
-
 		octx.drawWindow(iframe.contentWindow, 0, 0, iframe.width, iframe.height, "white");
-		octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5);
-		octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5, 0, 0, oc.width * 0.25, oc.height * 0.25);
-		context.drawImage(oc, 0, 0, oc.width * 0.25, oc.height * 0.25, 0, 0, canvas.width, canvas.height);
-//		context.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5, 0, 0, canvas.width, canvas.height);
-/*
-        var width = iframe.width;
-        var height = iframe.height;
-		
-        var width = iframe.width;
-        var height = iframe.height;
-        context.scale(canvas.width / width, canvas.height / height);
-        context.drawWindow(iframe.contentWindow, 0, 0, width, height, "white");
-*/
-//		blurImage(context, width, height);
+		if (scale < 0.6) {
+			octx.drawImage(oc, 0, 0, iframe.width * 0.5, iframe.height * 0.5);
+			if (scale < 0.25) {
+				octx.drawImage(oc, 0, 0, iframe.width * 0.5, iframe.height * 0.5, 0, 0, iframe.width * 0.25, iframe.height * 0.25);
+				context.drawImage(oc, 0, 0, iframe.width * 0.25, iframe.height * 0.25, 0, 0, canvas.width, canvas.height);
+			} else {
+				context.drawImage(oc, 0, 0, iframe.width * 0.5, iframe.height * 0.5, 0, 0, canvas.width, canvas.height);
+			}
+			sharpen(context, canvas.width, canvas.height, 0.1);
+		} else {
+			octx.drawImage(oc, 0, 0, iframe.width * (0.5 * scale + 0.5), iframe.height * (0.5 * scale + 0.5));
+			context.drawImage(oc, 0, 0, iframe.width * (0.5 * scale + 0.5), iframe.height * (0.5 * scale + 0.5), 0, 0, canvas.width, canvas.height);
+		}
 		
         var dataURL = canvas.toDataURL("image/png");
         return atob(dataURL.replace(/^data:image\/png;base64,/, ""));
     }
 
-	function blurImage(context, width, height) {
-		var pixels = context.getImageData(0, 0, width, height);
-
-		var weights = [ 0.03, 0.03, 0.03,
-						0.03, 0.76, 0.03,
-						0.03, 0.03, 0.03 ];
-/*						
-		var weights = [ 1/9, 1/9, 1/9,
-						1/9, 1/9, 1/9,
-						1/9, 1/9, 1/9 ];
-*/
-		var opaque = 0;
-
-		var side = Math.round(Math.sqrt(weights.length));
-		var halfSide = Math.floor(side/2);
-		var src = pixels.data;
-		var sw = pixels.width;
-		var sh = pixels.height;
-		// pad output by the convolution matrix
-		var w = sw;
-		var h = sh;
-		
-		var tmpCanvas = document.createElement('canvas');
-		var tmpCtx = tmpCanvas.getContext('2d');
-		var output = tmpCtx.createImageData(w,h);
-		var dst = output.data;
-		var alphaFac = opaque ? 1 : 0;
-	
-		for (var y=0; y<h; y++) {
-			for (var x=0; x<w; x++) {
-				var sy = y;
-				var sx = x;
-				var dstOff = (y*w+x)*4;
-				// calculate the weighed sum of the source image pixels that
-				// fall under the convolution matrix
-				var r=0, g=0, b=0, a=0;
-				for (var cy=0; cy<side; cy++) {
-					for (var cx=0; cx<side; cx++) {
-						var scy = sy + cy - halfSide;
-						var scx = sx + cx - halfSide;
-						if (scy >= 0 && scy < sh && scx >= 0 && scx < sw) {
-							var srcOff = (scy*sw+scx)*4;
-							var wt = weights[cy*side+cx];
-							r += src[srcOff] * wt;
-							g += src[srcOff+1] * wt;
-							b += src[srcOff+2] * wt;
-							a += src[srcOff+3] * wt;
+	function sharpen(ctx, w, h, mix) {
+		var weights = [0, -1, 0, -1, 5, -1, 0, -1, 0],
+			side = Math.round(Math.sqrt(weights.length)),
+			half = Math.floor(side * 0.5),
+			dstData = ctx.createImageData(w, h),
+			dstBuff = dstData.data,
+			srcBuff = ctx.getImageData(0, 0, w, h).data,
+			y = h;
+		while (y--) {
+			x = w;
+			while (x--) {
+				var sy = y, sx = x, dstOff = (y * w + x) * 4, r = 0, g = 0, b = 0, a = 0;
+				for (var cy = 0; cy < side; cy++) {
+					for (var cx = 0; cx < side; cx++) {
+						var scy = sy + cy - half;
+						var scx = sx + cx - half;
+						if (scy >= 0 && scy < h && scx >= 0 && scx < w) {
+							var srcOff = (scy * w + scx) * 4;
+							var wt = weights[cy * side + cx];
+							r += srcBuff[srcOff] * wt;
+							g += srcBuff[srcOff + 1] * wt;
+							b += srcBuff[srcOff + 2] * wt;
+							a += srcBuff[srcOff + 3] * wt;
 						}
 					}
 				}
-				dst[dstOff] = r;
-				dst[dstOff+1] = g;
-				dst[dstOff+2] = b;
-				dst[dstOff+3] = a + alphaFac*(255-a);
+				dstBuff[dstOff] = r * mix + srcBuff[dstOff] * (1 - mix);
+				dstBuff[dstOff + 1] = g * mix + srcBuff[dstOff + 1] * (1 - mix);
+				dstBuff[dstOff + 2] = b * mix + srcBuff[dstOff + 2] * (1 - mix)
+				dstBuff[dstOff + 3] = srcBuff[dstOff + 3];
 			}
-		}	
-	
-		context.putImageData(output, 0, 0);
-//		document.removeChild(tmpCanvas);
+		}
+		ctx.putImageData(dstData, 0, 0);
 	}
 	
 	function grayscaleImage(context, width, height) {
