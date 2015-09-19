@@ -1,9 +1,9 @@
-rtimushev.ffdesktop.Drag = new function () {
+justoff.sstart.Drag = new function () {
 
     var Drag = this
-    var Prefs = rtimushev.ffdesktop.Prefs
-    var Desktop = rtimushev.ffdesktop.Desktop
-	var Dom = rtimushev.ffdesktop.Dom
+    var Prefs = justoff.sstart.Prefs
+    var SStart = justoff.sstart.SStart
+	var Dom = justoff.sstart.Dom
 
     this.MIN_DRAG = 10;
     this.BORDER_WIDTH = 5;
@@ -38,7 +38,7 @@ rtimushev.ffdesktop.Drag = new function () {
 
     this.onMouseDown = function (e) {
         if (e.target.nodeName == "INPUT") return;
-        if (!Prefs.getBool("newtabOnLockDrag") && Desktop.isLocked()) return;
+        if (!Prefs.getBool("newtabOnLockDrag") && SStart.isLocked()) return;
 
         Drag.object = e.currentTarget;
         Drag.click.x = e.pageX;
@@ -58,7 +58,7 @@ rtimushev.ffdesktop.Drag = new function () {
     this.onMouseUp = function (e) {
         var theObject = Drag.object;
         Drag.object = null;
-		if (Prefs.getBool("newtabOnLockDrag") && Desktop.isLocked() && Drag.inProgress) {
+		if (Prefs.getBool("newtabOnLockDrag") && SStart.isLocked() && Drag.inProgress) {
 			Drag.removeGlass();
 			Drag.inProgress = false;
 			var anchor = Dom.child(theObject, "a");
@@ -108,7 +108,7 @@ rtimushev.ffdesktop.Drag = new function () {
         grid.style.zIndex = -1;
         grid.style.width = "100%";
         grid.style.height = document.body.scrollHeight + "px";
-        grid.style.backgroundImage = "url(chrome://desktop/skin/grid" + Drag.gridInterval + ".png)";
+        grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + Drag.gridInterval + ".png)";
         document.body.appendChild(grid);
     };
 
@@ -132,7 +132,7 @@ rtimushev.ffdesktop.Drag = new function () {
     };
 
     this.onMouseMove = function (e) {
-        if (Prefs.getBool("newtabOnLockDrag") && Desktop.isLocked()) { 
+        if (Prefs.getBool("newtabOnLockDrag") && SStart.isLocked()) { 
 			if (!Drag.inProgress && Drag.object && Math.abs(Drag.click.x - e.pageX) +
 					Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG) {
 				Drag.inProgress = true;
@@ -184,7 +184,7 @@ rtimushev.ffdesktop.Drag = new function () {
             if (Drag.prevTarget && Drag.prevTarget != e.target) {
                 Drag.prevTarget.style.cursor = "";
             }
-            if (Desktop.isLocked()) cursor = "";
+            if (SStart.isLocked()) cursor = "";
             Drag.prevTarget = cursor == "" ? null : e.target;
             Drag.hover.style.cursor = e.target.style.cursor = cursor;
         }

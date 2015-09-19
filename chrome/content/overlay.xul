@@ -10,11 +10,11 @@
     <script src="utils.js"/>
     <script src="file.js"/>
     <script src="prefs.js"/>
-    <script src="desktop.js"/>
+    <script src="sstart.js"/>
     <script src="installer.js"/>
     <script>
     <![CDATA[
-        rtimushev.ffdesktop.Installer.load()
+        justoff.sstart.Installer.load()
         ]]>
   </script>
 </overlay>

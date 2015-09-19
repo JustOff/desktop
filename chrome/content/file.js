@@ -1,4 +1,4 @@
-rtimushev.ffdesktop.File = new function () {
+justoff.sstart.File = new function () {
 
     var File = this
 
@@ -78,7 +78,7 @@ rtimushev.ffdesktop.File = new function () {
 
 };
 
-rtimushev.ffdesktop.URL = new function () {
+justoff.sstart.URL = new function () {
 
     var URL = this;
 

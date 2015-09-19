@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
-<!DOCTYPE window SYSTEM "chrome://desktop/locale/properties.dtd">
+<!DOCTYPE window SYSTEM "chrome://sstart/locale/properties.dtd">
 <dialog id="search-properties"
-        title="&desktop.Properties;"
-        onload="rtimushev.ffdesktop.SearchPropertiesXul.initialize();"
-        ondialogaccept="rtimushev.ffdesktop.SearchPropertiesXul.onAccept();"
-        ondialogcancel="rtimushev.ffdesktop.SearchPropertiesXul.onCancel();"
+        title="&sstart.Properties;"
+        onload="justoff.sstart.SearchPropertiesXul.initialize();"
+        ondialogaccept="justoff.sstart.SearchPropertiesXul.onAccept();"
+        ondialogcancel="justoff.sstart.SearchPropertiesXul.onCancel();"
         persist="width height"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <listbox id="engines" ondblclick="rtimushev.ffdesktop.Dom.get('search-properties').acceptDialog();"/>
-    <checkbox id="focus" label="&desktopsearch.GiveFocus;" checked="false"/>
+    <listbox id="engines" ondblclick="justoff.sstart.Dom.get('search-properties').acceptDialog();"/>
+    <checkbox id="focus" label="&sstartsearch.GiveFocus;" checked="false"/>
 
     <script src="../../namespace.js"/>
     <script src="../../utils.js"/>
@@ -18,10 +18,10 @@
     <script src="../../prefs.js"/>
     <script>
     <![CDATA[
-        rtimushev.ffdesktop.SearchPropertiesXul = new function () {
+        justoff.sstart.SearchPropertiesXul = new function () {
 
-            var Dom = rtimushev.ffdesktop.Dom
-            var Prefs = rtimushev.ffdesktop.Prefs
+            var Dom = justoff.sstart.Dom
+            var Prefs = justoff.sstart.Prefs
 
             var getEngines = function () {
                 var searchService = Components.classes["@mozilla.org/browser/search-service;1"]

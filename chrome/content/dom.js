@@ -1,4 +1,4 @@
-rtimushev.ffdesktop.Dom = new function () {
+justoff.sstart.Dom = new function () {
 
     var Dom = this
 

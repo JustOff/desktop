@@ -1,7 +1,7 @@
-rtimushev.ffdesktop.Bookmark = new function () {
+justoff.sstart.Bookmark = new function () {
 
     var Bookmark = this
-    var URL = rtimushev.ffdesktop.URL
+    var URL = justoff.sstart.URL
 
     this.query = function (folderId) {
         var historyService = Components.classes["@mozilla.org/browser/nav-history-service;1"]

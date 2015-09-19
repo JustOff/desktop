@@ -1,9 +1,9 @@
-rtimushev.ffdesktop.ContextMenu = new function () {
+justoff.sstart.ContextMenu = new function () {
 
     var ContextMenu = this
-    var Utils = rtimushev.ffdesktop.Utils
-    var Dom = rtimushev.ffdesktop.Dom
-    var Desktop = rtimushev.ffdesktop.Desktop
+    var Utils = justoff.sstart.Utils
+    var Dom = justoff.sstart.Dom
+    var SStart = justoff.sstart.SStart
 
     this.click = { x:0, y:0, el: null };
     this.current = null,
@@ -64,7 +64,7 @@ rtimushev.ffdesktop.ContextMenu = new function () {
         for (var i = 0; i < menu.childNodes.length; i++) {
             var node = menu.childNodes[i];
             if (node.nodeName == 'LI') {
-                var str = Desktop.translate("context" + Utils.trim(node.firstChild.nodeValue));
+                var str = SStart.translate("context" + Utils.trim(node.firstChild.nodeValue));
                 node.firstChild.nodeValue = str;
             }
             ContextMenu.translate(node);

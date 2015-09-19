@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="chrome://desktop/skin/preferences.css" type="text/css"?>
-<!DOCTYPE window SYSTEM "chrome://desktop/locale/preferences.dtd">
+<?xml-stylesheet href="chrome://sstart/skin/preferences.css" type="text/css"?>
+<!DOCTYPE window SYSTEM "chrome://sstart/locale/preferences.dtd">
 
-<prefwindow id="desktop-preferences-window"
+<prefwindow id="sstart-preferences-window"
             persist="width height"
-            title="&desktoppref.Preferences;"
+            title="&sstartpref.Preferences;"
             dlgbuttons="accept,cancel"
-            onload="rtimushev.ffdesktop.PreferencesXul.initialize();"
+            onload="justoff.sstart.PreferencesXul.initialize();"
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <prefpane id="general-pane" label="Main">
         <preferences>
-            <preference id="extensions.desktop.overrideNewTab" name="extensions.desktop.overrideNewTab" type="bool"/>
-            <preference id="extensions.desktop.overrideHomePage" name="extensions.desktop.overrideHomePage"
+            <preference id="extensions.sstart.overrideNewTab" name="extensions.sstart.overrideNewTab" type="bool"/>
+            <preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage"
                         type="bool"/>
-            <preference id="extensions.desktop.newtabOnLockDrag" name="extensions.desktop.newtabOnLockDrag"
+            <preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag"
                         type="bool"/>
-            <preference id="extensions.desktop.gridInterval" name="extensions.desktop.gridInterval" type="int"/>
-            <preference id="extensions.desktop.backgroundStyle" name="extensions.desktop.backgroundStyle" type="int"/>
+            <preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
+            <preference id="extensions.sstart.backgroundStyle" name="extensions.sstart.backgroundStyle" type="int"/>
         </preferences>
         <groupbox flex="1">
-            <caption label="&desktoppref.General;"/>
+            <caption label="&sstartpref.General;"/>
             <hbox>
-                <checkbox id="openInNewTabs" label="&desktoppref.OpenInNewTabs;"
-                          preference="extensions.desktop.overrideNewTab"/>
+                <checkbox id="openInNewTabs" label="&sstartpref.OpenInNewTabs;"
+                          preference="extensions.sstart.overrideNewTab"/>
             </hbox>
             <hbox>
-                <checkbox id="useAsHomePage" label="&desktoppref.UseAsHomePage;"
-                          preference="extensions.desktop.overrideHomePage"/>
+                <checkbox id="useAsHomePage" label="&sstartpref.UseAsHomePage;"
+                          preference="extensions.sstart.overrideHomePage"/>
             </hbox>
             <hbox>
-                <checkbox id="openNewtabOnLockDrag" label="&desktoppref.newtabOnLockDrag;"
-                          preference="extensions.desktop.newtabOnLockDrag"/>
+                <checkbox id="openNewtabOnLockDrag" label="&sstartpref.newtabOnLockDrag;"
+                          preference="extensions.sstart.newtabOnLockDrag"/>
             </hbox>
         </groupbox>
         <groupbox flex="1">
-            <caption label="&desktoppref.Background;"/>
+            <caption label="&sstartpref.Background;"/>
             <grid>
                 <columns>
                     <column flex="1"/>
@@ -42,21 +42,21 @@
                 </columns>
                 <rows>
                     <row align="center">
-                        <label control="browse" flex="1">&desktoppref.BackgroundImage;:</label>
+                        <label control="browse" flex="1">&sstartpref.BackgroundImage;:</label>
                         <hbox>
-                            <button class="browse" label="&desktop.Browse;"
-                                    oncommand="rtimushev.ffdesktop.PreferencesXul.browseBackgroundImage();"/>
-                            <button class="browse" label="&desktop.Clear;"
-                                    oncommand="rtimushev.ffdesktop.PreferencesXul.clearBackgroundImage(true);"/>
+                            <button class="browse" label="&sstart.Browse;"
+                                    oncommand="justoff.sstart.PreferencesXul.browseBackgroundImage();"/>
+                            <button class="browse" label="&sstart.Clear;"
+                                    oncommand="justoff.sstart.PreferencesXul.clearBackgroundImage(true);"/>
                         </hbox>
                     </row>
                     <row align="center">
-                        <label control="backgroundStyle" flex="1">&desktoppref.BackgroundStyle;:</label>
+                        <label control="backgroundStyle" flex="1">&sstartpref.BackgroundStyle;:</label>
                         <hbox>
-                            <menulist id="backgroundStyle" preference="extensions.desktop.backgroundStyle">
+                            <menulist id="backgroundStyle" preference="extensions.sstart.backgroundStyle">
                                 <menupopup>
-                                    <menuitem label="&desktoppref.BackgroundTile;" value="1"/>
-                                    <menuitem label="&desktoppref.BackgroundStretch;" value="2"/>
+                                    <menuitem label="&sstartpref.BackgroundTile;" value="1"/>
+                                    <menuitem label="&sstartpref.BackgroundStretch;" value="2"/>
                                 </menupopup>
                             </menulist>
                         </hbox>
@@ -65,10 +65,10 @@
             </grid>
         </groupbox>
         <groupbox flex="1">
-            <caption label="&desktoppref.Positioning;"/>
+            <caption label="&sstartpref.Positioning;"/>
             <hbox align="center">
-                <label control="browse">&desktoppref.GridSize;:</label>
-                <menulist id="gridInterval" preference="extensions.desktop.gridInterval">
+                <label control="browse">&sstartpref.GridSize;:</label>
+                <menulist id="gridInterval" preference="extensions.sstart.gridInterval">
                     <menupopup>
                         <menuitem label="16" value="16"/>
                         <menuitem label="32" value="32"/>
@@ -83,16 +83,16 @@
     <script src="utils.js"/>
     <script src="file.js"/>
     <script src="prefs.js"/>
-    <script src="desktop.js"/>
+    <script src="sstart.js"/>
     <script>
     <![CDATA[
-        rtimushev.ffdesktop.PreferencesXul = new function () {
+        justoff.sstart.PreferencesXul = new function () {
 
-            var File = rtimushev.ffdesktop.File
-            var Desktop = rtimushev.ffdesktop.Desktop
+            var File = justoff.sstart.File
+            var SStart = justoff.sstart.SStart
 
-            var redrawDesktop = function () {
-                Desktop.forEachDesktopBrowser(Desktop.reloadPage);
+            var redrawSStart = function () {
+                SStart.forEachSStartBrowser(SStart.reloadPage);
             }
 
             this.initialize = function () {
@@ -103,7 +103,7 @@
                 if (file) {
                     this.clearBackgroundImage(false);
                     file.copyTo(File.getDataDirectory(), "background");
-                    redrawDesktop();
+                    redrawSStart();
                 }
             }
 
@@ -114,7 +114,7 @@
                     dir.remove(false);
                 } catch (e) {
                 }
-                if (redraw) redrawDesktop();
+                if (redraw) redrawSStart();
             }
 
         }

@@ -1,17 +1,19 @@
-rtimushev.ffdesktop.Factory = function (storage) {
+justoff.sstart.Factory = function (storage) {
 
-    var Thumbnail = rtimushev.ffdesktop.Thumbnail
-    var Search = rtimushev.ffdesktop.Search
-    var Drag = rtimushev.ffdesktop.Drag
-	var Desktop = rtimushev.ffdesktop.Desktop
-	var Dom = rtimushev.ffdesktop.Dom
+    var Thumbnail = justoff.sstart.Thumbnail
+    var Search = justoff.sstart.Search
+    var Drag = justoff.sstart.Drag
+	var SStart = justoff.sstart.SStart
+	var Dom = justoff.sstart.Dom
 	
-	Components.utils.import("resource://desktop/cache.js", rtimushev.ffdesktop);
+	const SEARCH_URL = "desktop://search/";
+	
+	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
 
     function getURL(type) {
         switch (type) {
             case "search":
-                return "desktop://search/";
+                return SEARCH_URL;
         }
     }
 
@@ -31,7 +33,7 @@ rtimushev.ffdesktop.Factory = function (storage) {
     function createWidget(properties, fragment) {
         var widget;
         switch (properties.url) {
-            case "desktop://search/":
+            case SEARCH_URL:
                 widget = new Search();
                 break;
             default:
@@ -46,34 +48,34 @@ rtimushev.ffdesktop.Factory = function (storage) {
     this.createWidgets = function () {
         var objects = storage.getObjects();
         var hasWidgets = false;
-		if (!Desktop.isLocked() || document.location != "chrome://desktop/content/desktop.html" || !rtimushev.ffdesktop.cache.fragment) {
+		if (!SStart.isLocked() || document.location != "chrome://sstart/content/sstart.html" || !justoff.sstart.cache.fragment) {
 			var fragment = document.createElement('span');
 			fragment.setAttribute("id", "widgets");
 			for (var i in objects) {
 				createWidget(objects[i], fragment);
 				hasWidgets = true;
 			}
-			if (document.location == "chrome://desktop/content/desktop.html") {
-				rtimushev.ffdesktop.cache.fragment = fragment;
+			if (document.location == "chrome://sstart/content/sstart.html") {
+				justoff.sstart.cache.fragment = fragment;
 			}
-			Desktop.setCacheDOM(false);
-		} else if (document.location == "chrome://desktop/content/desktop.html") {
-			var fragment = rtimushev.ffdesktop.cache.fragment.cloneNode(true);
+			SStart.setCacheDOM(false);
+		} else if (document.location == "chrome://sstart/content/sstart.html") {
+			var fragment = justoff.sstart.cache.fragment.cloneNode(true);
 			var x = fragment.getElementsByClassName("widget");
 			for (var i = 0; i < x.length; i++) {
 				Drag.enable(x[i]);
 				if (Dom.hasClass(x[i], "s-widget")) {
 					var title = Dom.child(x[i], "title");
-					var properties = { id: x[i].id, url: "desktop://search/", title: title.innerHTML, isFolder: false, left: x[i].style.left, top: x[i].style.top, width: x[i].style.width, height: x[i].style.height };
+					var properties = { id: x[i].id, url: SEARCH_URL, title: title.innerHTML, isFolder: false, left: x[i].style.left, top: x[i].style.top, width: x[i].style.width, height: x[i].style.height };
 					fragment.removeChild(x[i]);
 					createWidget(properties, fragment);
 				}
 			}
 			hasWidgets = true;
-			Desktop.setCacheDOM(true);
+			SStart.setCacheDOM(true);
 		}
         document.body.appendChild(fragment);
-//		console.log(Desktop.isCacheDOM());
+//		console.log(SStart.isCacheDOM());
         return hasWidgets;
     }
 

@@ -1,17 +1,17 @@
-<!ENTITY desktoppref.Preferences "Настройки рабочего стола">
+<!ENTITY sstartpref.Preferences "Настройки рабочего стола">
 
-<!ENTITY desktoppref.General "Основные">
-<!ENTITY desktoppref.OpenInNewTabs "Открывать в новых вкладках">
-<!ENTITY desktoppref.UseAsHomePage "Использовать как домашнюю страницу">
+<!ENTITY sstartpref.General "Основные">
+<!ENTITY sstartpref.OpenInNewTabs "Открывать в новых вкладках">
+<!ENTITY sstartpref.UseAsHomePage "Использовать как домашнюю страницу">
 
-<!ENTITY desktoppref.Background "Фон">
-<!ENTITY desktoppref.BackgroundImage "Фоновое изображение">
-<!ENTITY desktoppref.BackgroundStyle "Стиль изображения">
-<!ENTITY desktoppref.BackgroundTile "Замостить">
-<!ENTITY desktoppref.BackgroundStretch "Растянуть">
+<!ENTITY sstartpref.Background "Фон">
+<!ENTITY sstartpref.BackgroundImage "Фоновое изображение">
+<!ENTITY sstartpref.BackgroundStyle "Стиль изображения">
+<!ENTITY sstartpref.BackgroundTile "Замостить">
+<!ENTITY sstartpref.BackgroundStretch "Растянуть">
 
-<!ENTITY desktoppref.Positioning "Выравнивание">
-<!ENTITY desktoppref.GridSize "Размер сетки">
+<!ENTITY sstartpref.Positioning "Выравнивание">
+<!ENTITY sstartpref.GridSize "Размер сетки">
 
-<!ENTITY desktop.Browse "Обзор">
-<!ENTITY desktop.Clear "Очистить">
+<!ENTITY sstart.Browse "Обзор">
+<!ENTITY sstart.Clear "Очистить">

@@ -2,24 +2,30 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>desktop@telega.phpnet.us</em:id>
-    <em:version>1.4.11.11-drag-favicon-cache-patch</em:version>
+    <em:id>SStart@Off.JustOff</em:id>
+    <em:version>1.5.12</em:version>
     <em:type>2</em:type>
-   
+    <em:name>Speed Start</em:name>
+	<em:description>Lite Speed Dial &amp; Start Page</em:description>
+	<em:creator>Off JustOff &lt;Off.Just.Off@gmail.com&gt;</em:creator>
+    <em:contributor>telega</em:contributor>
+    <em:contributor>rtimush</em:contributor>
+    <em:homepageURL>https://addons.mozilla.org/firefox/addon/speed-start/</em:homepageURL>
+    <em:optionsURL>chrome://sstart/content/preferences.xul</em:optionsURL>
+    <em:iconURL>chrome://sstart/skin/sstart.png</em:iconURL>
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>24.0</em:minVersion>
+        <em:maxVersion>45.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    <em:targetApplication>
+      <Description>
+        <em:id>{8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}</em:id>
+        <em:minVersion>24.0</em:minVersion>
         <em:maxVersion>99.*</em:maxVersion>
       </Description>
     </em:targetApplication>
-   
-    <em:name>Desktop</em:name>
-    <em:creator>telega</em:creator>
-    <em:developer>rtimush</em:developer>
-    <em:translator>ushi (de-DE)</em:translator>
-    <em:homepageURL>https://addons.mozilla.org/firefox/addon/desktop/</em:homepageURL>
-    <em:optionsURL>chrome://desktop/content/preferences.xul</em:optionsURL>
-    <em:iconURL>chrome://desktop/skin/desktop.png</em:iconURL>
   </Description>
 </RDF>

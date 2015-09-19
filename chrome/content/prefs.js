@@ -1,11 +1,11 @@
-rtimushev.ffdesktop.Prefs = new function () {
+justoff.sstart.Prefs = new function () {
 
     var Prefs = this;
-    var Utils = rtimushev.ffdesktop.Utils
+    var Utils = justoff.sstart.Utils
 
     this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
         .getService(Components.interfaces.nsIPrefService)
-        .getBranch("extensions.desktop."),
+        .getBranch("extensions.sstart."),
 
         this.getInt = function (name) {
             try {

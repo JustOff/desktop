@@ -1,8 +1,8 @@
-rtimushev.ffdesktop.Storage = function (folderId) {
+justoff.sstart.Storage = function (folderId) {
 
-    var File = rtimushev.ffdesktop.File
-    var Utils = rtimushev.ffdesktop.Utils
-    var Bookmark = rtimushev.ffdesktop.Bookmark
+    var File = justoff.sstart.File
+    var Utils = justoff.sstart.Utils
+    var Bookmark = justoff.sstart.Bookmark
 
     const ROOT_TITLE = "Desktop";
     const ANNOTATION = "bookmarkProperties/description";

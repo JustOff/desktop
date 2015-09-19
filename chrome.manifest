@@ -1,11 +1,10 @@
-content desktop chrome/content/
+content sstart chrome/content/
 
-resource desktop chrome/modules/
+resource sstart chrome/modules/
 
-overlay chrome://browser/content/browser.xul chrome://desktop/content/overlay.xul
+overlay chrome://browser/content/browser.xul chrome://sstart/content/overlay.xul
 
-skin desktop classic chrome/skin/
+skin sstart classic chrome/skin/
 
-locale desktop en-US chrome/locale/en-US/
-locale desktop ru-RU chrome/locale/ru-RU/
-locale desktop de-DE chrome/locale/de-DE/
+locale sstart en-US chrome/locale/en-US/
+locale sstart ru-RU chrome/locale/ru-RU/

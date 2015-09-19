@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="properties.css" type="text/css"?>
-<!DOCTYPE dialog SYSTEM "chrome://desktop/locale/properties.dtd">
+<!DOCTYPE dialog SYSTEM "chrome://sstart/locale/properties.dtd">
 <dialog id="folder-properties"
-        title="&desktop.Properties;"
-        onload="rtimushev.ffdesktop.ThumbnailFolderXul.initialize();"
-        ondialogaccept="rtimushev.ffdesktop.ThumbnailFolderXul.onAccept();"
-        ondialogcancel="rtimushev.ffdesktop.ThumbnailFolderXul.onCancel();"
+        title="&sstart.Properties;"
+        onload="justoff.sstart.ThumbnailFolderXul.initialize();"
+        ondialogaccept="justoff.sstart.ThumbnailFolderXul.onAccept();"
+        ondialogcancel="justoff.sstart.ThumbnailFolderXul.onCancel();"
         persist="width height"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -16,15 +16,15 @@
         </columns>
         <rows>
             <row align="center">
-                <label value="&desktopfolder.BackgroundColor;:"/>
+                <label value="&sstartfolder.BackgroundColor;:"/>
                 <textbox id="bgColor"/>
             </row>
             <row align="center">
-                <label value="&desktopthumb.CustomImage;:"/>
+                <label value="&sstartthumb.CustomImage;:"/>
                 <textbox id="customImage" type="autocomplete" enablehistory="true"
                          autocompletesearch="history"/>
                 <button id="browseCustomImage" label="&#x2026;"
-                        oncommand="rtimushev.ffdesktop.ThumbnailFolderXul.browseCustomImage();"/>
+                        oncommand="justoff.sstart.ThumbnailFolderXul.browseCustomImage();"/>
             </row>
         </rows>
     </grid>
@@ -35,10 +35,10 @@
     <script src="../../dom.js"/>
     <script>
     <![CDATA[
-        rtimushev.ffdesktop.ThumbnailFolderXul = new function () {
+        justoff.sstart.ThumbnailFolderXul = new function () {
 
-            var File = rtimushev.ffdesktop.File
-            var Dom = rtimushev.ffdesktop.Dom
+            var File = justoff.sstart.File
+            var Dom = justoff.sstart.Dom
 
             this.initialize = function () {
                 var properties = window.arguments[0].properties;

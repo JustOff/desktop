@@ -1,13 +1,15 @@
-rtimushev.ffdesktop.Widget = function () {
+justoff.sstart.Widget = function () {
 
-    var Utils = rtimushev.ffdesktop.Utils
-    var Dom = rtimushev.ffdesktop.Dom
-    var Bookmark = rtimushev.ffdesktop.Bookmark
-    var Drag = rtimushev.ffdesktop.Drag
-    var Prefs = rtimushev.ffdesktop.Prefs
-    var Desktop = rtimushev.ffdesktop.Desktop
+    var Utils = justoff.sstart.Utils
+    var Dom = justoff.sstart.Dom
+    var Bookmark = justoff.sstart.Bookmark
+    var Drag = justoff.sstart.Drag
+    var Prefs = justoff.sstart.Prefs
+    var SStart = justoff.sstart.SStart
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+	
+	const SEARCH_URL = "desktop://search/";
 
     this.properties;
     this.view;
@@ -30,8 +32,8 @@ rtimushev.ffdesktop.Widget = function () {
 //        icon.style.background = "url(" + this.getIconURL() + ")";
 
 		if (this.properties.isFolder) {
-			icon.style.background = "url(chrome://desktop/skin/folder.png)";
-		} else if (this.properties.url == "desktop://search/") {
+			icon.style.background = "url(chrome://sstart/skin/folder.png)";
+		} else if (this.properties.url == SEARCH_URL) {
 			icon.style.background = "url(" + this.getIconURL() + ")";
 		} else if (this.properties.url) {
 //			console.log("url: " + this.properties.url);
@@ -54,7 +56,7 @@ rtimushev.ffdesktop.Widget = function () {
         this.view = Dom.get("widget").cloneNode(true);
         Dom.child(this.view, "body").appendChild(this.createView());
         this.view.id = this.properties.id;
-		if (this.properties.url == "desktop://search/") {
+		if (this.properties.url == SEARCH_URL) {
 			Dom.addClass(this.view, "s-widget");
 		}
 
@@ -109,7 +111,7 @@ rtimushev.ffdesktop.Widget = function () {
     this.remove = function () {
 		console.log(this.view);
 		console.log(this.properties);
-        if (Utils.confirm("\"" + this.properties.title + "\"\n" + Desktop.translate("dialogRemoveWidget"))) {
+        if (Utils.confirm("\"" + this.properties.title + "\"\n" + SStart.translate("dialogRemoveWidget"))) {
             if (this.view) Dom.remove(this.view);
             this.storage.removeObject(this.properties.id);
             return true;
@@ -130,8 +132,8 @@ rtimushev.ffdesktop.Widget = function () {
     }
 
     this.editTitle = function () {
-//        if (Desktop.isLocked()) return;
-		if (Desktop.isLocked())
+//        if (SStart.isLocked()) return;
+		if (SStart.isLocked())
 			Dom.addClass(document.body, 'no-hlink');
         var self = this;
         var title = Dom.child(self.view, "title");
@@ -168,4 +170,4 @@ rtimushev.ffdesktop.Widget = function () {
     }
 }
 
-rtimushev.ffdesktop.Widget.HEADER_HEIGHT = 20;
+justoff.sstart.Widget.HEADER_HEIGHT = 20;

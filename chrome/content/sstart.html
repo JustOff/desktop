@@ -2,9 +2,9 @@
 
 <head>
 
-    <link rel="icon" type="image/png" href="chrome://desktop/skin/icon.png">
-    <link rel="stylesheet" type="text/css" href="chrome://desktop/skin/contextmenu.css">
-    <link rel="stylesheet" type="text/css" href="chrome://desktop/skin/desktop-page.css">
+    <link rel="icon" type="image/png" href="chrome://sstart/skin/icon.png">
+    <link rel="stylesheet" type="text/css" href="chrome://sstart/skin/contextmenu.css">
+    <link rel="stylesheet" type="text/css" href="chrome://sstart/skin/sstart-page.css">
 
 </head>
 
@@ -58,7 +58,7 @@
 <script src="prefs.js"></script>
 <script src="bookmark.js"></script>
 <script src="storage.js"></script>
-<script src="desktop.js"></script>
+<script src="sstart.js"></script>
 <script src="drag.js"></script>
 <script src="contextmenu.js"></script>
 <script src="widgets/factory.js"></script>
@@ -67,21 +67,22 @@
 <script src="widgets/search.js"></script>
 <script>
     (function () {
-console.time("Desktop");
-        var Utils = rtimushev.ffdesktop.Utils
-        var File = rtimushev.ffdesktop.File
-        var Prefs = rtimushev.ffdesktop.Prefs
-        var Storage = rtimushev.ffdesktop.Storage
-        var Factory = rtimushev.ffdesktop.Factory
-        var Dom = rtimushev.ffdesktop.Dom
-        var ContextMenu = rtimushev.ffdesktop.ContextMenu
-        var Desktop = rtimushev.ffdesktop.Desktop
+console.time("SStart");
+        var Utils = justoff.sstart.Utils
+        var File = justoff.sstart.File
+        var Prefs = justoff.sstart.Prefs
+        var Storage = justoff.sstart.Storage
+        var Factory = justoff.sstart.Factory
+        var Dom = justoff.sstart.Dom
+        var ContextMenu = justoff.sstart.ContextMenu
+        var SStart = justoff.sstart.SStart
 
         var params = Utils.getQueryParams(document.location);
         var storage = new Storage(params.folder);
         document.title = storage.getTitle();
+// need to check this --------------------------------------|
         if (document.title == "" || document.title == "Desktop") {
-            document.title = Desktop.translate("Desktop");
+            document.title = SStart.translate("SStart");
         }
 
         var factory = new Factory(storage);
@@ -89,7 +90,7 @@ console.time("Desktop");
 
         var quickstart = Dom.get("quickstart");
         if (!hasWidgets) {
-            quickstart.innerHTML = Desktop.translate("quickstart");
+            quickstart.innerHTML = SStart.translate("quickstart");
             quickstart.style.display = "block";
         }
 
@@ -98,17 +99,17 @@ console.time("Desktop");
             document.body.style.backgroundColor = properties.background;
         }
 
-        if (Desktop.isBackgroundImageSpecified()) {
+        if (SStart.isBackgroundImageSpecified()) {
             document.body.style.backgroundImage = "url(" + File.getDataFileURL("background") + ")";
             Dom.addClass(document.body, 'background-style-' + Prefs.getInt('backgroundStyle'));
         }
 
-        if (!Desktop.areDecorationsVisible()) {
+        if (!SStart.areDecorationsVisible()) {
             Dom.addClass(document.body, 'no-decorations');
         }
 
         function updateLockStatus() {
-            var s = Desktop.isLocked();
+            var s = SStart.isLocked();
             Dom.removeClass(document.body, s ? 'unlock-edits' : 'lock-edits');
             Dom.addClass(document.body, s ? 'lock-edits' : 'unlock-edits');
         }
@@ -116,11 +117,11 @@ console.time("Desktop");
         ContextMenu.enable(document, Dom.get("menu"));
 
         Dom.get("menu-add").addEventListener("click", function (e) {
-			if (Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
-				Desktop.setLocked(false);
+			if (SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+				SStart.setLocked(false);
 				updateLockStatus();
 			}
-			if (Desktop.isCacheDOM() && document.location == "chrome://desktop/content/desktop.html") {
+			if (SStart.isCacheDOM() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();
@@ -129,15 +130,15 @@ console.time("Desktop");
             factory.createWidget(e.target.type, ContextMenu.click.x, ContextMenu.click.y);
         }, false);
         Dom.get("menu-prefs").addEventListener("click", function (e) {
-            Desktop.openPreferences();
+            SStart.openPreferences();
         }, false);
         Dom.get("menu-lock").addEventListener("click", function (e) {
-            Desktop.setLocked(true);
+            SStart.setLocked(true);
             updateLockStatus();
         }, false);
         Dom.get("menu-unlock").addEventListener("click", function (e) {
-            Desktop.setLocked(false);
-			if (Desktop.isCacheDOM() && document.location == "chrome://desktop/content/desktop.html") {
+            SStart.setLocked(false);
+			if (SStart.isCacheDOM() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();
@@ -145,22 +146,22 @@ console.time("Desktop");
 			updateLockStatus();
         }, false);
         Dom.get("menu-refresh").addEventListener("click", function (e) {
-			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
-				Desktop.setLocked(false);
+				SStart.setLocked(false);
 				factory.createWidgets();
-				Desktop.setLocked(true);
+				SStart.setLocked(true);
 			}
-            Desktop.refreshAll()
+            SStart.refreshAll()
         }, false);
         Dom.get("menu-refreshone").addEventListener("click", function (e) {
-			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
-				Desktop.setLocked(false);
+				SStart.setLocked(false);
 				factory.createWidgets();
-				Desktop.setLocked(true);
+				SStart.setLocked(true);
 			}
 			var hoverEl = ContextMenu.click.el;
 			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
@@ -170,12 +171,12 @@ console.time("Desktop");
 			}
         }, false);
         Dom.get("menu-properties").addEventListener("click", function (e) {
-			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
-				Desktop.setLocked(false);
+				SStart.setLocked(false);
 				factory.createWidgets();
-				Desktop.setLocked(true);
+				SStart.setLocked(true);
 			}
 			var hoverEl = ContextMenu.click.el;
 			if (Dom.hasClass(hoverEl.parentNode.parentNode.parentNode,'widget')) {
@@ -192,12 +193,12 @@ console.time("Desktop");
 			}
         }, false);
         Dom.get("menu-remove").addEventListener("click", function (e) {
-			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
-				Desktop.setLocked(false);
+				SStart.setLocked(false);
 				factory.createWidgets();
-				Desktop.setLocked(true);
+				SStart.setLocked(true);
 			}
 			var hoverEl = ContextMenu.click.el;
 			if (Dom.hasClass(hoverEl.parentNode.parentNode.parentNode,'widget')) {
@@ -214,12 +215,12 @@ console.time("Desktop");
 			}
         }, false);
         Dom.get("menu-rename").addEventListener("click", function (e) {
-			if (Desktop.isCacheDOM() && Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
-				Desktop.setLocked(false);
+				SStart.setLocked(false);
 				factory.createWidgets();
-				Desktop.setLocked(true);
+				SStart.setLocked(true);
 			}
 			var hoverEl = ContextMenu.click.el;
 			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
@@ -238,8 +239,8 @@ console.time("Desktop");
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 			if (e.clientX == 0 || hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart")
 				return;
-            Desktop.toggleLocked();
-			if (Desktop.isCacheDOM() && !Desktop.isLocked() && document.location == "chrome://desktop/content/desktop.html") {
+            SStart.toggleLocked();
+			if (SStart.isCacheDOM() && !SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();
@@ -256,10 +257,10 @@ console.time("Desktop");
 */
         updateLockStatus();
 
-        // Disable cache for desktop page
+        // Disable cache for page
         window.onbeforeunload = function () {
         }
-console.timeEnd("Desktop");
+console.timeEnd("SStart");
     })();
 </script>
 

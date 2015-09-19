@@ -1,7 +1,7 @@
-<!ENTITY desktop.Properties "Свойства">
-<!ENTITY desktopthumb.URL "URL">
-<!ENTITY desktopthumb.CustomImage "Изображение">
+<!ENTITY sstart.Properties "Свойства">
+<!ENTITY sstartthumb.URL "URL">
+<!ENTITY sstartthumb.CustomImage "Изображение">
 
-<!ENTITY desktopsearch.GiveFocus "Выделять при старте">
+<!ENTITY sstartsearch.GiveFocus "Выделять при старте">
 
-<!ENTITY desktopfolder.BackgroundColor "Цвет фона">
+<!ENTITY sstartfolder.BackgroundColor "Цвет фона">

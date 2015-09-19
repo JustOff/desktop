@@ -1,12 +1,12 @@
-rtimushev.ffdesktop.JSON = {
+justoff.sstart.JSON = {
     JSON:null
 }
-Components.utils.import("resource://desktop/JSON.js", rtimushev.ffdesktop.JSON);
+Components.utils.import("resource://sstart/JSON.js", justoff.sstart.JSON);
 
-rtimushev.ffdesktop.Utils = new function () {
+justoff.sstart.Utils = new function () {
 
     var Utils = this
-    var JSON = rtimushev.ffdesktop.JSON.JSON
+    var JSON = justoff.sstart.JSON.JSON
 
     this.getQueryParams = function (url) {
         var params = new Array();
@@ -76,7 +76,7 @@ rtimushev.ffdesktop.Utils = new function () {
     this.confirm = function (message) {
         var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
             .getService(Components.interfaces.nsIPromptService);
-        return prompts.confirm(window, rtimushev.ffdesktop.Desktop.translate("Desktop"), message);
+        return prompts.confirm(window, justoff.sstart.SStart.translate("SStart"), message);
     };
 
     this.getBrowserWindow = function () {

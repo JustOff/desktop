@@ -1,18 +1,18 @@
-<!ENTITY desktoppref.Preferences "Desktop preferences">
+<!ENTITY sstartpref.Preferences "Speed Start preferences">
 
-<!ENTITY desktoppref.General "General">
-<!ENTITY desktoppref.OpenInNewTabs "Load in new tabs">
-<!ENTITY desktoppref.UseAsHomePage "Use as home page">
-<!ENTITY desktoppref.newtabOnLockDrag "Open in new tab on drag">
+<!ENTITY sstartpref.General "General">
+<!ENTITY sstartpref.OpenInNewTabs "Load in new tabs">
+<!ENTITY sstartpref.UseAsHomePage "Use as home page">
+<!ENTITY sstartpref.newtabOnLockDrag "Open in new tab on drag">
 
-<!ENTITY desktoppref.Background "Background">
-<!ENTITY desktoppref.BackgroundImage "Background image">
-<!ENTITY desktoppref.BackgroundStyle "Background style">
-<!ENTITY desktoppref.BackgroundTile "Tile">
-<!ENTITY desktoppref.BackgroundStretch "Stretch">
+<!ENTITY sstartpref.Background "Background">
+<!ENTITY sstartpref.BackgroundImage "Background image">
+<!ENTITY sstartpref.BackgroundStyle "Background style">
+<!ENTITY sstartpref.BackgroundTile "Tile">
+<!ENTITY sstartpref.BackgroundStretch "Stretch">
 
-<!ENTITY desktoppref.Positioning "Aligning">
-<!ENTITY desktoppref.GridSize "Grid size">
+<!ENTITY sstartpref.Positioning "Aligning">
+<!ENTITY sstartpref.GridSize "Grid size">
 
-<!ENTITY desktop.Browse "Browse">
-<!ENTITY desktop.Clear "Clear">
+<!ENTITY sstart.Browse "Browse">
+<!ENTITY sstart.Clear "Clear">

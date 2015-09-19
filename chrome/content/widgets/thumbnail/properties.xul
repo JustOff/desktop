@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="properties.css" type="text/css"?>
-<!DOCTYPE dialog SYSTEM "chrome://desktop/locale/properties.dtd">
+<!DOCTYPE dialog SYSTEM "chrome://sstart/locale/properties.dtd">
 <dialog id="thumbnail-properties"
-        title="&desktop.Properties;"
-        onload="rtimushev.ffdesktop.ThumbnailPropertiesXul.initialize();"
-        ondialogaccept="rtimushev.ffdesktop.ThumbnailPropertiesXul.onAccept();"
-        ondialogcancel="rtimushev.ffdesktop.ThumbnailPropertiesXul.onCancel();"
+        title="&sstart.Properties;"
+        onload="justoff.sstart.ThumbnailPropertiesXul.initialize();"
+        ondialogaccept="justoff.sstart.ThumbnailPropertiesXul.onAccept();"
+        ondialogcancel="justoff.sstart.ThumbnailPropertiesXul.onCancel();"
         persist="width height"
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -16,18 +16,18 @@
         </columns>
         <rows>
             <row align="center">
-                <label value="&desktopthumb.URL;:"/>
+                <label value="&sstartthumb.URL;:"/>
                 <textbox id="url" type="autocomplete"
                          enablehistory="true" autocompletesearch="history"/>
                 <button id="browseFile" label="&#x2026;"
-                        oncommand="rtimushev.ffdesktop.ThumbnailPropertiesXul.browseFile();"/>
+                        oncommand="justoff.sstart.ThumbnailPropertiesXul.browseFile();"/>
             </row>
             <row align="center">
-                <label value="&desktopthumb.CustomImage;:"/>
+                <label value="&sstartthumb.CustomImage;:"/>
                 <textbox id="customImage" type="autocomplete" enablehistory="true"
                          autocompletesearch="history"/>
                 <button id="browseCustomImage" label="&#x2026;"
-                        oncommand="rtimushev.ffdesktop.ThumbnailPropertiesXul.browseCustomImage();"/>
+                        oncommand="justoff.sstart.ThumbnailPropertiesXul.browseCustomImage();"/>
             </row>
         </rows>
     </grid>
@@ -38,11 +38,11 @@
     <script src="../../dom.js"/>
     <script>
     <![CDATA[
-        rtimushev.ffdesktop.ThumbnailPropertiesXul = new function () {
+        justoff.sstart.ThumbnailPropertiesXul = new function () {
 
-            var File = rtimushev.ffdesktop.File
-            var Dom = rtimushev.ffdesktop.Dom
-            var URL = rtimushev.ffdesktop.URL
+            var File = justoff.sstart.File
+            var Dom = justoff.sstart.Dom
+            var URL = justoff.sstart.URL
 
             this.initialize = function () {
                 var properties = window.arguments[0].properties;

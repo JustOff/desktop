@@ -1,40 +1,40 @@
-rtimushev.ffdesktop.Desktop = new function () {
+justoff.sstart.SStart = new function () {
 
-    var Desktop = this;
-    var Utils = rtimushev.ffdesktop.Utils;
-    var File = rtimushev.ffdesktop.File;
-    var Prefs = rtimushev.ffdesktop.Prefs;
-    var Dom = rtimushev.ffdesktop.Dom;
+    var SStart = this;
+    var Utils = justoff.sstart.Utils;
+    var File = justoff.sstart.File;
+    var Prefs = justoff.sstart.Prefs;
+    var Dom = justoff.sstart.Dom;
 	
 	var isLocked = true;
 	var isCacheDOM;
 
-    this.isDesktop = function (doc) {
+    this.isSStart = function (doc) {
         return doc && doc.location
-            && /chrome:\/\/desktop\/content\/desktop.html(\?.*)?/.test(doc.location.href);
+            && /chrome:\/\/sstart\/content\/sstart.html(\?.*)?/.test(doc.location.href);
     };
 
     this.reloadPage = function (doc) {
         doc.reload(false);
     };
 
-    this.forEachDesktopBrowser = function (onPage) {
+    this.forEachSStartBrowser = function (onPage) {
         var gBrowser = Utils.getBrowser();
         for (var i = 0; i < gBrowser.browsers.length; i++) {
             var br = gBrowser.browsers[i];
-            if (Desktop.isDesktop(br.contentDocument))
+            if (SStart.isSStart(br.contentDocument))
                 onPage(br);
         }
     };
 
     this.openPreferences = function () {
-        if (!Desktop.prefsWindow || Desktop.prefsWindow.closed) {
-            Desktop.prefsWindow = window.openDialog(
-                "chrome://desktop/content/preferences.xul",
-                "desktop-preferences-window",
+        if (!SStart.prefsWindow || SStart.prefsWindow.closed) {
+            SStart.prefsWindow = window.openDialog(
+                "chrome://sstart/content/preferences.xul",
+                "sstart-preferences-window",
                 "chrome,toolbar,centerscreen,resizable=yes");
         } else
-            Desktop.prefsWindow.focus();
+            SStart.prefsWindow.focus();
     };
 
     this.isBackgroundImageSpecified = function () {
@@ -44,12 +44,12 @@ rtimushev.ffdesktop.Desktop = new function () {
     };
 
     this.translate = function (key) {
-        if (!Desktop.bundle) {
-            Desktop.bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
+        if (!SStart.bundle) {
+            SStart.bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
                 .getService(Components.interfaces.nsIStringBundleService)
-                .createBundle("chrome://desktop/locale/desktop.properties");
+                .createBundle("chrome://sstart/locale/sstart.properties");
         }
-        return Desktop.bundle.GetStringFromName(key);
+        return SStart.bundle.GetStringFromName(key);
     };
 
     this.isCacheDOM = function () {

@@ -1,2 +1,2 @@
-var rtimushev = new Object()
-rtimushev.ffdesktop = new Object()
+var justoff = new Object()
+justoff.sstart = new Object()

@@ -1,12 +1,12 @@
-rtimushev.ffdesktop.Thumbnail = function () {
+justoff.sstart.Thumbnail = function () {
 
-    var Thumbnail = rtimushev.ffdesktop.Thumbnail
-    var Utils = rtimushev.ffdesktop.Utils
-    var Prefs = rtimushev.ffdesktop.Prefs
-    var File = rtimushev.ffdesktop.File
-    var Dom = rtimushev.ffdesktop.Dom
-    var Widget = rtimushev.ffdesktop.Widget
-    var URL = rtimushev.ffdesktop.URL
+    var Thumbnail = justoff.sstart.Thumbnail
+    var Utils = justoff.sstart.Utils
+    var Prefs = justoff.sstart.Prefs
+    var File = justoff.sstart.File
+    var Dom = justoff.sstart.Dom
+    var Widget = justoff.sstart.Widget
+    var URL = justoff.sstart.URL
 
     const TIMEOUT_LOAD = 60 * 1000;
     const TIMEOUT_RENDER = 0.5 * 1000;
@@ -20,7 +20,7 @@ rtimushev.ffdesktop.Thumbnail = function () {
             this.properties.height = Prefs.getInt("thumbnail.height");
         }
         if (this.properties.isFolder) {
-            this.properties.url = "chrome://desktop/content/desktop.html?folder=" + this.properties.id;
+            this.properties.url = "chrome://sstart/content/sstart.html?folder=" + this.properties.id;
 			if (!this.properties.title)
 				this.properties.title = "Folder " + this.properties.id;
         }
@@ -38,7 +38,7 @@ rtimushev.ffdesktop.Thumbnail = function () {
     }
 
     this.getIconURL = function () {
-        return this.properties.isFolder ? "chrome://desktop/skin/folder.png"
+        return this.properties.isFolder ? "chrome://sstart/skin/folder.png"
             : Thumbnail.prototype.getIconURL.call(this);
     }
 
@@ -310,4 +310,4 @@ rtimushev.ffdesktop.Thumbnail = function () {
 	}
 }
 
-rtimushev.ffdesktop.Thumbnail.prototype = new rtimushev.ffdesktop.Widget();
+justoff.sstart.Thumbnail.prototype = new justoff.sstart.Widget();

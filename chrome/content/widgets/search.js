@@ -1,8 +1,8 @@
-rtimushev.ffdesktop.Search = function () {
+justoff.sstart.Search = function () {
 
-    var Search = rtimushev.ffdesktop.Search
-    var Utils = rtimushev.ffdesktop.Utils
-    var Dom = rtimushev.ffdesktop.Dom
+    var Search = justoff.sstart.Search
+    var Utils = justoff.sstart.Utils
+    var Dom = justoff.sstart.Dom
 
     this.setProperties = function (properties) {
         Search.prototype.setProperties.call(this, properties);
@@ -79,4 +79,4 @@ rtimushev.ffdesktop.Search = function () {
     }
 }
 
-rtimushev.ffdesktop.Search.prototype = new rtimushev.ffdesktop.Widget();
+justoff.sstart.Search.prototype = new justoff.sstart.Widget();
