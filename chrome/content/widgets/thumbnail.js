@@ -51,9 +51,7 @@ justoff.sstart.Thumbnail = function () {
         Thumbnail.prototype.updateView.call(this);
 
         var anchor = Dom.child(this.view, "a");
-        this.properties.url ? anchor.href = this.properties.url
-
-            : anchor.removeAttribute("href");
+        this.properties.url ? anchor.href = this.properties.url : anchor.removeAttribute("href");
 
         var img = Dom.child(this.view, "img");
         img.src = getImageURL.call(this);
@@ -61,6 +59,14 @@ justoff.sstart.Thumbnail = function () {
 
         var throbber = Dom.child(this.view, "throbber");
         throbber.style.display = loading ? "block" : "none";
+
+		if (this.properties.customImage) {
+			var thumbnail = Dom.child(this.view, "thumbnail");
+			var img0 = document.createElement("img");
+			img0.src = "chrome://sstart/skin/0.png";
+			img0.style = "width: 100%; height: 100%;"
+			thumbnail.appendChild(img0);
+		}
     }
 
     this.renderView = function () {
