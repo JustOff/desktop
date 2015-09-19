@@ -1,8 +1,9 @@
 <!ENTITY sstartpref.Preferences "Настройки рабочего стола">
 
 <!ENTITY sstartpref.General "Основные">
-<!ENTITY sstartpref.OpenInNewTabs "Открывать в новых вкладках">
+<!ENTITY sstartpref.OpenInNewTabs "Показывать в новых вкладках">
 <!ENTITY sstartpref.UseAsHomePage "Использовать как домашнюю страницу">
+<!ENTITY sstartpref.newtabOnLockDrag "Открывать в новой вкладке при перетаскивании">
 
 <!ENTITY sstartpref.Background "Фон">
 <!ENTITY sstartpref.BackgroundImage "Фоновое изображение">

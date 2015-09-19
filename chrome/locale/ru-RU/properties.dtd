@@ -1,7 +1,5 @@
 <!ENTITY sstart.Properties "Свойства">
 <!ENTITY sstartthumb.URL "URL">
 <!ENTITY sstartthumb.CustomImage "Изображение">
-
 <!ENTITY sstartsearch.GiveFocus "Выделять при старте">
-
 <!ENTITY sstartfolder.BackgroundColor "Цвет фона">

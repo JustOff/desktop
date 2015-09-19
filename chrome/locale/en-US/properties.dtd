@@ -1,8 +1,5 @@
 <!ENTITY sstart.Properties "Properties">
-
 <!ENTITY sstartthumb.URL "URL">
 <!ENTITY sstartthumb.CustomImage "Custom image">
-
 <!ENTITY sstartsearch.GiveFocus "Give focus on start">
-
 <!ENTITY sstartfolder.BackgroundColor "Background color">
