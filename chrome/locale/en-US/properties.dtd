@@ -1,5 +1,8 @@
 <!ENTITY sstart.Properties "Properties">
+<!ENTITY sstartthumb.Name "Name">
 <!ENTITY sstartthumb.URL "URL">
+<!ENTITY sstartthumb.Width "Width">
+<!ENTITY sstartthumb.Height "Height">
 <!ENTITY sstartthumb.CustomImage "Custom image">
 <!ENTITY sstartsearch.GiveFocus "Give focus on start">
 <!ENTITY sstartfolder.BackgroundColor "Background color">

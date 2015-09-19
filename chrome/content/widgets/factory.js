@@ -5,6 +5,7 @@ justoff.sstart.Factory = function (storage) {
     var Drag = justoff.sstart.Drag
 	var SStart = justoff.sstart.SStart
 	var Dom = justoff.sstart.Dom
+	var Prefs = justoff.sstart.Prefs
 	
 	const SEARCH_URL = "desktop://search/";
 	
@@ -24,6 +25,21 @@ justoff.sstart.Factory = function (storage) {
             isFolder:type == "folder",
             url:getURL(type)
         }
+
+		if (type != "search") {
+			properties.width = Prefs.getInt("thumbnail.width");
+			properties.height = Prefs.getInt("thumbnail.height");
+			var param = { properties: properties };
+			var xul = 'widgets/thumbnail/' + (properties.isFolder ? 'folder' : 'properties') + '.xul';
+
+			openDialog(xul, "properties", "chrome,centerscreen,modal,resizable", param);
+			if (param.properties) {
+				properties = param.properties;
+			} else {
+				return;
+			}
+		}
+
         storage.saveObject(properties);
 		var fragment = document.createDocumentFragment();
         createWidget(properties, fragment);

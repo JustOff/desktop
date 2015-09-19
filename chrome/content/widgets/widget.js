@@ -109,8 +109,6 @@ justoff.sstart.Widget = function () {
     }
 
     this.remove = function () {
-		console.log(this.view);
-		console.log(this.properties);
         if (Utils.confirm("\"" + this.properties.title + "\"\n" + SStart.translate("dialogRemoveWidget"))) {
             if (this.view) Dom.remove(this.view);
             this.storage.removeObject(this.properties.id);

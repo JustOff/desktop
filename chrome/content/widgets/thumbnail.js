@@ -8,7 +8,10 @@ justoff.sstart.Thumbnail = function () {
     var Widget = justoff.sstart.Widget
     var URL = justoff.sstart.URL
 
-    const TIMEOUT_LOAD = 60 * 1000;
+	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
+	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+
+	const TIMEOUT_LOAD = 60 * 1000;
     const TIMEOUT_RENDER = 0.5 * 1000;
     var loading;
 
@@ -130,7 +133,9 @@ justoff.sstart.Thumbnail = function () {
             "chrome,centerscreen,modal,resizable", param);
         if (param.properties) {
             var refreshNeeded = param.properties.url != this.properties.url ||
-                param.properties.customImage != this.properties.customImage;
+                param.properties.customImage != this.properties.customImage ||
+				param.properties.width != this.properties.width ||
+				param.properties.height != this.properties.height;
             this.properties = param.properties;
             this.save();
 
@@ -179,10 +184,8 @@ justoff.sstart.Thumbnail = function () {
 	};   
 	
 	function preloadFavicon(faviconURI, siteURI) {
-		var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 		var iconURI = ios.newURI(faviconURI, null, null);
 		var bookmarkURI = ios.newURI(siteURI, null, null);
-		var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 		fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE);
    };
 	

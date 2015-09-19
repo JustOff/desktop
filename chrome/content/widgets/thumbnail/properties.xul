@@ -29,6 +29,14 @@
                 <button id="browseCustomImage" label="&#x2026;"
                         oncommand="justoff.sstart.ThumbnailPropertiesXul.browseCustomImage();"/>
             </row>
+            <row align="center">
+                <label value="&sstartthumb.Width;:"/>
+                <textbox id="width"/>
+            </row>
+            <row align="center">
+                <label value="&sstartthumb.Height;:"/>
+                <textbox id="height"/>
+            </row>
         </rows>
     </grid>
 
@@ -48,6 +56,8 @@
                 var properties = window.arguments[0].properties;
                 Dom.get("url").value = properties.url || "";
                 Dom.get("customImage").value = properties.customImage || "";
+				Dom.get("width").value = properties.width || "";
+				Dom.get("height").value = properties.height || "";
 
                 if (properties.isFolder) {
                     Dom.get("url").readOnly = true;
@@ -62,6 +72,8 @@
                 if (url != properties.url) properties.title = "";
                 properties.url = !url || URL.getScheme(url) ? url : "http://" + url;
                 properties.customImage = Dom.get("customImage").value;
+                properties.width = Dom.get("width").value;
+				properties.height = Dom.get("height").value;
             }
 
             this.onCancel = function () {
