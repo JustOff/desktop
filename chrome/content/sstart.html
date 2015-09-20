@@ -43,6 +43,7 @@
     <a id="thumbnail" class="thumbnail">
 		<div class="hlink"></div>
         <div class="throbber"></div>
+		<div class="hlinkb"></div>
         <img>
     </a>
 
@@ -107,12 +108,16 @@ console.time("SStart");
             Dom.addClass(document.body, 'no-decorations');
         }
 
+		if (Prefs.getBool("bottomHeader")) {
+				Dom.addClass(document.body, 'b-head');
+		}
+
         function updateLockStatus() {
             var s = SStart.isLocked();
             Dom.removeClass(document.body, s ? 'unlock-edits' : 'lock-edits');
             Dom.addClass(document.body, s ? 'lock-edits' : 'unlock-edits');
         }
-
+		
         ContextMenu.enable(document, Dom.get("menu"));
 
         Dom.get("menu-add").addEventListener("click", function (e) {

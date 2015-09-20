@@ -11,10 +11,9 @@
     <prefpane id="general-pane" label="Main">
         <preferences>
             <preference id="extensions.sstart.overrideNewTab" name="extensions.sstart.overrideNewTab" type="bool"/>
-            <preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage"
-                        type="bool"/>
-            <preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag"
-                        type="bool"/>
+            <preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage" type="bool"/>
+            <preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag" type="bool"/>
+            <preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
             <preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
             <preference id="extensions.sstart.backgroundStyle" name="extensions.sstart.backgroundStyle" type="int"/>
         </preferences>
@@ -31,6 +30,10 @@
             <hbox>
                 <checkbox id="openNewtabOnLockDrag" label="&sstartpref.newtabOnLockDrag;"
                           preference="extensions.sstart.newtabOnLockDrag"/>
+            </hbox>
+            <hbox>
+                <checkbox id="bottomHeader" label="&sstartpref.bottomHeader;"
+                          preference="extensions.sstart.bottomHeader"/>
             </hbox>
         </groupbox>
         <groupbox flex="1">

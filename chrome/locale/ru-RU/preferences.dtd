@@ -4,6 +4,7 @@
 <!ENTITY sstartpref.OpenInNewTabs "Показывать в новых вкладках">
 <!ENTITY sstartpref.UseAsHomePage "Использовать как домашнюю страницу">
 <!ENTITY sstartpref.newtabOnLockDrag "Открывать в новой вкладке при перетаскивании">
+<!ENTITY sstartpref.bottomHeader "Отображать заголовок под миниатюрой">
 
 <!ENTITY sstartpref.Background "Фон">
 <!ENTITY sstartpref.BackgroundImage "Фоновое изображение">

@@ -55,6 +55,7 @@ justoff.sstart.Installer = new function () {
             if (topic != "nsPref:changed") return;
             switch (data) {
                 case "backgroundStyle":
+                case "bottomHeader":
                     SStart.forEachSStartBrowser(SStart.reloadPage);
                     break;
                 case "overrideNewTab":

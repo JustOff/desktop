@@ -7,3 +7,4 @@ pref("extensions.sstart.showDecorations", true);
 pref("extensions.sstart.overrideNewTab", true);
 pref("extensions.sstart.overrideHomePage", false);
 pref("extensions.sstart.newtabOnLockDrag", true);
+pref("extensions.sstart.bottomHeader", false);

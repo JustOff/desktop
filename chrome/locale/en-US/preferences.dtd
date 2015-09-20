@@ -4,6 +4,7 @@
 <!ENTITY sstartpref.OpenInNewTabs "Load in new tabs">
 <!ENTITY sstartpref.UseAsHomePage "Use as home page">
 <!ENTITY sstartpref.newtabOnLockDrag "Open in new tab on drag">
+<!ENTITY sstartpref.bottomHeader "Display header at bottom">
 
 <!ENTITY sstartpref.Background "Background">
 <!ENTITY sstartpref.BackgroundImage "Background image">

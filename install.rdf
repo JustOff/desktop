@@ -3,7 +3,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>SStart@Off.JustOff</em:id>
-    <em:version>1.5.13</em:version>
+    <em:version>1.5.14</em:version>
     <em:type>2</em:type>
     <em:name>Speed Start</em:name>
 	<em:description>Lite Speed Dial &amp; Start Page</em:description>
