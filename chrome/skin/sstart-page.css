@@ -22,7 +22,7 @@ body {
 
 .widget {
     position: absolute;
-    border: 1px solid lightgrey;
+    border: 1px solid #E0E0E0;
     -moz-border-radius: 3px;
 }
 
@@ -33,7 +33,7 @@ body {
 .header {
     height: 20;
     padding-right: 2px;
-    background: lightgrey;
+    background: #E0E0E0;
     position: absolute;
     left: 0;
     right: 0;

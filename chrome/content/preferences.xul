@@ -14,6 +14,7 @@
             <preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage" type="bool"/>
             <preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag" type="bool"/>
             <preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
+            <preference id="extensions.sstart.headerColor" name="extensions.sstart.headerColor" type="string"/>
             <preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
             <preference id="extensions.sstart.backgroundStyle" name="extensions.sstart.backgroundStyle" type="int"/>
         </preferences>
@@ -30,10 +31,6 @@
             <hbox>
                 <checkbox id="openNewtabOnLockDrag" label="&sstartpref.newtabOnLockDrag;"
                           preference="extensions.sstart.newtabOnLockDrag"/>
-            </hbox>
-            <hbox>
-                <checkbox id="bottomHeader" label="&sstartpref.bottomHeader;"
-                          preference="extensions.sstart.bottomHeader"/>
             </hbox>
         </groupbox>
         <groupbox flex="1">
@@ -80,6 +77,17 @@
                 </menulist>
             </hbox>
         </groupbox>
+        <groupbox flex="1">
+            <caption label="&sstartpref.Header;"/>
+            <hbox>
+                <checkbox id="bottomHeader" label="&sstartpref.bottomHeader;"
+                          preference="extensions.sstart.bottomHeader"/>
+            </hbox>
+            <hbox align="center">
+				<label value="&sstartpref.headerColor;:"/>
+                <textbox id="headerColor" preference="extensions.sstart.headerColor"/>
+            </hbox>
+        </groupbox>
     </prefpane>
 
     <script src="namespace.js"/>
@@ -87,18 +95,22 @@
     <script src="file.js"/>
     <script src="prefs.js"/>
     <script src="sstart.js"/>
+    <script src="dom.js"/>
     <script>
     <![CDATA[
         justoff.sstart.PreferencesXul = new function () {
 
             var File = justoff.sstart.File
             var SStart = justoff.sstart.SStart
+            var Dom = justoff.sstart.Dom
 
             var redrawSStart = function () {
                 SStart.forEachSStartBrowser(SStart.reloadPage);
             }
 
             this.initialize = function () {
+                if (Dom.get("headerColor").value == "")
+					Dom.get("headerColor").value = "#E0E0E0";
             }
 
             this.browseBackgroundImage = function () {

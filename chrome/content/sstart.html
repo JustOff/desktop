@@ -111,6 +111,12 @@ console.time("SStart");
 		if (Prefs.getBool("bottomHeader")) {
 				Dom.addClass(document.body, 'b-head');
 		}
+		
+		var headerColor = Prefs.getString("headerColor");
+		if (headerColor) {
+			document.styleSheets[1].cssRules[6].style.background = headerColor;
+			document.styleSheets[1].cssRules[4].style.border = "1px solid " + headerColor;
+		}
 
         function updateLockStatus() {
             var s = SStart.isLocked();
