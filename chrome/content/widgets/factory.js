@@ -62,6 +62,7 @@ justoff.sstart.Factory = function (storage) {
     }
 
     this.createWidgets = function () {
+console.time("createWidgets");
         var objects = storage.getObjects();
         var hasWidgets = false;
 		if (!SStart.isLocked() || document.location != "chrome://sstart/content/sstart.html" || !justoff.sstart.cache.fragment) {
@@ -73,8 +74,8 @@ justoff.sstart.Factory = function (storage) {
 			}
 			if (document.location == "chrome://sstart/content/sstart.html") {
 				justoff.sstart.cache.fragment = fragment;
+				SStart.setCacheDOM(false);
 			}
-			SStart.setCacheDOM(false);
 		} else if (document.location == "chrome://sstart/content/sstart.html") {
 			var fragment = justoff.sstart.cache.fragment.cloneNode(true);
 			var x = fragment.getElementsByClassName("widget");
@@ -91,7 +92,7 @@ justoff.sstart.Factory = function (storage) {
 			SStart.setCacheDOM(true);
 		}
         document.body.appendChild(fragment);
-//		console.log(SStart.isCacheDOM());
+console.timeEnd("createWidgets");
         return hasWidgets;
     }
 
