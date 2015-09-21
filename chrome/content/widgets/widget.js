@@ -11,6 +11,8 @@ justoff.sstart.Widget = function () {
 	
 	const SEARCH_URL = "sstart://search/";
 
+	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
+
 	this.properties;
 	this.view;
 
@@ -95,7 +97,41 @@ justoff.sstart.Widget = function () {
 			self.openProperties.call(self);
 		}, false);
 
-		this.view.addEventListener("drop", function () {
+		this.view.addEventListener("drop", function (e) {
+			if (self.view.offsetTop < 0 || self.view.offsetLeft < 0) {
+				if (document.location != "chrome://sstart/content/sstart.html") {
+					if (Utils.confirm(SStart.translate("dialogMoveUpWidget"))) {
+						var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+							.getService(Components.interfaces.nsINavBookmarksService);
+						var params = Utils.getQueryParams(document.location);
+						bookmarksService.moveItem(self.view.id, bookmarksService.getFolderIdForItem(params.folder), 
+							bookmarksService.DEFAULT_INDEX);
+						Dom.remove(self.view);
+						justoff.sstart.cache.fragment = false;
+						return;
+					}
+				}
+			}
+			Dom.addClass(self.view, "hide");
+			var hoverEl = document.elementFromPoint(e.detail.clientX, e.detail.clientY);
+			Dom.removeClass(self.view, "hide");
+			while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+			if (hoverEl && hoverEl.id) {
+				var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+					.getService(Components.interfaces.nsINavBookmarksService);
+				if (bookmarksService.getItemType(hoverEl.id) == bookmarksService.TYPE_FOLDER) {
+					if (Utils.confirm(SStart.translate("dialogMoveWidget"))) {
+						bookmarksService.moveItem(self.view.id, hoverEl.id, bookmarksService.DEFAULT_INDEX);
+						Dom.remove(self.view);
+						var c = document.getElementById(hoverEl.id);
+						var r = Dom.child(c, "refresh");
+						if (r) {
+							r.click()
+						}
+						return;
+					}
+				}
+			}
 			self.properties.left = self.view.offsetLeft;
 			self.properties.top = self.view.offsetTop;
 			var resized = (self.properties.width != self.view.clientWidth || self.properties.height != self.view.clientHeight);

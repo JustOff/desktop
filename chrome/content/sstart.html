@@ -250,7 +250,6 @@ console.time("SStart");
 			}
 		}, false);
 		Dom.get("menu-props").addEventListener("click", function (e) {
-			console.log(properties);
 			var param = { properties: properties };
 			var xul = 'properties.xul';
 			openDialog(xul, "properties", "chrome,centerscreen,modal,resizable", param);

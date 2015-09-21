@@ -75,8 +75,7 @@ justoff.sstart.Drag = new function () {
 			Drag.removeGlass();
 			Drag.inProgress = false;
 
-			var event = document.createEvent("Event");
-			event.initEvent("drop", false, false);
+			var event = new CustomEvent("drop", {'detail': {'clientX': e.clientX, 'clientY': e.clientY}});
 			theObject.dispatchEvent(event);
 		}
 	};
