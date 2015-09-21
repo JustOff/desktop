@@ -132,7 +132,7 @@ console.time("SStart");
         ContextMenu.enable(document, Dom.get("menu"));
 
         Dom.get("menu-add").addEventListener("click", function (e) {
-			if (SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isLocked()) {
 				SStart.setLocked(false);
 				updateLockStatus();
 			}
