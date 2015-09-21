@@ -134,6 +134,7 @@ justoff.sstart.Thumbnail = function () {
         if (param.properties) {
             var refreshNeeded = param.properties.url != this.properties.url ||
                 param.properties.customImage != this.properties.customImage ||
+				param.properties.background != this.properties.background ||
 				param.properties.width != this.properties.width ||
 				param.properties.height != this.properties.height;
             this.properties = param.properties;

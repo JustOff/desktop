@@ -23,6 +23,10 @@
                         oncommand="justoff.sstart.ThumbnailPropertiesXul.browseFile();"/>
             </row>
             <row align="center">
+                <label value="&sstartfolder.BackgroundColor;:"/>
+                <textbox id="bgColor"/>
+            </row>
+            <row align="center">
                 <label value="&sstartthumb.CustomImage;:"/>
                 <textbox id="customImage" type="autocomplete" enablehistory="true"
                          autocompletesearch="history"/>
@@ -56,6 +60,7 @@
                 var properties = window.arguments[0].properties;
                 Dom.get("url").value = properties.url || "";
                 Dom.get("customImage").value = properties.customImage || "";
+                Dom.get("bgColor").value = properties.background || "#FFFFFF";
 				Dom.get("width").value = properties.width || "";
 				Dom.get("height").value = properties.height || "";
 
@@ -72,6 +77,7 @@
                 if (url != properties.url) properties.title = "";
                 properties.url = !url || URL.getScheme(url) ? url : "http://" + url;
                 properties.customImage = Dom.get("customImage").value;
+				properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
                 properties.width = Dom.get("width").value;
 				properties.height = Dom.get("height").value;
             }

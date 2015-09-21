@@ -31,6 +31,10 @@ justoff.sstart.Widget = function () {
         var icon = Dom.child(this.view, "icon");
 //        icon.style.background = "url(" + this.getIconURL() + ")";
 
+		if (this.properties.url != SEARCH_URL && this.properties.background) {
+			this.view.style.background = this.properties.background;
+		}
+
 		if (this.properties.isFolder) {
 			icon.style.background = "url(chrome://sstart/skin/folder.png)";
 		} else if (this.properties.url == SEARCH_URL) {
