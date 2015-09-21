@@ -65,10 +65,12 @@ justoff.sstart.Thumbnail = function () {
 
 		if (this.properties.customImage) {
 			var thumbnail = Dom.child(this.view, "thumbnail");
-			var img0 = document.createElement("img");
-			img0.src = "chrome://sstart/skin/0.png";
-			img0.style = "width: 100%; height: 100%;"
-			thumbnail.appendChild(img0);
+			if (!Dom.child(thumbnail, "z0")) {
+				var img0 = document.createElement("img");
+				img0.className = "z0";
+				img0.src = "chrome://sstart/skin/0.png";
+				thumbnail.appendChild(img0);
+			}
 		}
     }
 

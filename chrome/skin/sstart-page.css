@@ -231,3 +231,8 @@ body.no-decorations.lock-edits .widget {
 body.no-decorations.lock-edits .widget .header {
     display: none;
 }
+
+.z0 {
+    width: 100%;
+    height: 100%;
+}
