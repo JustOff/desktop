@@ -8,5 +8,3 @@ pref("extensions.sstart.overrideNewTab", true);
 pref("extensions.sstart.overrideHomePage", false);
 pref("extensions.sstart.newtabOnLockDrag", true);
 pref("extensions.sstart.bottomHeader", false);
-pref("extensions.sstart.titleColor", "#000000");
-pref("extensions.sstart.headerColor", "#E0E0E0");

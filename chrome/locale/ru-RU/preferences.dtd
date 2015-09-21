@@ -1,13 +1,10 @@
-<!ENTITY sstartpref.Preferences "Настройки рабочего стола">
+<!ENTITY sstartpref.Preferences "Настройки Speed Start">
 
 <!ENTITY sstartpref.General "Основные">
 <!ENTITY sstartpref.OpenInNewTabs "Показывать в новых вкладках">
 <!ENTITY sstartpref.UseAsHomePage "Использовать как домашнюю страницу">
 <!ENTITY sstartpref.newtabOnLockDrag "Открывать в новой вкладке при перетаскивании">
-<!ENTITY sstartpref.Header "Заголовки">
 <!ENTITY sstartpref.bottomHeader "Выводить снизу">
-<!ENTITY sstartpref.titleColor "Цвет текста">
-<!ENTITY sstartpref.headerColor "Цвет фона">
 
 <!ENTITY sstartpref.Background "Фон">
 <!ENTITY sstartpref.BackgroundImage "Фоновое изображение">

@@ -164,6 +164,7 @@ br {
 /* Is-widget menu */
 
 body.is-widget #menu-add,
+body.is-widget #menu-props,
 body.is-widget #menu-refresh,
 body.is-widget #menu-prefs {
     display: none;

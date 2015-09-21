@@ -20,6 +20,7 @@
     </li>
     <li id="menu-lock">Lock</li>
     <li id="menu-unlock">Unlock</li>
+    <li id="menu-props">Properties</li>
     <li id="menu-refresh">RefreshThumbnails</li>
     <li id="menu-rename">Rename</li>
     <li id="menu-properties">Properties</li>
@@ -96,9 +97,18 @@ console.time("SStart");
         }
 
         var properties = storage.getProperties();
-        if (properties && properties.background) {
-            document.body.style.backgroundColor = properties.background;
-        }
+        if (properties) {
+			if (properties.background) {
+				document.body.style.backgroundColor = properties.background;
+			}
+			if (properties.headerColor) {
+				document.styleSheets[1].cssRules[6].style.background = properties.headerColor;
+				document.styleSheets[1].cssRules[4].style.border = "1px solid " + properties.headerColor;
+			}
+			if (properties.titleColor) {
+				document.styleSheets[1].cssRules[11].style.color = properties.titleColor;
+			}
+		}
 
         if (SStart.isBackgroundImageSpecified()) {
             document.body.style.backgroundImage = "url(" + File.getDataFileURL("background") + ")";
@@ -111,17 +121,6 @@ console.time("SStart");
 
 		if (Prefs.getBool("bottomHeader")) {
 				Dom.addClass(document.body, 'b-head');
-		}
-		
-		var headerColor = Prefs.getString("headerColor");
-		if (headerColor) {
-			document.styleSheets[1].cssRules[6].style.background = headerColor;
-			document.styleSheets[1].cssRules[4].style.border = "1px solid " + headerColor;
-		}
-
-		var titleColor = Prefs.getString("titleColor");
-		if (titleColor) {
-			document.styleSheets[1].cssRules[11].style.color = titleColor;
 		}
 
         function updateLockStatus() {
@@ -248,6 +247,26 @@ console.time("SStart");
 					'cancelable': true
 					});
 				r.dispatchEvent(event);
+			}
+        }, false);
+        Dom.get("menu-props").addEventListener("click", function (e) {
+			console.log(properties);
+			var param = { properties: properties };
+			var xul = 'properties.xul';
+			openDialog(xul, "properties", "chrome,centerscreen,modal,resizable", param);
+			if (param.properties) {
+				properties = param.properties;
+				storage.setProperties(properties);
+				if (properties.background) {
+					document.body.style.backgroundColor = properties.background;
+				}
+				if (properties.headerColor) {
+					document.styleSheets[1].cssRules[6].style.background = properties.headerColor;
+					document.styleSheets[1].cssRules[4].style.border = "1px solid " + properties.headerColor;
+				}
+				if (properties.titleColor) {
+					document.styleSheets[1].cssRules[11].style.color = properties.titleColor;
+				}
 			}
         }, false);
 

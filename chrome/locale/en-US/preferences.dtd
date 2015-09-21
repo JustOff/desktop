@@ -1,13 +1,10 @@
-<!ENTITY sstartpref.Preferences "Speed Start preferences">
+<!ENTITY sstartpref.Preferences "Speed Start Options">
 
 <!ENTITY sstartpref.General "General">
 <!ENTITY sstartpref.OpenInNewTabs "Load in new tabs">
 <!ENTITY sstartpref.UseAsHomePage "Use as home page">
 <!ENTITY sstartpref.newtabOnLockDrag "Open in new tab on drag">
-<!ENTITY sstartpref.Header "Headers">
-<!ENTITY sstartpref.bottomHeader "Display at bottom">
-<!ENTITY sstartpref.titleColor "Title color">
-<!ENTITY sstartpref.headerColor "Background color">
+<!ENTITY sstartpref.bottomHeader "Display headers at bottom">
 
 <!ENTITY sstartpref.Background "Background">
 <!ENTITY sstartpref.BackgroundImage "Background image">

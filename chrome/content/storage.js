@@ -87,6 +87,10 @@ justoff.sstart.Storage = function (folderId) {
         return Utils.fromJSON(annotation);
     }
 
+    this.setProperties = function (object) {
+		Bookmark.setAnnotation(folderId, ANNOTATION, Utils.toJSON(object));
+    }
+
     this.saveObject = function (object) {
         if (object.id) {
             if (object.isFolder) Bookmark.updateFolder(object.id, object.title);

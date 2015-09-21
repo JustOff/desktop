@@ -56,8 +56,6 @@ justoff.sstart.Installer = new function () {
             switch (data) {
                 case "backgroundStyle":
                 case "bottomHeader":
-				case "headerColor":
-				case "titleColor":
                     SStart.forEachSStartBrowser(SStart.reloadPage);
                     break;
                 case "overrideNewTab":

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="properties.css" type="text/css"?>
+<!DOCTYPE dialog SYSTEM "chrome://sstart/locale/properties.dtd">
+<dialog id="sstart-properties"
+        title="&sstart.Properties;"
+        onload="justoff.sstart.SStartPropertiesXul.initialize();"
+        ondialogaccept="justoff.sstart.SStartPropertiesXul.onAccept();"
+        ondialogcancel="justoff.sstart.SStartPropertiesXul.onCancel();"
+        persist="width height"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <prefpane id="general-pane" label="Main">
+        <groupbox flex="1">
+            <caption label="&sstartfolder.General;"/>
+            <hbox align="center">
+                <label value="&sstartfolder.BackgroundColor;:"/>
+                <textbox id="bgColor"/>
+            </hbox>
+        </groupbox>
+			
+        <groupbox flex="1">
+            <caption label="&sstartfolder.Header;"/>
+            <hbox align="center">
+                <label value="&sstartfolder.titleColor;:"/>
+                <textbox id="titleColor"/>
+            </hbox>
+            <hbox align="center">
+                <label value="&sstartfolder.headerColor;:"/>
+                <textbox id="headerColor"/>
+            </hbox>
+        </groupbox>
+    </prefpane>
+
+    <script src="namespace.js"/>
+    <script src="utils.js"/>
+    <script src="file.js"/>
+    <script src="dom.js"/>
+    <script>
+    <![CDATA[
+        justoff.sstart.SStartPropertiesXul = new function () {
+
+            var File = justoff.sstart.File
+            var Dom = justoff.sstart.Dom
+
+            this.initialize = function () {
+                var properties = window.arguments[0].properties;
+                Dom.get("bgColor").value = properties.background || "#FFFFFF";
+                Dom.get("titleColor").value = properties.titleColor || "#000000";
+                Dom.get("headerColor").value = properties.headerColor || "#E0E0E0";
+            }
+
+            this.onAccept = function () {
+                var properties = window.arguments[0].properties;
+				properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
+				properties.titleColor = (Dom.get("titleColor").value == "") ? "#000000" : Dom.get("titleColor").value;
+				properties.headerColor = (Dom.get("headerColor").value == "") ? "#E0E0E0" : Dom.get("headerColor").value;
+            }
+
+            this.onCancel = function () {
+                window.arguments[0].properties = null;
+            }
+
+        }
+        ]]>
+  </script>
+</dialog>
