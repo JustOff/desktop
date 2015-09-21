@@ -6,6 +6,7 @@
 <!ENTITY sstartpref.newtabOnLockDrag "Открывать в новой вкладке при перетаскивании">
 <!ENTITY sstartpref.Header "Заголовки">
 <!ENTITY sstartpref.bottomHeader "Выводить снизу">
+<!ENTITY sstartpref.titleColor "Цвет текста">
 <!ENTITY sstartpref.headerColor "Цвет фона">
 
 <!ENTITY sstartpref.Background "Фон">

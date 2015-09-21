@@ -118,6 +118,11 @@ console.time("SStart");
 			document.styleSheets[1].cssRules[4].style.border = "1px solid " + headerColor;
 		}
 
+		var titleColor = Prefs.getString("titleColor");
+		if (titleColor) {
+			document.styleSheets[1].cssRules[11].style.color = titleColor;
+		}
+
         function updateLockStatus() {
             var s = SStart.isLocked();
             Dom.removeClass(document.body, s ? 'unlock-edits' : 'lock-edits');

@@ -6,6 +6,7 @@
 <!ENTITY sstartpref.newtabOnLockDrag "Open in new tab on drag">
 <!ENTITY sstartpref.Header "Headers">
 <!ENTITY sstartpref.bottomHeader "Display at bottom">
+<!ENTITY sstartpref.titleColor "Title color">
 <!ENTITY sstartpref.headerColor "Background color">
 
 <!ENTITY sstartpref.Background "Background">

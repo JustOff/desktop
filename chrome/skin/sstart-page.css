@@ -73,6 +73,7 @@ body.b-head .body {
     bottom: 2;
     white-space: nowrap;
     overflow: hidden;
+	color: #000000;
 }
 
 body.b-head .title {
@@ -215,7 +216,8 @@ body.unlock-edits #menu-unlock {
 }
 
 body.unlock-edits .hlink,
-body.no-hlink .hlink {
+body.no-hlink .hlink,
+body.lock-edits.b-head.no-hlink .hlinkb {
     display: none;
 }
 

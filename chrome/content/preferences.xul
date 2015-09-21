@@ -14,6 +14,7 @@
             <preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage" type="bool"/>
             <preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag" type="bool"/>
             <preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
+            <preference id="extensions.sstart.titleColor" name="extensions.sstart.titleColor" type="string"/>
             <preference id="extensions.sstart.headerColor" name="extensions.sstart.headerColor" type="string"/>
             <preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
             <preference id="extensions.sstart.backgroundStyle" name="extensions.sstart.backgroundStyle" type="int"/>
@@ -84,6 +85,10 @@
                           preference="extensions.sstart.bottomHeader"/>
             </hbox>
             <hbox align="center">
+				<label value="&sstartpref.titleColor;:"/>
+                <textbox id="titleColor" preference="extensions.sstart.titleColor"/>
+            </hbox>
+            <hbox align="center">
 				<label value="&sstartpref.headerColor;:"/>
                 <textbox id="headerColor" preference="extensions.sstart.headerColor"/>
             </hbox>
@@ -111,6 +116,8 @@
             this.initialize = function () {
                 if (Dom.get("headerColor").value == "")
 					Dom.get("headerColor").value = "#E0E0E0";
+                if (Dom.get("titleColor").value == "")
+					Dom.get("titleColor").value = "#000000";
             }
 
             this.browseBackgroundImage = function () {
