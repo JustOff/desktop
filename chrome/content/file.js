@@ -6,7 +6,7 @@ justoff.sstart.File = new function () {
         var dir = Components.classes["@mozilla.org/file/directory_service;1"]
             .getService(Components.interfaces.nsIProperties)
             .get("ProfD", Components.interfaces.nsIFile);
-        dir.append("desktop");
+        dir.append("sstart");
         if (!dir.exists()) {
             dir.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 0777);
         }

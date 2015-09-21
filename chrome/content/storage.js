@@ -4,7 +4,8 @@ justoff.sstart.Storage = function (folderId) {
     var Utils = justoff.sstart.Utils
     var Bookmark = justoff.sstart.Bookmark
 
-    const ROOT_TITLE = "Desktop";
+    const ROOT_TITLE = "SStart";
+    const DESKTOP_ROOT = "Desktop";
     const ANNOTATION = "bookmarkProperties/description";
 
     if (!folderId) folderId = getRootId();
@@ -15,7 +16,44 @@ justoff.sstart.Storage = function (folderId) {
             if (bookmarks[i].isFolder &&
                 bookmarks[i].title == ROOT_TITLE) return bookmarks[i].id;
         }
-        return Bookmark.createFolder(ROOT_TITLE);
+        return importFromDesktop(bookmarks);
+    }
+
+    function importFromDesktop(bookmarks) {
+        for (var i in bookmarks) {
+            if (bookmarks[i].isFolder && bookmarks[i].title == DESKTOP_ROOT) {
+				var newId = Bookmark.createFolder(ROOT_TITLE);
+				var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+					.getService(Components.interfaces.nsINavBookmarksService);
+				var callback = {
+					runBatched: function() {
+						copyFolder(bookmarks[i].id, newId);
+					}
+				}
+				bookmarksService.runInBatchMode(callback, null);
+				return newId;
+			}
+        }
+		return Bookmark.createFolder(ROOT_TITLE);
+    }
+	
+    function copyFolder(srcId, dstId) {
+        var bookmarks = Bookmark.getBookmarks(srcId);
+		var newId, annotation;
+        for (var i in bookmarks) {
+            if (bookmarks[i].isFolder) {
+				newId = Bookmark.createFolder(bookmarks[i].title, dstId);
+				annotation = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
+				Bookmark.setAnnotation(newId, ANNOTATION, annotation);
+				copyFolder(bookmarks[i].id, newId);
+			} else {
+				if (bookmarks[i].url == "desktop://search/")
+					bookmarks[i].url = "sstart://search/";
+				newId = Bookmark.createBookmark(bookmarks[i].url, bookmarks[i].title, dstId);
+				annotation = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
+				Bookmark.setAnnotation(newId, ANNOTATION, annotation);
+			}
+        }
     }
 
     function refreshFolder() {

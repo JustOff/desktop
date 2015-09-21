@@ -80,8 +80,9 @@ console.time("SStart");
 
         var params = Utils.getQueryParams(document.location);
         var storage = new Storage(params.folder);
+
         document.title = storage.getTitle();
-        if (document.title == "" || document.title == "Desktop") {
+        if (document.title == "" || document.title == "SStart") {
             document.title = SStart.translate("SStart");
         }
 

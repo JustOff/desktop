@@ -7,7 +7,7 @@ justoff.sstart.Factory = function (storage) {
 	var Dom = justoff.sstart.Dom
 	var Prefs = justoff.sstart.Prefs
 	
-	const SEARCH_URL = "desktop://search/";
+	const SEARCH_URL = "sstart://search/";
 	
 	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
 
