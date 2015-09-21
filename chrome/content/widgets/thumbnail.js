@@ -1,67 +1,67 @@
 justoff.sstart.Thumbnail = function () {
 
-    var Thumbnail = justoff.sstart.Thumbnail
-    var Utils = justoff.sstart.Utils
-    var Prefs = justoff.sstart.Prefs
-    var File = justoff.sstart.File
-    var Dom = justoff.sstart.Dom
-    var Widget = justoff.sstart.Widget
-    var URL = justoff.sstart.URL
+	var Thumbnail = justoff.sstart.Thumbnail
+	var Utils = justoff.sstart.Utils
+	var Prefs = justoff.sstart.Prefs
+	var File = justoff.sstart.File
+	var Dom = justoff.sstart.Dom
+	var Widget = justoff.sstart.Widget
+	var URL = justoff.sstart.URL
 
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
 	const TIMEOUT_LOAD = 60 * 1000;
-    const TIMEOUT_RENDER = 0.5 * 1000;
-    var loading;
+	const TIMEOUT_RENDER = 0.5 * 1000;
+	var loading;
 
-    this.setProperties = function (properties) {
-        Thumbnail.prototype.setProperties.call(this, properties);
+	this.setProperties = function (properties) {
+		Thumbnail.prototype.setProperties.call(this, properties);
 
-        if (!this.properties.width) {
-            this.properties.width = Prefs.getInt("thumbnail.width");
-            this.properties.height = Prefs.getInt("thumbnail.height");
-        }
-        if (this.properties.isFolder) {
-            this.properties.url = "chrome://sstart/content/sstart.html?folder=" + this.properties.id;
+		if (!this.properties.width) {
+			this.properties.width = Prefs.getInt("thumbnail.width");
+			this.properties.height = Prefs.getInt("thumbnail.height");
+		}
+		if (this.properties.isFolder) {
+			this.properties.url = "chrome://sstart/content/sstart.html?folder=" + this.properties.id;
 			if (!this.properties.title)
 				this.properties.title = "Folder " + this.properties.id;
-        }
-    }
+		}
+	}
 
-    getImageFile = function () {
-        return File.getDataFile(this.properties.id);
-    }
+	getImageFile = function () {
+		return File.getDataFile(this.properties.id);
+	}
 
-    getImageURL = function () {
-        if (this.properties.customImage)
-            return this.properties.customImage
-        else
-            return File.getFileURL(getImageFile.call(this));
-    }
+	getImageURL = function () {
+		if (this.properties.customImage)
+			return this.properties.customImage
+		else
+			return File.getFileURL(getImageFile.call(this));
+	}
 
-    this.getIconURL = function () {
-        return this.properties.isFolder ? "chrome://sstart/skin/folder.png"
-            : Thumbnail.prototype.getIconURL.call(this);
-    }
+	this.getIconURL = function () {
+		return this.properties.isFolder ? "chrome://sstart/skin/folder.png"
+			: Thumbnail.prototype.getIconURL.call(this);
+	}
 
-    this.createView = function () {
-        return Dom.get("thumbnail").cloneNode(true);
-    }
+	this.createView = function () {
+		return Dom.get("thumbnail").cloneNode(true);
+	}
 
-    this.updateView = function () {
+	this.updateView = function () {
 //		console.log("[4] renderView->updateView");
-        Thumbnail.prototype.updateView.call(this);
+		Thumbnail.prototype.updateView.call(this);
 
-        var anchor = Dom.child(this.view, "a");
-        this.properties.url ? anchor.href = this.properties.url : anchor.removeAttribute("href");
+		var anchor = Dom.child(this.view, "a");
+		this.properties.url ? anchor.href = this.properties.url : anchor.removeAttribute("href");
 
-        var img = Dom.child(this.view, "img");
-        img.src = getImageURL.call(this);
-        img.style.display = loading ? "none" : "block";
+		var img = Dom.child(this.view, "img");
+		img.src = getImageURL.call(this);
+		img.style.display = loading ? "none" : "block";
 
-        var throbber = Dom.child(this.view, "throbber");
-        throbber.style.display = loading ? "block" : "none";
+		var throbber = Dom.child(this.view, "throbber");
+		throbber.style.display = loading ? "block" : "none";
 
 		if (this.properties.customImage) {
 			var thumbnail = Dom.child(this.view, "thumbnail");
@@ -72,103 +72,103 @@ justoff.sstart.Thumbnail = function () {
 				thumbnail.appendChild(img0);
 			}
 		}
-    }
+	}
 
-    this.renderView = function () {
-        Thumbnail.prototype.renderView.call(this);
+	this.renderView = function () {
+		Thumbnail.prototype.renderView.call(this);
 
-        this.view.style.width = this.properties.width;
-        this.view.style.height = this.properties.height;
+		this.view.style.width = this.properties.width;
+		this.view.style.height = this.properties.height;
 
-        if (this.properties.url == undefined) {
-            this.openProperties();
-        }
+		if (this.properties.url == undefined) {
+			this.openProperties();
+		}
 
-        if (!this.properties.customImage && !getImageFile.call(this).exists()) this.refresh();
-        //else {console.log("[3] renderView->updateView");this.updateView();}
+		if (!this.properties.customImage && !getImageFile.call(this).exists()) this.refresh();
+		//else {console.log("[3] renderView->updateView");this.updateView();}
 
-        var self = this;
+		var self = this;
 
-        this.view.addEventListener("drop", function () {
-            Prefs.setInt("thumbnail.width", self.properties.width);
-            Prefs.setInt("thumbnail.height", self.properties.height);
-        }, false);
+		this.view.addEventListener("drop", function () {
+			Prefs.setInt("thumbnail.width", self.properties.width);
+			Prefs.setInt("thumbnail.height", self.properties.height);
+		}, false);
 
-        // This code disables Tab Mix Plus "Force new tab" option. Magic.
-        var anchor = Dom.child(this.view, "a");
-        anchor.addEventListener("click", function (e) {
-            if (e.button == 0 && !e.ctrlKey && !e.metaKey) {
-                e.stopPropagation();
-                return false;
-            }
-        }, false);
+		// This code disables Tab Mix Plus "Force new tab" option. Magic.
+		var anchor = Dom.child(this.view, "a");
+		anchor.addEventListener("click", function (e) {
+			if (e.button == 0 && !e.ctrlKey && !e.metaKey) {
+				e.stopPropagation();
+				return false;
+			}
+		}, false);
 
-        return this.view;
-    }
+		return this.view;
+	}
 
-    this.remove = function () {
-        if (Thumbnail.prototype.remove.call(this)) {
-            try {
-                getImageFile.call(this).remove(false);
-            }
-            catch (e) {
-            }
-        }
-    }
+	this.remove = function () {
+		if (Thumbnail.prototype.remove.call(this)) {
+			try {
+				getImageFile.call(this).remove(false);
+			}
+			catch (e) {
+			}
+		}
+	}
 
-    this.refresh = function () {
-        if (this.properties.customImage) {
-            this.updateView();
-            return;
-        }
-        loading = true;
-        refreshImage.call(this);
-        this.updateView();
-    }
+	this.refresh = function () {
+		if (this.properties.customImage) {
+			this.updateView();
+			return;
+		}
+		loading = true;
+		refreshImage.call(this);
+		this.updateView();
+	}
 
-    this.openProperties = function () {
-        var param = { properties:Utils.clone(this.properties) };
-        var xul = 'widgets/thumbnail/' +
-            (this.properties.isFolder ? 'folder' : 'properties') + '.xul';
+	this.openProperties = function () {
+		var param = { properties:Utils.clone(this.properties) };
+		var xul = 'widgets/thumbnail/' +
+			(this.properties.isFolder ? 'folder' : 'properties') + '.xul';
 
-        openDialog(xul, "properties",
-            "chrome,centerscreen,modal,resizable", param);
-        if (param.properties) {
-            var refreshNeeded = param.properties.url != this.properties.url ||
-                param.properties.customImage != this.properties.customImage ||
+		openDialog(xul, "properties",
+			"chrome,centerscreen,modal,resizable", param);
+		if (param.properties) {
+			var refreshNeeded = param.properties.url != this.properties.url ||
+				param.properties.customImage != this.properties.customImage ||
 				param.properties.background != this.properties.background ||
 				param.properties.width != this.properties.width ||
 				param.properties.height != this.properties.height;
-            this.properties = param.properties;
-            this.save();
+			this.properties = param.properties;
+			this.save();
 
-            refreshNeeded ? this.refresh() : this.updateView();
-        }
-    }
+			refreshNeeded ? this.refresh() : this.updateView();
+		}
+	}
 
-    function refreshImage() {
-        var self = this;
+	function refreshImage() {
+		var self = this;
 		getSiteFavicon.call(self, self.properties.url);
-        loadURI(this.properties.url || "about:blank", this.properties.width, this.properties.height - Widget.HEADER_HEIGHT, function (iframe) {
-            if (!self.properties.title) {
-                var doc = iframe.contentDocument;
-                self.properties.title = doc.title;
-                self.save.call(self);
-            }
-            if (self.properties.customImage) {
-                Dom.remove(iframe);
-                refreshCustomImage.call(self);
-            }
-            else saveImage.call(self, iframe);
-        });
-    }
+		loadURI(this.properties.url || "about:blank", this.properties.width, this.properties.height - Widget.HEADER_HEIGHT, function (iframe) {
+			if (!self.properties.title) {
+				var doc = iframe.contentDocument;
+				self.properties.title = doc.title;
+				self.save.call(self);
+			}
+			if (self.properties.customImage) {
+				Dom.remove(iframe);
+				refreshCustomImage.call(self);
+			}
+			else saveImage.call(self, iframe);
+		});
+	}
 
 	function getSiteFavicon(siteURI) {
 		var hostURI = "http://" + siteURI.split(/\/+/g)[1] + "/";
 		var faviconURI = hostURI + "favicon.ico";
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", siteURI, true);
-		xhr.responseType = "document";      
+		xhr.responseType = "document";	  
 		xhr.onload = xhr.onerror = function() {
 			var doc = xhr.responseXML;
 			if ( doc !== null ) {
@@ -180,7 +180,7 @@ justoff.sstart.Thumbnail = function () {
 					}
 				);
 			}
-			var self = this;                
+			var self = this;				
 			preloadFavicon.call(self, faviconURI, siteURI); 
 		}
 		xhr.send();
@@ -192,26 +192,26 @@ justoff.sstart.Thumbnail = function () {
 		fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE);
    };
 	
-    function saveImage(iframe) {
-        var self = this;
-        setTimeout(function () {
-                var image = createImage(iframe, self.properties.width, self.properties.height - Widget.HEADER_HEIGHT);
-                File.writeFile(getImageFile.call(self), image);
-                Dom.remove(iframe);
+	function saveImage(iframe) {
+		var self = this;
+		setTimeout(function () {
+				var image = createImage(iframe, self.properties.width, self.properties.height - Widget.HEADER_HEIGHT);
+				File.writeFile(getImageFile.call(self), image);
+				Dom.remove(iframe);
 
-                loading = false;
+				loading = false;
 
-                URL.removeFromCache(getImageURL.call(self));
-                self.updateView.call(self);
-            },
-            TIMEOUT_RENDER);
-    }
+				URL.removeFromCache(getImageURL.call(self));
+				self.updateView.call(self);
+			},
+			TIMEOUT_RENDER);
+	}
 
-    function createFrame(aspect) {
-        var browserWindow = Utils.getBrowserWindow();
-        var doc = browserWindow.document;
+	function createFrame(aspect) {
+		var browserWindow = Utils.getBrowserWindow();
+		var doc = browserWindow.document;
 
-        var iframe = doc.createElement("browser");
+		var iframe = doc.createElement("browser");
 		if (aspect < 1) {
 			iframe.width = 1024;
 		} else {
@@ -219,37 +219,37 @@ justoff.sstart.Thumbnail = function () {
 		}
 		iframe.height = Math.round(iframe.width * aspect);
 		
-        iframe.setAttribute("type", "content-targetable");
-        iframe.style.overflow = "hidden";
-        doc.getElementById("hidden-box").appendChild(iframe);
-        return iframe;
-    }
+		iframe.setAttribute("type", "content-targetable");
+		iframe.style.overflow = "hidden";
+		doc.getElementById("hidden-box").appendChild(iframe);
+		return iframe;
+	}
 
-    function loadURI(url, width, height, onReady) {
-        function onFrameLoad() {
-            iframe.removeEventListener("load", onFrameLoad, true);
-            clearTimeout(loadTimeout);
-            onReady(iframe);
-        }
+	function loadURI(url, width, height, onReady) {
+		function onFrameLoad() {
+			iframe.removeEventListener("load", onFrameLoad, true);
+			clearTimeout(loadTimeout);
+			onReady(iframe);
+		}
 
-        var iframe = createFrame(height / width);
-        iframe.addEventListener("load", function (event) {
-            if (event.originalTarget instanceof HTMLDocument) {
-                var win = event.originalTarget.defaultView;
-                if (win.frameElement) return;
-            }
-            onFrameLoad(event);
-        }, true);
-        var loadTimeout = setTimeout(onFrameLoad, TIMEOUT_LOAD);
-        iframe.setAttribute("src", url);
-    }
+		var iframe = createFrame(height / width);
+		iframe.addEventListener("load", function (event) {
+			if (event.originalTarget instanceof HTMLDocument) {
+				var win = event.originalTarget.defaultView;
+				if (win.frameElement) return;
+			}
+			onFrameLoad(event);
+		}, true);
+		var loadTimeout = setTimeout(onFrameLoad, TIMEOUT_LOAD);
+		iframe.setAttribute("src", url);
+	}
 
-    function createImage(iframe, imageWidth, imageHeight) {
-        var canvas = document.createElement("canvas");
-        var context = canvas.getContext("2d");
-        canvas.width = imageWidth;
-        canvas.height = imageHeight;
-        context.clearRect(0, 0, canvas.width, canvas.height);
+	function createImage(iframe, imageWidth, imageHeight) {
+		var canvas = document.createElement("canvas");
+		var context = canvas.getContext("2d");
+		canvas.width = imageWidth;
+		canvas.height = imageHeight;
+		context.clearRect(0, 0, canvas.width, canvas.height);
 		var scale = canvas.width / iframe.width;
 		var oc = document.createElement('canvas');
 		var octx = oc.getContext('2d');
@@ -270,9 +270,9 @@ justoff.sstart.Thumbnail = function () {
 			octx.drawImage(oc, 0, 0, iframe.width * scale, iframe.height * scale);
 			context.drawImage(oc, 0, 0, iframe.width * scale, iframe.height * scale, 0, 0, canvas.width, canvas.height);
 		}
-        var dataURL = canvas.toDataURL("image/png");
-        return atob(dataURL.replace(/^data:image\/png;base64,/, ""));
-    }
+		var dataURL = canvas.toDataURL("image/png");
+		return atob(dataURL.replace(/^data:image\/png;base64,/, ""));
+	}
 
 	function sharpenImage(ctx, w, h, mix) {
 		var weights = [0, -1, 0, -1, 5, -1, 0, -1, 0],
@@ -312,9 +312,9 @@ justoff.sstart.Thumbnail = function () {
 	function grayscaleImage(ctx, w, h) {
 		var imageData = ctx.getImageData(0, 0, w, h);
 		var data = imageData.data;
-	    for (var i = 0; i < data.length; i += 4) {
+		for (var i = 0; i < data.length; i += 4) {
 			var avg = (data[i] + data[i +1] + data[i +2]) / 3;
-			data[i]     = avg;
+			data[i]	 = avg;
 			data[i + 1] = avg;
 			data[i + 2] = avg;
 		}

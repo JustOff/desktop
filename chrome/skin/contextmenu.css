@@ -1,30 +1,30 @@
 .contextmenu {
-    display: none;
-    list-style-type: none;
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    border: 1px solid darkgray;
-    cursor: default;
-    z-index: 1000;
+	display: none;
+	list-style-type: none;
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	border: 1px solid darkgray;
+	cursor: default;
+	z-index: 1000;
 }
 
 .contextmenu li {
-    color: black;
-    background-color: white;
-    padding: 2 20 2 20;
-    white-space: nowrap;
+	color: black;
+	background-color: white;
+	padding: 2 20 2 20;
+	white-space: nowrap;
 }
 
 .contextmenu li:hover {
-    color: white;
-    background-color: #3060B0;
+	color: white;
+	background-color: #3060B0;
 }
 
 .contextmenu .container {
-    background: url(data:image/gif;base64,R0lGODlhBAAHAAAAACH5BAEAAAEALAAAAAAEAAcAoAAAAAAAAAIIRA4WaeyrVCgAOw==) white 95% no-repeat;
+	background: url(data:image/gif;base64,R0lGODlhBAAHAAAAACH5BAEAAAEALAAAAAAEAAcAoAAAAAAAAAIIRA4WaeyrVCgAOw==) white 95% no-repeat;
 }
 
 .contextmenu li[separator] {
-    border-top: 1px solid darkgray;
+	border-top: 1px solid darkgray;
 }

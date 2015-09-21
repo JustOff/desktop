@@ -2,53 +2,53 @@
 
 <head>
 
-    <link rel="icon" type="image/png" href="chrome://sstart/skin/icon.png">
-    <link rel="stylesheet" type="text/css" href="chrome://sstart/skin/contextmenu.css">
-    <link rel="stylesheet" type="text/css" href="chrome://sstart/skin/sstart-page.css">
+	<link rel="icon" type="image/png" href="chrome://sstart/skin/icon.png">
+	<link rel="stylesheet" type="text/css" href="chrome://sstart/skin/contextmenu.css">
+	<link rel="stylesheet" type="text/css" href="chrome://sstart/skin/sstart-page.css">
 
 </head>
 
 <body>
 
 <ul id="menu" class="contextmenu">
-    <li id="menu-add">Add
-        <ul>
-            <li type="thumbnail">Thumbnail</li>
-            <li type="folder">Folder</li>
-            <li type="search">Search</li>
-        </ul>
-    </li>
-    <li id="menu-lock">Lock</li>
-    <li id="menu-unlock">Unlock</li>
-    <li id="menu-props">Properties</li>
-    <li id="menu-refresh">RefreshThumbnails</li>
-    <li id="menu-rename">Rename</li>
-    <li id="menu-properties">Properties</li>
-    <li id="menu-refreshone">RefreshThumbnail</li>
-    <li id="menu-remove">Remove</li>
-    <li id="menu-prefs">Preferences</li>
+	<li id="menu-add">Add
+		<ul>
+			<li type="thumbnail">Thumbnail</li>
+			<li type="folder">Folder</li>
+			<li type="search">Search</li>
+		</ul>
+	</li>
+	<li id="menu-lock">Lock</li>
+	<li id="menu-unlock">Unlock</li>
+	<li id="menu-props">Properties</li>
+	<li id="menu-refresh">RefreshThumbnails</li>
+	<li id="menu-rename">Rename</li>
+	<li id="menu-properties">Properties</li>
+	<li id="menu-refreshone">RefreshThumbnail</li>
+	<li id="menu-remove">Remove</li>
+	<li id="menu-prefs">Preferences</li>
 </ul>
 
 <div id="factory">
-    <div id="widget" class="widget">
-        <div class="header">
-            <div class="icon"></div>
-            <div class="title"></div>
-            <div class="button remove"></div>
-            <div class="button refresh"></div>
-            <div class="button properties"></div>
-        </div>
-        <div class="body"></div>
-    </div>
+	<div id="widget" class="widget">
+		<div class="header">
+			<div class="icon"></div>
+			<div class="title"></div>
+			<div class="button remove"></div>
+			<div class="button refresh"></div>
+			<div class="button properties"></div>
+		</div>
+		<div class="body"></div>
+	</div>
 
-    <a id="thumbnail" class="thumbnail">
+	<a id="thumbnail" class="thumbnail">
 		<div class="hlink"></div>
-        <div class="throbber"></div>
+		<div class="throbber"></div>
 		<div class="hlinkb"></div>
-        <img>
-    </a>
+		<img>
+	</a>
 
-    <input id="search" class="search" type="text"/>
+	<input id="search" class="search" type="text"/>
 </div>
 
 <div id="quickstart" style="display: none;"></div>
@@ -68,36 +68,36 @@
 <script src="widgets/thumbnail.js"></script>
 <script src="widgets/search.js"></script>
 <script>
-    (function () {
+	(function () {
 console.time("SStart");
-        var Utils = justoff.sstart.Utils
-        var File = justoff.sstart.File
-        var Prefs = justoff.sstart.Prefs
-        var Storage = justoff.sstart.Storage
-        var Factory = justoff.sstart.Factory
-        var Dom = justoff.sstart.Dom
-        var ContextMenu = justoff.sstart.ContextMenu
-        var SStart = justoff.sstart.SStart
+		var Utils = justoff.sstart.Utils
+		var File = justoff.sstart.File
+		var Prefs = justoff.sstart.Prefs
+		var Storage = justoff.sstart.Storage
+		var Factory = justoff.sstart.Factory
+		var Dom = justoff.sstart.Dom
+		var ContextMenu = justoff.sstart.ContextMenu
+		var SStart = justoff.sstart.SStart
 
-        var params = Utils.getQueryParams(document.location);
-        var storage = new Storage(params.folder);
+		var params = Utils.getQueryParams(document.location);
+		var storage = new Storage(params.folder);
 
-        document.title = storage.getTitle();
-        if (document.title == "" || document.title == "SStart") {
-            document.title = SStart.translate("SStart");
-        }
+		document.title = storage.getTitle();
+		if (document.title == "" || document.title == "SStart") {
+			document.title = SStart.translate("SStart");
+		}
 
-        var factory = new Factory(storage);
-        var hasWidgets = factory.createWidgets();
+		var factory = new Factory(storage);
+		var hasWidgets = factory.createWidgets();
 
-        var quickstart = Dom.get("quickstart");
-        if (!hasWidgets) {
-            quickstart.innerHTML = SStart.translate("quickstart");
-            quickstart.style.display = "block";
-        }
+		var quickstart = Dom.get("quickstart");
+		if (!hasWidgets) {
+			quickstart.innerHTML = SStart.translate("quickstart");
+			quickstart.style.display = "block";
+		}
 
-        var properties = storage.getProperties();
-        if (properties) {
+		var properties = storage.getProperties();
+		if (properties) {
 			if (properties.background) {
 				document.body.style.backgroundColor = properties.background;
 			}
@@ -110,28 +110,28 @@ console.time("SStart");
 			}
 		}
 
-        if (SStart.isBackgroundImageSpecified()) {
-            document.body.style.backgroundImage = "url(" + File.getDataFileURL("background") + ")";
-            Dom.addClass(document.body, 'background-style-' + Prefs.getInt('backgroundStyle'));
-        }
+		if (SStart.isBackgroundImageSpecified()) {
+			document.body.style.backgroundImage = "url(" + File.getDataFileURL("background") + ")";
+			Dom.addClass(document.body, 'background-style-' + Prefs.getInt('backgroundStyle'));
+		}
 
-        if (!SStart.areDecorationsVisible()) {
-            Dom.addClass(document.body, 'no-decorations');
-        }
+		if (!SStart.areDecorationsVisible()) {
+			Dom.addClass(document.body, 'no-decorations');
+		}
 
 		if (Prefs.getBool("bottomHeader")) {
 				Dom.addClass(document.body, 'b-head');
 		}
 
-        function updateLockStatus() {
-            var s = SStart.isLocked();
-            Dom.removeClass(document.body, s ? 'unlock-edits' : 'lock-edits');
-            Dom.addClass(document.body, s ? 'lock-edits' : 'unlock-edits');
-        }
+		function updateLockStatus() {
+			var s = SStart.isLocked();
+			Dom.removeClass(document.body, s ? 'unlock-edits' : 'lock-edits');
+			Dom.addClass(document.body, s ? 'lock-edits' : 'unlock-edits');
+		}
 		
-        ContextMenu.enable(document, Dom.get("menu"));
+		ContextMenu.enable(document, Dom.get("menu"));
 
-        Dom.get("menu-add").addEventListener("click", function (e) {
+		Dom.get("menu-add").addEventListener("click", function (e) {
 			if (SStart.isLocked()) {
 				SStart.setLocked(false);
 				updateLockStatus();
@@ -141,26 +141,26 @@ console.time("SStart");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();
 			}
-            quickstart.style.display = "none";
-            factory.createWidget(e.target.type, ContextMenu.click.x, ContextMenu.click.y);
-        }, false);
-        Dom.get("menu-prefs").addEventListener("click", function (e) {
-            SStart.openPreferences();
-        }, false);
-        Dom.get("menu-lock").addEventListener("click", function (e) {
-            SStart.setLocked(true);
-            updateLockStatus();
-        }, false);
-        Dom.get("menu-unlock").addEventListener("click", function (e) {
-            SStart.setLocked(false);
+			quickstart.style.display = "none";
+			factory.createWidget(e.target.type, ContextMenu.click.x, ContextMenu.click.y);
+		}, false);
+		Dom.get("menu-prefs").addEventListener("click", function (e) {
+			SStart.openPreferences();
+		}, false);
+		Dom.get("menu-lock").addEventListener("click", function (e) {
+			SStart.setLocked(true);
+			updateLockStatus();
+		}, false);
+		Dom.get("menu-unlock").addEventListener("click", function (e) {
+			SStart.setLocked(false);
 			if (SStart.isCacheDOM() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();
 			}
 			updateLockStatus();
-        }, false);
-        Dom.get("menu-refresh").addEventListener("click", function (e) {
+		}, false);
+		Dom.get("menu-refresh").addEventListener("click", function (e) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
@@ -168,9 +168,9 @@ console.time("SStart");
 				factory.createWidgets();
 				SStart.setLocked(true);
 			}
-            SStart.refreshAll()
-        }, false);
-        Dom.get("menu-refreshone").addEventListener("click", function (e) {
+			SStart.refreshAll()
+		}, false);
+		Dom.get("menu-refreshone").addEventListener("click", function (e) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
@@ -184,8 +184,8 @@ console.time("SStart");
 			if (r) {
 				r.click()
 			}
-        }, false);
-        Dom.get("menu-properties").addEventListener("click", function (e) {
+		}, false);
+		Dom.get("menu-properties").addEventListener("click", function (e) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
@@ -206,8 +206,8 @@ console.time("SStart");
 			if (r) {
 				r.click()
 			}
-        }, false);
-        Dom.get("menu-remove").addEventListener("click", function (e) {
+		}, false);
+		Dom.get("menu-remove").addEventListener("click", function (e) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
@@ -228,8 +228,8 @@ console.time("SStart");
 			if (r) {
 				r.click()
 			}
-        }, false);
-        Dom.get("menu-rename").addEventListener("click", function (e) {
+		}, false);
+		Dom.get("menu-rename").addEventListener("click", function (e) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
@@ -248,8 +248,8 @@ console.time("SStart");
 					});
 				r.dispatchEvent(event);
 			}
-        }, false);
-        Dom.get("menu-props").addEventListener("click", function (e) {
+		}, false);
+		Dom.get("menu-props").addEventListener("click", function (e) {
 			console.log(properties);
 			var param = { properties: properties };
 			var xul = 'properties.xul';
@@ -268,35 +268,35 @@ console.time("SStart");
 					document.styleSheets[1].cssRules[11].style.color = properties.titleColor;
 				}
 			}
-        }, false);
+		}, false);
 
-        document.body.addEventListener("dblclick", function (e) {
+		document.body.addEventListener("dblclick", function (e) {
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 			if (e.clientX == 0 || hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart")
 				return;
-            SStart.toggleLocked();
+			SStart.toggleLocked();
 			if (SStart.isCacheDOM() && !SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();
 			}
 			updateLockStatus();
-        }, false);
+		}, false);
 
 /*
-        document.body.addEventListener("click", function (e) {
+		document.body.addEventListener("click", function (e) {
 			if (document.elementFromPoint(e.clientX, e.clientY).nodeName.toLowerCase() == "body") {
 				e.preventDefault();
 			}
-        }, false);
+		}, false);
 */
-        updateLockStatus();
+		updateLockStatus();
 
-        // Disable cache for page
-        window.onbeforeunload = function () {
-        }
+		// Disable cache for page
+		window.onbeforeunload = function () {
+		}
 console.timeEnd("SStart");
-    })();
+	})();
 </script>
 
 </body>

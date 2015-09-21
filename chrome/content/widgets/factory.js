@@ -1,8 +1,8 @@
 justoff.sstart.Factory = function (storage) {
 
-    var Thumbnail = justoff.sstart.Thumbnail
-    var Search = justoff.sstart.Search
-    var Drag = justoff.sstart.Drag
+	var Thumbnail = justoff.sstart.Thumbnail
+	var Search = justoff.sstart.Search
+	var Drag = justoff.sstart.Drag
 	var SStart = justoff.sstart.SStart
 	var Dom = justoff.sstart.Dom
 	var Prefs = justoff.sstart.Prefs
@@ -11,20 +11,20 @@ justoff.sstart.Factory = function (storage) {
 	
 	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
 
-    function getURL(type) {
-        switch (type) {
-            case "search":
-                return SEARCH_URL;
-        }
-    }
+	function getURL(type) {
+		switch (type) {
+			case "search":
+				return SEARCH_URL;
+		}
+	}
 
-    this.createWidget = function (type, x, y) {
-        var properties = {
-            left:x,
-            top:y,
-            isFolder:type == "folder",
-            url:getURL(type)
-        }
+	this.createWidget = function (type, x, y) {
+		var properties = {
+			left:x,
+			top:y,
+			isFolder:type == "folder",
+			url:getURL(type)
+		}
 
 		if (type != "search") {
 			properties.width = Prefs.getInt("thumbnail.width");
@@ -40,31 +40,31 @@ justoff.sstart.Factory = function (storage) {
 			}
 		}
 
-        storage.saveObject(properties);
+		storage.saveObject(properties);
 		var fragment = document.createDocumentFragment();
-        createWidget(properties, fragment);
+		createWidget(properties, fragment);
 		document.getElementById("widgets").appendChild(fragment);
-    }
+	}
 
-    function createWidget(properties, fragment) {
-        var widget;
-        switch (properties.url) {
-            case SEARCH_URL:
-                widget = new Search();
-                break;
-            default:
-                widget = new Thumbnail();
-                break;
-        }
-        widget.setProperties(properties);
-        widget.setStorage(storage);
-        fragment.appendChild(widget.renderView());
-    }
+	function createWidget(properties, fragment) {
+		var widget;
+		switch (properties.url) {
+			case SEARCH_URL:
+				widget = new Search();
+				break;
+			default:
+				widget = new Thumbnail();
+				break;
+		}
+		widget.setProperties(properties);
+		widget.setStorage(storage);
+		fragment.appendChild(widget.renderView());
+	}
 
-    this.createWidgets = function () {
+	this.createWidgets = function () {
 console.time("createWidgets");
-        var objects = storage.getObjects();
-        var hasWidgets = false;
+		var objects = storage.getObjects();
+		var hasWidgets = false;
 		if (!SStart.isLocked() || document.location != "chrome://sstart/content/sstart.html" || !justoff.sstart.cache.fragment) {
 			var fragment = document.createElement('span');
 			fragment.setAttribute("id", "widgets");
@@ -91,10 +91,10 @@ console.time("createWidgets");
 			hasWidgets = true;
 			SStart.setCacheDOM(true);
 		}
-        document.body.appendChild(fragment);
+		document.body.appendChild(fragment);
 console.timeEnd("createWidgets");
-        return hasWidgets;
-    }
+		return hasWidgets;
+	}
 
 };
 

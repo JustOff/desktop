@@ -2,70 +2,70 @@
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://sstart/locale/properties.dtd">
 <dialog id="search-properties"
-        title="&sstart.Properties;"
-        onload="justoff.sstart.SearchPropertiesXul.initialize();"
-        ondialogaccept="justoff.sstart.SearchPropertiesXul.onAccept();"
-        ondialogcancel="justoff.sstart.SearchPropertiesXul.onCancel();"
-        persist="width height"
-        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+		title="&sstart.Properties;"
+		onload="justoff.sstart.SearchPropertiesXul.initialize();"
+		ondialogaccept="justoff.sstart.SearchPropertiesXul.onAccept();"
+		ondialogcancel="justoff.sstart.SearchPropertiesXul.onCancel();"
+		persist="width height"
+		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <listbox id="engines" ondblclick="justoff.sstart.Dom.get('search-properties').acceptDialog();"/>
-    <checkbox id="focus" label="&sstartsearch.GiveFocus;" checked="false"/>
+	<listbox id="engines" ondblclick="justoff.sstart.Dom.get('search-properties').acceptDialog();"/>
+	<checkbox id="focus" label="&sstartsearch.GiveFocus;" checked="false"/>
 
-    <script src="../../namespace.js"/>
-    <script src="../../utils.js"/>
-    <script src="../../dom.js"/>
-    <script src="../../prefs.js"/>
-    <script>
-    <![CDATA[
-        justoff.sstart.SearchPropertiesXul = new function () {
+	<script src="../../namespace.js"/>
+	<script src="../../utils.js"/>
+	<script src="../../dom.js"/>
+	<script src="../../prefs.js"/>
+	<script>
+	<![CDATA[
+		justoff.sstart.SearchPropertiesXul = new function () {
 
-            var Dom = justoff.sstart.Dom
-            var Prefs = justoff.sstart.Prefs
+			var Dom = justoff.sstart.Dom
+			var Prefs = justoff.sstart.Prefs
 
-            var getEngines = function () {
-                var searchService = Components.classes["@mozilla.org/browser/search-service;1"]
-                        .getService(Components.interfaces.nsIBrowserSearchService);
-                return searchService.getEngines({});
-            }
+			var getEngines = function () {
+				var searchService = Components.classes["@mozilla.org/browser/search-service;1"]
+						.getService(Components.interfaces.nsIBrowserSearchService);
+				return searchService.getEngines({});
+			}
 
-            this.initialize = function () {
-                var properties = window.arguments[0].properties;
+			this.initialize = function () {
+				var properties = window.arguments[0].properties;
 
-                var listbox = Dom.get("engines");
-                var engines = getEngines();
+				var listbox = Dom.get("engines");
+				var engines = getEngines();
 
-                for (var i in engines) {
-                    var listitem = document.createElement("listitem");
-                    listitem.setAttribute("class", "listitem-iconic");
-                    listitem.setAttribute("label", engines[i].name);
-                    listitem.setAttribute("image", engines[i].iconURI.spec);
-                    listbox.appendChild(listitem);
-                    if (engines[i].name == properties.title) {
-                        listbox.selectedItem = listitem;
-                        if (engines[i].name == Prefs.getString("focus")) {
-                            Dom.get("focus").checked = true;
-                        }
-                    }
-                }
-            }
+				for (var i in engines) {
+					var listitem = document.createElement("listitem");
+					listitem.setAttribute("class", "listitem-iconic");
+					listitem.setAttribute("label", engines[i].name);
+					listitem.setAttribute("image", engines[i].iconURI.spec);
+					listbox.appendChild(listitem);
+					if (engines[i].name == properties.title) {
+						listbox.selectedItem = listitem;
+						if (engines[i].name == Prefs.getString("focus")) {
+							Dom.get("focus").checked = true;
+						}
+					}
+				}
+			}
 
-            this.onAccept = function () {
-                var properties = window.arguments[0].properties;
-                properties.title = Dom.get("engines").selectedItem.label;
-                if (Dom.get("focus").checked == true) {
-                    Prefs.setString("focus", properties.title);
-                }
-                else if (properties.title == Prefs.getString("focus")) {
-                    Prefs.setString("focus", "");
-                }
-            }
+			this.onAccept = function () {
+				var properties = window.arguments[0].properties;
+				properties.title = Dom.get("engines").selectedItem.label;
+				if (Dom.get("focus").checked == true) {
+					Prefs.setString("focus", properties.title);
+				}
+				else if (properties.title == Prefs.getString("focus")) {
+					Prefs.setString("focus", "");
+				}
+			}
 
-            this.onCancel = function () {
-                window.arguments[0].properties = null;
-            }
+			this.onCancel = function () {
+				window.arguments[0].properties = null;
+			}
 
-        }
-        ]]>
+		}
+		]]>
   </script>
 </dialog>

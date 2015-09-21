@@ -3,127 +3,127 @@
 <!DOCTYPE window SYSTEM "chrome://sstart/locale/preferences.dtd">
 
 <prefwindow id="sstart-preferences-window"
-            persist="width height"
-            title="&sstartpref.Preferences;"
-            dlgbuttons="accept,cancel"
-            onload="justoff.sstart.PreferencesXul.initialize();"
-            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-    <prefpane id="general-pane" label="Main">
-        <preferences>
-            <preference id="extensions.sstart.overrideNewTab" name="extensions.sstart.overrideNewTab" type="bool"/>
-            <preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage" type="bool"/>
-            <preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag" type="bool"/>
-            <preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
-            <preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
-            <preference id="extensions.sstart.backgroundStyle" name="extensions.sstart.backgroundStyle" type="int"/>
-        </preferences>
-        <groupbox flex="1">
-            <caption label="&sstartpref.General;"/>
-            <hbox>
-                <checkbox id="openInNewTabs" label="&sstartpref.OpenInNewTabs;"
-                          preference="extensions.sstart.overrideNewTab"/>
-            </hbox>
-            <hbox>
-                <checkbox id="useAsHomePage" label="&sstartpref.UseAsHomePage;"
-                          preference="extensions.sstart.overrideHomePage"/>
-            </hbox>
-            <hbox>
-                <checkbox id="openNewtabOnLockDrag" label="&sstartpref.newtabOnLockDrag;"
-                          preference="extensions.sstart.newtabOnLockDrag"/>
-            </hbox>
-            <hbox>
-                <checkbox id="bottomHeader" label="&sstartpref.bottomHeader;"
-                          preference="extensions.sstart.bottomHeader"/>
-            </hbox>
-        </groupbox>
-        <groupbox flex="1">
-            <caption label="&sstartpref.Background;"/>
-            <grid>
-                <columns>
-                    <column flex="1"/>
-                    <column/>
-                </columns>
-                <rows>
-                    <row align="center">
-                        <label control="browse" flex="1">&sstartpref.BackgroundImage;:</label>
-                        <hbox>
-                            <button class="browse" label="&sstart.Browse;"
-                                    oncommand="justoff.sstart.PreferencesXul.browseBackgroundImage();"/>
-                            <button class="browse" label="&sstart.Clear;"
-                                    oncommand="justoff.sstart.PreferencesXul.clearBackgroundImage(true);"/>
-                        </hbox>
-                    </row>
-                    <row align="center">
-                        <label control="backgroundStyle" flex="1">&sstartpref.BackgroundStyle;:</label>
-                        <hbox>
-                            <menulist id="backgroundStyle" preference="extensions.sstart.backgroundStyle">
-                                <menupopup>
-                                    <menuitem label="&sstartpref.BackgroundTile;" value="1"/>
-                                    <menuitem label="&sstartpref.BackgroundStretch;" value="2"/>
-                                </menupopup>
-                            </menulist>
-                        </hbox>
-                    </row>
-                </rows>
-            </grid>
-        </groupbox>
-        <groupbox flex="1">
-            <caption label="&sstartpref.Positioning;"/>
-            <hbox align="center">
-                <label control="browse">&sstartpref.GridSize;:</label>
-                <menulist id="gridInterval" preference="extensions.sstart.gridInterval">
-                    <menupopup>
-                        <menuitem label="16" value="16"/>
-                        <menuitem label="32" value="32"/>
-                        <menuitem label="64" value="64"/>
-                    </menupopup>
-                </menulist>
-            </hbox>
-        </groupbox>
-    </prefpane>
+			persist="width height"
+			title="&sstartpref.Preferences;"
+			dlgbuttons="accept,cancel"
+			onload="justoff.sstart.PreferencesXul.initialize();"
+			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<prefpane id="general-pane" label="Main">
+		<preferences>
+			<preference id="extensions.sstart.overrideNewTab" name="extensions.sstart.overrideNewTab" type="bool"/>
+			<preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage" type="bool"/>
+			<preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag" type="bool"/>
+			<preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
+			<preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
+			<preference id="extensions.sstart.backgroundStyle" name="extensions.sstart.backgroundStyle" type="int"/>
+		</preferences>
+		<groupbox flex="1">
+			<caption label="&sstartpref.General;"/>
+			<hbox>
+				<checkbox id="openInNewTabs" label="&sstartpref.OpenInNewTabs;"
+						  preference="extensions.sstart.overrideNewTab"/>
+			</hbox>
+			<hbox>
+				<checkbox id="useAsHomePage" label="&sstartpref.UseAsHomePage;"
+						  preference="extensions.sstart.overrideHomePage"/>
+			</hbox>
+			<hbox>
+				<checkbox id="openNewtabOnLockDrag" label="&sstartpref.newtabOnLockDrag;"
+						  preference="extensions.sstart.newtabOnLockDrag"/>
+			</hbox>
+			<hbox>
+				<checkbox id="bottomHeader" label="&sstartpref.bottomHeader;"
+						  preference="extensions.sstart.bottomHeader"/>
+			</hbox>
+		</groupbox>
+		<groupbox flex="1">
+			<caption label="&sstartpref.Background;"/>
+			<grid>
+				<columns>
+					<column flex="1"/>
+					<column/>
+				</columns>
+				<rows>
+					<row align="center">
+						<label control="browse" flex="1">&sstartpref.BackgroundImage;:</label>
+						<hbox>
+							<button class="browse" label="&sstart.Browse;"
+									oncommand="justoff.sstart.PreferencesXul.browseBackgroundImage();"/>
+							<button class="browse" label="&sstart.Clear;"
+									oncommand="justoff.sstart.PreferencesXul.clearBackgroundImage(true);"/>
+						</hbox>
+					</row>
+					<row align="center">
+						<label control="backgroundStyle" flex="1">&sstartpref.BackgroundStyle;:</label>
+						<hbox>
+							<menulist id="backgroundStyle" preference="extensions.sstart.backgroundStyle">
+								<menupopup>
+									<menuitem label="&sstartpref.BackgroundTile;" value="1"/>
+									<menuitem label="&sstartpref.BackgroundStretch;" value="2"/>
+								</menupopup>
+							</menulist>
+						</hbox>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
+		<groupbox flex="1">
+			<caption label="&sstartpref.Positioning;"/>
+			<hbox align="center">
+				<label control="browse">&sstartpref.GridSize;:</label>
+				<menulist id="gridInterval" preference="extensions.sstart.gridInterval">
+					<menupopup>
+						<menuitem label="16" value="16"/>
+						<menuitem label="32" value="32"/>
+						<menuitem label="64" value="64"/>
+					</menupopup>
+				</menulist>
+			</hbox>
+		</groupbox>
+	</prefpane>
 
-    <script src="namespace.js"/>
-    <script src="utils.js"/>
-    <script src="file.js"/>
-    <script src="prefs.js"/>
-    <script src="sstart.js"/>
-    <script src="dom.js"/>
-    <script>
-    <![CDATA[
-        justoff.sstart.PreferencesXul = new function () {
+	<script src="namespace.js"/>
+	<script src="utils.js"/>
+	<script src="file.js"/>
+	<script src="prefs.js"/>
+	<script src="sstart.js"/>
+	<script src="dom.js"/>
+	<script>
+	<![CDATA[
+		justoff.sstart.PreferencesXul = new function () {
 
-            var File = justoff.sstart.File
-            var SStart = justoff.sstart.SStart
-            var Dom = justoff.sstart.Dom
+			var File = justoff.sstart.File
+			var SStart = justoff.sstart.SStart
+			var Dom = justoff.sstart.Dom
 
-            var redrawSStart = function () {
-                SStart.forEachSStartBrowser(SStart.reloadPage);
-            }
+			var redrawSStart = function () {
+				SStart.forEachSStartBrowser(SStart.reloadPage);
+			}
 
-            this.initialize = function () {
-            }
+			this.initialize = function () {
+			}
 
-            this.browseBackgroundImage = function () {
-                var file = File.chooseFile("open", ["images"]);
-                if (file) {
-                    this.clearBackgroundImage(false);
-                    file.copyTo(File.getDataDirectory(), "background");
-                    redrawSStart();
-                }
-            }
+			this.browseBackgroundImage = function () {
+				var file = File.chooseFile("open", ["images"]);
+				if (file) {
+					this.clearBackgroundImage(false);
+					file.copyTo(File.getDataDirectory(), "background");
+					redrawSStart();
+				}
+			}
 
-            this.clearBackgroundImage = function (redraw) {
-                var dir = File.getDataDirectory();
-                dir.append("background");
-                try {
-                    dir.remove(false);
-                } catch (e) {
-                }
-                if (redraw) redrawSStart();
-            }
+			this.clearBackgroundImage = function (redraw) {
+				var dir = File.getDataDirectory();
+				dir.append("background");
+				try {
+					dir.remove(false);
+				} catch (e) {
+				}
+				if (redraw) redrawSStart();
+			}
 
-        }
-        ]]>
-    </script>
+		}
+		]]>
+	</script>
 
 </prefwindow>

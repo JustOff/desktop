@@ -2,84 +2,84 @@
 <?xml-stylesheet href="properties.css" type="text/css"?>
 <!DOCTYPE dialog SYSTEM "chrome://sstart/locale/properties.dtd">
 <dialog id="folder-properties"
-        title="&sstart.Properties;"
-        onload="justoff.sstart.ThumbnailFolderXul.initialize();"
-        ondialogaccept="justoff.sstart.ThumbnailFolderXul.onAccept();"
-        ondialogcancel="justoff.sstart.ThumbnailFolderXul.onCancel();"
-        persist="width height"
-        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+		title="&sstart.Properties;"
+		onload="justoff.sstart.ThumbnailFolderXul.initialize();"
+		ondialogaccept="justoff.sstart.ThumbnailFolderXul.onAccept();"
+		ondialogcancel="justoff.sstart.ThumbnailFolderXul.onCancel();"
+		persist="width height"
+		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-    <grid>
-        <columns>
-            <column/>
-            <column flex="1"/>
-        </columns>
-        <rows>
-            <row align="center">
-                <label value="&sstartthumb.Name;:"/>
-                <textbox id="name"/>
-            </row>
-            <row align="center">
-                <label value="&sstartfolder.BackgroundColor;:"/>
-                <textbox id="bgColor"/>
-            </row>
-            <row align="center">
-                <label value="&sstartthumb.CustomImage;:"/>
-                <textbox id="customImage" type="autocomplete" enablehistory="true"
-                         autocompletesearch="history"/>
-                <button id="browseCustomImage" label="&#x2026;"
-                        oncommand="justoff.sstart.ThumbnailFolderXul.browseCustomImage();"/>
-            </row>
-            <row align="center">
-                <label value="&sstartthumb.Width;:"/>
-                <textbox id="width"/>
-            </row>
-            <row align="center">
-                <label value="&sstartthumb.Height;:"/>
-                <textbox id="height"/>
-            </row>
-        </rows>
-    </grid>
+	<grid>
+		<columns>
+			<column/>
+			<column flex="1"/>
+		</columns>
+		<rows>
+			<row align="center">
+				<label value="&sstartthumb.Name;:"/>
+				<textbox id="name"/>
+			</row>
+			<row align="center">
+				<label value="&sstartfolder.BackgroundColor;:"/>
+				<textbox id="bgColor"/>
+			</row>
+			<row align="center">
+				<label value="&sstartthumb.CustomImage;:"/>
+				<textbox id="customImage" type="autocomplete" enablehistory="true"
+						 autocompletesearch="history"/>
+				<button id="browseCustomImage" label="&#x2026;"
+						oncommand="justoff.sstart.ThumbnailFolderXul.browseCustomImage();"/>
+			</row>
+			<row align="center">
+				<label value="&sstartthumb.Width;:"/>
+				<textbox id="width"/>
+			</row>
+			<row align="center">
+				<label value="&sstartthumb.Height;:"/>
+				<textbox id="height"/>
+			</row>
+		</rows>
+	</grid>
 
-    <script src="../../namespace.js"/>
-    <script src="../../utils.js"/>
-    <script src="../../file.js"/>
-    <script src="../../dom.js"/>
-    <script>
-    <![CDATA[
-        justoff.sstart.ThumbnailFolderXul = new function () {
+	<script src="../../namespace.js"/>
+	<script src="../../utils.js"/>
+	<script src="../../file.js"/>
+	<script src="../../dom.js"/>
+	<script>
+	<![CDATA[
+		justoff.sstart.ThumbnailFolderXul = new function () {
 
-            var File = justoff.sstart.File
-            var Dom = justoff.sstart.Dom
+			var File = justoff.sstart.File
+			var Dom = justoff.sstart.Dom
 
-            this.initialize = function () {
-                var properties = window.arguments[0].properties;
-                Dom.get("customImage").value = properties.customImage || "";
-                Dom.get("bgColor").value = properties.background || "#FFFFFF";
+			this.initialize = function () {
+				var properties = window.arguments[0].properties;
+				Dom.get("customImage").value = properties.customImage || "";
+				Dom.get("bgColor").value = properties.background || "#FFFFFF";
 				Dom.get("width").value = properties.width || "";
 				Dom.get("height").value = properties.height || "";
 				Dom.get("name").value = properties.title || "";
-            }
+			}
 
-            this.onAccept = function () {
-                var properties = window.arguments[0].properties;
-                properties.customImage = Dom.get("customImage").value;
+			this.onAccept = function () {
+				var properties = window.arguments[0].properties;
+				properties.customImage = Dom.get("customImage").value;
 				properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
-                properties.width = Dom.get("width").value;
+				properties.width = Dom.get("width").value;
 				properties.height = Dom.get("height").value;
 				properties.title = Dom.get("name").value;
-            }
+			}
 
-            this.onCancel = function () {
-                window.arguments[0].properties = null;
-            }
+			this.onCancel = function () {
+				window.arguments[0].properties = null;
+			}
 
-            this.browseCustomImage = function () {
-                var file = File.chooseFile("open", ["images"]);
-                if (file) Dom.get("customImage").value = File.getFileURL(file);
-            }
+			this.browseCustomImage = function () {
+				var file = File.chooseFile("open", ["images"]);
+				if (file) Dom.get("customImage").value = File.getFileURL(file);
+			}
 
-        }
-        ]]>
+		}
+		]]>
   </script>
 </dialog>
