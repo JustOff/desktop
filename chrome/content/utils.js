@@ -1,12 +1,6 @@
-justoff.sstart.JSON = {
-	JSON:null
-}
-Components.utils.import("resource://sstart/JSON.js", justoff.sstart.JSON);
-
 justoff.sstart.Utils = new function () {
 
 	var Utils = this
-	var JSON = justoff.sstart.JSON.JSON
 
 	this.getQueryParams = function (url) {
 		var params = new Array();
