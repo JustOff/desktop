@@ -142,7 +142,7 @@ console.time("SStart");
 				factory.createWidgets();
 			}
 			quickstart.style.display = "none";
-			factory.createWidget(e.target.type, ContextMenu.click.x, ContextMenu.click.y);
+			factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y));
 		}, false);
 		Dom.get("menu-prefs").addEventListener("click", function (e) {
 			SStart.openPreferences();

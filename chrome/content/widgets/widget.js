@@ -132,11 +132,27 @@ justoff.sstart.Widget = function () {
 					}
 				}
 			}
+/*
 			self.properties.left = self.view.offsetLeft;
 			self.properties.top = self.view.offsetTop;
 			var resized = (self.properties.width != self.view.clientWidth || self.properties.height != self.view.clientHeight);
 			self.properties.width = self.view.clientWidth;
 			self.properties.height = self.view.clientHeight;
+*/
+			if (self.properties.top != self.view.offsetTop)
+				self.view.style.top = SStart.alignToGrid(self.view.offsetTop);
+			if (self.properties.left != self.view.offsetLeft)
+				self.view.style.left = SStart.alignToGrid(self.view.offsetLeft);
+			self.properties.top = parseInt(self.view.style.top, 10);
+			self.properties.left = parseInt(self.view.style.left, 10);
+			if (self.properties.width != self.view.clientWidth)
+				self.view.style.width = SStart.alignToGrid(self.view.clientWidth);
+			if (self.properties.height != self.view.clientHeight)
+				self.view.style.height = SStart.alignToGrid(self.view.clientHeight);
+			var resized = (self.properties.width != parseInt(self.view.style.width, 10) 
+				|| self.properties.height != parseInt(self.view.style.height, 10));
+			self.properties.width = parseInt(self.view.style.width, 10);
+			self.properties.height = parseInt(self.view.style.height, 10);
 			self.save.call(self);
 //			console.log("[2] renderView->updateView");
 			self.updateView.call(self);

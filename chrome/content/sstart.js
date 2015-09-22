@@ -5,9 +5,13 @@ justoff.sstart.SStart = new function () {
 	var File = justoff.sstart.File;
 	var Prefs = justoff.sstart.Prefs;
 	var Dom = justoff.sstart.Dom;
+
+	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
 	
 	var isLocked = true;
 	var isCacheDOM;
+	
+	justoff.sstart.cache.gridInterval = Prefs.getInt("gridInterval");
 
 	this.isSStart = function (doc) {
 		return doc && doc.location
@@ -61,17 +65,14 @@ justoff.sstart.SStart = new function () {
 	};
 
 	this.isLocked = function () {
-//		return Prefs.getBool("lock");
 		return isLocked;
 	};
 
 	this.setLocked = function (s) {
-//		Prefs.setBool("lock", s);
 		isLocked = s;
 	};
 
 	this.toggleLocked = function () {
-//		Prefs.setBool("lock", !Prefs.getBool("lock"));
 		isLocked = !isLocked;
 	};
 
@@ -88,6 +89,22 @@ justoff.sstart.SStart = new function () {
 			}
 		}
 	};
+
+	this.updateGridInterval = function (s) {
+		justoff.sstart.cache.gridInterval = Prefs.getInt("gridInterval");
+	};
+	
+	this.getGridInterval = function () {
+		return justoff.sstart.cache.gridInterval;
+	};
+	
+	this.alignToGrid = function (pos) {
+		var min = Math.floor(pos / justoff.sstart.cache.gridInterval) * justoff.sstart.cache.gridInterval;
+		if (pos - min > justoff.sstart.cache.gridInterval / 2)
+			return min + justoff.sstart.cache.gridInterval;
+		else
+			return min;
+	}
 
 };
 

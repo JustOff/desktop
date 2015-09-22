@@ -31,7 +31,6 @@ justoff.sstart.Search = function () {
 
 		var self = this;
 		this.view.addEventListener("resize", function () {
-			self.view.style.left = self.properties.left;
 			self.view.style.top = self.properties.top;
 			self.view.style.height = self.properties.height;
 		}, false);

@@ -5,7 +5,7 @@ justoff.sstart.Drag = new function () {
 	var SStart = justoff.sstart.SStart
 	var Dom = justoff.sstart.Dom
 
-	this.MIN_DRAG = 10;
+	this.MIN_DRAG = 5;
 	this.BORDER_WIDTH = 5;
 	this.click = { x:0, y:0, border:null };
 	this.original = { left:0, top:0, width:0, height:0 };
@@ -33,6 +33,13 @@ justoff.sstart.Drag = new function () {
 	};
 
 	this.onMouseOut = function (e) {
+		if (!SStart.isLocked()) {
+			Drag.hover.style.cursor = "";
+			var els = Drag.hover.getElementsByTagName('*');
+			for (var i = -1, l = els.length; ++i < l;) {
+				els[i].style.cursor = "";
+			}
+		}
 		Drag.hover = null;
 	};
 
@@ -62,7 +69,6 @@ justoff.sstart.Drag = new function () {
 			Drag.removeGlass();
 			Drag.inProgress = false;
 			var anchor = Dom.child(theObject, "a");
-			// console.log(anchor.href);
 			var mw = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
 			var tb = mw.getBrowser();
 			var tab = tb.loadOneTab(anchor.href, {inBackground: true, relatedToCurrent: true});
@@ -75,14 +81,14 @@ justoff.sstart.Drag = new function () {
 			Drag.removeGlass();
 			Drag.inProgress = false;
 
-			var event = new CustomEvent("drop", {'detail': {'clientX': e.clientX, 'clientY': e.clientY}});
+			var event = new CustomEvent("drop", {'detail':{'clientX':e.clientX, 'clientY':e.clientY}});
 			theObject.dispatchEvent(event);
 		}
 	};
 
 	// Glass prevents onclick event after drop occurs
 
-	this.createGlass = function (element) {
+	this.createGlass = function (cursor) {
 		var glass = document.createElement("div");
 		glass.id = "glass";
 		glass.style.position = "fixed";
@@ -91,6 +97,7 @@ justoff.sstart.Drag = new function () {
 		glass.style.right = 0;
 		glass.style.bottom = 0;
 		glass.style.zIndex = 1000;
+		glass.style.cursor = cursor;
 		document.body.appendChild(glass);
 	};
 
@@ -100,7 +107,7 @@ justoff.sstart.Drag = new function () {
 	};
 
 	this.createGrid = function (element) {
-		Drag.gridInterval = Prefs.getInt("gridInterval");
+		Drag.gridInterval = SStart.getGridInterval();
 		Drag.snapInterval = Drag.gridInterval * 0.2;
 		var grid = document.createElement("div");
 		grid.id = "grid";
@@ -135,46 +142,49 @@ justoff.sstart.Drag = new function () {
 			if (!Drag.inProgress && Drag.object && Math.abs(Drag.click.x - e.pageX) +
 					Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG) {
 				Drag.inProgress = true;
-				Drag.createGlass();
+				Drag.createGlass("");
 			}
 			return;
 		}
 
 		if (!Drag.inProgress && Drag.object &&
-			Math.abs(Drag.click.x - e.pageX) +
-				Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG) {
+			(Drag.click.border != "" || Math.abs(Drag.click.x - e.pageX) + Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG)) {
 			Drag.inProgress = true;
-			Drag.createGlass();
 			Drag.createGrid();
+			if (Drag.click.border != "") {
+				var cursor = Drag.click.border + "-resize";
+			} else {
+				var cursor = "all-scroll";
+			}
+			Drag.createGlass(cursor);
 		}
 		if (Drag.inProgress) {
 			var deltaX = e.pageX - Drag.click.x;
 			var deltaY = e.pageY - Drag.click.y;
 
 			if (Drag.click.border.match(/e/)) {
-				var newWidth = Drag.snapToGrid(e, Drag.original.left + Drag.original.width + deltaX) - Drag.original.left;
+				var newWidth = Drag.original.left + Drag.original.width + deltaX - Drag.original.left;
 				Drag.object.style.width = Math.max(newWidth - Drag.original.borderWidth, 0);
 			}
 			if (Drag.click.border.match(/s/)) {
-				var newHeight = Drag.snapToGrid(e, Drag.original.top + Drag.original.height + deltaY) - Drag.original.top;
+				var newHeight = Drag.original.top + Drag.original.height + deltaY - Drag.original.top;
 				Drag.object.style.height = Math.max(newHeight - Drag.original.borderHeight, 0);
 			}
 			if (Drag.click.border.match(/w/)) {
 				var right = Drag.original.left + Drag.original.width;
-				Drag.object.style.left = Math.min(Drag.snapToGrid(e, Drag.original.left + deltaX), right - Drag.original.borderWidth);
+				Drag.object.style.left = Math.min(Drag.original.left + deltaX, right - Drag.original.borderWidth);
 				Drag.object.style.width = right - Drag.object.offsetLeft - Drag.original.borderWidth;
 			}
 			if (Drag.click.border.match(/n/)) {
 				var bottom = Drag.original.top + Drag.original.height;
-				Drag.object.style.top = Math.min(Drag.snapToGrid(e, Drag.original.top + deltaY), bottom - Drag.original.borderHeight);
+				Drag.object.style.top = Math.min(Drag.original.top + deltaY, bottom - Drag.original.borderHeight);
 				Drag.object.style.height = bottom - Drag.object.offsetTop - Drag.original.borderHeight;
 			}
 			if (!Drag.click.border) {
-				Drag.object.style.left = Drag.snap2ToGrid(e, Drag.original.left + deltaX, Drag.original.width);
-				Drag.object.style.top = Drag.snap2ToGrid(e, Drag.original.top + deltaY, Drag.original.height);
+				Drag.object.style.left = Drag.original.left + deltaX;
+				Drag.object.style.top = Drag.original.top + deltaY;
 			}
-			var event = document.createEvent("Event");
-			event.initEvent(Drag.click.border ? "resize" : "drag", false, false);
+			var event = new Event(Drag.click.border ? "resize" : "drag");
 			Drag.object.dispatchEvent(event);
 		}
 		if (Drag.hover) {
@@ -186,23 +196,6 @@ justoff.sstart.Drag = new function () {
 			if (SStart.isLocked()) cursor = "";
 			Drag.prevTarget = cursor == "" ? null : e.target;
 			Drag.hover.style.cursor = e.target.style.cursor = cursor;
-		}
-	};
-
-	this.snapToGrid = function (e, x) {
-		if (e.ctrlKey) return x;
-		var gx = Math.round(x / Drag.gridInterval) * Drag.gridInterval;
-		return (Math.abs(x - gx) < Drag.snapInterval) ? gx : x;
-	};
-
-	this.snap2ToGrid = function (e, x, szx) {
-		if (e.ctrlKey) return x;
-		var gx1 = Math.round(x / Drag.gridInterval) * Drag.gridInterval;
-		var gx2 = Math.round((x + szx) / Drag.gridInterval) * Drag.gridInterval;
-		if (Math.abs(x - gx1) <= Math.abs(x + szx - gx2)) {
-			return (Math.abs(x - gx1) < Drag.snapInterval) ? gx1 : x;
-		} else {
-			return (Math.abs(x + szx - gx2) < Drag.snapInterval) ? gx2 - szx : x;
 		}
 	};
 

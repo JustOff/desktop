@@ -1,5 +1,5 @@
-pref("extensions.sstart.thumbnail.width", 286);
-pref("extensions.sstart.thumbnail.height", 222);
+pref("extensions.sstart.thumbnail.width", 288);
+pref("extensions.sstart.thumbnail.height", 224);
 pref("extensions.sstart.gridInterval", 32);
 pref("extensions.sstart.backgroundStyle", 1);
 pref("extensions.sstart.focus", "");

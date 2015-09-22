@@ -78,6 +78,9 @@ justoff.sstart.Installer = new function () {
 							Services.prefs.clearUserPref("browser.startup.homepage");
 					}
 					break;
+				case "gridInterval":
+					SStart.updateGridInterval();
+					break;
 			}
 		}
 	}
