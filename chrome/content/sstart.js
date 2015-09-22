@@ -90,6 +90,21 @@ justoff.sstart.SStart = new function () {
 		}
 	};
 
+	this.alignAll = function () {
+		var c = document.body.getElementsByClassName("widget");
+		var event = new Event("align");
+		var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+			.getService(Components.interfaces.nsINavBookmarksService);
+		var callback = {
+			runBatched: function() {
+				for (var i = 0; i < c.length; i++) {
+					c[i].dispatchEvent(event);
+				}
+			}
+		}
+		bookmarksService.runInBatchMode(callback, null);
+	};
+
 	this.updateGridInterval = function (s) {
 		justoff.sstart.cache.gridInterval = Prefs.getInt("gridInterval");
 	};

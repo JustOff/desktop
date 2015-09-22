@@ -161,6 +161,12 @@ justoff.sstart.Widget = function () {
 			}
 		}, false);
 
+		this.view.addEventListener("align", function (e) {
+			self.view.style.top = self.properties.top = SStart.alignToGrid(self.properties.top);
+			self.view.style.left = self.properties.left = SStart.alignToGrid(self.properties.left);
+			self.save.call(self);
+		}, false);
+
 		return this.view;
 	}
 

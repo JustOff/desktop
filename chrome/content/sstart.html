@@ -21,6 +21,7 @@
 	<li id="menu-lock">Lock</li>
 	<li id="menu-unlock">Unlock</li>
 	<li id="menu-props">Properties</li>
+	<li id="menu-alignall">AlignThumbnails</li>
 	<li id="menu-refresh">RefreshThumbnails</li>
 	<li id="menu-rename">Rename</li>
 	<li id="menu-properties">Properties</li>
@@ -159,6 +160,18 @@ console.time("SStart");
 				factory.createWidgets();
 			}
 			updateLockStatus();
+		}, false);
+		Dom.get("menu-alignall").addEventListener("click", function (e) {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				SStart.setLocked(false);
+				factory.createWidgets();
+				SStart.setLocked(true);
+			}
+console.time("align");
+			SStart.alignAll();
+console.timeEnd("align");
 		}, false);
 		Dom.get("menu-refresh").addEventListener("click", function (e) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
