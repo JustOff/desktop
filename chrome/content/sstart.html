@@ -137,7 +137,7 @@ console.time("SStart");
 				SStart.setLocked(false);
 				updateLockStatus();
 			}
-			if (SStart.isCacheDOM() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();
@@ -154,7 +154,7 @@ console.time("SStart");
 		}, false);
 		Dom.get("menu-unlock").addEventListener("click", function (e) {
 			SStart.setLocked(false);
-			if (SStart.isCacheDOM() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();
@@ -162,7 +162,7 @@ console.time("SStart");
 			updateLockStatus();
 		}, false);
 		Dom.get("menu-alignall").addEventListener("click", function (e) {
-			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				SStart.setLocked(false);
@@ -173,7 +173,7 @@ console.time("SStart");
 			updateLockStatus();
 		}, false);
 		Dom.get("menu-refresh").addEventListener("click", function (e) {
-			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				SStart.setLocked(false);
@@ -183,7 +183,7 @@ console.time("SStart");
 			SStart.refreshAll()
 		}, false);
 		Dom.get("menu-refreshone").addEventListener("click", function (e) {
-			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				SStart.setLocked(false);
@@ -198,7 +198,7 @@ console.time("SStart");
 			}
 		}, false);
 		Dom.get("menu-properties").addEventListener("click", function (e) {
-			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				SStart.setLocked(false);
@@ -220,7 +220,7 @@ console.time("SStart");
 			}
 		}, false);
 		Dom.get("menu-remove").addEventListener("click", function (e) {
-			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				SStart.setLocked(false);
@@ -242,7 +242,7 @@ console.time("SStart");
 			}
 		}, false);
 		Dom.get("menu-rename").addEventListener("click", function (e) {
-			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				SStart.setLocked(false);
@@ -286,7 +286,7 @@ console.time("SStart");
 			if (e.clientX == 0 || hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart")
 				return;
 			SStart.toggleLocked();
-			if (SStart.isCacheDOM() && !SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {
+			if (SStart.isCacheDOM() && !SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
 				factory.createWidgets();

@@ -71,11 +71,11 @@ justoff.sstart.Factory = function (storage) {
 				createWidget(objects[i], fragment);
 				hasWidgets = true;
 			}
-			if (document.location == "chrome://sstart/content/sstart.html") {
+			if (document.location.href.lastIndexOf("?") == -1) {
 				justoff.sstart.cache.fragment = fragment;
 				SStart.setCacheDOM(false);
 			}
-		} else if (document.location == "chrome://sstart/content/sstart.html") {
+		} else if (document.location.href.lastIndexOf("?") == -1) {
 			var fragment = justoff.sstart.cache.fragment.cloneNode(true);
 			var x = fragment.getElementsByClassName("widget");
 			for (var i = 0; i < x.length; i++) {

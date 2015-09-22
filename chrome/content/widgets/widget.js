@@ -95,7 +95,7 @@ justoff.sstart.Widget = function () {
 
 		this.view.addEventListener("drop", function (e) {
 			if (self.view.offsetTop < 0 || self.view.offsetLeft < 0) {
-				if (document.location != "chrome://sstart/content/sstart.html") {
+				if (!(document.location.href.lastIndexOf("?") == -1)) {
 					if (Utils.confirm(SStart.translate("dialogMoveUpWidget"))) {
 						var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
 							.getService(Components.interfaces.nsINavBookmarksService);
