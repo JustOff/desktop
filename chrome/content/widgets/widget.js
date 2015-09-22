@@ -63,7 +63,7 @@ justoff.sstart.Widget = function () {
 		Dom.child(this.view, "body").appendChild(this.createView());
 		this.view.id = this.properties.id;
 		if (this.properties.url == SEARCH_URL) {
-			Dom.addClass(this.view, "s-widget");
+			this.view.setAttribute("data-search", "true");
 		}
 
 		Drag.enable(this.view);
@@ -164,6 +164,9 @@ justoff.sstart.Widget = function () {
 		this.view.addEventListener("align", function (e) {
 			self.view.style.top = self.properties.top = SStart.alignToGrid(self.properties.top);
 			self.view.style.left = self.properties.left = SStart.alignToGrid(self.properties.left);
+			self.view.style.width = self.properties.width = SStart.alignToGrid(self.properties.width);
+			if (self.properties.url != "sstart://search/")
+				self.view.style.height = self.properties.height = SStart.alignToGrid(self.properties.height);
 			self.save.call(self);
 		}, false);
 

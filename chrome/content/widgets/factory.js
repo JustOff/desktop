@@ -81,7 +81,7 @@ console.time("createWidgets");
 			var x = fragment.getElementsByClassName("widget");
 			for (var i = 0; i < x.length; i++) {
 				Drag.enable(x[i]);
-				if (Dom.hasClass(x[i], "s-widget")) {
+				if (x[i].getAttribute("data-search") == "true") {
 					var title = Dom.child(x[i], "title");
 					var properties = { id: x[i].id, url: SEARCH_URL, title: title.innerHTML, isFolder: false, left: x[i].style.left, top: x[i].style.top, width: x[i].style.width, height: x[i].style.height };
 					fragment.removeChild(x[i]);
