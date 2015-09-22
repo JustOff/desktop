@@ -62,7 +62,6 @@ justoff.sstart.Factory = function (storage) {
 	}
 
 	this.createWidgets = function () {
-console.time("createWidgets");
 		var objects = storage.getObjects();
 		var hasWidgets = false;
 		if (!SStart.isLocked() || document.location != "chrome://sstart/content/sstart.html" || !justoff.sstart.cache.fragment) {
@@ -92,7 +91,6 @@ console.time("createWidgets");
 			SStart.setCacheDOM(true);
 		}
 		document.body.appendChild(fragment);
-console.timeEnd("createWidgets");
 		return hasWidgets;
 	}
 

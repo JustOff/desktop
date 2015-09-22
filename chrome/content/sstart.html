@@ -169,8 +169,8 @@ console.time("SStart");
 				factory.createWidgets();
 			}
 			SStart.setLocked(false);
-			updateLockStatus();
 			SStart.alignAll();
+			updateLockStatus();
 		}, false);
 		Dom.get("menu-refresh").addEventListener("click", function (e) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && document.location == "chrome://sstart/content/sstart.html") {

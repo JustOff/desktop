@@ -31,7 +31,6 @@ justoff.sstart.Widget = function () {
 		this.view.style.height = this.properties.height || "";
 
 		var icon = Dom.child(this.view, "icon");
-//		icon.style.background = "url(" + this.getIconURL() + ")";
 
 		if (this.properties.url != SEARCH_URL && this.properties.background) {
 			this.view.style.background = this.properties.background;
@@ -42,12 +41,10 @@ justoff.sstart.Widget = function () {
 		} else if (this.properties.url == SEARCH_URL) {
 			icon.style.background = "url(" + this.getIconURL() + ")";
 		} else if (this.properties.url) {
-//			console.log("url: " + this.properties.url);
 			uri = ios.newURI(this.properties.url, null, null);
 			fis.getFaviconURLForPage(uri, 
 				function (furi, len, data, mimeType) {
 					if (furi) {
-//						console.log("favicon: " + furi.spec);
 						icon.style.background = "url(moz-anno:favicon:" + furi.spec + ")";
 					}
 				}
@@ -67,7 +64,6 @@ justoff.sstart.Widget = function () {
 		}
 
 		Drag.enable(this.view);
-//		console.log("[1] renderView->updateView");
 		this.updateView();
 		if (this.properties.title == Prefs.getString("focus")) {
 			var view = this.view;
@@ -132,13 +128,6 @@ justoff.sstart.Widget = function () {
 					}
 				}
 			}
-/*
-			self.properties.left = self.view.offsetLeft;
-			self.properties.top = self.view.offsetTop;
-			var resized = (self.properties.width != self.view.clientWidth || self.properties.height != self.view.clientHeight);
-			self.properties.width = self.view.clientWidth;
-			self.properties.height = self.view.clientHeight;
-*/
 			if (self.properties.top != self.view.offsetTop)
 				self.view.style.top = SStart.alignToGrid(self.view.offsetTop);
 			if (self.properties.left != self.view.offsetLeft)
@@ -154,7 +143,6 @@ justoff.sstart.Widget = function () {
 			self.properties.width = parseInt(self.view.style.width, 10);
 			self.properties.height = parseInt(self.view.style.height, 10);
 			self.save.call(self);
-//			console.log("[2] renderView->updateView");
 			self.updateView.call(self);
 			if (resized) {
 				self.refresh.call(self);
@@ -165,7 +153,7 @@ justoff.sstart.Widget = function () {
 			self.view.style.top = self.properties.top = SStart.alignToGrid(self.properties.top);
 			self.view.style.left = self.properties.left = SStart.alignToGrid(self.properties.left);
 			self.view.style.width = self.properties.width = SStart.alignToGrid(self.properties.width);
-			if (self.properties.url != "sstart://search/")
+			if (self.properties.url != SEARCH_URL)
 				self.view.style.height = self.properties.height = SStart.alignToGrid(self.properties.height);
 			self.save.call(self);
 		}, false);
@@ -195,7 +183,6 @@ justoff.sstart.Widget = function () {
 	}
 
 	this.editTitle = function () {
-//		if (SStart.isLocked()) return;
 		if (SStart.isLocked())
 			Dom.addClass(document.body, 'no-hlink');
 		var self = this;
@@ -227,7 +214,6 @@ justoff.sstart.Widget = function () {
 		var input = title.firstChild;
 		input.value = this.properties.title;
 		input.focus();
-//		input.select();
 		input.addEventListener("blur", updateTitle, false);
 		input.addEventListener("keyup", onKeyUp, false);
 	}
