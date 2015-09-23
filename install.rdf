@@ -2,10 +2,10 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
 	<em:id>SStart@Off.JustOff</em:id>
-	<em:version>1.6.4</em:version>
+	<em:version>1.6.5</em:version>
 	<em:type>2</em:type>
 	<em:name>Speed Start</em:name>
-	<em:description>Lite Speed Dial &amp; Start Page</em:description>
+	<em:description>Speed Dial &amp; Start Page with flexible layout for fast access to sites via visual bookmarks.</em:description>
 	<em:creator>Off JustOff &lt;Off.Just.Off@gmail.com&gt;</em:creator>
 	<em:contributor>telega</em:contributor>
 	<em:contributor>rtimush</em:contributor>

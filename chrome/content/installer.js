@@ -20,9 +20,9 @@ justoff.sstart.Installer = new function () {
 			try {
 				Components.utils.import("resource:///modules/NewTabURL.jsm");
 				NewTabURL.override(justoff.sstart.Installer.newTabURI);
-			} catch(e) {
-				Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
-			}
+			} catch(e) { }
+			// need to set it anyway for Tab Mix Plus compat
+			Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
 		}
 
 		if (Services.prefs.getBoolPref("extensions.sstart.overrideHomePage"))
@@ -48,18 +48,18 @@ justoff.sstart.Installer = new function () {
 						try {
 							Components.utils.import("resource:///modules/NewTabURL.jsm");
 							NewTabURL.override(justoff.sstart.Installer.newTabURI);
-						} catch(e) {
-							Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
-						}
+						} catch(e) { }
+						// need to set it anyway for Tab Mix Plus compat
+						Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
 					} else {
 						try {
 							Components.utils.import("resource:///modules/NewTabURL.jsm");
 							NewTabURL.reset();
-						} catch(e) {
-							var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
-							if (newTabURI == justoff.sstart.Installer.newTabURI)
-								Services.prefs.clearUserPref("browser.newtab.url");
-						}
+						} catch(e) { }
+						// need to set it anyway for Tab Mix Plus compat
+						var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
+						if (newTabURI == justoff.sstart.Installer.newTabURI)
+							Services.prefs.clearUserPref("browser.newtab.url");
 					}
 					break;
 				case "overrideHomePage":
@@ -84,12 +84,7 @@ justoff.sstart.Installer = new function () {
 			if (topic != "nsPref:changed") return;
 			switch (data) {
 				case "newtab.url":
-					try {
-						Components.utils.import("resource:///modules/NewTabURL.jsm");
-						var newTabURI = NewTabURL.get();
-					} catch(e) {
-						var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
-					}
+					var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
 					if (newTabURI != justoff.sstart.Installer.newTabURI)
 						Services.prefs.setBoolPref("extensions.sstart.overrideNewTab", false);
 					break;
@@ -102,6 +97,15 @@ justoff.sstart.Installer = new function () {
 		}
 	}
 
+	var NewTabURLWatcher = new function () {
+		this.observe = function (subject, topic, data) {
+			if (topic != "newtab-url-changed") return;
+			Components.utils.import("resource:///modules/NewTabURL.jsm");
+			newTabURI = NewTabURL.get();
+			if (newTabURI != justoff.sstart.Installer.newTabURI)
+				Services.prefs.setBoolPref("extensions.sstart.overrideNewTab", false);
+		}
+	}
 
 	var LifecycleWatcher = new function () {
 		this.observe = function (subject, topic, data) {
@@ -112,11 +116,10 @@ justoff.sstart.Installer = new function () {
 						try {
 							Components.utils.import("resource:///modules/NewTabURL.jsm");
 							NewTabURL.reset();
-						} catch(e) {
-							var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
-							if (newTabURI == justoff.sstart.Installer.newTabURI)
-								Services.prefs.clearUserPref("browser.newtab.url");
-						}
+						} catch(e) { }
+						var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
+						if (newTabURI == justoff.sstart.Installer.newTabURI)
+							Services.prefs.clearUserPref("browser.newtab.url");
 						var homeURI = Services.prefs.getCharPref("browser.startup.homepage");
 						if (homeURI == justoff.sstart.Installer.newTabURI)
 							Services.prefs.clearUserPref("browser.startup.homepage");
@@ -159,12 +162,14 @@ justoff.sstart.Installer = new function () {
 		this.observerService = Components.classes["@mozilla.org/observer-service;1"]
 			.getService(Components.interfaces.nsIObserverService);
 		this.observerService.addObserver(LifecycleWatcher, "profile-before-change", false)
+		this.observerService.addObserver(NewTabURLWatcher, "newtab-url-changed", false)
 
 		Components.utils.import("resource://gre/modules/AddonManager.jsm");
 		AddonManager.addAddonListener(AddonListener);
 	}
 
 	function uninstall() {
+		this.observerService.removeObserver(NewTabURLWatcher, "newtab-url-changed");
 		this.observerService.removeObserver(LifecycleWatcher, "profile-before-change");
 		this.newTabPrefs.removeObserver("", BrowserWatcher);
 		this.prefs.removeObserver("", Watcher);
