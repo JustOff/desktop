@@ -214,9 +214,12 @@ justoff.sstart.Widget = function () {
 			}
 		}
 
-		title.innerHTML = "<input type='text'>";
-		var input = title.firstChild;
+		var input = document.createElement("input");
+		input.type = "text";
+		input.style = "background: #FFFFFF";
 		input.value = this.properties.title;
+		title.removeChild(title.firstChild);
+		title.appendChild(input);
 		input.focus();
 		input.addEventListener("blur", updateTitle, false);
 		input.addEventListener("keyup", onKeyUp, false);
