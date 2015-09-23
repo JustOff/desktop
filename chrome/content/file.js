@@ -19,6 +19,14 @@ justoff.sstart.File = new function () {
 		return f;
 	}
 
+	this.delDataFile = function (id) {
+		var f = File.getDataDirectory();
+		f.append(id + ".png");
+		try {
+			f.remove(false);
+		} catch(e) {};
+	}
+
 	this.getDataFileURL = function (file) {
 		var f = File.getDataDirectory();
 		f.append(file);

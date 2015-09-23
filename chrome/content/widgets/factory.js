@@ -6,6 +6,7 @@ justoff.sstart.Factory = function (storage) {
 	var SStart = justoff.sstart.SStart
 	var Dom = justoff.sstart.Dom
 	var Prefs = justoff.sstart.Prefs
+	var File = justoff.sstart.File
 	
 	const SEARCH_URL = "sstart://search/";
 	
@@ -41,6 +42,7 @@ justoff.sstart.Factory = function (storage) {
 		}
 
 		storage.saveObject(properties);
+		File.delDataFile(properties.id);
 		var fragment = document.createDocumentFragment();
 		createWidget(properties, fragment);
 		document.getElementById("widgets").appendChild(fragment);
