@@ -18,8 +18,9 @@ justoff.sstart.ContextMenu = new function () {
 				Dom.addClass(document.body, s ? 'is-widget' : 'no-widget');
 				
 				if (s) {
-					if (hoverEl.parentNode.parentNode.parentNode.getAttribute("data-search") == "true" 
-						|| hoverEl.parentNode.parentNode.getAttribute("data-search") == "true") {
+					var hoverTmp = hoverEl;
+					while ((hoverTmp = hoverTmp.parentElement) && !hoverTmp.classList.contains("widget"));
+					if (hoverTmp.getAttribute("data-search") == "true") {
 						Dom.addClass(document.body, 'is-search');
 					} else {
 						Dom.removeClass(document.body, 'is-search');

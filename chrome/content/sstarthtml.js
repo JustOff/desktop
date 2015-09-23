@@ -121,8 +121,8 @@ console.time("SStart");
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
-		var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
-		var r = Dom.child(c, "refresh");
+		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+		var r = Dom.child(hoverEl, "refresh");
 		if (r) {
 			r.click()
 		}
@@ -136,15 +136,8 @@ console.time("SStart");
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
-		if (Dom.hasClass(hoverEl.parentNode.parentNode.parentNode,'widget')) {
-			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
-		} else if (Dom.hasClass(hoverEl.parentNode.parentNode,'widget')) {
-			var c = document.getElementById(hoverEl.parentNode.parentNode.id);
-		} else {
-			console.log("Err!");
-			return;
-		}
-		var r = Dom.child(c, "properties");
+		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+		var r = Dom.child(hoverEl, "properties");
 		if (r) {
 			r.click()
 		}
@@ -158,15 +151,8 @@ console.time("SStart");
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
-		if (Dom.hasClass(hoverEl.parentNode.parentNode.parentNode,'widget')) {
-			var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
-		} else if (Dom.hasClass(hoverEl.parentNode.parentNode,'widget')) {
-			var c = document.getElementById(hoverEl.parentNode.parentNode.id);
-		} else {
-			console.log("Err!");
-			return;
-		}
-		var r = Dom.child(c, "remove");
+		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+		var r = Dom.child(hoverEl, "remove");
 		if (r) {
 			r.click()
 		}
@@ -180,8 +166,8 @@ console.time("SStart");
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
-		var c = document.getElementById(hoverEl.parentNode.parentNode.parentNode.id);
-		var r = Dom.child(c, "title");
+		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+		var r = Dom.child(hoverEl, "title");
 		if (r) {
 			var event = new MouseEvent('dblclick', {
 				'view': window,
