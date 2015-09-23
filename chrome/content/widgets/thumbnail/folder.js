@@ -5,6 +5,7 @@ justoff.sstart.ThumbnailFolderXul = new function () {
 
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
+		Dom.get("folder-properties").setAttribute("title", Dom.get("folder-properties").getAttribute("title") + ": " + properties.title);
 		Dom.get("customImage").value = properties.customImage || "";
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
 		Dom.get("width").value = properties.width || "";

@@ -6,6 +6,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
+		Dom.get("thumbnail-properties").setAttribute("title", Dom.get("thumbnail-properties").getAttribute("title") + ": " + properties.title);
 		Dom.get("url").value = properties.url || "";
 		Dom.get("customImage").value = properties.customImage || "";
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
