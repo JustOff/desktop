@@ -52,7 +52,9 @@ justoff.sstart.Widget = function () {
 		}
 
 		var title = Dom.child(this.view, "title");
-		title.innerHTML = this.properties.title || "";
+		var titletext = document.createTextNode(this.properties.title ? this.properties.title : "");
+		if (title.firstChild) title.removeChild(title.firstChild);
+		title.appendChild(titletext);
 	}
 
 	this.renderView = function () {
@@ -189,7 +191,9 @@ justoff.sstart.Widget = function () {
 		var title = Dom.child(self.view, "title");
 
 		function removeInput() {
-			title.innerHTML = self.properties.title;
+			var titletext = document.createTextNode(self.properties.title);
+			title.removeChild(title.firstChild);
+			title.appendChild(titletext);
 			Dom.removeClass(document.body, 'no-hlink');
 		}
 

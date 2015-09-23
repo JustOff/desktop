@@ -8,10 +8,9 @@ justoff.sstart.SStart = new function () {
 
 	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
 	
-	var isLocked = true;
-	var isCacheDOM;
+	this.Locked = true;
 	
-	justoff.sstart.cache.gridInterval = Prefs.getInt("gridInterval");
+	this.CacheDOM = false;
 
 	this.isSStart = function (doc) {
 		return doc && doc.location
@@ -57,23 +56,23 @@ justoff.sstart.SStart = new function () {
 	};
 
 	this.isCacheDOM = function () {
-		return isCacheDOM;
+		return SStart.CacheDOM;
 	};
 
 	this.setCacheDOM = function (s) {
-		isCacheDOM = s;
+		SStart.CacheDOM = s;
 	};
 
 	this.isLocked = function () {
-		return isLocked;
+		return SStart.Locked;
 	};
 
 	this.setLocked = function (s) {
-		isLocked = s;
+		SStart.Locked = s;
 	};
 
 	this.toggleLocked = function () {
-		isLocked = !isLocked;
+		SStart.Locked = !SStart.Locked;
 	};
 
 	this.areDecorationsVisible = function () {

@@ -7,40 +7,24 @@ justoff.sstart.Installer = new function () {
 	this.newTabURI = "chrome://sstart/content/sstart.html"
 
 	this.installed = false
-	this.oldURLBarSetURI
-	this.oldGBrowserAddTab
 
-	var beingUninstalled = false
+	var SStartBeingUninstalled = false
 
-	function installPre13() {
-		Installer.oldURLBarSetURI = window.URLBarSetURI;
-		window.URLBarSetURI = function () {
-			var result = justoff.sstart.Installer.oldURLBarSetURI.apply(this, arguments);
-			if (gURLBar.value.substr(0, justoff.sstart.Installer.newTabURI.length) === justoff.sstart.Installer.newTabURI) gURLBar.value = "";
-			return result;
-		}
-		Installer.oldGBrowserAddTab = gBrowser.addTab;
-		gBrowser.addTab = function () {
-			if (arguments.length > 0 && arguments[0] == 'about:blank')
-				arguments[0] = justoff.sstart.Installer.newTabURI;
-			return justoff.sstart.Installer.oldGBrowserAddTab.apply(this, arguments);
-		}
-	}
-
-	function installNormal() {
+	function install() {
 		if (Installer.installed) return;
 		Installer.installed = true;
+		
+		SStart.updateGridInterval();
 
-		var hasNewTab = false;
-		try {
-			var newTabURL = Services.prefs.getDefaultBranch("browser.newtab.url").getCharPref("");
-			hasNewTab = true;
-		} catch (ex) {
+		if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
+			try {
+				Components.utils.import("resource:///modules/NewTabURL.jsm");
+				NewTabURL.override(justoff.sstart.Installer.newTabURI);
+			} catch(e) {
+				Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
+			}
 		}
-		if (!hasNewTab) return installPre13();
 
-		if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab"))
-			Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
 		if (Services.prefs.getBoolPref("extensions.sstart.overrideHomePage"))
 			Services.prefs.setCharPref("browser.startup.homepage", justoff.sstart.Installer.newTabURI);
 
@@ -61,11 +45,21 @@ justoff.sstart.Installer = new function () {
 				case "overrideNewTab":
 					var useOurNewTab = Services.prefs.getBoolPref("extensions.sstart.overrideNewTab");
 					if (useOurNewTab) {
-						Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
+						try {
+							Components.utils.import("resource:///modules/NewTabURL.jsm");
+							NewTabURL.override(justoff.sstart.Installer.newTabURI);
+						} catch(e) {
+							Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
+						}
 					} else {
-						var newTabURL = Services.prefs.getCharPref("browser.newtab.url");
-						if (newTabURL == justoff.sstart.Installer.newTabURI)
-							Services.prefs.clearUserPref("browser.newtab.url");
+						try {
+							Components.utils.import("resource:///modules/NewTabURL.jsm");
+							NewTabURL.reset();
+						} catch(e) {
+							var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
+							if (newTabURI == justoff.sstart.Installer.newTabURI)
+								Services.prefs.clearUserPref("browser.newtab.url");
+						}
 					}
 					break;
 				case "overrideHomePage":
@@ -73,8 +67,8 @@ justoff.sstart.Installer = new function () {
 					if (useOurHomePage) {
 						Services.prefs.setCharPref("browser.startup.homepage", justoff.sstart.Installer.newTabURI);
 					} else {
-						var homeURL = Services.prefs.getCharPref("browser.startup.homepage");
-						if (homeURL == justoff.sstart.Installer.newTabURI)
+						var homeURI = Services.prefs.getCharPref("browser.startup.homepage");
+						if (homeURI == justoff.sstart.Installer.newTabURI)
 							Services.prefs.clearUserPref("browser.startup.homepage");
 					}
 					break;
@@ -90,13 +84,18 @@ justoff.sstart.Installer = new function () {
 			if (topic != "nsPref:changed") return;
 			switch (data) {
 				case "newtab.url":
-					var newTabURL = Services.prefs.getCharPref("browser.newtab.url");
-					if (newTabURL != justoff.sstart.Installer.newTabURI)
+					try {
+						Components.utils.import("resource:///modules/NewTabURL.jsm");
+						var newTabURI = NewTabURL.get();
+					} catch(e) {
+						var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
+					}
+					if (newTabURI != justoff.sstart.Installer.newTabURI)
 						Services.prefs.setBoolPref("extensions.sstart.overrideNewTab", false);
 					break;
 				case "startup.homepage":
-					var homeURL = Services.prefs.getCharPref("browser.startup.homepage");
-					if (homeURL != justoff.sstart.Installer.newTabURI)
+					var homeURI = Services.prefs.getCharPref("browser.startup.homepage");
+					if (homeURI != justoff.sstart.Installer.newTabURI)
 						Services.prefs.setBoolPref("extensions.sstart.overrideHomePage", false);
 					break;
 			}
@@ -109,12 +108,17 @@ justoff.sstart.Installer = new function () {
 			switch (topic) {
 				case "profile-before-change":
 					uninstall();
-					if (beingUninstalled) {
-						var newTabURL = Services.prefs.getCharPref("browser.newtab.url");
-						if (newTabURL == justoff.sstart.Installer.newTabURI)
-							Services.prefs.clearUserPref("browser.newtab.url");
-						var homeURL = Services.prefs.getCharPref("browser.startup.homepage");
-						if (homeURL == justoff.sstart.Installer.newTabURI)
+					if (SStartBeingUninstalled) {
+						try {
+							Components.utils.import("resource:///modules/NewTabURL.jsm");
+							NewTabURL.reset();
+						} catch(e) {
+							var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
+							if (newTabURI == justoff.sstart.Installer.newTabURI)
+								Services.prefs.clearUserPref("browser.newtab.url");
+						}
+						var homeURI = Services.prefs.getCharPref("browser.startup.homepage");
+						if (homeURI == justoff.sstart.Installer.newTabURI)
 							Services.prefs.clearUserPref("browser.startup.homepage");
 					}
 					break;
@@ -125,23 +129,23 @@ justoff.sstart.Installer = new function () {
 	var AddonListener = {
 		onUninstalling:function (addon) {
 			if (addon.id == justoff.sstart.Installer.addonId) {
-				beingUninstalled = true;
+				SStartBeingUninstalled = true;
 			}
 		},
 		onDisabling:function (addon) {
 			if (addon.id == justoff.sstart.Installer.addonId) {
-				beingUninstalled = true;
+				SStartBeingUninstalled = true;
 			}
 		},
 		onOperationCancelled:function (addon) {
 			if (addon.id == justoff.sstart.Installer.addonId) {
-				beingUninstalled = (addon.pendingOperations & (AddonManager.PENDING_UNINSTALL | AddonManager.PENDING_DISABLE)) != 0;
+				SStartBeingUninstalled = (addon.pendingOperations & (AddonManager.PENDING_UNINSTALL | AddonManager.PENDING_DISABLE)) != 0;
 			}
 		}
 	}
 
-	function install() {
-		setTimeout(installNormal, 0);
+	function init() {
+		setTimeout(install, 0);
 		this.prefsService = Components.classes["@mozilla.org/preferences-service;1"]
 			.getService(Components.interfaces.nsIPrefService)
 		this.prefs = this.prefsService.getBranch("extensions.sstart.");
@@ -167,7 +171,7 @@ justoff.sstart.Installer = new function () {
 	}
 
 	this.load = function () {
-		addEventListener("load", install, true);
+		addEventListener("load", init, true);
 	}
 
 }

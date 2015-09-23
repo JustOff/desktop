@@ -2,9 +2,9 @@
 
 <head>
 
-	<link rel="icon" type="image/png" href="chrome://sstart/skin/icon.png">
-	<link rel="stylesheet" type="text/css" href="chrome://sstart/skin/contextmenu.css">
-	<link rel="stylesheet" type="text/css" href="chrome://sstart/skin/sstart-page.css">
+	<link rel="icon" type="image/png" href="chrome://sstart/skin/icon.png"/>
+	<link rel="stylesheet" type="text/css" href="chrome://sstart/skin/contextmenu.css"/>
+	<link rel="stylesheet" type="text/css" href="chrome://sstart/skin/sstart-page.css"/>
 
 </head>
 
@@ -93,7 +93,8 @@ console.time("SStart");
 
 		var quickstart = Dom.get("quickstart");
 		if (!hasWidgets) {
-			quickstart.innerHTML = SStart.translate("quickstart");
+			var qscontent = document.createTextNode(SStart.translate("quickstart"));
+			quickstart.appendChild(qscontent);
 			quickstart.style.display = "block";
 		}
 
@@ -294,13 +295,6 @@ console.time("SStart");
 			updateLockStatus();
 		}, false);
 
-/*
-		document.body.addEventListener("click", function (e) {
-			if (document.elementFromPoint(e.clientX, e.clientY).nodeName.toLowerCase() == "body") {
-				e.preventDefault();
-			}
-		}, false);
-*/
 		updateLockStatus();
 
 		// Disable cache for page
