@@ -63,21 +63,21 @@ justoff.sstart.Factory = function (storage) {
 		fragment.appendChild(widget.renderView());
 	}
 
-	this.createWidgets = function () {
+	this.createWidgets = function (pageId) {
 		var objects = storage.getObjects();
 		var hasWidgets = false;
-		if (!SStart.isLocked() || document.location != "chrome://sstart/content/sstart.html" || !justoff.sstart.cache.fragment) {
+		if (!SStart.isLocked() || pageId > 0 || !justoff.sstart.cache.fragment) {
 			var fragment = document.createElement('span');
 			fragment.setAttribute("id", "widgets");
 			for (var i in objects) {
 				createWidget(objects[i], fragment);
 				hasWidgets = true;
 			}
-			if (document.location.href.lastIndexOf("?") == -1) {
+			if (pageId == 0) {
 				justoff.sstart.cache.fragment = fragment;
 				SStart.setCacheDOM(false);
 			}
-		} else if (document.location.href.lastIndexOf("?") == -1) {
+		} else if (pageId == 0) {
 			var fragment = justoff.sstart.cache.fragment.cloneNode(true);
 			var x = fragment.getElementsByClassName("widget");
 			for (var i = 0; i < x.length; i++) {

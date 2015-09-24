@@ -12,13 +12,19 @@ console.time("SStart");
 	var params = Utils.getQueryParams(document.location);
 	var storage = new Storage(params.folder);
 
+	if (!params.folder) {
+		var pageId = 0;
+	} else {
+		var pageId = params.folder;
+	}
+
 	document.title = storage.getTitle();
 	if (document.title == "" || document.title == "SStart") {
 		document.title = SStart.translate("SStart");
 	}
 
 	var factory = new Factory(storage);
-	var hasWidgets = factory.createWidgets();
+	var hasWidgets = factory.createWidgets(pageId);
 
 	var quickstart = Dom.get("quickstart");
 	if (!hasWidgets) {
@@ -67,10 +73,10 @@ console.time("SStart");
 			SStart.setLocked(false);
 			updateLockStatus();
 		}
-		if (SStart.isCacheDOM() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 		}
 		quickstart.style.display = "none";
 		factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y));
@@ -84,90 +90,90 @@ console.time("SStart");
 	}, false);
 	Dom.get("menu-unlock").addEventListener("click", function (e) {
 		SStart.setLocked(false);
-		if (SStart.isCacheDOM() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 		}
 		updateLockStatus();
 	}, false);
 	Dom.get("menu-alignall").addEventListener("click", function (e) {
-		if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
 			SStart.setLocked(false);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 		}
 		SStart.setLocked(false);
 		SStart.alignAll();
 		updateLockStatus();
 	}, false);
 	Dom.get("menu-refresh").addEventListener("click", function (e) {
-		if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
 			SStart.setLocked(false);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 			SStart.setLocked(true);
 		}
 		SStart.refreshAll()
 	}, false);
 	Dom.get("menu-refreshone").addEventListener("click", function (e) {
-		if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
 			SStart.setLocked(false);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
 		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
-		var r = Dom.child(hoverEl, "refresh");
+		var r = Dom.child(document.getElementById(hoverEl.id), "refresh");
 		if (r) {
 			r.click()
 		}
 	}, false);
 	Dom.get("menu-properties").addEventListener("click", function (e) {
-		if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
 			SStart.setLocked(false);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
 		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
-		var r = Dom.child(hoverEl, "properties");
+		var r = Dom.child(document.getElementById(hoverEl.id), "properties");
 		if (r) {
 			r.click()
 		}
 	}, false);
 	Dom.get("menu-remove").addEventListener("click", function (e) {
-		if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
 			SStart.setLocked(false);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
 		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
-		var r = Dom.child(hoverEl, "remove");
+		var r = Dom.child(document.getElementById(hoverEl.id), "remove");
 		if (r) {
 			r.click()
 		}
 	}, false);
 	Dom.get("menu-rename").addEventListener("click", function (e) {
-		if (SStart.isCacheDOM() && SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
 			SStart.setLocked(false);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
 		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
-		var r = Dom.child(hoverEl, "title");
+		var r = Dom.child(document.getElementById(hoverEl.id), "title");
 		if (r) {
 			var event = new MouseEvent('dblclick', {
 				'view': window,
@@ -202,10 +208,10 @@ console.time("SStart");
 		if (e.clientX == 0 || hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart")
 			return;
 		SStart.toggleLocked();
-		if (SStart.isCacheDOM() && !SStart.isLocked() && document.location.href.lastIndexOf("?") == -1) {
+		if (SStart.isCacheDOM() && !SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
-			factory.createWidgets();
+			factory.createWidgets(pageId);
 		}
 		updateLockStatus();
 	}, false);
