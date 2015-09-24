@@ -101,7 +101,7 @@ justoff.sstart.Installer = new function () {
 		this.observe = function (subject, topic, data) {
 			if (topic != "newtab-url-changed") return;
 			Components.utils.import("resource:///modules/NewTabURL.jsm");
-			newTabURI = NewTabURL.get();
+			var newTabURI = NewTabURL.get();
 			if (newTabURI != justoff.sstart.Installer.newTabURI)
 				Services.prefs.setBoolPref("extensions.sstart.overrideNewTab", false);
 		}
