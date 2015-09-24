@@ -88,7 +88,8 @@ justoff.sstart.Storage = function (folderId) {
 	}
 
 	this.setProperties = function (object) {
-		Bookmark.setAnnotation(folderId, ANNOTATION, Utils.toJSON(object));
+		if (Object.getOwnPropertyNames(object).length > 0)
+			Bookmark.setAnnotation(folderId, ANNOTATION, Utils.toJSON(object));
 	}
 
 	this.saveObject = function (object) {
@@ -105,7 +106,8 @@ justoff.sstart.Storage = function (folderId) {
 		for (var i in exclude) {
 			delete annotation[exclude[i]];
 		}
-		Bookmark.setAnnotation(object.id, ANNOTATION, Utils.toJSON(annotation));
+		if (Object.getOwnPropertyNames(annotation).length > 0)
+			Bookmark.setAnnotation(object.id, ANNOTATION, Utils.toJSON(annotation));
 		refreshFolder.call(this);
 	}
 

@@ -88,8 +88,8 @@ justoff.sstart.Bookmark = new function () {
 		var annotationService = Components.classes["@mozilla.org/browser/annotation-service;1"]
 			.getService(Components.interfaces.nsIAnnotationService);
 		idOrUri instanceof Components.interfaces.nsIURI
-			? annotationService.setPageAnnotation(idOrUri, name, value, 0, annotationService.EXPIRE_MONTHS)
-			: annotationService.setItemAnnotation(idOrUri, name, value, 0, annotationService.EXPIRE_MONTHS);
+			? annotationService.setPageAnnotation(idOrUri, name, value, 0, annotationService.EXPIRE_NEVER)
+			: annotationService.setItemAnnotation(idOrUri, name, value, 0, annotationService.EXPIRE_NEVER);
 	};
 
 	this.removeAnnotation = function (idOrUri, name) {
