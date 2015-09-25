@@ -1,0 +1,12 @@
+<!ENTITY sstart.Properties "Властивості">
+<!ENTITY sstartthumb.Name "Назва">
+<!ENTITY sstartthumb.URL "URL">
+<!ENTITY sstartthumb.Width "Ширина">
+<!ENTITY sstartthumb.Height "Висота">
+<!ENTITY sstartthumb.CustomImage "Зображення">
+<!ENTITY sstartsearch.GiveFocus "Виділяти при старті">
+<!ENTITY sstartfolder.General "Сторінка">
+<!ENTITY sstartfolder.BackgroundColor "Колір фона">
+<!ENTITY sstartfolder.Header "Заголовки">
+<!ENTITY sstartfolder.titleColor "Колір тексту">
+<!ENTITY sstartfolder.headerColor "Колір фона">

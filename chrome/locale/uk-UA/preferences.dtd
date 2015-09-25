@@ -1,0 +1,19 @@
+<!ENTITY sstartpref.Preferences "Налаштування Speed Start">
+
+<!ENTITY sstartpref.General "Основні">
+<!ENTITY sstartpref.OpenInNewTabs "Відкривати в нових вкладках">
+<!ENTITY sstartpref.UseAsHomePage "Використовувати як домашню сторінку">
+<!ENTITY sstartpref.newtabOnLockDrag "Відкривати в новій вкладці при перетягуванні">
+<!ENTITY sstartpref.bottomHeader "Виводити знизу">
+
+<!ENTITY sstartpref.Background "Фон">
+<!ENTITY sstartpref.BackgroundImage "Фонове зображення">
+<!ENTITY sstartpref.BackgroundStyle "Стиль зображення">
+<!ENTITY sstartpref.BackgroundTile "Замостити">
+<!ENTITY sstartpref.BackgroundStretch "Розтягнути">
+
+<!ENTITY sstartpref.Positioning "Вирівнювання">
+<!ENTITY sstartpref.GridSize "Розмір сітки">
+
+<!ENTITY sstart.Browse "Огляд">
+<!ENTITY sstart.Clear "Очистити">
