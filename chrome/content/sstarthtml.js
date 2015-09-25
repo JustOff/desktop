@@ -22,6 +22,9 @@ console.time("SStart");
 	if (document.title == "" || document.title == "SStart") {
 		document.title = SStart.translate("SStart");
 	}
+	
+	if (pageId == 0)
+		window.history.replaceState(null, "SStart", "chrome://sstart/content/sstart.html");
 
 	var factory = new Factory(storage);
 	var hasWidgets = factory.createWidgets(pageId);
