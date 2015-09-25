@@ -7,8 +7,8 @@
 <!ENTITY sstartpref.bottomHeader "Display headers at bottom">
 
 <!ENTITY sstartpref.Background "Background">
-<!ENTITY sstartpref.BackgroundImage "Background image">
-<!ENTITY sstartpref.BackgroundStyle "Background style">
+<!ENTITY sstartpref.BackgroundImage "Image">
+<!ENTITY sstartpref.BackgroundStyle "Style">
 <!ENTITY sstartpref.BackgroundTile "Tile">
 <!ENTITY sstartpref.BackgroundStretch "Stretch">
 

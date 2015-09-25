@@ -8,8 +8,8 @@
 
 <!ENTITY sstartpref.Background "Фон">
 <!ENTITY sstartpref.BackgroundImage "Фоновое изображение">
-<!ENTITY sstartpref.BackgroundStyle "Стиль изображения">
-<!ENTITY sstartpref.BackgroundTile "Замостить">
+<!ENTITY sstartpref.BackgroundStyle "Заполнение">
+<!ENTITY sstartpref.BackgroundTile "Плиткой">
 <!ENTITY sstartpref.BackgroundStretch "Растянуть">
 
 <!ENTITY sstartpref.Positioning "Выравнивание">
