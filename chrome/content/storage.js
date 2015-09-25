@@ -44,14 +44,16 @@ justoff.sstart.Storage = function (folderId) {
 			if (bookmarks[i].isFolder) {
 				newId = Bookmark.createFolder(bookmarks[i].title, dstId);
 				annotation = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
-				Bookmark.setAnnotation(newId, ANNOTATION, annotation);
+				if (annotation)
+					Bookmark.setAnnotation(newId, ANNOTATION, annotation);
 				copyFolder(bookmarks[i].id, newId);
 			} else {
 				if (bookmarks[i].url == "desktop://search/")
 					bookmarks[i].url = "sstart://search/";
 				newId = Bookmark.createBookmark(bookmarks[i].url, bookmarks[i].title, dstId);
 				annotation = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
-				Bookmark.setAnnotation(newId, ANNOTATION, annotation);
+				if (annotation)
+					Bookmark.setAnnotation(newId, ANNOTATION, annotation);
 			}
 		}
 	}
