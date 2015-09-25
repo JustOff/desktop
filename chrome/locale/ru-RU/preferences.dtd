@@ -7,7 +7,7 @@
 <!ENTITY sstartpref.bottomHeader "Выводить снизу">
 
 <!ENTITY sstartpref.Background "Фон">
-<!ENTITY sstartpref.BackgroundImage "Фоновое изображение">
+<!ENTITY sstartpref.BackgroundImage "Изображение">
 <!ENTITY sstartpref.BackgroundStyle "Заполнение">
 <!ENTITY sstartpref.BackgroundTile "Плиткой">
 <!ENTITY sstartpref.BackgroundStretch "Растянуть">

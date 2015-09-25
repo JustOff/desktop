@@ -7,7 +7,7 @@
 <!ENTITY sstartpref.bottomHeader "Виводити заголовки мініатюр знизу">
 
 <!ENTITY sstartpref.Background "Фон">
-<!ENTITY sstartpref.BackgroundImage "Фонове зображення">
+<!ENTITY sstartpref.BackgroundImage "Зображення">
 <!ENTITY sstartpref.BackgroundStyle "Заповнення">
 <!ENTITY sstartpref.BackgroundTile "Плиткою">
 <!ENTITY sstartpref.BackgroundStretch "Розтягнути">
