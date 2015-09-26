@@ -14,7 +14,7 @@ justoff.sstart.Search = function () {
 	}
 
 	this.createView = function () {
-		return Dom.get("search").cloneNode(true);
+		return Dom.get("sdiv").cloneNode(true);
 	}
 
 	this.updateView = function () {
@@ -41,6 +41,18 @@ justoff.sstart.Search = function () {
 				doSearch.call(self, this.value);
 			}
 		}, false);
+
+		function focus (e) {
+			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+			var input = Dom.child(hoverEl.parentElement, "search");
+			if (input) input.focus();
+		}
+			
+		var hlink = Dom.child(this.view, "hlink");
+		hlink.addEventListener("click", focus, false);
+
+		var hlinkb = Dom.child(this.view, "hlinkb");
+		hlinkb.addEventListener("click", focus, false);
 
 		return this.view;
 	}
