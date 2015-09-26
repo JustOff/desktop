@@ -8,6 +8,7 @@ console.time("SStart");
 	var Dom = justoff.sstart.Dom
 	var ContextMenu = justoff.sstart.ContextMenu
 	var SStart = justoff.sstart.SStart
+	var Drag = justoff.sstart.Drag
 
 	var params = Utils.getQueryParams(document.location);
 	var storage = new Storage(params.folder);
@@ -219,6 +220,7 @@ console.time("SStart");
 		updateLockStatus();
 	}, false);
 
+	Drag.enable(document);
 	updateLockStatus();
 
 	// Disable cache for page

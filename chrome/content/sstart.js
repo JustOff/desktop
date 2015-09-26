@@ -11,6 +11,8 @@ justoff.sstart.SStart = new function () {
 	this.Locked = true;
 	
 	this.CacheDOM = false;
+	
+	this.SearchNodes = {};
 
 	this.isSStart = function (doc) {
 		return doc && doc.location
@@ -119,6 +121,40 @@ justoff.sstart.SStart = new function () {
 		else
 			return min;
 	}
+	
+	this.deleteSearchNode = function (node) {
+		if (node in SStart.SearchNodes) {
+			delete SStart.SearchNodes[node];
+		}
+	}
 
+	this.focusSearch = function (hoverEl) {
+		var input = Dom.child(hoverEl.lastElementChild.firstElementChild, "search");
+		if (input) {
+			if (!(hoverEl.id in SStart.SearchNodes)) {
+				input.addEventListener("keypress", function (e) {
+					if (e.keyCode == e.DOM_VK_RETURN) {
+						SStart.doSearch.call(self, this.value, input);
+					}
+				}, false);
+				SStart.SearchNodes[hoverEl.id] = true;
+			}
+			input.focus();
+		}
+	}
+
+	this.getSearchEngine = function (name) {
+		var searchService = Components.classes["@mozilla.org/browser/search-service;1"]
+			.getService(Components.interfaces.nsIBrowserSearchService);
+		return searchService.getEngineByName(name) ||
+			searchService.currentEngine;
+	}
+
+	this.doSearch = function (text, input) {
+		var engine = SStart.getSearchEngine(Dom.child(input.parentNode.parentNode.parentNode, "title").textContent);
+		input.value = "";
+		var submission = engine.getSubmission(text, null);
+		document.location = submission.uri.spec;
+	}
 };
 

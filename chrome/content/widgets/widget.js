@@ -3,7 +3,6 @@ justoff.sstart.Widget = function () {
 	var Utils = justoff.sstart.Utils
 	var Dom = justoff.sstart.Dom
 	var Bookmark = justoff.sstart.Bookmark
-	var Drag = justoff.sstart.Drag
 	var Prefs = justoff.sstart.Prefs
 	var SStart = justoff.sstart.SStart
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
@@ -65,7 +64,6 @@ justoff.sstart.Widget = function () {
 			this.view.setAttribute("data-search", "true");
 		}
 
-		Drag.enable(this.view);
 		this.updateView();
 		if (this.properties.title == Prefs.getString("focus")) {
 			var view = this.view;

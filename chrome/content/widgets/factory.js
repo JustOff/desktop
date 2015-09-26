@@ -2,7 +2,6 @@ justoff.sstart.Factory = function (storage) {
 
 	var Thumbnail = justoff.sstart.Thumbnail
 	var Search = justoff.sstart.Search
-	var Drag = justoff.sstart.Drag
 	var SStart = justoff.sstart.SStart
 	var Dom = justoff.sstart.Dom
 	var Prefs = justoff.sstart.Prefs
@@ -79,19 +78,6 @@ justoff.sstart.Factory = function (storage) {
 			}
 		} else if (pageId == 0) {
 			var fragment = justoff.sstart.cache.fragment.cloneNode(true);
-			var x = fragment.getElementsByClassName("widget");
-			var l = x.length;
-			for (var i = 0; i < l; i++) {
-				if (x[i].getAttribute("data-search") == "true") {
-					var title = Dom.child(x[i], "title");
-					var properties = { id: x[i].id, url: SEARCH_URL, title: title.innerHTML, isFolder: false, left: x[i].style.left, top: x[i].style.top, width: x[i].style.width, height: x[i].style.height };
-					fragment.removeChild(x[i]);
-					createWidget(properties, fragment);
-					i--; l--;
-				} else {
-					Drag.enable(x[i]);
-				}
-			}
 			hasWidgets = true;
 			SStart.setCacheDOM(true);
 		}

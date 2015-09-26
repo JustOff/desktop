@@ -14,40 +14,52 @@ justoff.sstart.Drag = new function () {
 	this.inProgress = false;
 	this.prevTarget = null;
 
-	this.enable = function (element, options) {
+	this.enable = function (element) {
 		element.addEventListener("mousedown", Drag.onMouseDown, false);
 		element.addEventListener("mouseover", Drag.onMouseOver, false);
 		element.addEventListener("mouseout", Drag.onMouseOut, false);
-		document.addEventListener("mouseup", Drag.onMouseUp, false);
-		document.addEventListener("mousemove", Drag.onMouseMove, false);
-	};
-
-	this.disable = function (element) {
-		element.removeEventListener("mousedown", Drag.onMouseDown, false);
-		element.removeEventListener("mouseover", Drag.onMouseOver, false);
-		element.removeEventListener("mouseout", Drag.onMouseOut, false);
+		element.addEventListener("mouseup", Drag.onMouseUp, false);
+		element.addEventListener("mousemove", Drag.onMouseMove, false);
 	};
 
 	this.onMouseOver = function (e) {
-		Drag.hover = e.currentTarget;
+		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+		if (hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart") {
+			while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+			if (hoverEl) {
+				Drag.hover = hoverEl;
+			}
+		}
 	};
 
 	this.onMouseOut = function (e) {
-		if (!SStart.isLocked()) {
-			Drag.hover.style.cursor = "";
-			var els = Drag.hover.getElementsByTagName('*');
-			for (var i = -1, l = els.length; ++i < l;) {
-				els[i].style.cursor = "";
+		if (Drag.hover) {
+			if (!SStart.isLocked()) {
+				Drag.hover.style.cursor = "";
+				var els = Drag.hover.getElementsByTagName('*');
+				for (var i = -1, l = els.length; ++i < l;) {
+					els[i].style.cursor = "";
+				}
 			}
+			Drag.hover = null;
 		}
-		Drag.hover = null;
 	};
 
 	this.onMouseDown = function (e) {
 		if (e.target.nodeName == "INPUT") return;
 		if (!Prefs.getBool("newtabOnLockDrag") && SStart.isLocked()) return;
 
-		Drag.object = e.currentTarget;
+		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+		if (hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart") {
+			while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+			if (hoverEl) {
+				Drag.object = hoverEl;
+			} else {
+				return;
+			}
+		} else {
+			return;
+		}
 		Drag.click.x = e.pageX;
 		Drag.click.y = e.pageY;
 		Drag.click.border = Drag.getBorder(Drag.object, e.pageX, e.pageY);
@@ -83,6 +95,14 @@ justoff.sstart.Drag = new function () {
 
 			var event = new CustomEvent("drop", {'detail':{'clientX':e.clientX, 'clientY':e.clientY}});
 			theObject.dispatchEvent(event);
+		} else {
+			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+			if (hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart") {
+				while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+				if (hoverEl && hoverEl.getAttribute("data-search") == "true") {
+					SStart.focusSearch(hoverEl);
+				}
+			}
 		}
 	};
 
@@ -200,4 +220,3 @@ justoff.sstart.Drag = new function () {
 	};
 
 };
-

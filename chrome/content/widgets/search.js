@@ -3,6 +3,7 @@ justoff.sstart.Search = function () {
 	var Search = justoff.sstart.Search
 	var Utils = justoff.sstart.Utils
 	var Dom = justoff.sstart.Dom
+	var SStart = justoff.sstart.SStart
 
 	this.setProperties = function (properties) {
 		Search.prototype.setProperties.call(this, properties);
@@ -19,7 +20,8 @@ justoff.sstart.Search = function () {
 
 	this.updateView = function () {
 		Search.prototype.updateView.call(this);
-		this.properties.title = this.getEngine().name;
+//		console.log(this.properties.title);
+		this.properties.title = SStart.getSearchEngine(this.properties.title).name;
 	}
 
 	this.renderView = function () {
@@ -35,25 +37,6 @@ justoff.sstart.Search = function () {
 			self.view.style.height = self.properties.height;
 		}, false);
 
-		var input = Dom.child(this.view, "search");
-		input.addEventListener("keypress", function (e) {
-			if (e.keyCode == e.DOM_VK_RETURN) {
-				doSearch.call(self, this.value);
-			}
-		}, false);
-
-		function focus (e) {
-			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-			var input = Dom.child(hoverEl.parentElement, "search");
-			if (input) input.focus();
-		}
-			
-		var hlink = Dom.child(this.view, "hlink");
-		hlink.addEventListener("click", focus, false);
-
-		var hlinkb = Dom.child(this.view, "hlinkb");
-		hlinkb.addEventListener("click", focus, false);
-
 		return this.view;
 	}
 
@@ -67,26 +50,14 @@ justoff.sstart.Search = function () {
 			this.save();
 			this.updateView();
 		}
+		SStart.deleteSearchNode(this.properties.id);
 	}
 
 	this.getIconURL = function () {
-		return this.getEngine().iconURI.spec;
+		return SStart.getSearchEngine(this.properties.title).iconURI.spec;
 	}
 
 	this.editTitle = function () {
-	}
-
-	this.getEngine = function (name) {
-		var searchService = Components.classes["@mozilla.org/browser/search-service;1"]
-			.getService(Components.interfaces.nsIBrowserSearchService);
-		return searchService.getEngineByName(this.properties.title) ||
-			searchService.currentEngine;
-	}
-
-	function doSearch(text) {
-		var engine = this.getEngine();
-		var submission = engine.getSubmission(text, null);
-		document.location = submission.uri.spec;
 	}
 }
 
