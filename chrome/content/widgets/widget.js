@@ -65,13 +65,7 @@ justoff.sstart.Widget = function () {
 		}
 
 		this.updateView();
-		if (this.properties.title == Prefs.getString("focus")) {
-			var view = this.view;
-			setTimeout(function () {
-				var node = Dom.child(view, "search");
-				if (node) node.focus();
-			}, 110);
-		}
+
 		var self = this;
 		var title = Dom.child(this.view, "title");
 		title.addEventListener("dblclick", function () {

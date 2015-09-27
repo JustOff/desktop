@@ -23,7 +23,7 @@ justoff.sstart.SearchPropertiesXul = new function () {
 			listbox.appendChild(listitem);
 			if (engines[i].name == properties.title) {
 				listbox.selectedItem = listitem;
-				if (engines[i].name == Prefs.getString("focus")) {
+				if (properties.id == Prefs.getString("focus")) {
 					Dom.get("focus").checked = true;
 				}
 			}
@@ -34,9 +34,9 @@ justoff.sstart.SearchPropertiesXul = new function () {
 		var properties = window.arguments[0].properties;
 		properties.title = Dom.get("engines").selectedItem.label;
 		if (Dom.get("focus").checked == true) {
-			Prefs.setString("focus", properties.title);
+			Prefs.setString("focus", properties.id);
 		}
-		else if (properties.title == Prefs.getString("focus")) {
+		else if (properties.id == Prefs.getString("focus")) {
 			Prefs.setString("focus", "");
 		}
 	}

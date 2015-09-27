@@ -15,6 +15,7 @@ justoff.sstart.Installer = new function () {
 		Installer.installed = true;
 		
 		SStart.updateGridInterval();
+		SStart.updateNewtabOnLockDrag();
 
 		if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
 			try {
@@ -74,6 +75,9 @@ justoff.sstart.Installer = new function () {
 					break;
 				case "gridInterval":
 					SStart.updateGridInterval();
+					break;
+				case "newtabOnLockDrag":
+					SStart.updateNewtabOnLockDrag();
 					break;
 			}
 		}

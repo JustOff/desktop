@@ -114,6 +114,14 @@ justoff.sstart.SStart = new function () {
 		return justoff.sstart.cache.gridInterval;
 	};
 	
+	this.updateNewtabOnLockDrag = function (s) {
+		justoff.sstart.cache.newtabOnLockDrag = Prefs.getBool("newtabOnLockDrag");
+	};
+	
+	this.newtabOnLockDrag = function () {
+		return justoff.sstart.cache.newtabOnLockDrag;
+	};
+	
 	this.alignToGrid = function (pos) {
 		var min = Math.floor(pos / justoff.sstart.cache.gridInterval) * justoff.sstart.cache.gridInterval;
 		if (pos - min > justoff.sstart.cache.gridInterval / 2)
