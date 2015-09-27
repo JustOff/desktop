@@ -137,7 +137,9 @@ justoff.sstart.SStart = new function () {
 	}
 
 	this.focusSearch = function (hoverEl) {
-		var input = Dom.child(hoverEl.lastElementChild.firstElementChild, "search");
+		try {
+			var input = Dom.child(hoverEl.lastElementChild.firstElementChild, "search");
+		} catch (e) {}
 		if (input) {
 			if (!(hoverEl.id in SStart.SearchNodes)) {
 				input.addEventListener("keypress", function (e) {

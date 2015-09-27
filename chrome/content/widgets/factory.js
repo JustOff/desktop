@@ -82,9 +82,14 @@ justoff.sstart.Factory = function (storage) {
 			SStart.setCacheDOM(true);
 		}
 		document.body.appendChild(fragment);
-		var focusEl = document.getElementById(Prefs.getString("focus"));
-		if (focusEl)
-			SStart.focusSearch(focusEl);
+		var focusId = Prefs.getString("focus");
+		if (focusId != "") {
+			var focusEl = document.getElementById(focusId);
+			if (focusEl)
+				setTimeout(function () {
+					SStart.focusSearch(focusEl);
+				}, 50);
+		}
 		return hasWidgets;
 	}
 
