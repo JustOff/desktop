@@ -114,14 +114,16 @@ console.time("SStart");
 		updateLockStatus();
 	}, false);
 	Dom.get("menu-refresh").addEventListener("click", function (e) {
-		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
-			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
-			SStart.setLocked(false);
-			factory.createWidgets(pageId);
-			SStart.setLocked(true);
+		if (Utils.confirm(SStart.translate("contextRefreshThumbnails") + "?")) {
+			if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
+				var widgets = document.getElementById("widgets");
+				widgets.parentNode.removeChild(widgets);
+				SStart.setLocked(false);
+				factory.createWidgets(pageId);
+				SStart.setLocked(true);
+			}
+			SStart.refreshAll();
 		}
-		SStart.refreshAll()
 	}, false);
 	Dom.get("menu-refreshone").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
