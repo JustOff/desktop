@@ -24,7 +24,15 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		var properties = window.arguments[0].properties;
 		var url = Dom.get("url").value;
 		if (url != properties.url) properties.title = "";
-		properties.url = !url || URL.getScheme(url) ? url : "http://" + url;
+		if (url) {
+			try {
+				properties.url = URL.getScheme(url);
+			} catch (e) {
+				properties.url = "http://" + url;
+			}
+		} else {
+			properties.url = "about:blank";
+		}
 		properties.customImage = Dom.get("customImage").value;
 		properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
 		properties.width = Dom.get("width").value;

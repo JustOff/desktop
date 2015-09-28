@@ -47,7 +47,6 @@ justoff.sstart.Drag = new function () {
 	};
 
 	this.onMouseDown = function (e) {
-		if (e.target.nodeName == "INPUT") return;
 		if (!SStart.newtabOnLockDrag() && SStart.isLocked()) return;
 
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);

@@ -29,15 +29,22 @@ justoff.sstart.Factory = function (storage) {
 		if (type != "search") {
 			properties.width = Prefs.getInt("thumbnail.width");
 			properties.height = Prefs.getInt("thumbnail.height");
+			properties.title = "";
 			var param = { properties: properties };
 			var xul = 'widgets/thumbnail/' + (properties.isFolder ? 'folder' : 'properties') + '.xul';
-
 			openDialog(xul, "properties", "chrome,centerscreen,modal,resizable", param);
-			if (param.properties) {
-				properties = param.properties;
-			} else {
-				return;
-			}
+		} else {
+			properties.width = 200;
+			properties.height = 40;
+			properties.title = "";
+			var param = { properties: properties };
+			openDialog("widgets/search/properties.xul", "properties", "chrome,centerscreen,modal,resizable", param);
+		}
+
+		if (param.properties) {
+			properties = param.properties;
+		} else {
+			return;
 		}
 
 		storage.saveObject(properties);
@@ -63,9 +70,9 @@ justoff.sstart.Factory = function (storage) {
 	}
 
 	this.createWidgets = function (pageId) {
-		var objects = storage.getObjects();
 		var hasWidgets = false;
 		if (!SStart.isLocked() || pageId > 0 || !justoff.sstart.cache.fragment) {
+			var objects = storage.getObjects();
 			var fragment = document.createElement('span');
 			fragment.setAttribute("id", "widgets");
 			for (var i in objects) {
