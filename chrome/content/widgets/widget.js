@@ -10,8 +10,6 @@ justoff.sstart.Widget = function () {
 	
 	const SEARCH_URL = "sstart://search/";
 
-	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
-
 	this.properties;
 	this.view;
 
@@ -97,7 +95,7 @@ justoff.sstart.Widget = function () {
 						bookmarksService.moveItem(self.view.id, bookmarksService.getFolderIdForItem(params.folder), 
 							bookmarksService.DEFAULT_INDEX);
 						Dom.remove(self.view);
-						justoff.sstart.cache.fragment = false;
+						SStart.clearCache();
 						return;
 					}
 				}
@@ -126,6 +124,8 @@ justoff.sstart.Widget = function () {
 				self.view.style.top = SStart.alignToGrid(self.view.offsetTop);
 			if (self.properties.left != self.view.offsetLeft)
 				self.view.style.left = SStart.alignToGrid(self.view.offsetLeft);
+			var moved = (self.properties.top != parseInt(self.view.style.top, 10) 
+				|| self.properties.left != parseInt(self.view.style.left, 10));
 			self.properties.top = parseInt(self.view.style.top, 10);
 			self.properties.left = parseInt(self.view.style.left, 10);
 			if (self.properties.width != self.view.clientWidth)
@@ -140,6 +140,9 @@ justoff.sstart.Widget = function () {
 			self.updateView.call(self);
 			if (resized) {
 				self.refresh.call(self);
+			}
+			if (SStart.getZoom() && SStart.getPageId() == 0 && (resized || moved)) {
+				SStart.clearCache();
 			}
 		}, false);
 
@@ -159,7 +162,9 @@ justoff.sstart.Widget = function () {
 		if (Utils.confirm("\"" + this.properties.title + "\"\n" + SStart.translate("dialogRemoveWidget"))) {
 			if (this.view) Dom.remove(this.view);
 			this.storage.removeObject(this.properties.id);
-			return true;
+			if (SStart.getZoom() && SStart.getPageId() == 0) {
+				SStart.clearCache();
+			}
 		}
 	}
 

@@ -9,9 +9,9 @@ justoff.sstart.SStart = new function () {
 	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
 	
 	this.Locked = true;
-	
 	this.CacheDOM = false;
-	
+	this.Zoom = 1;
+	this.PageId = 0;
 	this.SearchNodes = {};
 
 	this.isSStart = function (doc) {
@@ -55,6 +55,22 @@ justoff.sstart.SStart = new function () {
 				.createBundle("chrome://sstart/locale/sstart.properties");
 		}
 		return SStart.bundle.GetStringFromName(key);
+	};
+
+	this.getPageId = function () {
+		return SStart.PageId;
+	};
+
+	this.setPageId = function (s) {
+		SStart.PageId = s;
+	};
+
+	this.getZoom = function () {
+		return SStart.Zoom;
+	};
+
+	this.setZoom = function (s) {
+		SStart.Zoom = s;
 	};
 
 	this.isCacheDOM = function () {
@@ -120,6 +136,21 @@ justoff.sstart.SStart = new function () {
 	
 	this.newtabOnLockDrag = function () {
 		return justoff.sstart.cache.newtabOnLockDrag;
+	};
+	
+	this.clearCache = function (s) {
+		justoff.sstart.cache.fragment = false;
+	};
+	
+	this.updateAutoZoom = function (s) {
+		justoff.sstart.cache.autoZoom = Prefs.getBool("autoZoom");
+		if (justoff.sstart.cache.autoZoom) {
+			justoff.sstart.cache.fragment = false;
+		}
+	};
+	
+	this.autoZoom = function () {
+		return justoff.sstart.cache.autoZoom;
 	};
 	
 	this.alignToGrid = function (pos) {

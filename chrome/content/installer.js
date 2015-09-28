@@ -16,6 +16,7 @@ justoff.sstart.Installer = new function () {
 		
 		SStart.updateGridInterval();
 		SStart.updateNewtabOnLockDrag();
+		SStart.updateAutoZoom();
 
 		if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
 			try {
@@ -78,6 +79,9 @@ justoff.sstart.Installer = new function () {
 					break;
 				case "newtabOnLockDrag":
 					SStart.updateNewtabOnLockDrag();
+					break;
+				case "autoZoom":
+					SStart.updateAutoZoom();
 					break;
 			}
 		}

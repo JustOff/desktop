@@ -6,6 +6,7 @@ justoff.sstart.Factory = function (storage) {
 	var Dom = justoff.sstart.Dom
 	var Prefs = justoff.sstart.Prefs
 	var File = justoff.sstart.File
+	var Utils = justoff.sstart.Utils
 	
 	const SEARCH_URL = "sstart://search/";
 	
@@ -69,25 +70,52 @@ justoff.sstart.Factory = function (storage) {
 		fragment.appendChild(widget.renderView());
 	}
 
-	this.createWidgets = function (pageId) {
+	this.createWidgets = function (pageId, autoZoom) {
 		var hasWidgets = false;
 		if (!SStart.isLocked() || pageId > 0 || !justoff.sstart.cache.fragment) {
+			if (SStart.autoZoom()) {
+				var maxBottom = 1;
+				var maxRight = 1;
+			}
 			var objects = storage.getObjects();
 			var fragment = document.createElement('span');
 			fragment.setAttribute("id", "widgets");
 			for (var i in objects) {
 				createWidget(objects[i], fragment);
 				hasWidgets = true;
+				if (SStart.autoZoom()) {
+					maxBottom = Math.max(maxBottom, (parseInt(objects[i].top, 10) || 0) + (parseInt(objects[i].height, 10) || 1));
+					maxRight = Math.max(maxRight, (parseInt(objects[i].left, 10) || 0) + (parseInt(objects[i].width, 10) || 1));
+				}
 			}
 			if (pageId == 0) {
 				justoff.sstart.cache.fragment = fragment;
 				SStart.setCacheDOM(false);
+				if (SStart.autoZoom()) {
+					justoff.sstart.cache.maxBottom = maxBottom;
+					justoff.sstart.cache.maxRight = maxRight;
+				}
 			}
 		} else if (pageId == 0) {
 			var fragment = justoff.sstart.cache.fragment.cloneNode(true);
 			hasWidgets = true;
 			SStart.setCacheDOM(true);
+			if (SStart.autoZoom()) {
+				var maxBottom = justoff.sstart.cache.maxBottom;
+				var maxRight = justoff.sstart.cache.maxRight;
+			}
 		}
+		
+		if (autoZoom && SStart.autoZoom()) {
+			var zoom = Math.round(Math.min(window.innerWidth / maxRight, window.innerHeight / maxBottom) * 100) / 100;
+			if (zoom <= 1) {
+				var gBrowser = Utils.getBrowser();
+				gBrowser.selectedBrowser.markupDocumentViewer.fullZoom = zoom - 0.02;
+				SStart.setZoom(zoom - 0.02);
+				document.addEventListener("visibilitychange", setZoom, false);
+			}
+		}
+		
 		document.body.appendChild(fragment);
 		var focusId = Prefs.getString("focus");
 		if (focusId != "") {
@@ -98,6 +126,13 @@ justoff.sstart.Factory = function (storage) {
 				}, 50);
 		}
 		return hasWidgets;
+	}
+
+	function setZoom (e) {
+		if (!document.hidden) {
+			var gBrowser = Utils.getBrowser();
+			gBrowser.selectedBrowser.markupDocumentViewer.fullZoom = SStart.getZoom();
+		}
 	}
 
 };

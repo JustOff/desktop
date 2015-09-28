@@ -18,6 +18,7 @@ console.time("SStart");
 	} else {
 		var pageId = params.folder;
 	}
+	SStart.setPageId(pageId);
 
 	document.title = storage.getTitle();
 	if (document.title == "" || document.title == "SStart") {
@@ -28,7 +29,7 @@ console.time("SStart");
 		window.history.replaceState(null, "SStart", "chrome://sstart/content/sstart.html");
 
 	var factory = new Factory(storage);
-	var hasWidgets = factory.createWidgets(pageId);
+	var hasWidgets = factory.createWidgets(pageId, true);
 
 	var quickstart = Dom.get("quickstart");
 	if (!hasWidgets) {
