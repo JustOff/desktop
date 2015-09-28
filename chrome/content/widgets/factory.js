@@ -53,6 +53,9 @@ justoff.sstart.Factory = function (storage) {
 		var fragment = document.createDocumentFragment();
 		createWidget(properties, fragment);
 		document.getElementById("widgets").appendChild(fragment);
+		if (SStart.getZoom() && SStart.getPageId() == 0) {
+			SStart.clearCache();
+		}
 	}
 
 	function createWidget(properties, fragment) {
