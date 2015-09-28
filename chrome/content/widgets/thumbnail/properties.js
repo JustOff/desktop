@@ -26,7 +26,9 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		if (url != properties.url) properties.title = "";
 		if (url) {
 			try {
-				properties.url = URL.getScheme(url);
+				if (URL.getScheme(url)) {
+					properties.url = url;
+				}
 			} catch (e) {
 				properties.url = "http://" + url;
 			}
