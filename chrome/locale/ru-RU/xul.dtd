@@ -17,7 +17,7 @@
 <!ENTITY sstartpref.Positioning "Выравнивание">
 <!ENTITY sstartpref.GridSize "Размер сетки">
 
-<!ENTITY sstart.Browse "Обзор">
+<!ENTITY sstart.Browse "Установить">
 <!ENTITY sstart.Clear "Очистить">
 
 <!ENTITY sstart.Properties "Свойства">

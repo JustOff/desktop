@@ -10,7 +10,7 @@
 	<em:contributor>telega</em:contributor>
 	<em:contributor>rtimush</em:contributor>
 	<em:homepageURL>https://addons.mozilla.org/firefox/addon/speed-start/</em:homepageURL>
-	<em:optionsURL>chrome://sstart/content/preferences.xul</em:optionsURL>
+	<em:optionsURL>chrome://sstart/content/options.xul</em:optionsURL>
 	<em:targetApplication>
 	  <Description>
 		<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>

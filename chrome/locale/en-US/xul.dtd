@@ -17,7 +17,7 @@
 <!ENTITY sstartpref.Positioning "Aligning">
 <!ENTITY sstartpref.GridSize "Grid size">
 
-<!ENTITY sstart.Browse "Browse">
+<!ENTITY sstart.Browse "Set">
 <!ENTITY sstart.Clear "Clear">
 
 <!ENTITY sstart.Properties "Properties">
