@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://sstart/skin/preferences.css" type="text/css"?>
-<!DOCTYPE window SYSTEM "chrome://sstart/locale/preferences.dtd">
+<!DOCTYPE window SYSTEM "chrome://sstart/locale/xul.dtd">
 
 <prefwindow id="sstart-preferences-window"
 			persist="width height"

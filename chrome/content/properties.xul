@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="properties.css" type="text/css"?>
-<!DOCTYPE dialog SYSTEM "chrome://sstart/locale/properties.dtd">
+<!DOCTYPE dialog SYSTEM "chrome://sstart/locale/xul.dtd">
 <dialog id="sstart-properties"
 		title="&sstart.Properties;"
 		onload="justoff.sstart.SStartPropertiesXul.initialize();"

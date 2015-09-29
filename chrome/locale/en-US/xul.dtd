@@ -18,3 +18,16 @@
 
 <!ENTITY sstart.Browse "Browse">
 <!ENTITY sstart.Clear "Clear">
+
+<!ENTITY sstart.Properties "Properties">
+<!ENTITY sstartthumb.Name "Name">
+<!ENTITY sstartthumb.URL "URL">
+<!ENTITY sstartthumb.Width "Width">
+<!ENTITY sstartthumb.Height "Height">
+<!ENTITY sstartthumb.CustomImage "Custom image">
+<!ENTITY sstartsearch.GiveFocus "Give focus on start">
+<!ENTITY sstartfolder.General "Page">
+<!ENTITY sstartfolder.BackgroundColor "Background color">
+<!ENTITY sstartfolder.Header "Headers">
+<!ENTITY sstartfolder.titleColor "Title color">
+<!ENTITY sstartfolder.headerColor "Background color">
