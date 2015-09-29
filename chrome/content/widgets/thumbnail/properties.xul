@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://sstart/skin/properties.css" type="text/css"?>
-<!DOCTYPE dialog SYSTEM "chrome://sstart/locale/xul.dtd">
+<!DOCTYPE dialog SYSTEM "chrome://sstart/locale/sstart.dtd">
 <dialog id="thumbnail-properties"
 		title="&sstart.Properties;"
 		onload="justoff.sstart.ThumbnailPropertiesXul.initialize();"
