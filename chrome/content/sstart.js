@@ -32,16 +32,6 @@ justoff.sstart.SStart = new function () {
 		}
 	};
 
-	this.openPreferences = function () {
-		if (!SStart.prefsWindow || SStart.prefsWindow.closed) {
-			SStart.prefsWindow = window.openDialog(
-				"chrome://sstart/content/preferences.xul",
-				"sstart-preferences-window",
-				"chrome,toolbar,centerscreen,resizable=yes");
-		} else
-			SStart.prefsWindow.focus();
-	};
-
 	this.isMainBgImage = function () {
 		var bg = File.getDataDirectory();
 		bg.append("bg_0");
