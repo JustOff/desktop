@@ -42,9 +42,9 @@ justoff.sstart.SStart = new function () {
 			SStart.prefsWindow.focus();
 	};
 
-	this.isBackgroundImageSpecified = function () {
+	this.isMainBgImage = function () {
 		var bg = File.getDataDirectory();
-		bg.append("background");
+		bg.append("bg_0");
 		return bg.exists();
 	};
 

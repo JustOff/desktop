@@ -6,7 +6,6 @@
 			persist="width height"
 			title="&sstartpref.Preferences;"
 			dlgbuttons="accept,cancel"
-			onload="justoff.sstart.PreferencesXul.initialize();"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<prefpane id="general-pane" label="Main">
 		<preferences>
@@ -16,7 +15,6 @@
 			<preference id="extensions.sstart.autoZoom" name="extensions.sstart.autoZoom" type="bool"/>
 			<preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
 			<preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
-			<preference id="extensions.sstart.backgroundStyle" name="extensions.sstart.backgroundStyle" type="int"/>
 		</preferences>
 		<groupbox flex="1">
 			<caption label="&sstartpref.General;"/>
@@ -42,37 +40,6 @@
 			</hbox>
 		</groupbox>
 		<groupbox flex="1">
-			<caption label="&sstartpref.Background;"/>
-			<grid>
-				<columns>
-					<column flex="1"/>
-					<column/>
-				</columns>
-				<rows>
-					<row align="center">
-						<label control="browse" flex="1">&sstartpref.BackgroundImage;:</label>
-						<hbox>
-							<button class="browse" label="&sstart.Browse;"
-									oncommand="justoff.sstart.PreferencesXul.browseBackgroundImage();"/>
-							<button class="browse" label="&sstart.Clear;"
-									oncommand="justoff.sstart.PreferencesXul.clearBackgroundImage(true);"/>
-						</hbox>
-					</row>
-					<row align="center">
-						<label control="backgroundStyle" flex="1">&sstartpref.BackgroundStyle;:</label>
-						<hbox>
-							<menulist id="backgroundStyle" preference="extensions.sstart.backgroundStyle">
-								<menupopup>
-									<menuitem label="&sstartpref.BackgroundTile;" value="1"/>
-									<menuitem label="&sstartpref.BackgroundStretch;" value="2"/>
-								</menupopup>
-							</menulist>
-						</hbox>
-					</row>
-				</rows>
-			</grid>
-		</groupbox>
-		<groupbox flex="1">
 			<caption label="&sstartpref.Positioning;"/>
 			<hbox align="center">
 				<label control="browse">&sstartpref.GridSize;:</label>
@@ -88,49 +55,4 @@
 			</hbox>
 		</groupbox>
 	</prefpane>
-
-	<script src="namespace.js"/>
-	<script src="utils.js"/>
-	<script src="file.js"/>
-	<script src="prefs.js"/>
-	<script src="sstart.js"/>
-	<script src="dom.js"/>
-	<script>
-	<![CDATA[
-		justoff.sstart.PreferencesXul = new function () {
-
-			var File = justoff.sstart.File
-			var SStart = justoff.sstart.SStart
-			var Dom = justoff.sstart.Dom
-
-			var redrawSStart = function () {
-				SStart.forEachSStartBrowser(SStart.reloadPage);
-			}
-
-			this.initialize = function () {
-			}
-
-			this.browseBackgroundImage = function () {
-				var file = File.chooseFile("open", ["images"]);
-				if (file) {
-					this.clearBackgroundImage(false);
-					file.copyTo(File.getDataDirectory(), "background");
-					redrawSStart();
-				}
-			}
-
-			this.clearBackgroundImage = function (redraw) {
-				var dir = File.getDataDirectory();
-				dir.append("background");
-				try {
-					dir.remove(false);
-				} catch (e) {
-				}
-				if (redraw) redrawSStart();
-			}
-
-		}
-		]]>
-	</script>
-
 </prefwindow>

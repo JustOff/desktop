@@ -40,7 +40,6 @@ justoff.sstart.Installer = new function () {
 		this.observe = function (subject, topic, data) {
 			if (topic != "nsPref:changed") return;
 			switch (data) {
-				case "backgroundStyle":
 				case "bottomHeader":
 					SStart.forEachSStartBrowser(SStart.reloadPage);
 					break;

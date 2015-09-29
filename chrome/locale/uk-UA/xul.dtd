@@ -12,6 +12,7 @@
 <!ENTITY sstartpref.BackgroundStyle "Заповнення">
 <!ENTITY sstartpref.BackgroundTile "Плиткою">
 <!ENTITY sstartpref.BackgroundStretch "Розтягнути">
+<!ENTITY sstartpref.UseMainImage "Використовувати зображення з головної сторінки">
 
 <!ENTITY sstartpref.Positioning "Вирівнювання">
 <!ENTITY sstartpref.GridSize "Розмір сітки">
@@ -26,8 +27,8 @@
 <!ENTITY sstartthumb.Height "Висота">
 <!ENTITY sstartthumb.CustomImage "Зображення">
 <!ENTITY sstartsearch.GiveFocus "Виділяти при старті">
-<!ENTITY sstartfolder.General "Сторінка">
-<!ENTITY sstartfolder.BackgroundColor "Колір фону">
+<!ENTITY sstartfolder.Page "Фон сторінки">
+<!ENTITY sstartfolder.BackgroundColor "Колір">
 <!ENTITY sstartfolder.Header "Заголовки">
 <!ENTITY sstartfolder.titleColor "Колір тексту">
 <!ENTITY sstartfolder.headerColor "Колір фону">

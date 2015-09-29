@@ -11,23 +11,68 @@
 
 	<prefpane id="general-pane" label="Main">
 		<groupbox flex="1">
-			<caption label="&sstartfolder.General;"/>
-			<hbox align="center">
-				<label value="&sstartfolder.BackgroundColor;:"/>
-				<textbox id="bgColor"/>
-			</hbox>
+			<caption label="&sstartfolder.Page;"/>
+			<grid>
+				<columns>
+					<column flex="1"/>
+					<column/>
+				</columns>
+				<rows>
+					<row align="center">
+						<label control="BackgroundColor" flex="1">&sstartfolder.BackgroundColor;:</label>
+						<hbox align="center">
+							<textbox id="bgColor"/>
+						</hbox>
+					</row>
+					<hbox id="hboxMainBgImage">
+						<label value="&sstartpref.UseMainImage;:"/>
+						<checkbox id="useMainBgImage" oncommand="justoff.sstart.SStartPropertiesXul.toggleSelectBgImage(true);"/>
+					</hbox>
+					<row id="BackgroundImage" align="center">
+						<label control="BackgroundImage" flex="1">&sstartpref.BackgroundImage;:</label>
+						<hbox>
+							<button class="browse" label="&sstart.Browse;"
+									oncommand="justoff.sstart.SStartPropertiesXul.browseBackgroundImage();"/>
+							<button class="browse" label="&sstart.Clear;"
+									oncommand="justoff.sstart.SStartPropertiesXul.clearBackgroundImage();"/>
+						</hbox>
+					</row>
+					<row id="backgroundStyle" align="center">
+						<label control="backgroundStyle" flex="1">&sstartpref.BackgroundStyle;:</label>
+						<hbox>
+							<menulist id="bgStyle" oncommand="justoff.sstart.SStartPropertiesXul.toggleBackgroundStyle();">
+								<menupopup>
+									<menuitem label="&sstartpref.BackgroundTile;" value="1"/>
+									<menuitem label="&sstartpref.BackgroundStretch;" value="2"/>
+								</menupopup>
+							</menulist>
+						</hbox>
+					</row>
+				</rows>
+			</grid>
 		</groupbox>
-			
 		<groupbox flex="1">
 			<caption label="&sstartfolder.Header;"/>
-			<hbox align="center">
-				<label value="&sstartfolder.titleColor;:"/>
-				<textbox id="titleColor"/>
-			</hbox>
-			<hbox align="center">
-				<label value="&sstartfolder.headerColor;:"/>
-				<textbox id="headerColor"/>
-			</hbox>
+			<grid>
+				<columns>
+					<column flex="1"/>
+					<column/>
+				</columns>
+				<rows>
+					<row align="center">
+						<label control="titleColor" flex="1">&sstartfolder.titleColor;:</label>
+							<hbox align="center">
+								<textbox id="titleColor"/>
+							</hbox>
+					</row>
+					<row align="center">
+						<label control="headerColor" flex="1">&sstartfolder.headerColor;:</label>
+						<hbox align="center">
+							<textbox id="headerColor"/>
+						</hbox>
+					</row>
+				</rows>
+			</grid>
 		</groupbox>
 	</prefpane>
 
@@ -35,18 +80,104 @@
 	<script src="utils.js"/>
 	<script src="file.js"/>
 	<script src="dom.js"/>
+	<script src="sstart.js"/>
+	<script src="prefs.js"/>
 	<script>
 	<![CDATA[
 		justoff.sstart.SStartPropertiesXul = new function () {
 
 			var File = justoff.sstart.File
 			var Dom = justoff.sstart.Dom
+			var SStart = justoff.sstart.SStart
+			var Utils = justoff.sstart.Utils
+			var Prefs = justoff.sstart.Prefs
+			
+			this.backgroundImage = "";
+
+			this.toggleSelectBgImage = function (repaint) {
+				if (Dom.get("useMainBgImage").checked) {
+					Dom.get("BackgroundImage").hidden = true;
+					Dom.get("backgroundStyle").hidden = true;
+					if (repaint) {
+						var gBrowser = Utils.getBrowser();
+						var body = gBrowser.selectedBrowser.contentDocument.body;
+						Dom.removeClass(body, 'background-style-1');
+						Dom.removeClass(body, 'background-style-2');
+						if (SStart.isMainBgImage()) {
+							body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
+							Dom.addClass(body, 'background-style-' + Prefs.getInt('backgroundStyle'));
+						} else {
+							body.style.backgroundImage = "";
+						}
+					}
+				} else {
+					Dom.get("BackgroundImage").hidden = false;
+					Dom.get("backgroundStyle").hidden = false;
+					if (repaint) {
+						var gBrowser = Utils.getBrowser();
+						var body = gBrowser.selectedBrowser.contentDocument.body;
+						Dom.removeClass(body, 'background-style-1');
+						Dom.removeClass(body, 'background-style-2');
+						if (this.backgroundImage == "1") {
+							body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + window.arguments[0].pageId) + ")";
+							Dom.addClass(body, 'background-style-' + Dom.get("bgStyle").value);
+						} else {
+							body.style.backgroundImage = "";
+						}
+					}
+				}
+			}
+			
+			this.browseBackgroundImage = function () {
+				var file = File.chooseFile("open", ["images"]);
+				if (file) {
+					this.clearBackgroundImage();
+					file.copyTo(File.getDataDirectory(), "bg_" + window.arguments[0].pageId);
+					this.backgroundImage = "1";
+					var gBrowser = Utils.getBrowser();
+					var body = gBrowser.selectedBrowser.contentDocument.body;
+					body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + window.arguments[0].pageId) + ")";
+					Dom.addClass(body, 'background-style-' + Dom.get("bgStyle").value);
+				}
+			}
+
+			this.clearBackgroundImage = function () {
+				var dir = File.getDataDirectory();
+				dir.append("bg_" + window.arguments[0].pageId);
+				try {
+					dir.remove(false);
+				} catch (e) {
+				}
+				this.backgroundImage = "0";
+				var gBrowser = Utils.getBrowser();
+				var body = gBrowser.selectedBrowser.contentDocument.body;
+				body.style.backgroundImage = "";
+				Dom.removeClass(body, 'background-style-1');
+				Dom.removeClass(body, 'background-style-2');
+			}
+			
+			this.toggleBackgroundStyle = function () {
+				var gBrowser = Utils.getBrowser();
+				var body = gBrowser.selectedBrowser.contentDocument.body;
+				Dom.removeClass(body, 'background-style-1');
+				Dom.removeClass(body, 'background-style-2');
+				Dom.addClass(body, 'background-style-' + Dom.get("bgStyle").value);
+			}
 
 			this.initialize = function () {
 				var properties = window.arguments[0].properties;
+				var pageId = window.arguments[0].pageId;
 				Dom.get("bgColor").value = properties.background || "#FFFFFF";
 				Dom.get("titleColor").value = properties.titleColor || "#000000";
 				Dom.get("headerColor").value = properties.headerColor || "#E0E0E0";
+				this.backgroundImage = properties.backgroundImage || "0";
+				Dom.get("bgStyle").value = properties.backgroundStyle || 1;
+				if (window.arguments[0].pageId > 0) {
+					Dom.get("useMainBgImage").checked = properties.useMainBgImage != "0";
+					this.toggleSelectBgImage(false);
+				} else {
+					Dom.get("hboxMainBgImage").hidden = true;
+				}
 			}
 
 			this.onAccept = function () {
@@ -54,6 +185,14 @@
 				properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
 				properties.titleColor = (Dom.get("titleColor").value == "") ? "#000000" : Dom.get("titleColor").value;
 				properties.headerColor = (Dom.get("headerColor").value == "") ? "#E0E0E0" : Dom.get("headerColor").value;
+				properties.backgroundImage = this.backgroundImage;
+				properties.backgroundStyle = Dom.get("bgStyle").value;
+				if (window.arguments[0].pageId == 0) {
+					Prefs.setInt('backgroundStyle', properties.backgroundStyle);
+				}
+				if (window.arguments[0].pageId > 0) {
+					properties.useMainBgImage = Dom.get("useMainBgImage").checked ? "1" : "0";
+				}
 			}
 
 			this.onCancel = function () {

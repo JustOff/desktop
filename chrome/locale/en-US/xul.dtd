@@ -12,6 +12,7 @@
 <!ENTITY sstartpref.BackgroundStyle "Style">
 <!ENTITY sstartpref.BackgroundTile "Tile">
 <!ENTITY sstartpref.BackgroundStretch "Stretch">
+<!ENTITY sstartpref.UseMainImage "Use image from main page">
 
 <!ENTITY sstartpref.Positioning "Aligning">
 <!ENTITY sstartpref.GridSize "Grid size">
@@ -26,8 +27,8 @@
 <!ENTITY sstartthumb.Height "Height">
 <!ENTITY sstartthumb.CustomImage "Custom image">
 <!ENTITY sstartsearch.GiveFocus "Give focus on start">
-<!ENTITY sstartfolder.General "Page">
-<!ENTITY sstartfolder.BackgroundColor "Background color">
+<!ENTITY sstartfolder.Page "Page background">
+<!ENTITY sstartfolder.BackgroundColor "Color">
 <!ENTITY sstartfolder.Header "Headers">
 <!ENTITY sstartfolder.titleColor "Title color">
 <!ENTITY sstartfolder.headerColor "Background color">

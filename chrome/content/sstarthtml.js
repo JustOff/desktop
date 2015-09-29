@@ -52,9 +52,21 @@ console.time("SStart");
 		}
 	}
 
-	if (SStart.isBackgroundImageSpecified()) {
-		document.body.style.backgroundImage = "url(" + File.getDataFileURL("background") + ")";
-		Dom.addClass(document.body, 'background-style-' + Prefs.getInt('backgroundStyle'));
+	if (pageId == 0) {
+		if (properties.backgroundImage == "1") {
+			document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
+			Dom.addClass(document.body, 'background-style-' + (properties.backgroundStyle || 1));
+		}
+	} else {
+		if (properties.useMainBgImage != "0" && SStart.isMainBgImage()) {
+			document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
+			Dom.addClass(document.body, 'background-style-' + Prefs.getInt('backgroundStyle'));
+		} else {
+			if (properties.backgroundImage == "1") {
+				document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + pageId) + ")";
+				Dom.addClass(document.body, 'background-style-' + (properties.backgroundStyle || 1));
+			}
+		}
 	}
 
 	if (!SStart.areDecorationsVisible()) {
@@ -191,7 +203,7 @@ console.time("SStart");
 		}
 	}, false);
 	Dom.get("menu-props").addEventListener("click", function (e) {
-		var param = { properties: properties };
+		var param = { properties: properties, pageId: pageId };
 		var xul = 'properties.xul';
 		openDialog(xul, "properties", "chrome,centerscreen,modal,resizable", param);
 		if (param.properties) {
