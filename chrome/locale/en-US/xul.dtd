@@ -1,34 +1,34 @@
-<!ENTITY sstartpref.Preferences "Speed Start Options">
+<!ENTITY sstart.Preferences "Speed Start Options">
 
-<!ENTITY sstartpref.General "General">
-<!ENTITY sstartpref.OpenInNewTabs "Load in new tabs">
-<!ENTITY sstartpref.UseAsHomePage "Use as home page">
-<!ENTITY sstartpref.newtabOnLockDrag "Open in new tab on drag">
-<!ENTITY sstartpref.autoZoom "Auto zoom out to fit borders">
-<!ENTITY sstartpref.bottomHeader "Display headers at bottom">
+<!ENTITY sstart.General "General">
 
-<!ENTITY sstartpref.Background "Background">
-<!ENTITY sstartpref.BackgroundImage "Image">
-<!ENTITY sstartpref.BackgroundStyle "Style">
-<!ENTITY sstartpref.BackgroundTile "Tile">
-<!ENTITY sstartpref.BackgroundStretch "Stretch">
-<!ENTITY sstartpref.UseMainImage "Use image from main page">
-
-<!ENTITY sstartpref.Positioning "Aligning">
-<!ENTITY sstartpref.GridSize "Grid size">
-
-<!ENTITY sstart.Browse "Set">
-<!ENTITY sstart.Clear "Clear">
+<!ENTITY sstart.OpenInNewTabs "Load in new tabs">
+<!ENTITY sstart.UseAsHomePage "Use as home page">
+<!ENTITY sstart.newtabOnLockDrag "Open in new tab on drag">
+<!ENTITY sstart.autoZoom "Auto zoom out to fit borders">
+<!ENTITY sstart.bottomHeader "Display headers at bottom">
+<!ENTITY sstart.Positioning "Aligning">
+<!ENTITY sstart.GridSize "Grid size">
 
 <!ENTITY sstart.Properties "Properties">
-<!ENTITY sstartthumb.Name "Name">
-<!ENTITY sstartthumb.URL "URL">
-<!ENTITY sstartthumb.Width "Width">
-<!ENTITY sstartthumb.Height "Height">
-<!ENTITY sstartthumb.CustomImage "Custom image">
-<!ENTITY sstartsearch.GiveFocus "Give focus on start">
-<!ENTITY sstartfolder.Page "Page background">
-<!ENTITY sstartfolder.BackgroundColor "Color">
-<!ENTITY sstartfolder.Header "Headers">
-<!ENTITY sstartfolder.titleColor "Title color">
-<!ENTITY sstartfolder.headerColor "Background color">
+
+<!ENTITY sstart.Page "Page background">
+<!ENTITY sstart.BackgroundColor "Color">
+<!ENTITY sstart.UseMainImage "Use image from main page">
+<!ENTITY sstart.BackgroundImage "Image">
+<!ENTITY sstart.BackgroundStyle "Style">
+<!ENTITY sstart.BackgroundTile "Tile">
+<!ENTITY sstart.BackgroundStretch "Stretch">
+<!ENTITY sstart.Browse "Set">
+<!ENTITY sstart.Clear "Clear">
+<!ENTITY sstart.Header "Header colors">
+<!ENTITY sstart.titleColor "Title">
+<!ENTITY sstart.headerColor "Background">
+
+<!ENTITY sstart.Name "Name">
+<!ENTITY sstart.URL "URL">
+<!ENTITY sstart.Width "Width">
+<!ENTITY sstart.Height "Height">
+<!ENTITY sstart.CustomImage "Custom image">
+
+<!ENTITY sstart.GiveFocus "Give focus on start">

@@ -16,29 +16,29 @@
 		</columns>
 		<rows>
 			<row align="center">
-				<label value="&sstartthumb.URL;:"/>
+				<label value="&sstart.URL;:"/>
 				<textbox id="url" type="autocomplete"
 						 enablehistory="true" autocompletesearch="history"/>
 				<button id="browseFile" label="&#x2026;"
 						oncommand="justoff.sstart.ThumbnailPropertiesXul.browseFile();"/>
 			</row>
 			<row align="center">
-				<label value="&sstartfolder.BackgroundColor;:"/>
+				<label value="&sstart.BackgroundColor;:"/>
 				<textbox id="bgColor"/>
 			</row>
 			<row align="center">
-				<label value="&sstartthumb.CustomImage;:"/>
+				<label value="&sstart.CustomImage;:"/>
 				<textbox id="customImage" type="autocomplete" enablehistory="true"
 						 autocompletesearch="history"/>
 				<button id="browseCustomImage" label="&#x2026;"
 						oncommand="justoff.sstart.ThumbnailPropertiesXul.browseCustomImage();"/>
 			</row>
 			<row align="center">
-				<label value="&sstartthumb.Width;:"/>
+				<label value="&sstart.Width;:"/>
 				<textbox id="width"/>
 			</row>
 			<row align="center">
-				<label value="&sstartthumb.Height;:"/>
+				<label value="&sstart.Height;:"/>
 				<textbox id="height"/>
 			</row>
 		</rows>

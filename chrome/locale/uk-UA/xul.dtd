@@ -1,34 +1,34 @@
-<!ENTITY sstartpref.Preferences "Налаштування Speed Start">
+<!ENTITY sstart.Preferences "Налаштування Speed Start">
 
-<!ENTITY sstartpref.General "Основні">
-<!ENTITY sstartpref.OpenInNewTabs "Відкривати в нових вкладках">
-<!ENTITY sstartpref.UseAsHomePage "Використовувати як домашню сторінку">
-<!ENTITY sstartpref.newtabOnLockDrag "Відкривати в новій вкладці при перетягуванні">
-<!ENTITY sstartpref.autoZoom "Автоматично зменшувати для дотримання меж">
-<!ENTITY sstartpref.bottomHeader "Виводити заголовки мініатюр знизу">
+<!ENTITY sstart.General "Загальні">
 
-<!ENTITY sstartpref.Background "Фон">
-<!ENTITY sstartpref.BackgroundImage "Зображення">
-<!ENTITY sstartpref.BackgroundStyle "Заповнення">
-<!ENTITY sstartpref.BackgroundTile "Плиткою">
-<!ENTITY sstartpref.BackgroundStretch "Розтягнути">
-<!ENTITY sstartpref.UseMainImage "Використовувати зображення з головної сторінки">
-
-<!ENTITY sstartpref.Positioning "Вирівнювання">
-<!ENTITY sstartpref.GridSize "Розмір сітки">
-
-<!ENTITY sstart.Browse "Встановити">
-<!ENTITY sstart.Clear "Очистити">
+<!ENTITY sstart.OpenInNewTabs "Відкривати в нових вкладках">
+<!ENTITY sstart.UseAsHomePage "Використовувати як домашню сторінку">
+<!ENTITY sstart.newtabOnLockDrag "Відкривати в новій вкладці при перетягуванні">
+<!ENTITY sstart.autoZoom "Автоматично зменшувати для дотримання меж">
+<!ENTITY sstart.bottomHeader "Виводити заголовки знизу">
+<!ENTITY sstart.Positioning "Вирівнювання">
+<!ENTITY sstart.GridSize "Розмір сітки">
 
 <!ENTITY sstart.Properties "Властивості">
-<!ENTITY sstartthumb.Name "Назва">
-<!ENTITY sstartthumb.URL "URL">
-<!ENTITY sstartthumb.Width "Ширина">
-<!ENTITY sstartthumb.Height "Висота">
-<!ENTITY sstartthumb.CustomImage "Зображення">
-<!ENTITY sstartsearch.GiveFocus "Виділяти при старті">
-<!ENTITY sstartfolder.Page "Фон сторінки">
-<!ENTITY sstartfolder.BackgroundColor "Колір">
-<!ENTITY sstartfolder.Header "Заголовки">
-<!ENTITY sstartfolder.titleColor "Колір тексту">
-<!ENTITY sstartfolder.headerColor "Колір фону">
+
+<!ENTITY sstart.Page "Фон сторінки">
+<!ENTITY sstart.BackgroundColor "Колір">
+<!ENTITY sstart.UseMainImage "Використовувати зображення з головної сторінки">
+<!ENTITY sstart.BackgroundImage "Зображення">
+<!ENTITY sstart.BackgroundStyle "Заповнення">
+<!ENTITY sstart.BackgroundTile "Плиткою">
+<!ENTITY sstart.BackgroundStretch "Розтягнути">
+<!ENTITY sstart.Browse "Встановити">
+<!ENTITY sstart.Clear "Очистити">
+<!ENTITY sstart.Header "Кольори заголовків">
+<!ENTITY sstart.titleColor "Текст">
+<!ENTITY sstart.headerColor "Фон">
+
+<!ENTITY sstart.Name "Назва">
+<!ENTITY sstart.URL "URL">
+<!ENTITY sstart.Width "Ширина">
+<!ENTITY sstart.Height "Висота">
+<!ENTITY sstart.CustomImage "Зображення">
+
+<!ENTITY sstart.GiveFocus "Виділяти при старті">

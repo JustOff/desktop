@@ -10,7 +10,7 @@
 		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 	<listbox id="engines" ondblclick="justoff.sstart.Dom.get('search-properties').acceptDialog();"/>
-	<checkbox id="focus" label="&sstartsearch.GiveFocus;" checked="false"/>
+	<checkbox id="focus" label="&sstart.GiveFocus;" checked="false"/>
 
 	<script src="../../namespace.js"/>
 	<script src="../../utils.js"/>

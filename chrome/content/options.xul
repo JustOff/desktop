@@ -4,7 +4,7 @@
 
 <prefwindow id="sstart-preferences-window"
 			persist="width height"
-			title="&sstartpref.Preferences;"
+			title="&sstart.Preferences;"
 			dlgbuttons="accept,cancel"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<prefpane id="general-pane" label="Main">
@@ -17,32 +17,32 @@
 			<preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
 		</preferences>
 		<groupbox flex="1">
-			<caption label="&sstartpref.General;"/>
+			<caption label="&sstart.General;"/>
 			<hbox>
-				<checkbox id="openInNewTabs" label="&sstartpref.OpenInNewTabs;"
+				<checkbox id="openInNewTabs" label="&sstart.OpenInNewTabs;"
 						  preference="extensions.sstart.overrideNewTab"/>
 			</hbox>
 			<hbox>
-				<checkbox id="useAsHomePage" label="&sstartpref.UseAsHomePage;"
+				<checkbox id="useAsHomePage" label="&sstart.UseAsHomePage;"
 						  preference="extensions.sstart.overrideHomePage"/>
 			</hbox>
 			<hbox>
-				<checkbox id="openNewtabOnLockDrag" label="&sstartpref.newtabOnLockDrag;"
+				<checkbox id="openNewtabOnLockDrag" label="&sstart.newtabOnLockDrag;"
 						  preference="extensions.sstart.newtabOnLockDrag"/>
 			</hbox>
 			<hbox>
-				<checkbox id="useAutoZoom" label="&sstartpref.autoZoom;"
+				<checkbox id="useAutoZoom" label="&sstart.autoZoom;"
 						  preference="extensions.sstart.autoZoom"/>
 			</hbox>
 			<hbox>
-				<checkbox id="bottomHeader" label="&sstartpref.bottomHeader;"
+				<checkbox id="bottomHeader" label="&sstart.bottomHeader;"
 						  preference="extensions.sstart.bottomHeader"/>
 			</hbox>
 		</groupbox>
 		<groupbox flex="1">
-			<caption label="&sstartpref.Positioning;"/>
+			<caption label="&sstart.Positioning;"/>
 			<hbox align="center">
-				<label control="browse">&sstartpref.GridSize;:</label>
+				<label control="browse">&sstart.GridSize;:</label>
 				<menulist id="gridInterval" preference="extensions.sstart.gridInterval">
 					<menupopup>
 						<menuitem label="16" value="16"/>
