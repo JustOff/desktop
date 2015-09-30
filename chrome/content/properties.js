@@ -52,8 +52,8 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		}
 	}
 
-	this.setclearBackgroundImage = function () {
-		if (Dom.get("SetClear").label == this.SetStr) {
+	this.setremoveBackgroundImage = function () {
+		if (Dom.get("SetRemove").label == this.SetStr) {
 			this.setBackgroundImage();
 		} else {
 			this.clearBackgroundImage();
@@ -75,7 +75,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 			Dom.removeClass(this.body, 'background-style-1');
 			Dom.removeClass(this.body, 'background-style-2');
 			Dom.addClass(this.body, 'background-style-' + Dom.get("bgStyle").value);
-			Dom.get("SetClear").label = this.ClearStr;
+			Dom.get("SetRemove").label = this.RemoveStr;
 		}
 	}
 
@@ -94,7 +94,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		} else {
 			this.body.style.backgroundImage = "";
 		}
-		Dom.get("SetClear").label = this.SetStr;
+		Dom.get("SetRemove").label = this.SetStr;
 	}
 			
 	this.toggleBackgroundStyle = function () {
@@ -106,7 +106,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
 		this.SetStr = SStart.translate("imageSet");
-		this.ClearStr = SStart.translate("imageClear");
+		this.RemoveStr = SStart.translate("imageRemove");
 		this.pageId = window.arguments[0].pageId;
 		this.body = window.arguments[0].body;
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
@@ -115,9 +115,9 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		this.backgroundImage = properties.backgroundImage || "0";
 		Dom.get("bgStyle").value = properties.backgroundStyle || 1;
 		if (this.backgroundImage == "1") {
-			Dom.get("SetClear").label = this.ClearStr;
+			Dom.get("SetRemove").label = this.RemoveStr;
 		} else {
-			Dom.get("SetClear").label = this.SetStr;
+			Dom.get("SetRemove").label = this.SetStr;
 		}
 		if (this.pageId > 0) {
 			Dom.get("useMainBgImage").checked = properties.useMainBgImage != "0";

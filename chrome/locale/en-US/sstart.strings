@@ -21,4 +21,4 @@ dialogMoveWidget=Move widget to folder?
 dialogMoveUpWidget=Move widget to parent folder?
 
 imageSet=Set
-imageClear=Clear
+imageRemove=Remove

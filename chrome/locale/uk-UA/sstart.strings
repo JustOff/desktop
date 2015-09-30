@@ -21,4 +21,4 @@ dialogMoveWidget=Перемістити об'єкт в папку?
 dialogMoveUpWidget=Перемістити об'єкт на рівень вище?
 
 imageSet=Встановити
-imageClear=Очистити
+imageRemove=Видалити
