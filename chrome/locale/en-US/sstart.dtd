@@ -19,8 +19,6 @@
 <!ENTITY sstart.BackgroundStyle "Style">
 <!ENTITY sstart.BackgroundTile "Tile">
 <!ENTITY sstart.BackgroundStretch "Stretch">
-<!ENTITY sstart.Browse "Set">
-<!ENTITY sstart.Clear "Clear">
 <!ENTITY sstart.Header "Header colors">
 <!ENTITY sstart.titleColor "Title">
 <!ENTITY sstart.headerColor "Background">

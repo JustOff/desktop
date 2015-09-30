@@ -19,3 +19,6 @@ contextRemove=Видалити
 dialogRemoveWidget=Видалити об`єкт?
 dialogMoveWidget=Перемістити об'єкт в папку?
 dialogMoveUpWidget=Перемістити об'єкт на рівень вище?
+
+imageSet=Встановити
+imageClear=Очистити

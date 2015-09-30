@@ -19,8 +19,6 @@
 <!ENTITY sstart.BackgroundStyle "Заполнение">
 <!ENTITY sstart.BackgroundTile "Плиткой">
 <!ENTITY sstart.BackgroundStretch "Растянуть">
-<!ENTITY sstart.Browse "Установить">
-<!ENTITY sstart.Clear "Очистить">
 <!ENTITY sstart.Header "Цвета заголовков">
 <!ENTITY sstart.titleColor "Текст">
 <!ENTITY sstart.headerColor "Фон">

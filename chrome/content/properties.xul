@@ -31,10 +31,8 @@
 					<row id="BackgroundImage" align="center">
 						<label control="BackgroundImage" flex="1">&sstart.BackgroundImage;:</label>
 						<hbox>
-							<button class="browse" label="&sstart.Browse;"
-									oncommand="justoff.sstart.SStartPropertiesXul.browseBackgroundImage();"/>
-							<button class="browse" label="&sstart.Clear;"
-									oncommand="justoff.sstart.SStartPropertiesXul.clearBackgroundImage();"/>
+							<button id="SetClear" class="browse" label=""
+									oncommand="justoff.sstart.SStartPropertiesXul.setclearBackgroundImage();"/>
 						</hbox>
 					</row>
 					<row id="backgroundStyle" align="center">

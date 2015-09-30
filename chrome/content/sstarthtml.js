@@ -52,22 +52,17 @@ console.time("SStart");
 		}
 	}
 
-	if (pageId == 0) {
-		if (properties.backgroundImage == "1") {
-			document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
-			Dom.addClass(document.body, 'background-style-' + (properties.backgroundStyle || 1));
-		}
-	} else {
-		if (properties.useMainBgImage != "0" && SStart.isMainBgImage()) {
+	function updateBgImage (properties, pageId) {
+		if (pageId > 0 && properties.useMainBgImage != "0" && SStart.isMainBgImage()) {
 			document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
 			Dom.addClass(document.body, 'background-style-' + Prefs.getInt('backgroundStyle'));
-		} else {
-			if (properties.backgroundImage == "1") {
-				document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + pageId) + ")";
-				Dom.addClass(document.body, 'background-style-' + (properties.backgroundStyle || 1));
-			}
+		} else if (properties.backgroundImage == "1") {
+			document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + pageId) + ")";
+			Dom.addClass(document.body, 'background-style-' + (properties.backgroundStyle || 1));
 		}
 	}
+	
+	updateBgImage (properties, pageId);
 
 	if (!SStart.areDecorationsVisible()) {
 		Dom.addClass(document.body, 'no-decorations');
@@ -203,7 +198,7 @@ console.time("SStart");
 		}
 	}, false);
 	Dom.get("menu-props").addEventListener("click", function (e) {
-		var param = { properties: properties, pageId: pageId };
+		var param = { properties: properties, pageId: pageId, body: document.body };
 		var xul = 'properties.xul';
 		openDialog(xul, "properties", "chrome,centerscreen,modal,resizable", param);
 		if (param.properties) {
@@ -218,6 +213,16 @@ console.time("SStart");
 			}
 			if (properties.titleColor) {
 				document.styleSheets[1].cssRules[11].style.color = properties.titleColor;
+			}
+		} else {
+			document.body.style.backgroundImage = "";
+			Dom.removeClass(document.body, 'background-style-1');
+			Dom.removeClass(document.body, 'background-style-2');
+			updateBgImage (properties, pageId);
+			var dir = File.getDataDirectory();
+			dir.append("bg_" + pageId + "t");
+			if (dir.exists()) {
+				dir.remove(false);
 			}
 		}
 	}, false);
