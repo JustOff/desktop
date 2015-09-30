@@ -3,6 +3,7 @@ justoff.sstart.Storage = function (folderId) {
 	var File = justoff.sstart.File
 	var Utils = justoff.sstart.Utils
 	var Bookmark = justoff.sstart.Bookmark
+	var Prefs = justoff.sstart.Prefs
 
 	const ROOT_TITLE = "SStart";
 	const DESKTOP_ROOT = "Desktop";
@@ -31,6 +32,25 @@ justoff.sstart.Storage = function (folderId) {
 					}
 				}
 				bookmarksService.runInBatchMode(callback, null);
+				var ddir = Components.classes["@mozilla.org/file/directory_service;1"]
+					.getService(Components.interfaces.nsIProperties).get("ProfD", Components.interfaces.nsIFile);
+				ddir.append("desktop"); ddir.append("background");
+				if (ddir.exists()) {
+					var sdir = File.getDataDirectory();
+					try {
+						ddir.copyTo(sdir, "bg_0");
+					} catch (e) {}
+					var properties = {backgroundImage: "1"};
+					var dprefs = Components.classes["@mozilla.org/preferences-service;1"]
+						.getService(Components.interfaces.nsIPrefService).getBranch("extensions.desktop.");
+					try {
+						properties.backgroundStyle = dprefs.getIntPref("backgroundStyle");
+					} catch (e) {
+						properties.backgroundStyle = 1;
+					}
+					Bookmark.setAnnotation(newId, ANNOTATION, Utils.toJSON(properties));
+					Prefs.setInt('backgroundStyle', properties.backgroundStyle);
+				}
 				return newId;
 			}
 		}

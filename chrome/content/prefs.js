@@ -7,13 +7,13 @@ justoff.sstart.Prefs = new function () {
 		.getService(Components.interfaces.nsIPrefService)
 		.getBranch("extensions.sstart."),
 
-		this.getInt = function (name) {
-			try {
-				return this.prefs.getIntPref(name);
-			} catch (e) {
-				return 0;
-			}
-		};
+	this.getInt = function (name) {
+		try {
+			return this.prefs.getIntPref(name);
+		} catch (e) {
+			return 0;
+		}
+	};
 
 	this.setInt = function (name, value) {
 		this.prefs.setIntPref(name, value);
