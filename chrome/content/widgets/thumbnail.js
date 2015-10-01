@@ -118,11 +118,11 @@ justoff.sstart.Thumbnail = function () {
 	this.refresh = function () {
 		if (this.properties.customImage) {
 			this.updateView();
-			return;
+		} else {
+			loading = true;
+			refreshImage.call(this);
+			this.updateView();
 		}
-		loading = true;
-		refreshImage.call(this);
-		this.updateView();
 	}
 
 	this.openProperties = function () {
@@ -154,11 +154,7 @@ justoff.sstart.Thumbnail = function () {
 				self.properties.title = doc.title;
 				self.save.call(self);
 			}
-			if (self.properties.customImage) {
-				Dom.remove(iframe);
-				refreshCustomImage.call(self);
-			}
-			else saveImage.call(self, iframe);
+			saveImage.call(self, iframe);
 		});
 	}
 
