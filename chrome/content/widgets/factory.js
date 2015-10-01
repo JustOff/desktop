@@ -12,31 +12,23 @@ justoff.sstart.Factory = function (storage) {
 	
 	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
 
-	function getURL(type) {
-		switch (type) {
-			case "search":
-				return SEARCH_URL;
-		}
-	}
-
 	this.createWidget = function (type, x, y) {
 		var properties = {
+			title:"",
 			left:x,
 			top:y,
-			isFolder:type == "folder",
-			url:getURL(type)
+			isFolder:type == "folder"
 		}
 
 		if (type != "search") {
 			properties.width = Prefs.getInt("thumbnail.width");
 			properties.height = Prefs.getInt("thumbnail.height");
-			properties.title = "";
 			var param = { properties: properties };
 			openDialog("widgets/thumbprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
 		} else {
 			properties.width = 200;
 			properties.height = 40;
-			properties.title = "";
+			properties.url = SEARCH_URL;
 			var param = { properties: properties };
 			openDialog("widgets/searchprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
 		}

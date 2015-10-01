@@ -121,8 +121,6 @@ justoff.sstart.URL = new function () {
 	this.removeFromCache = function (url) {
 		if (!url) return;
 		try {
-//			var classID = Components.classes["@mozilla.org/image/cache;1"];
-//			var cacheService = classID.getService(Components.interfaces.imgICache);
 			var cacheService = Components.classes["@mozilla.org/image/tools;1"]
 				.getService(Components.interfaces.imgITools).getImgCacheForDocument(null);
 			cacheService.removeEntry(URL.getNsiURL(url));
