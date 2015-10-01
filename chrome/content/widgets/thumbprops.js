@@ -6,8 +6,15 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
+		this.isFolder = properties.isFolder;
 		Dom.get("thumbnail-properties").setAttribute("title", Dom.get("thumbnail-properties").getAttribute("title") + ": " + properties.title);
-		Dom.get("url").value = properties.url || "";
+		if (this.isFolder) {
+			Dom.get("name").value = properties.title || "";
+			Dom.get("urlrow").hidden = true;
+		} else {
+			Dom.get("url").value = properties.url || "";
+			Dom.get("namerow").hidden = true;
+		}
 		Dom.get("customImage").value = properties.customImage || "";
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
 		Dom.get("width").value = properties.width || "";
@@ -22,18 +29,22 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 
 	this.onAccept = function () {
 		var properties = window.arguments[0].properties;
-		var url = Dom.get("url").value;
-		if (url != properties.url) properties.title = "";
-		if (url) {
-			try {
-				if (URL.getScheme(url)) {
-					properties.url = url;
-				}
-			} catch (e) {
-				properties.url = "http://" + url;
-			}
+		if (this.isFolder) {
+			properties.title = Dom.get("name").value;
 		} else {
-			properties.url = "about:blank";
+			var url = Dom.get("url").value;
+			if (url != properties.url) properties.title = "";
+			if (url) {
+				try {
+					if (URL.getScheme(url)) {
+						properties.url = url;
+					}
+				} catch (e) {
+					properties.url = "http://" + url;
+				}
+			} else {
+				properties.url = "about:blank";
+			}
 		}
 		properties.customImage = Dom.get("customImage").value;
 		properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;

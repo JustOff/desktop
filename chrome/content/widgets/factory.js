@@ -32,14 +32,13 @@ justoff.sstart.Factory = function (storage) {
 			properties.height = Prefs.getInt("thumbnail.height");
 			properties.title = "";
 			var param = { properties: properties };
-			var xul = 'widgets/thumbnail/' + (properties.isFolder ? 'folder' : 'properties') + '.xul';
-			openDialog(xul, "properties", "chrome,centerscreen,modal,resizable", param);
+			openDialog("widgets/thumbprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
 		} else {
 			properties.width = 200;
 			properties.height = 40;
 			properties.title = "";
 			var param = { properties: properties };
-			openDialog("widgets/search/properties.xul", "properties", "chrome,centerscreen,modal,resizable", param);
+			openDialog("widgets/searchprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
 		}
 
 		if (param.properties) {

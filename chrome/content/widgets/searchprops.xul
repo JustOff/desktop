@@ -12,9 +12,9 @@
 	<listbox id="engines" ondblclick="justoff.sstart.Dom.get('search-properties').acceptDialog();"/>
 	<checkbox id="focus" label="&sstart.GiveFocus;" checked="false"/>
 
-	<script src="../../namespace.js"/>
-	<script src="../../utils.js"/>
-	<script src="../../dom.js"/>
-	<script src="../../prefs.js"/>
-	<script src="properties.js"/>
+	<script src="../namespace.js"/>
+	<script src="../utils.js"/>
+	<script src="../dom.js"/>
+	<script src="../prefs.js"/>
+	<script src="searchprops.js"/>
 </dialog>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://sstart/skin/properties.css" type="text/css"?>
 <!DOCTYPE dialog SYSTEM "chrome://sstart/locale/sstart.dtd">
-<dialog id="folder-properties"
+<dialog id="thumbnail-properties"
 		title="&sstart.Properties;"
-		onload="justoff.sstart.ThumbnailFolderXul.initialize();"
-		ondialogaccept="justoff.sstart.ThumbnailFolderXul.onAccept();"
-		ondialogcancel="justoff.sstart.ThumbnailFolderXul.onCancel();"
+		onload="justoff.sstart.ThumbnailPropertiesXul.initialize();"
+		ondialogaccept="justoff.sstart.ThumbnailPropertiesXul.onAccept();"
+		ondialogcancel="justoff.sstart.ThumbnailPropertiesXul.onCancel();"
 		persist="width height"
 		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -15,9 +15,16 @@
 			<column flex="1"/>
 		</columns>
 		<rows>
-			<row align="center">
+			<row id="namerow" align="center">
 				<label value="&sstart.Name;:"/>
 				<textbox id="name"/>
+			</row>
+			<row id="urlrow" align="center">
+				<label value="&sstart.URL;:"/>
+				<textbox id="url" type="autocomplete"
+						 enablehistory="true" autocompletesearch="history"/>
+				<button id="browseFile" label="&#x2026;"
+						oncommand="justoff.sstart.ThumbnailPropertiesXul.browseFile();"/>
 			</row>
 			<row align="center">
 				<label value="&sstart.BackgroundColor;:"/>
@@ -28,7 +35,7 @@
 				<textbox id="customImage" type="autocomplete" enablehistory="true"
 						 autocompletesearch="history"/>
 				<button id="browseCustomImage" label="&#x2026;"
-						oncommand="justoff.sstart.ThumbnailFolderXul.browseCustomImage();"/>
+						oncommand="justoff.sstart.ThumbnailPropertiesXul.browseCustomImage();"/>
 			</row>
 			<row align="center">
 				<label value="&sstart.Width;:"/>
@@ -41,9 +48,9 @@
 		</rows>
 	</grid>
 
-	<script src="../../namespace.js"/>
-	<script src="../../utils.js"/>
-	<script src="../../file.js"/>
-	<script src="../../dom.js"/>
-	<script src="folder.js"/>
+	<script src="../namespace.js"/>
+	<script src="../utils.js"/>
+	<script src="../file.js"/>
+	<script src="../dom.js"/>
+	<script src="thumbprops.js"/>
 </dialog>

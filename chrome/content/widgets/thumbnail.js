@@ -127,11 +127,7 @@ justoff.sstart.Thumbnail = function () {
 
 	this.openProperties = function () {
 		var param = { properties:Utils.clone(this.properties) };
-		var xul = 'widgets/thumbnail/' +
-			(this.properties.isFolder ? 'folder' : 'properties') + '.xul';
-
-		openDialog(xul, "properties",
-			"chrome,centerscreen,modal,resizable", param);
+		openDialog("widgets/thumbprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
 		if (param.properties) {
 			var refreshNeeded = param.properties.url != this.properties.url ||
 				param.properties.customImage != this.properties.customImage ||
