@@ -15,15 +15,18 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			Dom.get("url").value = properties.url || "";
 			Dom.get("namerow").hidden = true;
 		}
-		Dom.get("customImage").value = properties.customImage || "";
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
 		Dom.get("width").value = properties.width || "";
 		Dom.get("height").value = properties.height || "";
-
-		if (properties.isFolder) {
-			Dom.get("url").readOnly = true;
-			Dom.get("url").removeAttribute("enablehistory");
-			Dom.get("browseFile").disabled = true;
+		if (properties.customImage && properties.customImage.slice(0,6) in {"file:/":1, "http:/":1, "https:":1}) {
+			Dom.get("customImage").value = properties.customImage || "";
+		} else {
+			if (properties.customImage) {
+				Dom.get("customImage").value = properties.customImage.slice(9);
+				this.origImage = properties.customImage;
+			} else {
+				Dom.get("customImage").value = "";
+			}
 		}
 	}
 
@@ -46,24 +49,64 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 				properties.url = "about:blank";
 			}
 		}
-		properties.customImage = Dom.get("customImage").value;
 		properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
 		properties.width = Dom.get("width").value;
 		properties.height = Dom.get("height").value;
+		if (Dom.get("customImage").value == "" || Dom.get("customImage").value.slice(0,6) in {"file:/":1, "http:/":1, "https:":1}) {
+			properties.customImage = Dom.get("customImage").value;
+		} else {
+			var dir = File.getDataDirectory();
+			try {
+				dir.append("tmp." + this.hashWord + "." + Dom.get("customImage").value);
+				if (dir.exists()) {
+					dir.moveTo(null, this.hashWord + "." + Dom.get("customImage").value);
+					properties.customImage = this.hashWord + "." + Dom.get("customImage").value;
+				}
+			} catch (e) {
+				return;
+			}
+		}
+		if (this.origImage) {
+			var dir = File.getDataDirectory();
+			try {
+				dir.append(this.origImage);
+				if (dir.exists()) {
+					dir.remove(false);
+				}
+			} catch (e) {}
+		}
 	}
 
 	this.onCancel = function () {
 		window.arguments[0].properties = null;
-	}
-
-	this.browseFile = function () {
-		var file = File.chooseFile("open");
-		if (file) Dom.get("url").value = File.getFileURL(file);
+		if (this.tmpName) {
+			var dir = File.getDataDirectory();
+			try {
+				dir.append("tmp." + this.hashWord + "." + this.tmpName);
+				if (dir.exists()) {
+					dir.remove(false);
+				}
+			} catch (e) {}
+		}
 	}
 
 	this.browseCustomImage = function () {
 		var file = File.chooseFile("open", ["images"]);
-		if (file) Dom.get("customImage").value = File.getFileURL(file);
+		if (file) {
+			if (!(Dom.get("customImage").value.slice(0,6) in {"file:/":1, "http:/":1, "https:":1})) {
+				var dir = File.getDataDirectory();
+				try {
+					dir.append("tmp." + this.hashWord + "." + this.tmpName);
+					if (dir.exists()) {
+						dir.remove(false);
+					}
+				} catch (e) {}
+			}
+			this.hashWord = (Math.random().toString(36)+'00000000000000000').slice(2, 10);
+			file.copyTo(File.getDataDirectory(), "tmp." + this.hashWord + "." + file.leafName);
+			Dom.get("customImage").value = file.leafName;
+			this.tmpName = file.leafName;
+		}
 	}
 
 }

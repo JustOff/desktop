@@ -35,7 +35,11 @@ justoff.sstart.Thumbnail = function () {
 
 	getImageURL = function () {
 		if (this.properties.customImage)
-			return this.properties.customImage
+			if (this.properties.customImage.slice(0,6) in {"file:/":1, "http:/":1, "https:":1}) {
+				return this.properties.customImage;
+			} else {
+				return File.getDataFileURL(this.properties.customImage);
+			}
 		else
 			return File.getFileURL(getImageFile.call(this));
 	}

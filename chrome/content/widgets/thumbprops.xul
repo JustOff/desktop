@@ -23,8 +23,6 @@
 				<label value="&sstart.URL;:"/>
 				<textbox id="url" type="autocomplete"
 						 enablehistory="true" autocompletesearch="history"/>
-				<button id="browseFile" label="&#x2026;"
-						oncommand="justoff.sstart.ThumbnailPropertiesXul.browseFile();"/>
 			</row>
 			<row align="center">
 				<label value="&sstart.BackgroundColor;:"/>
@@ -32,8 +30,7 @@
 			</row>
 			<row align="center">
 				<label value="&sstart.CustomImage;:"/>
-				<textbox id="customImage" type="autocomplete" enablehistory="true"
-						 autocompletesearch="history"/>
+				<textbox id="customImage" onfocus="this.select();"/>
 				<button id="browseCustomImage" label="&#x2026;"
 						oncommand="justoff.sstart.ThumbnailPropertiesXul.browseCustomImage();"/>
 			</row>
