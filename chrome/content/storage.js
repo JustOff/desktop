@@ -21,6 +21,8 @@ justoff.sstart.Storage = function (folderId) {
 	}
 
 	function importFromDesktop(bookmarks) {
+		this.fileProtocolHandler = Components.classes["@mozilla.org/network/protocol;1?name=file"]
+			.createInstance(Components.interfaces.nsIFileProtocolHandler);
 		for (var i in bookmarks) {
 			if (bookmarks[i].isFolder && bookmarks[i].title == DESKTOP_ROOT) {
 				var newId = Bookmark.createFolder(ROOT_TITLE);
@@ -64,8 +66,12 @@ justoff.sstart.Storage = function (folderId) {
 			if (bookmarks[i].isFolder) {
 				newId = Bookmark.createFolder(bookmarks[i].title, dstId);
 				annotation = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
-				if (annotation)
+				if (annotation) {
+					if (annotation.indexOf("file://") > -1) {
+						annotation = importCustomImage(annotation);
+					}
 					Bookmark.setAnnotation(newId, ANNOTATION, annotation);
+				}
 				copyFolder(bookmarks[i].id, newId);
 			} else {
 				if (bookmarks[i].url == "desktop://search/")
@@ -73,9 +79,25 @@ justoff.sstart.Storage = function (folderId) {
 				newId = Bookmark.createBookmark(bookmarks[i].url, bookmarks[i].title, dstId);
 				annotation = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
 				if (annotation)
+					if (annotation.indexOf("file://") > -1) {
+						annotation = importCustomImage(annotation);
+					}
 					Bookmark.setAnnotation(newId, ANNOTATION, annotation);
 			}
 		}
+	}
+	
+	function importCustomImage(annotation) {
+		var properties = Utils.fromJSON(annotation);
+		try {
+			var cif = this.fileProtocolHandler.getFileFromURLSpec(properties.customImage);
+			if (cif.exists()) {
+				var hashWord = (Math.random().toString(36)+'00000000000000000').slice(2, 10);
+				cif.copyTo(File.getDataDirectory(), hashWord + "." + cif.leafName);
+				properties.customImage = hashWord + "." + cif.leafName;
+			}
+		} catch (e) {}
+		return Utils.toJSON(properties);
 	}
 
 	function refreshFolder() {
