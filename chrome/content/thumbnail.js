@@ -202,17 +202,19 @@ justoff.sstart.Thumbnail = function () {
 			TIMEOUT_RENDER);
 	}
 
-	function createFrame(aspect) {
+	function createFrame(aspect, url) {
 		var browserWindow = Utils.getBrowserWindow();
 		var doc = browserWindow.document;
 
 		var iframe = doc.createElement("browser");
-		if (aspect < 1) {
-			iframe.width = 1024;
+
+		if (aspect < 1 || url.slice(0,16) == "chrome://sstart/") {
+			iframe.width = doc.documentElement.clientWidth;
+			iframe.height = Math.round(iframe.width * aspect);
 		} else {
-			iframe.width = 600;
+			iframe.height = doc.documentElement.clientHeight;
+			iframe.width = Math.round(iframe.height / aspect);;
 		}
-		iframe.height = Math.round(iframe.width * aspect);
 		
 		iframe.setAttribute("type", "content-targetable");
 		iframe.style.overflow = "hidden";
@@ -234,7 +236,7 @@ justoff.sstart.Thumbnail = function () {
 			onFrameTimeout(event);
 		}
 
-		var iframe = createFrame(height / width);
+		var iframe = createFrame(height / width, url);
 		iframe.addEventListener("load", onFrameLoad, true);
 		var loadTimeout = setTimeout(onFrameTimeout, TIMEOUT_LOAD);
 		iframe.setAttribute("src", url);
