@@ -241,30 +241,32 @@ justoff.sstart.Thumbnail = function () {
 	}
 
 	function createImage(iframe, imageWidth, imageHeight) {
+		var ifw = iframe.contentDocument.documentElement.offsetWidth;
+		var ifh = Math.round(ifw / imageWidth * imageHeight);
 		var canvas = document.createElement("canvas");
 		var context = canvas.getContext("2d");
 		canvas.width = imageWidth;
 		canvas.height = imageHeight;
 		context.clearRect(0, 0, canvas.width, canvas.height);
-		var scale = canvas.width / iframe.width;
+		var scale = canvas.width / ifw;
 		var oc = document.createElement('canvas');
 		var octx = oc.getContext('2d');
-		oc.width = iframe.width;
-		oc.height = iframe.height;
-		octx.drawWindow(iframe.contentWindow, 0, 0, iframe.width, iframe.height, "white");
+		oc.width = ifw;
+		oc.height = ifh;
+		octx.drawWindow(iframe.contentWindow, 0, 0, ifw, ifh, "white");
 		if (scale < 0.6) {
-			octx.drawImage(oc, 0, 0, iframe.width * 0.5, iframe.height * 0.5);
+			octx.drawImage(oc, 0, 0, ifw * 0.5, ifh * 0.5);
 			if (scale < 0.25) {
-				octx.drawImage(oc, 0, 0, iframe.width * 0.5, iframe.height * 0.5, 0, 0, iframe.width * 0.25, iframe.height * 0.25);
-				context.drawImage(oc, 0, 0, iframe.width * 0.25, iframe.height * 0.25, 0, 0, canvas.width, canvas.height);
+				octx.drawImage(oc, 0, 0, ifw * 0.5, ifh * 0.5, 0, 0, ifw * 0.25, ifh * 0.25);
+				context.drawImage(oc, 0, 0, ifw * 0.25, ifh * 0.25, 0, 0, canvas.width, canvas.height);
 			} else {
-				context.drawImage(oc, 0, 0, iframe.width * 0.5, iframe.height * 0.5, 0, 0, canvas.width, canvas.height);
+				context.drawImage(oc, 0, 0, ifw * 0.5, ifh * 0.5, 0, 0, canvas.width, canvas.height);
 			}
 			sharpenImage(context, canvas.width, canvas.height, 0.1);
 		} else {
 			scale = 0.5 * scale + 0.5;
-			octx.drawImage(oc, 0, 0, iframe.width * scale, iframe.height * scale);
-			context.drawImage(oc, 0, 0, iframe.width * scale, iframe.height * scale, 0, 0, canvas.width, canvas.height);
+			octx.drawImage(oc, 0, 0, ifw * scale, ifh * scale);
+			context.drawImage(oc, 0, 0, ifw * scale, ifh * scale, 0, 0, canvas.width, canvas.height);
 		}
 		var dataURL = canvas.toDataURL("image/png");
 		return atob(dataURL.replace(/^data:image\/png;base64,/, ""));
@@ -303,18 +305,6 @@ justoff.sstart.Thumbnail = function () {
 			}
 		}
 		ctx.putImageData(dstData, 0, 0);
-	}
-	
-	function grayscaleImage(ctx, w, h) {
-		var imageData = ctx.getImageData(0, 0, w, h);
-		var data = imageData.data;
-		for (var i = 0; i < data.length; i += 4) {
-			var avg = (data[i] + data[i +1] + data[i +2]) / 3;
-			data[i]	 = avg;
-			data[i + 1] = avg;
-			data[i + 2] = avg;
-		}
-		ctx.putImageData(imageData, 0, 0);
 	}
 }
 
