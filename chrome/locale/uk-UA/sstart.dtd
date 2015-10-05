@@ -30,3 +30,5 @@
 <!ENTITY sstart.CustomImage "Зображення">
 
 <!ENTITY sstart.GiveFocus "Виділяти при старті">
+
+<!ENTITY sstart.AddToSStart "Додати до Speed Start">

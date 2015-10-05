@@ -47,6 +47,9 @@ justoff.sstart.Factory = function (storage) {
 		if (SStart.getZoom() && SStart.getPageId() == 0) {
 			SStart.clearCache();
 		}
+		if (type == "folder") {
+			SStart.setUpdateMenu(true);
+		}
 	}
 
 	function createWidget(properties, fragment) {

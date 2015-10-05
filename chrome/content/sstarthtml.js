@@ -241,6 +241,10 @@ console.time("SStart");
 	}, false);
 
 	Drag.enable(document);
+	if (SStart.isEditOn()) {
+		SStart.setLocked(false);
+		SStart.setEditOff();
+	}
 	updateLockStatus();
 
 	// Disable cache for page

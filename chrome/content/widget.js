@@ -165,6 +165,9 @@ justoff.sstart.Widget = function () {
 			if (SStart.getZoom() && SStart.getPageId() == 0) {
 				SStart.clearCache();
 			}
+			if (this.properties.isFolder) {
+				SStart.setUpdateMenu(true);
+			}
 		}
 	}
 

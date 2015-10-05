@@ -1,7 +1,10 @@
 justoff.sstart.Installer = new function () {
 
-	var SStart = justoff.sstart.SStart
 	var Installer = this
+	var SStart = justoff.sstart.SStart
+	var Dom = justoff.sstart.Dom
+	var Bookmark = justoff.sstart.Bookmark
+	var File = justoff.sstart.File
 
 	this.addonId = "SStart@Off.JustOff"
 	this.newTabURI = "chrome://sstart/content/sstart.html"
@@ -17,6 +20,7 @@ justoff.sstart.Installer = new function () {
 		SStart.updateGridInterval();
 		SStart.updateNewtabOnLockDrag();
 		SStart.updateAutoZoom();
+		attachContextMenu();
 
 		if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
 			try {
@@ -35,6 +39,93 @@ justoff.sstart.Installer = new function () {
 			gInitialPages.push(justoff.sstart.Installer.newTabURI);
 		}
 	}
+
+	function attachContextMenu () {
+		Dom.get("contentAreaContextMenu").addEventListener("popupshowing", 
+			function(e) {
+				var menu = Dom.get("sstart-add-page-menu");
+				if (gContextMenu.linkURL) {
+					menu.setAttribute("data-url", gContextMenu.linkURL);
+					menu.setAttribute("data-title", gContextMenu.linkTextStr);
+				} else {
+					menu.setAttribute("data-url", content.location.href);
+					menu.setAttribute("data-title", content.document.title);
+				}
+				if (!SStart.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
+					return;
+				}
+				var menuitem = Dom.get("sstart-add-page");
+				menuitem.hidden = initFoldersMenu(menu.firstChild);
+				menu.hidden = !menuitem.hidden;
+				SStart.setUpdateMenu(false);
+			}, false);
+	};
+	
+	function initFoldersMenu (menupopup) {
+		Dom.clear(menupopup);
+		var rootId = 0;
+		var bookmarks = Bookmark.getBookmarks();
+		for (var i in bookmarks) {
+			if (bookmarks[i].isFolder && bookmarks[i].title == "SStart") {
+				rootId = bookmarks[i].id;
+				break;
+			}
+		}
+		if (rootId > 0) {
+			menupopup.parentNode.setAttribute("data-fid", rootId);
+			Dom.get("sstart-add-page").setAttribute("data-fid", rootId);
+			createFoldersMenu(rootId, menupopup);
+		}
+		return menupopup.childNodes.length > 0;
+	};
+
+	function createFoldersMenu (folderId, menupopup) {
+		var bookmarks = Bookmark.getBookmarks(folderId);
+		for (var i in bookmarks) {
+			var bookmark = bookmarks[i];
+				if (!bookmark.isFolder) continue;
+			var menuitem;
+			var submenu = document.createElement("menupopup");
+			submenu.setAttribute("onpopupshowing", "event.stopPropagation();");
+			createFoldersMenu(bookmark.id, submenu);
+			if (submenu.childNodes.length > 0) {
+				menuitem = document.createElement("menu");
+				menuitem.appendChild(submenu);
+			} else {
+				menuitem = document.createElement("menuitem");
+			}
+			menuitem.setAttribute("label", bookmark.title);
+			menuitem.setAttribute("data-fid", bookmark.id);
+			menupopup.appendChild(menuitem);
+		}
+	};
+
+	this.addPage = function (e) {
+		Dom.get("contentAreaContextMenu").hidePopup();
+		var folderId = e.target.getAttribute("data-fid") || 0;
+		if (folderId > 0) {
+			var data = Dom.get("sstart-add-page-menu");
+			var newId = Bookmark.createBookmark(data.getAttribute("data-url"), data.getAttribute("data-title"), folderId);
+			var width = SStart.alignToGrid(content.innerWidth / 4);
+			var height = SStart.alignToGrid(content.innerHeight / 4);
+			var left = SStart.alignToGrid((content.innerWidth - width) / 2);
+			var top = SStart.alignToGrid((content.innerHeight - height) / 2);
+			Bookmark.setAnnotation(newId, "bookmarkProperties/description", 
+				'{"left":' + left + ',"top":' + top + ',"width":' + width + ',"height":' + height +'}');
+			File.delDataFile(newId);
+			if (folderId == data.getAttribute("data-fid")) {
+				SStart.clearCache();
+				var ssurl = this.newTabURI;
+			} else {
+				var ssurl = this.newTabURI + "?folder=" + folderId;
+			}
+			SStart.setEditOn();
+			var mw = Components.classes["@mozilla.org/appshell/window-mediator;1"].
+				getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
+			var tb = mw.getBrowser();
+			var tab = tb.loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
+		}
+	};
 
 	var Watcher = new function () {
 		this.observe = function (subject, topic, data) {

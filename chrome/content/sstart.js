@@ -115,47 +115,67 @@ justoff.sstart.SStart = new function () {
 	this.updateGridInterval = function (s) {
 		justoff.sstart.cache.gridInterval = Prefs.getInt("gridInterval");
 	};
-	
+
 	this.getGridInterval = function () {
 		return justoff.sstart.cache.gridInterval;
 	};
-	
+
 	this.updateNewtabOnLockDrag = function (s) {
 		justoff.sstart.cache.newtabOnLockDrag = Prefs.getBool("newtabOnLockDrag");
 	};
-	
+
 	this.newtabOnLockDrag = function () {
 		return justoff.sstart.cache.newtabOnLockDrag;
 	};
-	
+
 	this.clearCache = function (s) {
 		justoff.sstart.cache.fragment = false;
 	};
-	
+
 	this.updateAutoZoom = function (s) {
 		justoff.sstart.cache.autoZoom = Prefs.getBool("autoZoom");
 		if (justoff.sstart.cache.autoZoom) {
 			justoff.sstart.cache.fragment = false;
 		}
 	};
-	
+
 	this.autoZoom = function () {
 		return justoff.sstart.cache.autoZoom;
 	};
-	
+
+	this.setEditOn = function () {
+		justoff.sstart.cache.editOn = true;
+	};
+
+	this.setEditOff = function () {
+		justoff.sstart.cache.editOn = false;
+	};
+
+	this.isEditOn = function () {
+		return justoff.sstart.cache.editOn;
+	};
+
+	this.setUpdateMenu = function (s) {
+		justoff.sstart.cache.updateMenu = s;
+	};
+
+	this.isUpdateMenu = function () {
+		return justoff.sstart.cache.updateMenu;
+	};
+
 	this.alignToGrid = function (pos) {
 		var min = Math.floor(pos / justoff.sstart.cache.gridInterval) * justoff.sstart.cache.gridInterval;
 		if (pos - min > justoff.sstart.cache.gridInterval / 2)
 			return min + justoff.sstart.cache.gridInterval;
 		else
 			return min;
-	}
-	
+	};
+
 	this.deleteSearchNode = function (node) {
 		if (node in SStart.SearchNodes) {
 			delete SStart.SearchNodes[node];
 		}
-	}
+	};
 
 	this.focusSearch = function (hoverEl) {
 		try {
@@ -172,20 +192,21 @@ justoff.sstart.SStart = new function () {
 			}
 			input.focus();
 		}
-	}
+	};
 
 	this.getSearchEngine = function (name) {
 		var searchService = Components.classes["@mozilla.org/browser/search-service;1"]
 			.getService(Components.interfaces.nsIBrowserSearchService);
 		return searchService.getEngineByName(name) ||
 			searchService.currentEngine;
-	}
+	};
 
 	this.doSearch = function (text, input) {
 		var engine = SStart.getSearchEngine(Dom.child(input.parentNode.parentNode.parentNode, "title").textContent);
 		input.value = "";
 		var submission = engine.getSubmission(text, null);
 		document.location = submission.uri.spec;
-	}
+	};
+	
 };
 
