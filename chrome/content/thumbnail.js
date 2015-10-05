@@ -221,21 +221,22 @@ justoff.sstart.Thumbnail = function () {
 	}
 
 	function loadURI(url, width, height, onReady) {
-		function onFrameLoad() {
+		function onFrameTimeout() {
 			iframe.removeEventListener("load", onFrameLoad, true);
 			clearTimeout(loadTimeout);
 			onReady(iframe);
 		}
-
-		var iframe = createFrame(height / width);
-		iframe.addEventListener("load", function (event) {
+		function onFrameLoad(event) {
 			if (event.originalTarget instanceof HTMLDocument) {
 				var win = event.originalTarget.defaultView;
 				if (win.frameElement) return;
 			}
-			onFrameLoad(event);
-		}, true);
-		var loadTimeout = setTimeout(onFrameLoad, TIMEOUT_LOAD);
+			onFrameTimeout(event);
+		}
+
+		var iframe = createFrame(height / width);
+		iframe.addEventListener("load", onFrameLoad, true);
+		var loadTimeout = setTimeout(onFrameTimeout, TIMEOUT_LOAD);
 		iframe.setAttribute("src", url);
 	}
 
