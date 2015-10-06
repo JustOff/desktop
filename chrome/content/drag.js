@@ -82,11 +82,12 @@ justoff.sstart.Drag = new function () {
 			Drag.removeGlass();
 			Drag.inProgress = false;
 			var anchor = Dom.child(theObject, "a");
-			var mw = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
-			var tb = mw.getBrowser();
+			var mrw = Components.classes["@mozilla.org/appshell/window-mediator;1"].
+				getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
+			var tb = mrw.getBrowser();
 			var tab = tb.loadOneTab(anchor.href, {inBackground: true, relatedToCurrent: true});
 			if (e.pageY - Drag.click.y < 0)
-				mw.setTimeout(function() { tb.selectedTab = tab; }, 0);
+				mrw.setTimeout(function() { tb.selectedTab = tab; }, 0);
 			e.preventDefault();
 			return;
 		}

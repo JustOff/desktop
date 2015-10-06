@@ -126,10 +126,9 @@ justoff.sstart.Installer = new function () {
 				var ssurl = this.newTabURI + "?folder=" + folderId;
 			}
 			SStart.setEditOn();
-			var mw = Components.classes["@mozilla.org/appshell/window-mediator;1"].
+			var mrw = Components.classes["@mozilla.org/appshell/window-mediator;1"].
 				getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
-			var tb = mw.getBrowser();
-			var tab = tb.loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
+			mrw.getBrowser().loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
 		}
 	};
 
