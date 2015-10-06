@@ -78,11 +78,12 @@ justoff.sstart.Storage = function (folderId) {
 					bookmarks[i].url = "sstart://search/";
 				newId = Bookmark.createBookmark(bookmarks[i].url, bookmarks[i].title, dstId);
 				annotation = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
-				if (annotation)
+				if (annotation) {
 					if (annotation.indexOf("file://") > -1) {
 						annotation = importCustomImage(annotation);
 					}
 					Bookmark.setAnnotation(newId, ANNOTATION, annotation);
+				}
 			}
 		}
 	}
