@@ -120,8 +120,8 @@ justoff.sstart.Thumbnail = function () {
 	}
 
 	this.refresh = function () {
-		URL.removeFromCache(getImageURL.call(this));
 		if (this.properties.customImage) {
+			URL.removeFromCache(getImageURL.call(this));
 			this.updateView();
 		} else {
 			loading = true;
@@ -195,6 +195,7 @@ justoff.sstart.Thumbnail = function () {
 				File.writeFile(getImageFile.call(self), image);
 				Dom.remove(iframe);
 				loading = false;
+				URL.removeFromCache(getImageURL.call(self));
 				self.updateView.call(self);
 			},
 			TIMEOUT_RENDER);
