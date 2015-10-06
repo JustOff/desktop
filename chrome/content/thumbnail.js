@@ -208,13 +208,14 @@ justoff.sstart.Thumbnail = function () {
 
 		var iframe = doc.createElement("browser");
 
-		if (aspect < 1 || url.slice(0,16) == "chrome://sstart/") {
+		if (url.slice(0,16) == "chrome://sstart/") {
 			iframe.width = doc.documentElement.clientWidth;
-			iframe.height = Math.round(iframe.width * aspect);
+		} else if (aspect < 1) {
+			iframe.width = Math.min(1024, doc.documentElement.clientWidth);
 		} else {
-			iframe.height = doc.documentElement.clientHeight;
-			iframe.width = Math.round(iframe.height / aspect);;
+			iframe.width = Math.min(600, Math.round(doc.documentElement.clientWidth / 2));
 		}
+		iframe.height = Math.round(iframe.width * aspect);
 		
 		iframe.setAttribute("type", "content-targetable");
 		iframe.style.overflow = "hidden";

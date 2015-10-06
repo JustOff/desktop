@@ -5,6 +5,7 @@ justoff.sstart.Drag = new function () {
 	var Dom = justoff.sstart.Dom
 
 	this.MIN_DRAG = 5;
+	this.MIN_GESTURE_DRAG = 10;
 	this.BORDER_WIDTH = 5;
 	this.click = { x:0, y:0, border:null };
 	this.original = { left:0, top:0, width:0, height:0 };
@@ -161,7 +162,7 @@ justoff.sstart.Drag = new function () {
 	this.onMouseMove = function (e) {
 		if (SStart.newtabOnLockDrag() && SStart.isLocked()) { 
 			if (!Drag.inProgress && Drag.object && Math.abs(Drag.click.x - e.pageX) +
-					Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG) {
+					Math.abs(Drag.click.y - e.pageY) > Drag.MIN_GESTURE_DRAG) {
 				Drag.inProgress = true;
 				Drag.createGlass("");
 			}
