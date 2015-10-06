@@ -92,7 +92,7 @@ justoff.sstart.Installer = new function () {
 				if (!bookmark.isFolder) continue;
 			var menuitem;
 			var submenu = document.createElement("menupopup");
-			submenu.setAttribute("onpopupshowing", "event.stopPropagation();");
+			submenu.addEventListener("popupshowing", function(e) { e.stopPropagation(); }, false);
 			createFoldersMenu(bookmark.id, submenu);
 			if (submenu.childNodes.length > 0) {
 				menuitem = document.createElement("menu");
