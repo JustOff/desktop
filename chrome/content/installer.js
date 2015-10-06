@@ -41,20 +41,26 @@ justoff.sstart.Installer = new function () {
 	}
 
 	function attachContextMenu () {
+		var linkToSStart = SStart.translate("linkToSStart");
+		var pageToSStart = SStart.translate("pageToSStart");
 		Dom.get("contentAreaContextMenu").addEventListener("popupshowing", 
 			function(e) {
 				var menu = Dom.get("sstart-add-page-menu");
+				var menuitem = Dom.get("sstart-add-page");
 				if (gContextMenu.linkURL) {
 					menu.setAttribute("data-url", gContextMenu.linkURL);
 					menu.setAttribute("data-title", gContextMenu.link.textContent.trim());
+					menu.setAttribute("label", linkToSStart);
+					menuitem.setAttribute("label", linkToSStart);
 				} else {
 					menu.setAttribute("data-url", content.location.href);
 					menu.setAttribute("data-title", content.document.title);
+					menu.setAttribute("label", pageToSStart);
+					menuitem.setAttribute("label", pageToSStart);
 				}
 				if (!SStart.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
 					return;
 				}
-				var menuitem = Dom.get("sstart-add-page");
 				menuitem.hidden = initFoldersMenu(menu.firstChild);
 				menu.hidden = !menuitem.hidden;
 				SStart.setUpdateMenu(false);
