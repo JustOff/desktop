@@ -67,10 +67,16 @@ justoff.sstart.Utils = new function () {
 		}
 	};
 
+	this.alert = function (message) {
+		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+			.getService(Components.interfaces.nsIPromptService);
+		return prompts.alert(window, justoff.sstart.SStart.translate("SpeedStart"), message);
+	};
+
 	this.confirm = function (message) {
 		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 			.getService(Components.interfaces.nsIPromptService);
-		return prompts.confirm(window, justoff.sstart.SStart.translate("SStart"), message);
+		return prompts.confirm(window, justoff.sstart.SStart.translate("SpeedStart"), message);
 	};
 
 	this.getBrowserWindow = function () {

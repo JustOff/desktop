@@ -121,7 +121,7 @@ justoff.sstart.Storage = function (folderId) {
 				Utils.merge(bookmark, Utils.fromJSON(annotation));
 			}
 			catch (e) {
-				alert(e);
+				Utils.alert(e);
 			}
 		}
 		return bookmarks;

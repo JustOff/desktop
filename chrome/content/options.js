@@ -63,9 +63,9 @@ justoff.sstart.SStartOptionsXul = new function () {
 							}
 						}
 						zw.close();
-						alert(SStart.translate("exportOk"));
+						Utils.alert(SStart.translate("exportOk"));
 					  } catch(e) {
-						alert(e);
+						Utils.alert(e);
 					  }
 						file = File.getDataDirectory();
 						file.append("sstart.conf");
@@ -129,7 +129,6 @@ justoff.sstart.SStartOptionsXul = new function () {
 				var datahash = data.slice(0,32);
 				data = data.slice(32);
 				if (datahash != md5hash(data)) {
-					alert("");
 					throw "Backup file is corrupted!";
 				}
 				data = Utils.fromJSON(data);
@@ -148,9 +147,10 @@ justoff.sstart.SStartOptionsXul = new function () {
 				if (tmpDir.exists()) {
 					tmpDir.remove(true);
 				}
-				alert(SStart.translate("importOk"));
+				Utils.alert(SStart.translate("importOk"));
+				throw "Done!";
 			  } catch(e) {
-				alert(e);
+				Utils.alert(e);
 				Bookmark.removeBookmark(newId);
 				if (dstDir.exists()) {
 					dstDir.remove(true);
@@ -165,9 +165,9 @@ justoff.sstart.SStartOptionsXul = new function () {
 					}
 				}
 				Bookmark.updateFolder(newId, ROOT_TITLE);
-				var imgDir = File.getDataDirectory();
-				if (imgDir.exists()) {
-					imgDir.remove(true);
+				var rootDir = File.getDataDirectory();
+				if (rootDir.exists()) {
+					rootDir.remove(true);
 				}
 				dstDir.moveTo(null, ROOT_DIR);
 			});
