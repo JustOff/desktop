@@ -30,3 +30,7 @@ pageToSStart=Add Page to Speed Start
 exportOk=Data exported successfully!
 importOk=Data imported successfully!
 importWarn=Warning! Speed Start configuration will be overwritten!\nDo you really want to import backup data?\n\n
+bfileWError=File write error!
+bfileRError=File read error!
+bfileCorrupt=Backup file is corrupted!
+bfileWrongVer=Incompatible backup version!

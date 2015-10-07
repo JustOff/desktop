@@ -6,6 +6,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 	var Prefs = justoff.sstart.Prefs
 	var Bookmark = justoff.sstart.Bookmark
 			
+	const BACKUP_VERSION = "1.0";
 	const ROOT_TITLE = "SStart";
 	const ROOT_DIR = "sstart";
 	const ANNOTATION = "bookmarkProperties/description";
@@ -22,6 +23,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				gri: Prefs.getInt("gridInterval"), bgs: Prefs.getInt("backgroundStyle"), fcs: Prefs.getString("focus"),
 				swd: Prefs.getBool("showDecorations"), ont: Prefs.getBool("overrideNewTab"), ohp: Prefs.getBool("overrideHomePage"),
 				ntd: Prefs.getBool("newtabOnLockDrag"),	bth: Prefs.getBool("bottomHeader"), azm: Prefs.getBool("autoZoom")}};
+			data["version"] = BACKUP_VERSION;
 			var bookmarks = Bookmark.getBookmarks();
 			for (var i in bookmarks) {
 				if (bookmarks[i].isFolder && bookmarks[i].title == ROOT_TITLE) {
@@ -50,7 +52,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 					NetUtil.asyncCopy(istream, ostream, function(status) {
 					  try {
 						if (!Components.isSuccessCode(status)) {
-							throw "File write error!";
+							throw SStart.translate("bfileWError");
 						}
 						var zw = Cc['@mozilla.org/zipwriter;1'].createInstance(Ci.nsIZipWriter);
 						zw.open(zfile, pr.PR_RDWR | pr.PR_CREATE_FILE | pr.PR_TRUNCATE);
@@ -126,15 +128,18 @@ justoff.sstart.SStartOptionsXul = new function () {
 			NetUtil.asyncFetch(cfile, function(istream, status) {
 			  try {
 				if (!Components.isSuccessCode(status)) {
-					throw "File read error!";
+					throw SStart.translate("bfileRError");
 				}
 				var data = NetUtil.readInputStreamToString(istream, istream.available(), {charset:"UTF-8"});
 				var datahash = data.slice(0,32);
 				data = data.slice(32);
 				if (datahash != md5hash(data)) {
-					throw "Backup file is corrupted!";
+					throw SStart.translate("bfileCorrupt");
 				}
 				data = Utils.fromJSON(data);
+				if (data["version"] != BACKUP_VERSION) {
+					throw SStart.translate("bfileWrongVer");
+				}
 				Prefs.setInt("thumbnail.width", data["prefs"]["thw"]);
 				Prefs.setInt("thumbnail.height", data["prefs"]["thh"]);
 				Prefs.setInt("gridInterval", data["prefs"]["gri"]);
