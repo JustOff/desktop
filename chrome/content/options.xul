@@ -4,6 +4,8 @@
 <prefwindow id="sstart-preferences-window"
 			persist="width height"
 			title="&sstart.Preferences;"
+			ondialogaccept="justoff.sstart.SStartOptionsXul.onDone();"
+			ondialogcancel="justoff.sstart.SStartOptionsXul.onDone();"
 			dlgbuttons="accept,cancel"
 			style="min-width: 250px; min-height: 310px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">

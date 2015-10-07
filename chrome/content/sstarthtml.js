@@ -94,7 +94,11 @@ console.time("SStart");
 		factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y));
 	}, false);
 	Dom.get("menu-prefs").addEventListener("click", function (e) {
-		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", "chrome,centerscreen,modal,resizable");
+		var param = { reload: false };
+		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", "chrome,centerscreen,modal,resizable", param);
+		if (param.reload) {
+			window.location.reload();
+		}
 	}, false);
 	Dom.get("menu-lock").addEventListener("click", function (e) {
 		SStart.setLocked(true);

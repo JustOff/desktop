@@ -15,7 +15,15 @@ justoff.sstart.SStartOptionsXul = new function () {
 
 	Cu.import("resource://gre/modules/NetUtil.jsm");
 	Cu.import("resource://gre/modules/FileUtils.jsm");
+	
+	this.reload = false;
 
+	this.onDone = function () {
+		if (this.reload) {
+			window.arguments[0].reload = true;
+		}
+	}
+	
 	this.exportData = function () {
 		var zfile = File.chooseFile("save", ["zip"], "sstart-backup.zip");
 		if (zfile) {
@@ -167,6 +175,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 					tmpDir.remove(true);
 				}
 				Utils.alert(SStart.translate("importOk"));
+				justoff.sstart.SStartOptionsXul.reload = true;
 			  } catch(e) {
 				Utils.alert(e);
 				Bookmark.removeBookmark(newId);
