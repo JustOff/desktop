@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://sstart/locale/sstart.dtd">
-
 <prefwindow id="sstart-preferences-window"
 			persist="width height"
 			title="&sstart.Preferences;"
 			dlgbuttons="accept,cancel"
+			style="min-width: 250px; min-height: 310px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<prefpane id="general-pane" label="Main">
 		<preferences>
@@ -54,5 +54,32 @@
 				</menulist>
 			</hbox>
 		</groupbox>
+		<groupbox flex="1">
+			<caption label="&sstart.Backup;"/>
+			<grid>
+				<columns>
+					<column flex="1"/>
+					<column/>
+				</columns>
+				<rows>
+					<row align="center">
+						<label control="browse" flex="1">&sstart.Data;:</label>
+						<hbox>
+							<button class="browse" label="&sstart.Export;"
+									oncommand="justoff.sstart.SStartOptionsXul.exportData();"/>
+							<button class="browse" label="&sstart.Import;"
+									oncommand="justoff.sstart.SStartOptionsXul.importData();"/>
+						</hbox>
+					</row>
+				</rows>
+			</grid>
+		</groupbox>
 	</prefpane>
+	<script src="namespace.js"/>
+	<script src="utils.js"/>
+	<script src="file.js"/>
+	<script src="sstart.js"/>
+	<script src="prefs.js"/>
+	<script src="bookmark.js"/>
+	<script src="options.js"/>
 </prefwindow>

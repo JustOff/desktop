@@ -25,3 +25,7 @@ imageRemove=Удалить
 
 linkToSStart=Добавить ссылку в Speed Start
 pageToSStart=Добавить страницу в Speed Start
+
+exportOk=Данные успешно экспортированы!
+importOk=Данные успешно импортированы!
+importWarn=Внимание! Конфигурация Speed Start будет перезаписана!\nВы действительно хотите импортировать данные из резервной копии?\n\n

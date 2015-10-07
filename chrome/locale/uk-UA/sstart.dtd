@@ -30,3 +30,8 @@
 <!ENTITY sstart.CustomImage "Зображення">
 
 <!ENTITY sstart.GiveFocus "Виділяти при старті">
+
+<!ENTITY sstart.Backup "Резервна копія">
+<!ENTITY sstart.Data "Дані">
+<!ENTITY sstart.Export "Зберегти">
+<!ENTITY sstart.Import "Завантажити">

@@ -47,7 +47,7 @@ justoff.sstart.File = new function () {
 			} catch (e) {
 				var ostream = FileUtils.openSafeFileOutputStream(file);
 			}
-			NetUtil.asyncCopy(istream , ostream, function(status) {
+			NetUtil.asyncCopy(istream, ostream, function(status) {
 				if (!Components.isSuccessCode(status)) {
 					console.log("File write error!");
 					return;

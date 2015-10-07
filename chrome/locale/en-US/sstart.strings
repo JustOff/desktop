@@ -25,3 +25,7 @@ imageRemove=Remove
 
 linkToSStart=Add Link to Speed Start
 pageToSStart=Add Page to Speed Start
+
+exportOk=Data exported successfully!
+importOk=Data imported successfully!
+importWarn=Warning! Speed Start configuration will be overwritten!\nDo you really want to import backup data?\n\n

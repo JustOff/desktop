@@ -30,3 +30,8 @@
 <!ENTITY sstart.CustomImage "Изображение">
 
 <!ENTITY sstart.GiveFocus "Выделять при старте">
+
+<!ENTITY sstart.Backup "Резарвная копия">
+<!ENTITY sstart.Data "Данные">
+<!ENTITY sstart.Export "Сохранить">
+<!ENTITY sstart.Import "Загрузить">
