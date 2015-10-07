@@ -18,8 +18,11 @@ justoff.sstart.SStartOptionsXul = new function () {
 	this.exportData = function () {
 		var zfile = File.chooseFile("save", ["zip"], "sstart-backup.zip");
 		if (zfile) {
+			var data = {prefs: {thw: Prefs.getInt("thumbnail.width"), thh: Prefs.getInt("thumbnail.height"),
+				gri: Prefs.getInt("gridInterval"), bgs: Prefs.getInt("backgroundStyle"), fcs: Prefs.getString("focus"),
+				swd: Prefs.getBool("showDecorations"), ont: Prefs.getBool("overrideNewTab"), ohp: Prefs.getBool("overrideHomePage"),
+				ntd: Prefs.getBool("newtabOnLockDrag"),	bth: Prefs.getBool("bottomHeader"), azm: Prefs.getBool("autoZoom")}};
 			var bookmarks = Bookmark.getBookmarks();
-			var data = {};
 			for (var i in bookmarks) {
 				if (bookmarks[i].isFolder && bookmarks[i].title == ROOT_TITLE) {
 					data["params"] = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
@@ -132,6 +135,17 @@ justoff.sstart.SStartOptionsXul = new function () {
 					throw "Backup file is corrupted!";
 				}
 				data = Utils.fromJSON(data);
+				Prefs.setInt("thumbnail.width", data["prefs"]["thw"]);
+				Prefs.setInt("thumbnail.height", data["prefs"]["thh"]);
+				Prefs.setInt("gridInterval", data["prefs"]["gri"]);
+				Prefs.setInt("backgroundStyle", data["prefs"]["bgs"]);
+				Prefs.setString("focus", data["prefs"]["fcs"]);
+				Prefs.setBool("showDecorations", data["prefs"]["swd"]);
+				Prefs.setBool("overrideNewTab", data["prefs"]["ont"]);
+				Prefs.setBool("overrideHomePage", data["prefs"]["ohp"]);
+				Prefs.setBool("newtabOnLockDrag", data["prefs"]["ntd"]);
+				Prefs.setBool("bottomHeader", data["prefs"]["bth"]);
+				Prefs.setBool("autoZoom", data["prefs"]["azm"]);
 				var newId = Bookmark.createFolder(dstFolder);
 				Bookmark.setAnnotation(newId, ANNOTATION, data["params"]);
 				var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"]
@@ -148,7 +162,6 @@ justoff.sstart.SStartOptionsXul = new function () {
 					tmpDir.remove(true);
 				}
 				Utils.alert(SStart.translate("importOk"));
-				throw "Done!";
 			  } catch(e) {
 				Utils.alert(e);
 				Bookmark.removeBookmark(newId);

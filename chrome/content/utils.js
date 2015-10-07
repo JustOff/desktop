@@ -12,13 +12,6 @@ justoff.sstart.Utils = new function () {
 		return params;
 	};
 
-	this.lastUniqueId = 0;
-
-	this.getUniqueId = function () {
-		var id = Math.max(Utils.lastUniqueId + 1, new Date().getTime());
-		return Utils.lastUniqueId = id;
-	};
-
 	this.clone = function (object) {
 		return Utils.merge({}, object);
 	};
@@ -103,4 +96,3 @@ justoff.sstart.Utils = new function () {
 	};
 
 }
-
