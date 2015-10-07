@@ -2,6 +2,9 @@ justoff.sstart.File = new function () {
 
 	var File = this
 
+	Components.utils.import("resource://gre/modules/NetUtil.jsm");
+	Components.utils.import("resource://gre/modules/FileUtils.jsm");
+	
 	this.getDataDirectory = function () {
 		var dir = Components.classes["@mozilla.org/file/directory_service;1"]
 			.getService(Components.interfaces.nsIProperties)
@@ -33,12 +36,25 @@ justoff.sstart.File = new function () {
 		return File.getFileURL(f);
 	};
 
-	this.writeFile = function (file, data) {
-		var out = Components.classes["@mozilla.org/network/file-output-stream;1"]
-			.createInstance(Components.interfaces.nsIFileOutputStream);
-		out.init(file, 0x04 | 0x08 | 0x20, 0666, 0); // read & write, create, truncate
-		out.write(data, data.length);
-		out.close();
+	this.writeFileAsync = function (file, dataUri, callback) {
+		NetUtil.asyncFetch(dataUri, function(istream, status) {
+			if (!istream || !Components.isSuccessCode(status)) {
+				console.log("Input stream error!")
+				return;
+			}
+			try {
+				var ostream = FileUtils.openAtomicFileOutputStream(file);
+			} catch (e) {
+				var ostream = FileUtils.openSafeFileOutputStream(file);
+			}
+			NetUtil.asyncCopy(istream , ostream, function(status) {
+				if (!Components.isSuccessCode(status)) {
+					console.log("File write error!")
+					return;
+				}
+				callback();
+			});
+		});
 	};
 
 	this.chooseFile = function (mode, filters, name) {
@@ -54,8 +70,8 @@ justoff.sstart.File = new function () {
 				case "html":
 					fp.appendFilters(fp.filterHTML);
 					break;
-				default:
-					fp.appendFilter(filter, filter);
+				case "text":
+					fp.appendFilters(fp.filterText);
 					break;
 			}
 		}

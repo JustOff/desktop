@@ -191,12 +191,13 @@ justoff.sstart.Thumbnail = function () {
 	function saveImage(iframe) {
 		var self = this;
 		setTimeout(function () {
-				var image = createImage(iframe, self.properties.width, self.properties.height - Widget.HEADER_HEIGHT);
-				File.writeFile(getImageFile.call(self), image);
+				var imageUri = createImage(iframe, self.properties.width, self.properties.height - Widget.HEADER_HEIGHT);
 				Dom.remove(iframe);
-				loading = false;
-				URL.removeFromCache(getImageURL.call(self));
-				self.updateView.call(self);
+				File.writeFileAsync(getImageFile.call(self), imageUri, function () {
+					loading = false;
+					URL.removeFromCache(getImageURL.call(self));
+					self.updateView.call(self);
+				});
 			},
 			TIMEOUT_RENDER);
 	}
@@ -270,8 +271,7 @@ justoff.sstart.Thumbnail = function () {
 			octx.drawImage(oc, 0, 0, ifw * scale, ifh * scale);
 			context.drawImage(oc, 0, 0, ifw * scale, ifh * scale, 0, 0, canvas.width, canvas.height);
 		}
-		var dataURL = canvas.toDataURL("image/png");
-		return atob(dataURL.replace(/^data:image\/png;base64,/, ""));
+		return canvas.toDataURL("image/png");
 	}
 
 	function sharpenImage(ctx, w, h, mix) {
