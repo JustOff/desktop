@@ -49,7 +49,7 @@ justoff.sstart.File = new function () {
 			}
 			NetUtil.asyncCopy(istream , ostream, function(status) {
 				if (!Components.isSuccessCode(status)) {
-					console.log("File write error!")
+					console.log("File write error!");
 					return;
 				}
 				callback();
