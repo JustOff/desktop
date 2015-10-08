@@ -35,7 +35,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		if (this.isFolder) {
 			properties.title = Dom.get("name").value;
 		} else {
-			var url = Dom.get("url").value;
+			var url = Dom.get("url").value.trim();
 			if (url != properties.url) properties.title = "";
 			if (url) {
 				try {
