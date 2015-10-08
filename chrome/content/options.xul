@@ -5,7 +5,7 @@
 			persist="width height"
 			title="&sstart.Preferences;"
 			dlgbuttons="accept,cancel"
-			style="min-width: 250px; min-height: 310px;"
+			style="min-width: 250px; min-height: 330px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<prefpane id="general-pane" label="&sstart.Preferences;">
 		<preferences>
