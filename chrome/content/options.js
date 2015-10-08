@@ -178,6 +178,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				}
 				return;
 			  }
+			  try {
 				var bookmarks = Bookmark.getBookmarks();
 				for (var i in bookmarks) {
 					if (bookmarks[i].isFolder && bookmarks[i].title == ROOT_TITLE) {
@@ -194,6 +195,9 @@ justoff.sstart.SStartOptionsXul = new function () {
 				if (delDir.exists()) {
 					delDir.remove(true);
 				}
+			  } catch(e) {
+				Utils.alert(e);
+			  }
 			});
 		}
 	}
