@@ -16,8 +16,6 @@ justoff.sstart.SStartOptionsXul = new function () {
 	Cu.import("resource://gre/modules/NetUtil.jsm");
 	Cu.import("resource://gre/modules/FileUtils.jsm");
 	
-	this.reload = false;
-
 	this.exportData = function () {
 		var zfile = File.chooseFile("save", ["zip"], "sstart-backup.zip");
 		if (zfile) {
