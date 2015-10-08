@@ -246,6 +246,9 @@ justoff.sstart.Thumbnail = function () {
 
 	function createImage(iframe, imageWidth, imageHeight) {
 		var ifw = iframe.contentDocument.documentElement.offsetWidth;
+		if (typeof ifw == "undefined") {
+			ifw = iframe.width;
+		}
 		var ifh = Math.round(ifw / imageWidth * imageHeight);
 		var canvas = document.createElement("canvas");
 		var context = canvas.getContext("2d");
