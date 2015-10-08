@@ -163,13 +163,6 @@ justoff.sstart.SStartOptionsXul = new function () {
 					}
 				}
 				bookmarksService.runInBatchMode(callback, null);
-				SStart.clearCache();
-				SStart.setUpdateMenu(true);
-				if (tmpDir.exists()) {
-					tmpDir.remove(true);
-				}
-				Utils.alert(SStart.translate("importOk"));
-				SStart.forEachSStartBrowser(SStart.reloadPage);
 			  } catch(e) {
 				Utils.alert(e);
 				Bookmark.removeBookmark(newId);
@@ -179,6 +172,9 @@ justoff.sstart.SStartOptionsXul = new function () {
 				return;
 			  }
 			  try {
+				if (tmpDir.exists()) {
+					tmpDir.remove(true);
+				}
 				var bookmarks = Bookmark.getBookmarks();
 				for (var i in bookmarks) {
 					if (bookmarks[i].isFolder && bookmarks[i].title == ROOT_TITLE) {
@@ -195,6 +191,10 @@ justoff.sstart.SStartOptionsXul = new function () {
 				if (delDir.exists()) {
 					delDir.remove(true);
 				}
+				SStart.clearCache();
+				SStart.setUpdateMenu(true);
+				SStart.forEachSStartBrowser(SStart.reloadPage);
+				Utils.alert(SStart.translate("importOk"));
 			  } catch(e) {
 				Utils.alert(e);
 			  }
