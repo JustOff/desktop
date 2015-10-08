@@ -209,9 +209,9 @@ justoff.sstart.SStart = new function () {
 	};
 	
 	this.getDialogFeatures = function () {
-		var prefService = Components.classes["@mozilla.org/preferences-service;1"].
-			getService(Components.interfaces.nsIPrefBranch);
-		if (prefService.getBoolPref("browser.preferences.instantApply")) {
+		var osString = Components.classes["@mozilla.org/xre/app-info;1"]  
+			.getService(Components.interfaces.nsIXULRuntime).OS;
+		if (osString == "Darwin") {
 			return "chrome,titlebar,centerscreen,modal,resizable,dialog=no";
 		} else {
 			return "chrome,centerscreen,modal,resizable";
