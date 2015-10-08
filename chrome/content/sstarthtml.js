@@ -94,7 +94,7 @@ console.time("SStart");
 		factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y));
 	}, false);
 	Dom.get("menu-prefs").addEventListener("click", function (e) {
-		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", "chrome,centerscreen,modal,resizable");
+		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", SStart.getDialogFeatures());
 	}, false);
 	Dom.get("menu-lock").addEventListener("click", function (e) {
 		SStart.setLocked(true);
@@ -200,7 +200,7 @@ console.time("SStart");
 	Dom.get("menu-props").addEventListener("click", function (e) {
 		var param = { properties: properties, pageId: pageId, body: document.body };
 		var xul = 'properties.xul';
-		openDialog(xul, "properties", "chrome,centerscreen,modal,resizable", param);
+		openDialog(xul, "properties", SStart.getDialogFeatures(), param);
 		if (param.properties) {
 			properties = param.properties;
 			storage.setProperties(properties);

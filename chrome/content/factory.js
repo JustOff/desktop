@@ -24,13 +24,13 @@ justoff.sstart.Factory = function (storage) {
 			properties.width = Prefs.getInt("thumbnail.width");
 			properties.height = Prefs.getInt("thumbnail.height");
 			var param = { properties: properties };
-			openDialog("thumbprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
+			openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(), param);
 		} else {
 			properties.width = 200;
 			properties.height = 40;
 			properties.url = SEARCH_URL;
 			var param = { properties: properties };
-			openDialog("searchprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
+			openDialog("searchprops.xul", "properties", SStart.getDialogFeatures(), param);
 		}
 
 		if (param.properties) {

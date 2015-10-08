@@ -42,7 +42,7 @@ justoff.sstart.Search = function () {
 
 	this.openProperties = function () {
 		var param = { properties:Utils.clone(this.properties) };
-		openDialog("searchprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
+		openDialog("searchprops.xul", "properties", SStart.getDialogFeatures(), param);
 		if (param.properties) {
 			this.properties = param.properties;
 			this.save();

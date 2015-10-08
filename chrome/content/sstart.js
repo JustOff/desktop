@@ -208,5 +208,15 @@ justoff.sstart.SStart = new function () {
 		document.location = submission.uri.spec;
 	};
 	
+	this.getDialogFeatures = function () {
+		var prefService = Components.classes["@mozilla.org/preferences-service;1"].
+			getService(Components.interfaces.nsIPrefBranch);
+		if (prefService.getBoolPref("browser.preferences.instantApply")) {
+			return "chrome,titlebar,centerscreen,modal,resizable,dialog=no";
+		} else {
+			return "chrome,centerscreen,modal,resizable";
+		}
+	};
+	
 };
 

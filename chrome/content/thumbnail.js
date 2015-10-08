@@ -7,6 +7,7 @@ justoff.sstart.Thumbnail = function () {
 	var Dom = justoff.sstart.Dom
 	var Widget = justoff.sstart.Widget
 	var URL = justoff.sstart.URL
+	var SStart = justoff.sstart.SStart
 
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
@@ -132,7 +133,7 @@ justoff.sstart.Thumbnail = function () {
 
 	this.openProperties = function () {
 		var param = { properties:Utils.clone(this.properties) };
-		openDialog("thumbprops.xul", "properties", "chrome,centerscreen,modal,resizable", param);
+		openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(), param);
 		if (param.properties) {
 			var refreshNeeded = param.properties.url != this.properties.url ||
 				param.properties.customImage != this.properties.customImage ||

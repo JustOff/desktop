@@ -7,7 +7,7 @@
 			dlgbuttons="accept,cancel"
 			style="min-width: 250px; min-height: 310px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-	<prefpane id="general-pane" label="Main">
+	<prefpane id="general-pane" label="&sstart.Preferences;">
 		<preferences>
 			<preference id="extensions.sstart.overrideNewTab" name="extensions.sstart.overrideNewTab" type="bool"/>
 			<preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage" type="bool"/>
