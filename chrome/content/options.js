@@ -18,12 +18,6 @@ justoff.sstart.SStartOptionsXul = new function () {
 	
 	this.reload = false;
 
-	this.onDone = function () {
-		if (this.reload) {
-			window.arguments[0].reload = true;
-		}
-	}
-	
 	this.exportData = function () {
 		var zfile = File.chooseFile("save", ["zip"], "sstart-backup.zip");
 		if (zfile) {
@@ -175,7 +169,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 					tmpDir.remove(true);
 				}
 				Utils.alert(SStart.translate("importOk"));
-				justoff.sstart.SStartOptionsXul.reload = true;
+				SStart.forEachSStartBrowser(SStart.reloadPage);
 			  } catch(e) {
 				Utils.alert(e);
 				Bookmark.removeBookmark(newId);
@@ -193,10 +187,13 @@ justoff.sstart.SStartOptionsXul = new function () {
 				}
 				Bookmark.updateFolder(newId, ROOT_TITLE);
 				var rootDir = File.getDataDirectory();
-				if (rootDir.exists()) {
-					rootDir.remove(true);
-				}
+				var rootDel = "sstart.del." + (Math.random().toString(36)+'00000000000000000').slice(2, 10);
+				rootDir.moveTo(null, rootDel);
 				dstDir.moveTo(null, ROOT_DIR);
+				var delDir = FileUtils.getFile("ProfD", [rootDel]);
+				if (delDir.exists()) {
+					delDir.remove(true);
+				}
 			});
 		}
 	}
