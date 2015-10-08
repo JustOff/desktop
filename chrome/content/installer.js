@@ -177,6 +177,7 @@ justoff.sstart.Installer = new function () {
 					break;
 				case "autoZoom":
 					SStart.updateAutoZoom();
+					SStart.forEachSStartBrowser(SStart.reloadPage);
 					break;
 			}
 		}
