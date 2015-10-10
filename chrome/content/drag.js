@@ -15,10 +15,10 @@ justoff.sstart.Drag = new function () {
 	this.prevTarget = null;
 
 	this.enable = function (element) {
-		element.addEventListener("mousedown", Drag.onMouseDown, false);
+		element.addEventListener("mousedown", Drag.onMouseDown, true);
+		element.addEventListener("mouseup", Drag.onMouseUp, true);
 		element.addEventListener("mouseover", Drag.onMouseOver, false);
 		element.addEventListener("mouseout", Drag.onMouseOut, false);
-		element.addEventListener("mouseup", Drag.onMouseUp, false);
 		element.addEventListener("mousemove", Drag.onMouseMove, false);
 	};
 
