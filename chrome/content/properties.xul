@@ -11,7 +11,7 @@
 
 	<prefpane id="general-pane" label="Main">
 		<groupbox flex="1">
-			<caption label="&sstart.Page;"/>
+			<caption id="labelPage" label="&sstart.Page;"/>
 			<grid>
 				<columns>
 					<column flex="1"/>
@@ -19,24 +19,24 @@
 				</columns>
 				<rows>
 					<row align="center">
-						<label control="BackgroundColor" flex="1">&sstart.BackgroundColor;:</label>
-						<hbox align="center">
-							<textbox id="bgColor"/>
-						</hbox>
+						<label id="labelBgColor" control="bgColor" flex="1" value="&sstart.BackgroundColor;:"/>
+						<textbox id="bgColor" class="colortext" oninput="justoff.sstart.SStartPropertiesXul.updatePageBgColor();"/>
+						<button id="bgColorBtn" class="colorbutt" label=""
+							oncommand="justoff.sstart.SStartPropertiesXul.cpickPageBg();"/>
 					</row>
 					<hbox id="hboxMainBgImage">
 						<label value="&sstart.UseMainImage;:"/>
 						<checkbox id="useMainBgImage" oncommand="justoff.sstart.SStartPropertiesXul.toggleSelectBgImage(true);"/>
 					</hbox>
 					<row id="BackgroundImage" align="center">
-						<label control="BackgroundImage" flex="1">&sstart.BackgroundImage;:</label>
+						<label control="SetRemove" flex="1">&sstart.BackgroundImage;:</label>
 						<hbox>
 							<button id="SetRemove" class="browse" label=""
 									oncommand="justoff.sstart.SStartPropertiesXul.setremoveBackgroundImage();"/>
 						</hbox>
 					</row>
 					<row id="backgroundStyle" align="center">
-						<label control="backgroundStyle" flex="1">&sstart.BackgroundStyle;:</label>
+						<label control="bgStyle" flex="1">&sstart.BackgroundStyle;:</label>
 						<hbox>
 							<menulist id="bgStyle" oncommand="justoff.sstart.SStartPropertiesXul.toggleBackgroundStyle();">
 								<menupopup>
@@ -50,7 +50,7 @@
 			</grid>
 		</groupbox>
 		<groupbox flex="1">
-			<caption label="&sstart.Header;"/>
+			<caption id="labelHeader" label="&sstart.Header;"/>
 			<grid>
 				<columns>
 					<column flex="1"/>
@@ -58,16 +58,16 @@
 				</columns>
 				<rows>
 					<row align="center">
-						<label control="titleColor" flex="1">&sstart.titleColor;:</label>
-							<hbox align="center">
-								<textbox id="titleColor"/>
-							</hbox>
+						<label id="labelTitleColor" control="titleColor" flex="1" value="&sstart.titleColor;:"/>
+						<textbox id="titleColor" class="colortext" oninput="justoff.sstart.SStartPropertiesXul.updateHeaderTColor();"/>
+						<button id="titleColorBtn" class="colorbutt" label=""
+							oncommand="justoff.sstart.SStartPropertiesXul.cpickHeaderT();"/>
 					</row>
 					<row align="center">
-						<label control="headerColor" flex="1">&sstart.headerColor;:</label>
-						<hbox align="center">
-							<textbox id="headerColor"/>
-						</hbox>
+						<label id="labelHeaderColor" control="headerColor" flex="1" value="&sstart.headerColor;:"/>
+						<textbox id="headerColor" class="colortext" oninput="justoff.sstart.SStartPropertiesXul.updateHeaderBgColor();"/>
+						<button id="headerColorBtn" class="colorbutt" label=""
+							oncommand="justoff.sstart.SStartPropertiesXul.cpickHeaderBg();"/>
 					</row>
 				</rows>
 			</grid>

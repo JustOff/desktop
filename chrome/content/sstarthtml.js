@@ -198,9 +198,9 @@ console.time("SStart");
 		}
 	}, false);
 	Dom.get("menu-props").addEventListener("click", function (e) {
-		var param = { properties: properties, pageId: pageId, body: document.body };
+		var param = { properties: properties, pageId: pageId, body: document.body, sSheet: document.styleSheets[1], doc: document };
 		var xul = 'properties.xul';
-		openDialog(xul, "properties", SStart.getDialogFeatures(), param);
+		openDialog(xul, "properties", SStart.getDialogFeatures(280, 320), param);
 		if (param.properties) {
 			properties = param.properties;
 			storage.setProperties(properties);

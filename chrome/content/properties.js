@@ -103,15 +103,57 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		Dom.addClass(this.body, 'background-style-' + Dom.get("bgStyle").value);
 	}
 
+	this.updatePageBgColor = function () {
+		this.body.style.backgroundColor = Dom.get("bgColor").value;
+		Dom.get("bgColorBtn").style["background-color"] = Dom.get("bgColor").value;
+	}
+
+	this.cpickPageBg = function () {
+		var title = Dom.get("labelPage").label + ", " + Dom.get("labelBgColor").value;
+		var param = { doc: document, tbox: "bgColor", element: this.body, attr: "backgroundColor", title: title };
+		openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+			SStart.getDialogFeatures(290, 310, window.screenX + window.outerWidth, window.screenY, false), param);
+	}
+
+	this.updateHeaderTColor = function () {
+		this.sSheet.cssRules[11].style.color = Dom.get("titleColor").value;
+		Dom.get("titleColorBtn").style["background-color"] = Dom.get("titleColor").value;
+	}
+
+	this.cpickHeaderT = function () {
+		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelTitleColor").value;
+		var param = { doc: document, tbox: "titleColor", element: this.sSheet.cssRules[11], attr: "color", title: title };
+		openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+			SStart.getDialogFeatures(290, 310, window.screenX + window.outerWidth, window.screenY, false), param);
+	}
+
+	this.updateHeaderBgColor = function () {
+		this.sSheet.cssRules[6].style.background = Dom.get("headerColor").value;
+		this.sSheet.cssRules[4].style.border = "1px solid " + Dom.get("headerColor").value;
+		Dom.get("headerColorBtn").style["background-color"] = Dom.get("headerColor").value;
+	}
+
+	this.cpickHeaderBg = function () {
+		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelHeaderColor").value;
+		var param = { doc: document, tbox: "headerColor", element: this.sSheet.cssRules[6], attr: "background", title: title };
+		openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+			SStart.getDialogFeatures(290, 310, window.screenX + window.outerWidth, window.screenY, false), param);
+	}
+
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
 		this.SetStr = SStart.translate("imageSet");
 		this.RemoveStr = SStart.translate("imageRemove");
 		this.pageId = window.arguments[0].pageId;
 		this.body = window.arguments[0].body;
+		this.doc = window.arguments[0].doc;
+		this.sSheet = window.arguments[0].sSheet;
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
+		Dom.get("bgColorBtn").style["background-color"] = properties.background || "#FFFFFF";
 		Dom.get("titleColor").value = properties.titleColor || "#000000";
+		Dom.get("titleColorBtn").style["background-color"] = properties.titleColor || "#000000";
 		Dom.get("headerColor").value = properties.headerColor || "#E0E0E0";
+		Dom.get("headerColorBtn").style["background-color"] = properties.headerColor || "#E0E0E0";
 		this.backgroundImage = properties.backgroundImage || "0";
 		Dom.get("bgStyle").value = properties.backgroundStyle || 1;
 		if (this.backgroundImage == "1") {
@@ -164,6 +206,10 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	}
 
 	this.onCancel = function () {
+		this.body.style.backgroundColor = window.arguments[0].properties.background || "#FFFFFF";
+		this.sSheet.cssRules[11].style.color = window.arguments[0].properties.titleColor || "#000000";
+		this.sSheet.cssRules[6].style.background = window.arguments[0].properties.headerColor || "#E0E0E0";
+		this.sSheet.cssRules[4].style.border = "1px solid " + (window.arguments[0].properties.headerColor || "#E0E0E0");
 		window.arguments[0].properties = null;
 	}
 

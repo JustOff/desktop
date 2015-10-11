@@ -3,9 +3,25 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	var File = justoff.sstart.File
 	var Dom = justoff.sstart.Dom
 	var URL = justoff.sstart.URL
+	var SStart = justoff.sstart.SStart
+
+	this.updateBgColor = function () {
+		if (this.view) {
+			this.view.style["background-color"] = Dom.get("bgColor").value;
+		}
+		Dom.get("bgColorBtn").style["background-color"] = Dom.get("bgColor").value;
+	}
+
+	this.cpickBgColor = function () {
+		var title = Dom.get("labelBgColor").value;
+		var param = { doc: document, tbox: "bgColor", element: this.view, attr: "background-color", title: title };
+		openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+			SStart.getDialogFeatures(290, 310, window.screenX + window.outerWidth, window.screenY, false), param);
+	}
 
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
+		this.view = window.arguments[0].view || null;
 		this.isFolder = properties.isFolder;
 		Dom.get("thumbnail-properties").setAttribute("title", Dom.get("thumbnail-properties").getAttribute("title") + ": " + properties.title);
 		if (this.isFolder) {
@@ -16,6 +32,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			Dom.get("namerow").hidden = true;
 		}
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
+		Dom.get("bgColorBtn").style["background-color"] = properties.background || "#FFFFFF";
 		Dom.get("width").value = properties.width || "";
 		Dom.get("height").value = properties.height || "";
 		if (properties.customImage && properties.customImage.slice(0,6) in {"file:/":1, "http:/":1, "https:":1}) {
@@ -78,6 +95,9 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	}
 
 	this.onCancel = function () {
+		if (this.view) {
+			this.view.style["background-color"] = window.arguments[0].properties.background || "#FFFFFF";
+		}
 		window.arguments[0].properties = null;
 		if (this.tmpName) {
 			var dir = File.getDataDirectory();

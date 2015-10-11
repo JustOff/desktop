@@ -208,14 +208,28 @@ justoff.sstart.SStart = new function () {
 		document.location = submission.uri.spec;
 	};
 	
-	this.getDialogFeatures = function () {
+	this.getDialogFeatures = function (w, h, l, t, m) {
+		var features = "chrome";
+		if (typeof m == "undefined") {
+			features = features + ",modal";
+		}
+		if (typeof w == "undefined" || typeof h == "undefined") {
+			features = features + ",centerscreen,resizable";
+		} else {
+			if (typeof l == "undefined") {
+				l = Math.round((window.innerWidth - w) / 2) + window.mozInnerScreenX;
+			}
+			if (typeof t == "undefined") {
+				t = Math.round((window.innerHeight - h) / 2) + window.mozInnerScreenY;
+			}
+			features = features + ",outerWidth=" + w + ",outerHeight=" + h + ",left=" + l + ",top=" + t;
+		}
 		var osString = Components.classes["@mozilla.org/xre/app-info;1"]  
 			.getService(Components.interfaces.nsIXULRuntime).OS;
 		if (osString == "Darwin") {
-			return "chrome,titlebar,centerscreen,modal,resizable,dialog=no";
-		} else {
-			return "chrome,centerscreen,modal,resizable";
+			features = features + ",titlebar,dialog=no";
 		}
+		return features;
 	};
 	
 };
