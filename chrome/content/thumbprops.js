@@ -66,7 +66,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 				return;
 			}
 		}
-		if (this.origImage) {
+		if (this.origImage != properties.customImage) {
 			var dir = File.getDataDirectory();
 			try {
 				dir.append(this.origImage);
