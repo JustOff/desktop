@@ -15,7 +15,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	this.cpickBgColor = function () {
 		var title = Dom.get("labelBgColor").value;
 		var param = { doc: document, tbox: "bgColor", element: this.view, attr: "background-color", title: title };
-		openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+		this.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(290, 310, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
@@ -48,6 +48,9 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	}
 
 	this.onAccept = function () {
+		if (this.cpicker) {
+			this.cpicker.close();
+		}
 		var properties = window.arguments[0].properties;
 		if (this.isFolder) {
 			properties.title = Dom.get("name").value;
@@ -95,6 +98,9 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	}
 
 	this.onCancel = function () {
+		if (this.cpicker) {
+			this.cpicker.close();
+		}
 		if (this.view) {
 			this.view.style["background-color"] = window.arguments[0].properties.background || "#FFFFFF";
 		}

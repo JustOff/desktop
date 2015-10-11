@@ -111,7 +111,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	this.cpickPageBg = function () {
 		var title = Dom.get("labelPage").label + ", " + Dom.get("labelBgColor").value;
 		var param = { doc: document, tbox: "bgColor", element: this.body, attr: "backgroundColor", title: title };
-		openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+		this.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(290, 310, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
@@ -123,7 +123,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	this.cpickHeaderT = function () {
 		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelTitleColor").value;
 		var param = { doc: document, tbox: "titleColor", element: this.sSheet.cssRules[11], attr: "color", title: title };
-		openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+		this.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(290, 310, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
@@ -136,7 +136,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	this.cpickHeaderBg = function () {
 		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelHeaderColor").value;
 		var param = { doc: document, tbox: "headerColor", element: this.sSheet.cssRules[6], attr: "background", title: title };
-		openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+		this.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(290, 310, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
@@ -170,6 +170,9 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	}
 
 	this.onAccept = function () {
+		if (this.cpicker) {
+			this.cpicker.close();
+		}
 		var properties = window.arguments[0].properties;
 		properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
 		properties.titleColor = (Dom.get("titleColor").value == "") ? "#000000" : Dom.get("titleColor").value;
@@ -206,6 +209,9 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	}
 
 	this.onCancel = function () {
+		if (this.cpicker) {
+			this.cpicker.close();
+		}
 		this.body.style.backgroundColor = window.arguments[0].properties.background || "#FFFFFF";
 		this.sSheet.cssRules[11].style.color = window.arguments[0].properties.titleColor || "#000000";
 		this.sSheet.cssRules[6].style.background = window.arguments[0].properties.headerColor || "#E0E0E0";
