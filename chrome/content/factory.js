@@ -36,7 +36,7 @@ justoff.sstart.Factory = function (storage) {
 		if (param.properties) {
 			properties = param.properties;
 		} else {
-			return;
+			return false;
 		}
 
 		storage.saveObject(properties);
@@ -50,6 +50,7 @@ justoff.sstart.Factory = function (storage) {
 		if (type == "folder") {
 			SStart.setUpdateMenu(true);
 		}
+		return true;
 	}
 
 	function createWidget(properties, fragment) {
@@ -95,7 +96,7 @@ justoff.sstart.Factory = function (storage) {
 			}
 		} else if (pageId == 0) {
 			var fragment = justoff.sstart.cache.fragment.cloneNode(true);
-			hasWidgets = true;
+			hasWidgets = fragment.hasChildNodes();
 			SStart.setCacheDOM(true);
 			if (SStart.autoZoom()) {
 				var maxBottom = justoff.sstart.cache.maxBottom;

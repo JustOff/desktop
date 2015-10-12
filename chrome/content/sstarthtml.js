@@ -90,8 +90,8 @@ console.time("SStart");
 			widgets.parentNode.removeChild(widgets);
 			factory.createWidgets(pageId);
 		}
-		quickstart.style.display = "none";
-		factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y));
+		factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y)) &&
+			(quickstart.style.display = "none");
 	}, false);
 	Dom.get("menu-prefs").addEventListener("click", function (e) {
 		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", SStart.getDialogFeatures());
