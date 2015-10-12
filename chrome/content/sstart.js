@@ -227,6 +227,10 @@ justoff.sstart.SStart = new function () {
 		if (typeof w == "undefined" || typeof h == "undefined") {
 			features = features + ",centerscreen,resizable";
 		} else {
+			if (this.autoZoom()) {
+				w = Math.round(w / this.getZoom());
+				h = Math.round(h / this.getZoom());
+			}
 			if (typeof l == "undefined") {
 				l = Math.round((window.innerWidth - w) / 2) + window.mozInnerScreenX;
 			}
