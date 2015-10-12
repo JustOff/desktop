@@ -6,6 +6,19 @@ overlay chrome://browser/content/browser.xul chrome://sstart/content/overlay.xul
 
 skin sstart classic chrome/skin/
 
+style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-winnt.css os=WINNT
+style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-darwin.css os=Darwin
+style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-unix.css os=Linux
+style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-unix.css os=FreeBSD
+style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-unix.css os=OpenBSD
+style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-unix.css os=NetBSD
+style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-winnt.css os=WINNT
+style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-darwin.css os=Darwin
+style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=Linux
+style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=FreeBSD
+style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=OpenBSD
+style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=NetBSD
+
 locale sstart en-US chrome/locale/en-US/
 locale sstart ru-RU chrome/locale/ru-RU/
 locale sstart uk-UA chrome/locale/uk-UA/

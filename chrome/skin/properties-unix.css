@@ -1,0 +1,7 @@
+.colortext {
+	width: 90px;
+}
+
+textbox[type="autocomplete"] {
+	min-width: 250px;
+}

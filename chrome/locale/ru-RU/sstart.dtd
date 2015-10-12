@@ -14,7 +14,7 @@
 
 <!ENTITY sstart.Page "Фон страницы">
 <!ENTITY sstart.BackgroundColor "Цвет">
-<!ENTITY sstart.UseMainImage "Использовать изображение с главной страницы">
+<!ENTITY sstart.UseMainImage "Изображение с главной страницы">
 <!ENTITY sstart.BackgroundImage "Изображение">
 <!ENTITY sstart.BackgroundStyle "Заполнение">
 <!ENTITY sstart.BackgroundTile "Плиткой">

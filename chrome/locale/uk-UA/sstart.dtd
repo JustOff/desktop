@@ -14,7 +14,7 @@
 
 <!ENTITY sstart.Page "Фон сторінки">
 <!ENTITY sstart.BackgroundColor "Колір">
-<!ENTITY sstart.UseMainImage "Використовувати зображення з головної сторінки">
+<!ENTITY sstart.UseMainImage "Зображення з головної сторінки">
 <!ENTITY sstart.BackgroundImage "Зображення">
 <!ENTITY sstart.BackgroundStyle "Заповнення">
 <!ENTITY sstart.BackgroundTile "Плиткою">

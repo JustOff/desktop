@@ -209,9 +209,20 @@ justoff.sstart.SStart = new function () {
 	};
 	
 	this.getDialogFeatures = function (w, h, l, t, m) {
+		var osString = Components.classes["@mozilla.org/xre/app-info;1"]  
+			.getService(Components.interfaces.nsIXULRuntime).OS;
 		var features = "chrome";
-		if (typeof m == "undefined") {
+		if (typeof m == "undefined" || osString == "Darwin") {
 			features = features + ",modal";
+		}
+		if (osString == "Darwin") {
+			features = features + ",titlebar,dialog=no";
+			if (typeof w != "undefined") {
+				w = w + 30;
+			}
+			if (typeof h != "undefined") {
+				h = h + 30;
+			}
 		}
 		if (typeof w == "undefined" || typeof h == "undefined") {
 			features = features + ",centerscreen,resizable";
@@ -223,11 +234,6 @@ justoff.sstart.SStart = new function () {
 				t = Math.round((window.innerHeight - h) / 2) + window.mozInnerScreenY;
 			}
 			features = features + ",outerWidth=" + w + ",outerHeight=" + h + ",left=" + l + ",top=" + t;
-		}
-		var osString = Components.classes["@mozilla.org/xre/app-info;1"]  
-			.getService(Components.interfaces.nsIXULRuntime).OS;
-		if (osString == "Darwin") {
-			features = features + ",titlebar,dialog=no";
 		}
 		return features;
 	};

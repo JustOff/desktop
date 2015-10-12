@@ -1,0 +1,11 @@
+.colortext {
+	width: 70px;
+}
+
+textbox[type="autocomplete"] {
+	min-width: 150px;
+}
+
+#bgStyle {
+	max-width: 80px;
+}

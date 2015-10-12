@@ -200,7 +200,7 @@ console.time("SStart");
 	Dom.get("menu-props").addEventListener("click", function (e) {
 		var param = { properties: properties, pageId: pageId, body: document.body, sSheet: document.styleSheets[1], doc: document };
 		var xul = 'properties.xul';
-		openDialog(xul, "properties", SStart.getDialogFeatures(280, 320), param);
+		openDialog(xul, "properties", SStart.getDialogFeatures(250, 290), param);
 		if (param.properties) {
 			properties = param.properties;
 			storage.setProperties(properties);

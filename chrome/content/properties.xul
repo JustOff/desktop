@@ -9,7 +9,7 @@
 		persist="width height"
 		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-	<prefpane id="general-pane" label="Main">
+	<vbox>
 		<groupbox flex="1">
 			<caption id="labelPage" label="&sstart.Page;"/>
 			<grid>
@@ -20,9 +20,16 @@
 				<rows>
 					<row align="center">
 						<label id="labelBgColor" control="bgColor" flex="1" value="&sstart.BackgroundColor;:"/>
-						<textbox id="bgColor" class="colortext" oninput="justoff.sstart.SStartPropertiesXul.updatePageBgColor();"/>
-						<button id="bgColorBtn" class="colorbutt" label=""
-							oncommand="justoff.sstart.SStartPropertiesXul.cpickPageBg();"/>
+						<hbox>
+							<textbox id="bgColor" class="colortext"
+								oninput="justoff.sstart.SStartPropertiesXul.updatePageBgColor();"/>
+							<vbox>
+								<spacer flex="1"/>
+								<button id="bgColorBtn" class="colorbutt" label=""
+									oncommand="justoff.sstart.SStartPropertiesXul.cpickPageBg();"/>
+								<spacer flex="1"/>
+							</vbox>
+						</hbox>
 					</row>
 					<hbox id="hboxMainBgImage">
 						<label value="&sstart.UseMainImage;:"/>
@@ -59,20 +66,34 @@
 				<rows>
 					<row align="center">
 						<label id="labelTitleColor" control="titleColor" flex="1" value="&sstart.titleColor;:"/>
-						<textbox id="titleColor" class="colortext" oninput="justoff.sstart.SStartPropertiesXul.updateHeaderTColor();"/>
-						<button id="titleColorBtn" class="colorbutt" label=""
-							oncommand="justoff.sstart.SStartPropertiesXul.cpickHeaderT();"/>
+						<hbox>
+							<textbox id="titleColor" class="colortext"
+								oninput="justoff.sstart.SStartPropertiesXul.updateHeaderTColor();"/>
+							<vbox>
+								<spacer flex="1"/>
+								<button id="titleColorBtn" class="colorbutt" label=""
+									oncommand="justoff.sstart.SStartPropertiesXul.cpickHeaderT();"/>
+								<spacer flex="1"/>
+							</vbox>
+						</hbox>
 					</row>
 					<row align="center">
 						<label id="labelHeaderColor" control="headerColor" flex="1" value="&sstart.headerColor;:"/>
-						<textbox id="headerColor" class="colortext" oninput="justoff.sstart.SStartPropertiesXul.updateHeaderBgColor();"/>
-						<button id="headerColorBtn" class="colorbutt" label=""
-							oncommand="justoff.sstart.SStartPropertiesXul.cpickHeaderBg();"/>
+						<hbox>
+							<textbox id="headerColor" class="colortext"
+								oninput="justoff.sstart.SStartPropertiesXul.updateHeaderBgColor();"/>
+							<vbox>
+								<spacer flex="1"/>
+								<button id="headerColorBtn" class="colorbutt" label=""
+									oncommand="justoff.sstart.SStartPropertiesXul.cpickHeaderBg();"/>
+								<spacer flex="1"/>
+							</vbox>
+						</hbox>
 					</row>
 				</rows>
 			</grid>
 		</groupbox>
-	</prefpane>
+	</vbox>
 
 	<script src="namespace.js"/>
 	<script src="utils.js"/>
