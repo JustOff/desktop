@@ -7,6 +7,7 @@
 		ondialogaccept="justoff.sstart.ThumbnailPropertiesXul.onAccept();"
 		ondialogcancel="justoff.sstart.ThumbnailPropertiesXul.onCancel();"
 		persist="width height"
+		xmlns:html="http://www.w3.org/1999/xhtml"
 		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 	<grid>
@@ -27,8 +28,7 @@
 			<row align="center">
 				<label id="labelBgColor" value="&sstart.BackgroundColor;:"/>
 				<textbox id="bgColor" class="colortext" oninput="justoff.sstart.ThumbnailPropertiesXul.updateBgColor();"/>
-				<button id="bgColorBtn" class="colorbutt" label=""
-					oncommand="justoff.sstart.ThumbnailPropertiesXul.cpickBgColor();"/>
+				<html:div id="bgColorBtn" class="colorbutt"></html:div>
 			</row>
 			<row align="center">
 				<label value="&sstart.CustomImage;:"/>

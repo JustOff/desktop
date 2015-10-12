@@ -7,6 +7,7 @@
 		ondialogaccept="justoff.sstart.SStartPropertiesXul.onAccept();"
 		ondialogcancel="justoff.sstart.SStartPropertiesXul.onCancel();"
 		persist="width height"
+		xmlns:html="http://www.w3.org/1999/xhtml"
 		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
 	<vbox>
@@ -25,8 +26,7 @@
 								oninput="justoff.sstart.SStartPropertiesXul.updatePageBgColor();"/>
 							<vbox>
 								<spacer flex="1"/>
-								<button id="bgColorBtn" class="colorbutt" label=""
-									oncommand="justoff.sstart.SStartPropertiesXul.cpickPageBg();"/>
+								<html:div id="bgColorBtn" class="colorbutt"></html:div>
 								<spacer flex="1"/>
 							</vbox>
 						</hbox>
@@ -71,8 +71,7 @@
 								oninput="justoff.sstart.SStartPropertiesXul.updateHeaderTColor();"/>
 							<vbox>
 								<spacer flex="1"/>
-								<button id="titleColorBtn" class="colorbutt" label=""
-									oncommand="justoff.sstart.SStartPropertiesXul.cpickHeaderT();"/>
+								<html:div id="titleColorBtn" class="colorbutt"></html:div>
 								<spacer flex="1"/>
 							</vbox>
 						</hbox>
@@ -84,8 +83,7 @@
 								oninput="justoff.sstart.SStartPropertiesXul.updateHeaderBgColor();"/>
 							<vbox>
 								<spacer flex="1"/>
-								<button id="headerColorBtn" class="colorbutt" label=""
-									oncommand="justoff.sstart.SStartPropertiesXul.cpickHeaderBg();"/>
+								<html:div id="headerColorBtn" class="colorbutt"></html:div>
 								<spacer flex="1"/>
 							</vbox>
 						</hbox>

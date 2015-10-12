@@ -1,5 +1,6 @@
 justoff.sstart.ThumbnailPropertiesXul = new function () {
 
+	var self = this
 	var File = justoff.sstart.File
 	var Dom = justoff.sstart.Dom
 	var URL = justoff.sstart.URL
@@ -7,15 +8,15 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 
 	this.updateBgColor = function () {
 		if (this.view) {
-			this.view.style["background-color"] = Dom.get("bgColor").value;
+			this.view.style["background"] = Dom.get("bgColor").value;
 		}
-		Dom.get("bgColorBtn").style["background-color"] = Dom.get("bgColor").value;
+		Dom.get("bgColorBtn").style["background"] = Dom.get("bgColor").value;
 	}
 
 	this.cpickBgColor = function () {
 		var title = Dom.get("labelBgColor").value;
-		var param = { doc: document, tbox: "bgColor", element: this.view, attr: "background-color", title: title };
-		this.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
+		var param = { doc: document, tbox: "bgColor", element: self.view, attr: "background", title: title };
+		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(290, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
@@ -32,7 +33,9 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			Dom.get("namerow").hidden = true;
 		}
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
-		Dom.get("bgColorBtn").style["background-color"] = properties.background || "#FFFFFF";
+		var bgColorBtn = Dom.get("bgColorBtn");
+		bgColorBtn.style["background"] = properties.background || "#FFFFFF";
+		bgColorBtn.addEventListener('click', this.cpickBgColor, true);
 		Dom.get("width").value = properties.width || "";
 		Dom.get("height").value = properties.height || "";
 		if (properties.customImage && properties.customImage.slice(0,6) in {"file:/":1, "http:/":1, "https:":1}) {
@@ -102,7 +105,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			this.cpicker.close();
 		}
 		if (this.view) {
-			this.view.style["background-color"] = window.arguments[0].properties.background || "#FFFFFF";
+			this.view.style["background"] = window.arguments[0].properties.background || "#FFFFFF";
 		}
 		window.arguments[0].properties = null;
 		if (this.tmpName) {

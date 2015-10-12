@@ -16,6 +16,5 @@ textbox[type="autocomplete"] {
 	width: 20px;
 	min-width: 20px;
 	max-width: 20px;
-	-moz-appearance: none; 
-	border: none;
+	margin: 2px 5px;
 }
