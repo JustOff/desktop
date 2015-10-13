@@ -11,6 +11,7 @@
 <!ENTITY sstart.GridSize "Розмір сітки">
 
 <!ENTITY sstart.Properties "Властивості">
+<!ENTITY sstart.SearchEngine "Пошукова система">
 
 <!ENTITY sstart.Page "Фон сторінки">
 <!ENTITY sstart.BackgroundColor "Колір">

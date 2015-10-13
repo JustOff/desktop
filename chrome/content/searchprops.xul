@@ -2,7 +2,7 @@
 <?xml-stylesheet href="chrome://sstart/skin/searchprops.css" type="text/css"?>
 <!DOCTYPE window SYSTEM "chrome://sstart/locale/sstart.dtd">
 <dialog id="search-properties"
-		title="&sstart.Properties;"
+		title="&sstart.SearchEngine;"
 		onload="justoff.sstart.SearchPropertiesXul.initialize();"
 		ondialogaccept="justoff.sstart.SearchPropertiesXul.onAccept();"
 		ondialogcancel="justoff.sstart.SearchPropertiesXul.onCancel();"

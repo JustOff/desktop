@@ -11,6 +11,7 @@
 <!ENTITY sstart.GridSize "Grid size">
 
 <!ENTITY sstart.Properties "Properties">
+<!ENTITY sstart.SearchEngine "Search Engine">
 
 <!ENTITY sstart.Page "Page background">
 <!ENTITY sstart.BackgroundColor "Color">
