@@ -20,7 +20,6 @@ justoff.sstart.Search = function () {
 
 	this.updateView = function () {
 		Search.prototype.updateView.call(this);
-//		console.log(this.properties.title);
 		this.properties.title = SStart.getSearchEngine(this.properties.title).name;
 	}
 

@@ -125,7 +125,7 @@ console.time("SStart");
 		updateLockStatus();
 	}, false);
 	Dom.get("menu-refresh").addEventListener("click", function (e) {
-		if (Utils.confirm(SStart.translate("contextRefreshThumbnails") + "?")) {
+		if (Utils.confirm("\n" + SStart.translate("contextRefreshThumbnails") + "?\n\n")) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
