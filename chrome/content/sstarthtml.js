@@ -81,7 +81,8 @@ console.time("SStart");
 	ContextMenu.enable(document, Dom.get("menu"));
 
 	Dom.get("menu-add").addEventListener("click", function (e) {
-		if (SStart.isLocked()) {
+		var lockStatus = SStart.isLocked();
+		if (lockStatus) {
 			SStart.setLocked(false);
 		}
 		if (SStart.isCacheDOM() && pageId == 0) {
@@ -92,7 +93,7 @@ console.time("SStart");
 		if (factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y))) {
 			quickstart.style.display = "none";
 		} else {
-			SStart.setLocked(true);
+			SStart.setLocked(lockStatus);
 		}
 		updateLockStatus();
 	}, false);
