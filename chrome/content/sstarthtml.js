@@ -83,15 +83,18 @@ console.time("SStart");
 	Dom.get("menu-add").addEventListener("click", function (e) {
 		if (SStart.isLocked()) {
 			SStart.setLocked(false);
-			updateLockStatus();
 		}
 		if (SStart.isCacheDOM() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
 			factory.createWidgets(pageId);
 		}
-		factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y)) &&
-			(quickstart.style.display = "none");
+		if (factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y))) {
+			quickstart.style.display = "none";
+		} else {
+			SStart.setLocked(true);
+		}
+		updateLockStatus();
 	}, false);
 	Dom.get("menu-prefs").addEventListener("click", function (e) {
 		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", SStart.getDialogFeatures());
