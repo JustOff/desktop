@@ -51,10 +51,6 @@ justoff.sstart.Search = function () {
 		SStart.deleteSearchNode(this.properties.id);
 	}
 
-	this.getIconURL = function () {
-		return SStart.getSearchEngine(this.properties.title).iconURI.spec;
-	}
-
 	this.editTitle = function () {
 	}
 }

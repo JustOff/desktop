@@ -45,11 +45,6 @@ justoff.sstart.Thumbnail = function () {
 			return File.getFileURL(getImageFile.call(this));
 	}
 
-	this.getIconURL = function () {
-		return this.properties.isFolder ? "chrome://sstart/skin/folder.png"
-			: Thumbnail.prototype.getIconURL.call(this);
-	}
-
 	this.createView = function () {
 		return Dom.get("thumbnail").cloneNode(true);
 	}

@@ -2,13 +2,12 @@ justoff.sstart.Widget = function () {
 
 	var Utils = justoff.sstart.Utils
 	var Dom = justoff.sstart.Dom
-	var Bookmark = justoff.sstart.Bookmark
-	var Prefs = justoff.sstart.Prefs
 	var SStart = justoff.sstart.SStart
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 	
 	const SEARCH_URL = "sstart://search/";
+	const HEADER_HEIGHT = 20;
 
 	this.properties;
 	this.view;
@@ -36,13 +35,15 @@ justoff.sstart.Widget = function () {
 		if (this.properties.isFolder) {
 			icon.style.background = "url(chrome://sstart/skin/folder.png)";
 		} else if (this.properties.url == SEARCH_URL) {
-			icon.style.background = "url(" + this.getIconURL() + ")";
+			icon.style.background = "url(" + SStart.getSearchEngine(this.properties.title).iconURI.spec + ")";
+			icon.style["background-size"] = "cover";
 		} else if (this.properties.url) {
 			uri = ios.newURI(this.properties.url, null, null);
 			fis.getFaviconURLForPage(uri, 
 				function (furi, len, data, mimeType) {
 					if (furi) {
 						icon.style.background = "url(moz-anno:favicon:" + furi.spec + ")";
+						icon.style["background-size"] = "cover";
 					}
 				}
 			);
@@ -180,10 +181,6 @@ justoff.sstart.Widget = function () {
 		this.storage.saveObject(this.properties);
 	}
 
-	this.getIconURL = function () {
-		return Bookmark.getFaviconURL(this.properties.url);
-	}
-
 	this.editTitle = function () {
 		if (SStart.isLocked())
 			Dom.addClass(document.body, 'no-hlink');
@@ -225,5 +222,3 @@ justoff.sstart.Widget = function () {
 		input.addEventListener("keyup", onKeyUp, false);
 	}
 }
-
-justoff.sstart.Widget.HEADER_HEIGHT = 20;
