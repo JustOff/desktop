@@ -113,7 +113,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		var title = Dom.get("labelPage").label + ", " + Dom.get("labelBgColor").value;
 		var param = { doc: document, tbox: "bgColor", element: self.body, attr: "backgroundColor", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
-			SStart.getDialogFeatures(290, 300, window.screenX + window.outerWidth, window.screenY, false), param);
+			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
 	this.updateHeaderTColor = function () {
@@ -125,7 +125,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelTitleColor").value;
 		var param = { doc: document, tbox: "titleColor", element: self.sSheet.cssRules[11], attr: "color", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
-			SStart.getDialogFeatures(290, 300, window.screenX + window.outerWidth, window.screenY, false), param);
+			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
 	this.updateHeaderBgColor = function () {
@@ -138,7 +138,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelHeaderColor").value;
 		var param = { doc: document, tbox: "headerColor", element: self.sSheet.cssRules[6], attr: "background", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
-			SStart.getDialogFeatures(290, 300, window.screenX + window.outerWidth, window.screenY, false), param);
+			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
 	this.initialize = function () {

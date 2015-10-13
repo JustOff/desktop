@@ -17,7 +17,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		var title = Dom.get("labelBgColor").value;
 		var param = { doc: document, tbox: "bgColor", element: self.view, attr: "background", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
-			SStart.getDialogFeatures(290, 300, window.screenX + window.outerWidth, window.screenY, false), param);
+			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
 	this.initialize = function () {

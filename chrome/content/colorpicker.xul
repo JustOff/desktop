@@ -10,7 +10,7 @@
 
 		<hbox>
 			<spacer flex="1"/>
-			<html:canvas id="cpCanvas" width="256" height="256" style="cursor: crosshair;"/>
+			<html:canvas id="cpCanvas" width="272" height="256" style="cursor: crosshair;"/>
 			<spacer flex="1"/>
 		</hbox>
 

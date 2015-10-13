@@ -32,14 +32,14 @@ justoff.sstart.SStartColorpickerXul = new function () {
 
 		function pickColor (e) {
 			var mousePos = getPos(canvas, e);
-			if (mouseDown && mousePos !== null && mousePos.x > 0 && mousePos.x < 256 && mousePos.y > 0 && mousePos.y < 256) {
-				var imageData = context.getImageData(0, 0, 256, 256);
+			if (mouseDown && mousePos !== null && mousePos.x > 0 && mousePos.x < 272 && mousePos.y > 0 && mousePos.y < 256) {
+				var imageData = context.getImageData(0, 0, 272, 256);
 				var data = imageData.data;
 				var x = mousePos.x - 0;
 				var y = mousePos.y - 0;
-				var red = data[((256 * y) + x) * 4];
-				var green = data[((256 * y) + x) * 4 + 1];
-				var blue = data[((256 * y) + x) * 4 + 2];
+				var red = data[((272 * y) + x) * 4];
+				var green = data[((272 * y) + x) * 4 + 1];
+				var blue = data[((272 * y) + x) * 4 + 2];
 				var color = '#' + toHex(red) + toHex(green) + toHex(blue);
 				if (Colorpicker.element) {
 					Colorpicker.element.style[Colorpicker.attr] = color;
