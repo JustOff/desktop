@@ -7,7 +7,6 @@ justoff.sstart.Widget = function () {
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 	
 	const SEARCH_URL = "sstart://search/";
-	const HEADER_HEIGHT = 20;
 
 	this.properties;
 	this.view;

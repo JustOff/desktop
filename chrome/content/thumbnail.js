@@ -14,6 +14,8 @@ justoff.sstart.Thumbnail = function () {
 
 	const TIMEOUT_LOAD = 60 * 1000;
 	const TIMEOUT_RENDER = 0.5 * 1000;
+	const HEADER_HEIGHT = 20;
+
 	var loading;
 
 	this.setProperties = function (properties) {
@@ -145,7 +147,7 @@ justoff.sstart.Thumbnail = function () {
 	function refreshImage() {
 		var self = this;
 		getSiteFavicon.call(self, self.properties.url);
-		loadURI(this.properties.url || "about:blank", this.properties.width, this.properties.height - Widget.HEADER_HEIGHT, function (iframe) {
+		loadURI(this.properties.url || "about:blank", this.properties.width, this.properties.height - HEADER_HEIGHT, function (iframe) {
 			if (!self.properties.title) {
 				var doc = iframe.contentDocument;
 				self.properties.title = doc.title;
@@ -187,7 +189,7 @@ justoff.sstart.Thumbnail = function () {
 	function saveImage(iframe) {
 		var self = this;
 		setTimeout(function () {
-				var imageUri = createImage(iframe, self.properties.width, self.properties.height - Widget.HEADER_HEIGHT);
+				var imageUri = createImage(iframe, self.properties.width, self.properties.height - HEADER_HEIGHT);
 				Dom.remove(iframe);
 				File.writeFileAsync(getImageFile.call(self), imageUri, function () {
 					loading = false;
