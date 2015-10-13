@@ -159,7 +159,7 @@ justoff.sstart.Widget = function () {
 	}
 
 	this.remove = function () {
-		if (Utils.confirm("\"" + this.properties.title + "\"\n" + SStart.translate("dialogRemoveWidget"))) {
+		if (Utils.confirm("\n\"" + this.properties.title + "\"\n\n" + SStart.translate("dialogRemoveWidget") + "\n\n")) {
 			if (this.view) Dom.remove(this.view);
 			this.storage.removeObject(this.properties.id);
 			if (SStart.getZoom() && SStart.getPageId() == 0) {
