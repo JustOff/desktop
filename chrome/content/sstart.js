@@ -90,6 +90,10 @@ justoff.sstart.SStart = new function () {
 	this.isOverWidget = function (el) {
 		return !(el.nodeName.toLowerCase() in {"body":1,"html":1}) && el.id != "quickstart";
 	};
+	
+	this.isURI = function (url) {
+		return url.trim().slice(0,6) in {"file:/":1, "http:/":1, "https:":1, "data:i":1};
+	}
 
 	this.refreshAll = function () {
 		var c = document.body.getElementsByClassName("widget");

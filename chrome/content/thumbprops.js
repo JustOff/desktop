@@ -39,7 +39,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		bgColorBtn.addEventListener('click', this.cpickBgColor, true);
 		Dom.get("width").value = properties.width || "";
 		Dom.get("height").value = properties.height || "";
-		if (properties.customImage && properties.customImage.slice(0,6) in {"file:/":1, "http:/":1, "https:":1}) {
+		if (properties.customImage && SStart.isURI(properties.customImage)) {
 			Dom.get("customImage").value = properties.customImage || "";
 		} else {
 			if (properties.customImage) {
@@ -76,7 +76,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		properties.background = (Dom.get("bgColor").value == "#") ? "" : Dom.get("bgColor").value;
 		properties.width = Dom.get("width").value;
 		properties.height = Dom.get("height").value;
-		if (Dom.get("customImage").value == "" || Dom.get("customImage").value.slice(0,6) in {"file:/":1, "http:/":1, "https:":1}) {
+		if (Dom.get("customImage").value == "" || SStart.isURI(Dom.get("customImage").value)) {
 			properties.customImage = Dom.get("customImage").value;
 		} else {
 			var dir = File.getDataDirectory();
@@ -123,7 +123,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	this.browseCustomImage = function () {
 		var file = File.chooseFile("open", ["images"]);
 		if (file) {
-			if (!(Dom.get("customImage").value.slice(0,6).toLowerCase() in {"file:/":1, "http:/":1, "https:":1, "data:i":1})) {
+			if (!SStart.isURI(Dom.get("customImage").value)) {
 				var dir = File.getDataDirectory();
 				try {
 					dir.append("tmp." + this.hashWord + "." + this.tmpName);
