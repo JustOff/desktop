@@ -18,4 +18,5 @@ textbox[type="autocomplete"] {
 	max-width: 20px;
 	margin: 2px 5px;
 	cursor: pointer;
+	border: #B0B0B0 1px solid;
 }
