@@ -122,7 +122,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	this.browseCustomImage = function () {
 		var file = File.chooseFile("open", ["images"]);
 		if (file) {
-			if (!(Dom.get("customImage").value.slice(0,6) in {"file:/":1, "http:/":1, "https:":1})) {
+			if (!(Dom.get("customImage").value.slice(0,6).toLowerCase() in {"file:/":1, "http:/":1, "https:":1, "data:i":1})) {
 				var dir = File.getDataDirectory();
 				try {
 					dir.append("tmp." + this.hashWord + "." + this.tmpName);

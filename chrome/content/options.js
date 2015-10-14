@@ -232,7 +232,8 @@ justoff.sstart.SStartOptionsXul = new function () {
 				sdir.copyTo(dstDir, "bg_" + newId);
 			}
 		}
-		if (params["customImage"] && params["customImage"] != "") {
+		if (params["customImage"] && params["customImage"] != "" 
+			&& !(params["customImage"].slice(0,6).toLowerCase() in {"file:/":1, "http:/":1, "https:":1, "data:i":1})) {
 			sdir = srcDir.clone();
 			sdir.append(params["customImage"]);
 			if (sdir.exists()) {
