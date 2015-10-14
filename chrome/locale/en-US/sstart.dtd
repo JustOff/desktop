@@ -9,6 +9,8 @@
 <!ENTITY sstart.bottomHeader "Display headers at bottom">
 <!ENTITY sstart.Positioning "Aligning">
 <!ENTITY sstart.GridSize "Grid size">
+<!ENTITY sstart.Accessibility "Accessibility">
+<!ENTITY sstart.SysFontSize "System font size">
 
 <!ENTITY sstart.Properties "Properties">
 <!ENTITY sstart.SearchEngine "Search Engine">

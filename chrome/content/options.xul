@@ -5,7 +5,7 @@
 			persist="width height"
 			title="&sstart.Preferences;"
 			dlgbuttons="accept,cancel"
-			style="min-width: 340px; min-height: 340px;"
+			style="min-width: 340px; min-height: 400px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<prefpane id="general-pane" label="&sstart.Preferences;">
 		<preferences>
@@ -15,6 +15,7 @@
 			<preference id="extensions.sstart.autoZoom" name="extensions.sstart.autoZoom" type="bool"/>
 			<preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
 			<preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
+			<preference id="extensions.sstart.sysFontSize" name="extensions.sstart.sysFontSize" type="int"/>
 		</preferences>
 		<groupbox flex="1">
 			<caption label="&sstart.General;"/>
@@ -50,6 +51,19 @@
 						<menuitem label="32" value="32"/>
 						<menuitem label="48" value="48"/>
 						<menuitem label="64" value="64"/>
+					</menupopup>
+				</menulist>
+			</hbox>
+		</groupbox>
+		<groupbox flex="1">
+			<caption label="&sstart.Accessibility;"/>
+			<hbox align="center">
+				<label control="browse">&sstart.SysFontSize;:</label>
+				<menulist id="sysFontSize" preference="extensions.sstart.sysFontSize">
+					<menupopup>
+						<menuitem label="100%" value="100"/>
+						<menuitem label="125%" value="125"/>
+						<menuitem label="150%" value="150"/>
 					</menupopup>
 				</menulist>
 			</hbox>
