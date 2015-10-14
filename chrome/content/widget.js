@@ -32,17 +32,15 @@ justoff.sstart.Widget = function () {
 		}
 
 		if (this.properties.isFolder) {
-			icon.style.background = "url(chrome://sstart/skin/folder.png)";
+			icon.style.backgroundImage = "url(chrome://sstart/skin/folder.png)";
 		} else if (this.properties.url == SEARCH_URL) {
-			icon.style.background = "url(" + SStart.getSearchEngine(this.properties.title).iconURI.spec + ")";
-			icon.style["background-size"] = "100%";
+			icon.style.backgroundImage = "url(" + SStart.getSearchEngine(this.properties.title).iconURI.spec + ")";
 		} else if (this.properties.url) {
 			uri = ios.newURI(this.properties.url, null, null);
 			fis.getFaviconURLForPage(uri, 
 				function (furi, len, data, mimeType) {
 					if (furi) {
-						icon.style.background = "url(moz-anno:favicon:" + furi.spec + ")";
-						icon.style["background-size"] = "100%";
+						icon.style.backgroundImage = "url(moz-anno:favicon:" + furi.spec + ")";
 					}
 				}
 			);

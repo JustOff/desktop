@@ -58,10 +58,9 @@ body.b-head .body {
 
 .icon {
 	float: left;
-	width: 16;
-	height: 16;
-	background-position: center;
-	background-repeat: no-repeat;
+	width: 16px;
+	height: 16px;
+	background-size: 100%;
 	margin: 2px;
 }
 
