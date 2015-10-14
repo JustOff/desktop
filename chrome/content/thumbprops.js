@@ -7,10 +7,11 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	var SStart = justoff.sstart.SStart
 
 	this.updateBgColor = function () {
+		var bgColor = Dom.get("bgColor").value == "#" ? "" : Dom.get("bgColor").value;
 		if (this.view) {
-			this.view.style["background"] = Dom.get("bgColor").value;
+			this.view.style["background"] = bgColor;
 		}
-		Dom.get("bgColorBtn").style["background"] = Dom.get("bgColor").value;
+		Dom.get("bgColorBtn").style["background"] = bgColor;
 	}
 
 	this.cpickBgColor = function () {
@@ -32,9 +33,9 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			Dom.get("url").value = properties.url || "";
 			Dom.get("namerow").hidden = true;
 		}
-		Dom.get("bgColor").value = properties.background || "#FFFFFF";
+		Dom.get("bgColor").value = properties.background || "#";
 		var bgColorBtn = Dom.get("bgColorBtn");
-		bgColorBtn.style["background"] = properties.background || "#FFFFFF";
+		bgColorBtn.style["background"] = properties.background || "";
 		bgColorBtn.addEventListener('click', this.cpickBgColor, true);
 		Dom.get("width").value = properties.width || "";
 		Dom.get("height").value = properties.height || "";
@@ -72,7 +73,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 				properties.url = "about:blank";
 			}
 		}
-		properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
+		properties.background = (Dom.get("bgColor").value == "#") ? "" : Dom.get("bgColor").value;
 		properties.width = Dom.get("width").value;
 		properties.height = Dom.get("height").value;
 		if (Dom.get("customImage").value == "" || Dom.get("customImage").value.slice(0,6) in {"file:/":1, "http:/":1, "https:":1}) {
@@ -105,7 +106,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			this.cpicker.close();
 		}
 		if (this.view) {
-			this.view.style["background"] = window.arguments[0].properties.background || "#FFFFFF";
+			this.view.style["background"] = window.arguments[0].properties.background || "";
 		}
 		window.arguments[0].properties = null;
 		if (this.tmpName) {
