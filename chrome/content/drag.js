@@ -25,7 +25,7 @@ justoff.sstart.Drag = new function () {
 	this.onMouseOver = function (e) {
 		if (!SStart.isLocked()) {
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-			if (hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart") {
+			if (SStart.isOverWidget(hoverEl)) {
 				while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
 				if (hoverEl) {
 					Drag.hover = hoverEl;
@@ -51,7 +51,7 @@ justoff.sstart.Drag = new function () {
 		if (!SStart.newtabOnLockDrag() && SStart.isLocked()) return;
 
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-		if (hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart") {
+		if (SStart.isOverWidget(hoverEl)) {
 			while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
 			if (hoverEl) {
 				Drag.object = hoverEl;
@@ -100,7 +100,7 @@ justoff.sstart.Drag = new function () {
 			theObject.dispatchEvent(event);
 		} else {
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-			if (hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart") {
+			if (SStart.isOverWidget(hoverEl)) {
 				while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
 				if (hoverEl && hoverEl.getAttribute("data-search") == "true") {
 					SStart.focusSearch(hoverEl);

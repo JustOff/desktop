@@ -231,9 +231,9 @@ console.time("SStart");
 		}
 	}, false);
 
-	document.body.addEventListener("dblclick", function (e) {
+	document.addEventListener("dblclick", function (e) {
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-		if (e.clientX == 0 || hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart")
+		if (e.clientX == 0 || SStart.isOverWidget(hoverEl))
 			return;
 		SStart.toggleLocked();
 		if (SStart.isCacheDOM() && !SStart.isLocked() && pageId == 0) {

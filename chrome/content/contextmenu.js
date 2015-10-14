@@ -8,34 +8,34 @@ justoff.sstart.ContextMenu = new function () {
 	this.click = { x:0, y:0, el: null };
 	this.current = null,
 
-		this.enable = function (element, menu) {
-			var handler = function (e) {
-				if (e.button != 2) return;
+	this.enable = function (element, menu) {
+		var handler = function (e) {
+			if (e.button != 2) return;
 
-				var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-				var s = hoverEl.nodeName.toLowerCase() != "body" && hoverEl.id != "quickstart";
-				Dom.removeClass(document.body, s ? 'no-widget' : 'is-widget');
-				Dom.addClass(document.body, s ? 'is-widget' : 'no-widget');
+			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+			var s = SStart.isOverWidget(hoverEl);
+			Dom.removeClass(document.body, s ? 'no-widget' : 'is-widget');
+			Dom.addClass(document.body, s ? 'is-widget' : 'no-widget');
 				
-				if (s) {
-					var hoverTmp = hoverEl;
-					while ((hoverTmp = hoverTmp.parentElement) && !hoverTmp.classList.contains("widget"));
-					if (hoverTmp.getAttribute("data-search") == "true") {
-						Dom.addClass(document.body, 'is-search');
-					} else {
-						Dom.removeClass(document.body, 'is-search');
-					}
+			if (s) {
+				var hoverTmp = hoverEl;
+				while ((hoverTmp = hoverTmp.parentElement) && !hoverTmp.classList.contains("widget"));
+				if (hoverTmp.getAttribute("data-search") == "true") {
+					Dom.addClass(document.body, 'is-search');
+				} else {
+					Dom.removeClass(document.body, 'is-search');
 				}
+			}
 
-				e.preventDefault();
-				ContextMenu.click.x = e.pageX;
-				ContextMenu.click.y = e.pageY;
-				ContextMenu.click.el = hoverEl;
-				ContextMenu.open(menu, e.pageX, e.pageY);
-			};
-			element.addEventListener("contextmenu", handler, false);
-			element.addEventListener("dblclick", handler, false);
+			e.preventDefault();
+			ContextMenu.click.x = e.pageX;
+			ContextMenu.click.y = e.pageY;
+			ContextMenu.click.el = hoverEl;
+			ContextMenu.open(menu, e.pageX, e.pageY);
 		};
+		element.addEventListener("contextmenu", handler, false);
+		element.addEventListener("dblclick", handler, false);
+	};
 
 	this.open = function (menu, x, y) {
 		ContextMenu.close();

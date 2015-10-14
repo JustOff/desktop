@@ -87,6 +87,10 @@ justoff.sstart.SStart = new function () {
 		return Prefs.getBool("showDecorations");
 	};
 
+	this.isOverWidget = function (el) {
+		return !(el.nodeName.toLowerCase() in {"body":1,"html":1}) && el.id != "quickstart";
+	};
+
 	this.refreshAll = function () {
 		var c = document.body.getElementsByClassName("widget");
 		for (var i = 0; i < c.length; i++) {
