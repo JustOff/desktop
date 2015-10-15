@@ -239,10 +239,15 @@ justoff.sstart.SStart = new function () {
 				w = Math.round(w / this.getZoom());
 				h = Math.round(h / this.getZoom());
 			}
-			if (typeof l == "undefined") {
+			if (typeof l == "undefined" || typeof t == "undefined") {
+				var edc = Components.classes["@mozilla.org/preferences-service;1"]
+							.getService(Components.interfaces.nsIPrefService)
+							.getBranch("extensions.sstart.").getIntPref("enlargeDialogs");
+				if (edc > 100) {
+					w = Math.round(w * edc / 100); 
+					h = Math.round(h * (1 + (edc / 100 - 1) / 2));
+				}
 				l = Math.round((window.innerWidth - w) / 2) + window.mozInnerScreenX;
-			}
-			if (typeof t == "undefined") {
 				t = Math.round((window.innerHeight - h) / 2) + window.mozInnerScreenY;
 			}
 			features = features + ",outerWidth=" + w + ",outerHeight=" + h + ",left=" + l + ",top=" + t;
