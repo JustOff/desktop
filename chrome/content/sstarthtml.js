@@ -44,7 +44,7 @@ console.time("SStart");
 			document.body.style.backgroundColor = properties.background;
 		}
 		if (properties.headerColor) {
-			document.styleSheets[1].cssRules[6].style.background = properties.headerColor;
+			document.styleSheets[1].cssRules[6].style.backgroundColor = properties.headerColor;
 			document.styleSheets[1].cssRules[4].style.border = "1px solid " + properties.headerColor;
 		}
 		if (properties.titleColor) {
@@ -212,7 +212,7 @@ console.time("SStart");
 				document.body.style.backgroundColor = properties.background;
 			}
 			if (properties.headerColor) {
-				document.styleSheets[1].cssRules[6].style.background = properties.headerColor;
+				document.styleSheets[1].cssRules[6].style.backgroundColor = properties.headerColor;
 				document.styleSheets[1].cssRules[4].style.border = "1px solid " + properties.headerColor;
 			}
 			if (properties.titleColor) {

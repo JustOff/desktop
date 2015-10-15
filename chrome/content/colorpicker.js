@@ -45,7 +45,7 @@ justoff.sstart.SStartColorpickerXul = new function () {
 					Colorpicker.element.style[Colorpicker.attr] = color;
 				}
 				Colorpicker.doc.getElementById(Colorpicker.tbox).value = color;
-				Colorpicker.doc.getElementById(Colorpicker.tbox+"Btn").style["background"] = color;
+				Colorpicker.doc.getElementById(Colorpicker.tbox+"Btn").style.backgroundColor = color;
 			}
 		}	
 		

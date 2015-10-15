@@ -9,14 +9,14 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	this.updateBgColor = function () {
 		var bgColor = Dom.get("bgColor").value == "#" ? "" : Dom.get("bgColor").value;
 		if (this.view) {
-			this.view.style["background"] = bgColor;
+			this.view.style.backgroundColor = bgColor;
 		}
-		Dom.get("bgColorBtn").style["background"] = bgColor;
+		Dom.get("bgColorBtn").style.backgroundColor = bgColor;
 	}
 
 	this.cpickBgColor = function () {
 		var title = Dom.get("labelBgColor").value;
-		var param = { doc: document, tbox: "bgColor", element: self.view, attr: "background", title: title };
+		var param = { doc: document, tbox: "bgColor", element: self.view, attr: "backgroundColor", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
@@ -35,7 +35,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		}
 		Dom.get("bgColor").value = properties.background || "#";
 		var bgColorBtn = Dom.get("bgColorBtn");
-		bgColorBtn.style["background"] = properties.background || "";
+		bgColorBtn.style.backgroundColor = properties.background || "";
 		bgColorBtn.addEventListener('click', this.cpickBgColor, true);
 		Dom.get("width").value = properties.width || "";
 		Dom.get("height").value = properties.height || "";
@@ -106,7 +106,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			this.cpicker.close();
 		}
 		if (this.view) {
-			this.view.style["background"] = window.arguments[0].properties.background || "";
+			this.view.style.backgroundColor = window.arguments[0].properties.background || "";
 		}
 		window.arguments[0].properties = null;
 		if (this.tmpName) {

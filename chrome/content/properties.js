@@ -106,7 +106,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 
 	this.updatePageBgColor = function () {
 		this.body.style.backgroundColor = Dom.get("bgColor").value;
-		Dom.get("bgColorBtn").style["background"] = Dom.get("bgColor").value;
+		Dom.get("bgColorBtn").style.backgroundColor = Dom.get("bgColor").value;
 	}
 
 	this.cpickPageBg = function () {
@@ -118,7 +118,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 
 	this.updateHeaderTColor = function () {
 		this.sSheet.cssRules[11].style.color = Dom.get("titleColor").value;
-		Dom.get("titleColorBtn").style["background"] = Dom.get("titleColor").value;
+		Dom.get("titleColorBtn").style.backgroundColor = Dom.get("titleColor").value;
 	}
 
 	this.cpickHeaderT = function () {
@@ -129,14 +129,14 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	}
 
 	this.updateHeaderBgColor = function () {
-		this.sSheet.cssRules[6].style.background = Dom.get("headerColor").value;
+		this.sSheet.cssRules[6].style.backgroundColor = Dom.get("headerColor").value;
 		this.sSheet.cssRules[4].style.border = "1px solid " + Dom.get("headerColor").value;
-		Dom.get("headerColorBtn").style["background"] = Dom.get("headerColor").value;
+		Dom.get("headerColorBtn").style.backgroundColor = Dom.get("headerColor").value;
 	}
 
 	this.cpickHeaderBg = function () {
 		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelHeaderColor").value;
-		var param = { doc: document, tbox: "headerColor", element: self.sSheet.cssRules[6], attr: "background", title: title };
+		var param = { doc: document, tbox: "headerColor", element: self.sSheet.cssRules[6], attr: "backgroundColor", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
@@ -151,15 +151,15 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		this.sSheet = window.arguments[0].sSheet;
 		Dom.get("bgColor").value = properties.background || "#FFFFFF";
 		var bgColorBtn = Dom.get("bgColorBtn");
-		bgColorBtn.style["background"] = properties.background || "#FFFFFF";
+		bgColorBtn.style.backgroundColor = properties.background || "#FFFFFF";
 		bgColorBtn.addEventListener('click', this.cpickPageBg, true);
 		Dom.get("titleColor").value = properties.titleColor || "#000000";
 		var titleColorBtn = Dom.get("titleColorBtn");
-		titleColorBtn.style["background"] = properties.titleColor || "#000000";
+		titleColorBtn.style.backgroundColor = properties.titleColor || "#000000";
 		titleColorBtn.addEventListener('click', this.cpickHeaderT, true);
 		Dom.get("headerColor").value = properties.headerColor || "#E0E0E0";
 		var headerColorBtn = Dom.get("headerColorBtn");
-		headerColorBtn.style["background"] = properties.headerColor || "#E0E0E0";
+		headerColorBtn.style.backgroundColor = properties.headerColor || "#E0E0E0";
 		headerColorBtn.addEventListener('click', this.cpickHeaderBg, true);
 		this.backgroundImage = properties.backgroundImage || "0";
 		Dom.get("bgStyle").value = properties.backgroundStyle || 1;
@@ -221,7 +221,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		}
 		this.body.style.backgroundColor = window.arguments[0].properties.background || "#FFFFFF";
 		this.sSheet.cssRules[11].style.color = window.arguments[0].properties.titleColor || "#000000";
-		this.sSheet.cssRules[6].style.background = window.arguments[0].properties.headerColor || "#E0E0E0";
+		this.sSheet.cssRules[6].style.backgroundColor = window.arguments[0].properties.headerColor || "#E0E0E0";
 		this.sSheet.cssRules[4].style.border = "1px solid " + (window.arguments[0].properties.headerColor || "#E0E0E0");
 		window.arguments[0].properties = null;
 	}
