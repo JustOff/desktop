@@ -84,20 +84,6 @@ justoff.sstart.Widget = function () {
 		}, false);
 
 		this.view.addEventListener("drop", function (e) {
-			if (self.view.offsetTop < 0 || self.view.offsetLeft < 0) {
-				if (!(document.location.href.lastIndexOf("?") == -1)) {
-					if (Utils.confirm(SStart.translate("dialogMoveUpWidget"))) {
-						var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
-							.getService(Components.interfaces.nsINavBookmarksService);
-						var params = Utils.getQueryParams(document.location);
-						bookmarksService.moveItem(self.view.id, bookmarksService.getFolderIdForItem(params.folder), 
-							bookmarksService.DEFAULT_INDEX);
-						Dom.remove(self.view);
-						SStart.clearCache();
-						return;
-					}
-				}
-			}
 			Dom.addClass(self.view, "hide");
 			var hoverEl = document.elementFromPoint(e.detail.clientX, e.detail.clientY);
 			Dom.removeClass(self.view, "hide");
@@ -114,6 +100,19 @@ justoff.sstart.Widget = function () {
 						if (r) {
 							r.click()
 						}
+						return;
+					}
+				}
+			} else if (self.view.offsetTop < 0 || self.view.offsetLeft < 0) {
+				if (!(document.location.href.lastIndexOf("?") == -1)) {
+					if (Utils.confirm(SStart.translate("dialogMoveUpWidget"))) {
+						var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+							.getService(Components.interfaces.nsINavBookmarksService);
+						var params = Utils.getQueryParams(document.location);
+						bookmarksService.moveItem(self.view.id, bookmarksService.getFolderIdForItem(params.folder), 
+							bookmarksService.DEFAULT_INDEX);
+						Dom.remove(self.view);
+						SStart.clearCache();
 						return;
 					}
 				}
