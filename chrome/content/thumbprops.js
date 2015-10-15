@@ -77,7 +77,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		properties.width = Dom.get("width").value;
 		properties.height = Dom.get("height").value;
 		if (Dom.get("customImage").value == "" || SStart.isURI(Dom.get("customImage").value)) {
-			properties.customImage = Dom.get("customImage").value;
+			properties.customImage = Dom.get("customImage").value.trim();
 		} else {
 			var dir = File.getDataDirectory();
 			try {
