@@ -2,6 +2,12 @@
 	width: 80px;
 }
 
+textbox, menulist, menuitem {
+	font-size: 11px;
+	font-style: normal;
+	font-weight: normal;
+}
+
 textbox[type="autocomplete"] {
 	min-width: 150px;
 }

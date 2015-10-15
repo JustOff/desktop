@@ -22,6 +22,7 @@
 					<row align="center">
 						<label id="labelBgColor" control="bgColor" flex="1" value="&sstart.BackgroundColor;:"/>
 						<hbox>
+							<spacer flex="1"/>
 							<textbox id="bgColor" class="colortext"
 								oninput="justoff.sstart.SStartPropertiesXul.updatePageBgColor();"/>
 							<vbox>
