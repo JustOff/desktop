@@ -1,8 +1,9 @@
 .colortext {
-	width: 80px;
+	width: 70px;
 }
 
-textbox, menulist, menuitem {
+caption, label, textbox, menulist, menuitem, button {
+	font-family: Tahoma;
 	font-size: 11px;
 	font-style: normal;
 	font-weight: normal;

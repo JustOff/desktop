@@ -9,8 +9,6 @@
 <!ENTITY sstart.bottomHeader "Виводити заголовки знизу">
 <!ENTITY sstart.Positioning "Вирівнювання">
 <!ENTITY sstart.GridSize "Розмір сітки">
-<!ENTITY sstart.Accessibility "Спеціальні можливості">
-<!ENTITY sstart.SysFontSize "Розмір шрифту системи">
 
 <!ENTITY sstart.Properties "Властивості">
 <!ENTITY sstart.SearchEngine "Пошукова система">

@@ -18,6 +18,7 @@ style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-uni
 style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=FreeBSD
 style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=OpenBSD
 style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=NetBSD
+style chrome://sstart/content/options.xul chrome://sstart/skin/properties-winnt.css os=WINNT
 
 locale sstart en-US chrome/locale/en-US/
 locale sstart ru-RU chrome/locale/ru-RU/
