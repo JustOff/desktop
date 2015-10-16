@@ -128,6 +128,13 @@ justoff.sstart.Thumbnail = function () {
 		}
 	}
 
+	this.irefresh = function () {
+		if (!this.properties.isFolder) {
+			var self = this;
+			getSiteFavicon.call(self, self.properties.url, Dom.child(self.view, "icon"));
+		}
+	}
+
 	this.openProperties = function () {
 		var param = { properties:Utils.clone(this.properties), view: this.view };
 		openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(300, 230), param);
@@ -157,7 +164,7 @@ justoff.sstart.Thumbnail = function () {
 		});
 	}
 
-	function getSiteFavicon(siteURI) {
+	function getSiteFavicon(siteURI, icon) {
 		var hostURI = "http://" + siteURI.split(/\/+/g)[1] + "/";
 		var faviconURI = hostURI + "favicon.ico";
 		var xhr = new XMLHttpRequest();
@@ -175,15 +182,21 @@ justoff.sstart.Thumbnail = function () {
 				);
 			}
 			var self = this;				
-			preloadFavicon.call(self, faviconURI, siteURI); 
+			preloadFavicon.call(self, faviconURI, siteURI, icon ? icon : null); 
 		}
 		xhr.send();
 	};   
 	
-	function preloadFavicon(faviconURI, siteURI) {
+	function preloadFavicon(faviconURI, siteURI, icon) {
 		var iconURI = ios.newURI(faviconURI, null, null);
 		var bookmarkURI = ios.newURI(siteURI, null, null);
-		fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE);
+		if (icon) {
+			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE, function () {
+				icon.style.backgroundImage = "url(moz-anno:favicon:" + iconURI.spec + ")";
+			});
+		} else {
+			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE);
+		}
    };
 	
 	function saveImage(iframe) {

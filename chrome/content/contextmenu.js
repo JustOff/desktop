@@ -109,7 +109,7 @@ justoff.sstart.ContextMenu = new function () {
 			var submenu = ContextMenu.getSubmenu(item);
 			if (submenu) {
 				var x = menu.offsetWidth - 2;
-				var y = item.offsetLeft - 1;
+				var y = item.offsetTop - 1;
 				item == e.target ? ContextMenu.showSubmenu(submenu, x, y)
 					: ContextMenu.hideSubmenu(submenu);
 			}

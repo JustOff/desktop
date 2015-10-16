@@ -78,6 +78,11 @@ justoff.sstart.Widget = function () {
 			self.refresh.call(self);
 		}, false);
 
+		var icon = Dom.child(this.view, "icon");
+		icon.addEventListener("refresh", function () {
+			self.irefresh.call(self);
+		}, false);
+
 		var properties = Dom.child(this.view, "properties");
 		properties.addEventListener("click", function () {
 			self.openProperties.call(self);
@@ -177,6 +182,10 @@ justoff.sstart.Widget = function () {
 
 	this.refresh = function () {
 	}
+
+	this.irefresh = function () {
+	}
+
 	this.openProperties = function () {
 	}
 

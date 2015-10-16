@@ -129,7 +129,12 @@ console.time("SStart");
 		updateLockStatus();
 	}, false);
 	Dom.get("menu-refresh").addEventListener("click", function (e) {
-		if (Utils.confirm("\n" + SStart.translate("contextRefreshThumbnails") + "?\n\n")) {
+		if (e.target.type == "thumbnails") {
+			var confirm = SStart.translate("contextRefreshAll") + " " + SStart.translate("contextThumbnails").toLowerCase();
+		} else {
+			var confirm = SStart.translate("contextRefreshAll") + " " + SStart.translate("contextIcons").toLowerCase();
+		}
+		if (Utils.confirm("\n" + confirm + "?\n\n")) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 				var widgets = document.getElementById("widgets");
 				widgets.parentNode.removeChild(widgets);
@@ -137,7 +142,11 @@ console.time("SStart");
 				factory.createWidgets(pageId);
 				SStart.setLocked(true);
 			}
-			SStart.refreshAll();
+			if (e.target.type == "thumbnails") {
+				SStart.refreshAllThumbnails();
+			} else {
+				SStart.refreshAllIcons();
+			}
 		}
 	}, false);
 	Dom.get("menu-refreshone").addEventListener("click", function (e) {
@@ -150,9 +159,17 @@ console.time("SStart");
 		}
 		var hoverEl = ContextMenu.click.el;
 		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
-		var r = Dom.child(document.getElementById(hoverEl.id), "refresh");
-		if (r) {
-			r.click()
+		if (e.target.type == "thumbnail") {
+			var r = Dom.child(document.getElementById(hoverEl.id), "refresh");
+			if (r) {
+				r.click()
+			}
+		} else {
+			var r = Dom.child(document.getElementById(hoverEl.id), "icon");
+			if (r) {
+				var event = new Event("refresh");
+				r.dispatchEvent(event);
+			}
 		}
 	}, false);
 	Dom.get("menu-properties").addEventListener("click", function (e) {
