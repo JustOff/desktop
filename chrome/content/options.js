@@ -22,7 +22,8 @@ justoff.sstart.SStartOptionsXul = new function () {
 			var data = {prefs: {thw: Prefs.getInt("thumbnail.width"), thh: Prefs.getInt("thumbnail.height"),
 				gri: Prefs.getInt("gridInterval"), bgs: Prefs.getInt("backgroundStyle"), fcs: Prefs.getString("focus"),
 				swd: Prefs.getBool("showDecorations"), ont: Prefs.getBool("overrideNewTab"), ohp: Prefs.getBool("overrideHomePage"),
-				ntd: Prefs.getBool("newtabOnLockDrag"),	bth: Prefs.getBool("bottomHeader"), azm: Prefs.getBool("autoZoom")}};
+				ntd: Prefs.getBool("newtabOnLockDrag"), bth: Prefs.getBool("bottomHeader"), azm: Prefs.getBool("autoZoom"),
+				guo: Prefs.getBool("showGridOnUnlock"), eld: Prefs.getInt("enlargeDialogs")}};
 			data["version"] = BACKUP_VERSION;
 			var bookmarks = Bookmark.getBookmarks();
 			for (var i in bookmarks) {
@@ -151,6 +152,8 @@ justoff.sstart.SStartOptionsXul = new function () {
 				Prefs.setBool("newtabOnLockDrag", data["prefs"]["ntd"]);
 				Prefs.setBool("bottomHeader", data["prefs"]["bth"]);
 				Prefs.setBool("autoZoom", data["prefs"]["azm"]);
+				if (data["prefs"]["guo"]) Prefs.setBool("showGridOnUnlock", data["prefs"]["guo"]);
+				if (data["prefs"]["eld"]) Prefs.setInt("enlargeDialogs", data["prefs"]["eld"]);
 				var newId = Bookmark.createFolder(dstFolder);
 				Bookmark.setAnnotation(newId, ANNOTATION, data["params"]);
 				var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"]
