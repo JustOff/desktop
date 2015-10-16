@@ -95,22 +95,12 @@ justoff.sstart.SStart = new function () {
 		return url.trim().slice(0,6) in {"file:/":1, "http:/":1, "https:":1, "data:i":1};
 	}
 
-	this.refreshAllThumbnails = function () {
+	this.refreshAll = function (rclass, revent) {
 		var c = document.body.getElementsByClassName("widget");
 		for (var i = 0; i < c.length; i++) {
-			var r = Dom.child(c[i], "refresh");
+			var r = Dom.child(c[i], rclass);
 			if (r) {
-				r.click()
-			}
-		}
-	};
-
-	this.refreshAllIcons = function () {
-		var c = document.body.getElementsByClassName("widget");
-		for (var i = 0; i < c.length; i++) {
-			var r = Dom.child(c[i], "icon");
-			if (r) {
-				var event = new Event("refresh");
+				var event = new Event(revent);
 				r.dispatchEvent(event);
 			}
 		}

@@ -143,9 +143,9 @@ console.time("SStart");
 				SStart.setLocked(true);
 			}
 			if (e.target.type == "thumbnails") {
-				SStart.refreshAllThumbnails();
+				SStart.refreshAll("refresh", "click");
 			} else {
-				SStart.refreshAllIcons();
+				SStart.refreshAll("icon", "refresh");
 			}
 		}
 	}, false);
@@ -162,7 +162,8 @@ console.time("SStart");
 		if (e.target.type == "thumbnail") {
 			var r = Dom.child(document.getElementById(hoverEl.id), "refresh");
 			if (r) {
-				r.click()
+				var event = new Event("click");
+				r.dispatchEvent(event);
 			}
 		} else {
 			var r = Dom.child(document.getElementById(hoverEl.id), "icon");
@@ -184,7 +185,8 @@ console.time("SStart");
 		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
 		var r = Dom.child(document.getElementById(hoverEl.id), "properties");
 		if (r) {
-			r.click()
+			var event = new Event("click");
+			r.dispatchEvent(event);
 		}
 	}, false);
 	Dom.get("menu-remove").addEventListener("click", function (e) {
@@ -199,7 +201,8 @@ console.time("SStart");
 		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
 		var r = Dom.child(document.getElementById(hoverEl.id), "remove");
 		if (r) {
-			r.click()
+			var event = new Event("click");
+			r.dispatchEvent(event);
 		}
 	}, false);
 	Dom.get("menu-rename").addEventListener("click", function (e) {

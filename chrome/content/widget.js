@@ -110,7 +110,8 @@ justoff.sstart.Widget = function () {
 						var c = document.getElementById(hoverEl.id);
 						var r = Dom.child(c, "refresh");
 						if (r) {
-							r.click()
+							var event = new Event("click");
+							r.dispatchEvent(event);
 						}
 						return;
 					}
