@@ -152,8 +152,8 @@ justoff.sstart.SStartOptionsXul = new function () {
 				Prefs.setBool("newtabOnLockDrag", data["prefs"]["ntd"]);
 				Prefs.setBool("bottomHeader", data["prefs"]["bth"]);
 				Prefs.setBool("autoZoom", data["prefs"]["azm"]);
-				if (data["prefs"]["guo"]) Prefs.setBool("showGridOnUnlock", data["prefs"]["guo"]);
-				if (data["prefs"]["eld"]) Prefs.setInt("enlargeDialogs", data["prefs"]["eld"]);
+				if (typeof data["prefs"]["guo"] != "undefined") Prefs.setBool("showGridOnUnlock", data["prefs"]["guo"]);
+				if (typeof data["prefs"]["eld"] != "undefined") Prefs.setInt("enlargeDialogs", data["prefs"]["eld"]);
 				var newId = Bookmark.createFolder(dstFolder);
 				Bookmark.setAnnotation(newId, ANNOTATION, data["params"]);
 				var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"]
