@@ -9,6 +9,7 @@
 <!ENTITY sstart.bottomHeader "Display headers at bottom">
 <!ENTITY sstart.Positioning "Aligning">
 <!ENTITY sstart.GridSize "Grid size">
+<!ENTITY sstart.showGridOnUnlock "Show grid when page is unlocked">
 
 <!ENTITY sstart.Properties "Properties">
 <!ENTITY sstart.SearchEngine "Search Engine">

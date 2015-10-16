@@ -84,6 +84,13 @@ justoff.sstart.Widget = function () {
 		}, false);
 
 		this.view.addEventListener("drop", function (e) {
+			var grid = document.getElementById("grid");
+			if (grid) {
+				grid.style.display = "none";
+				grid.style.width = document.body.scrollWidth + "px";
+				grid.style.height = document.body.scrollHeight + "px";
+				grid.style.display = "block";
+			}
 			Dom.addClass(self.view, "hide");
 			var hoverEl = document.elementFromPoint(e.detail.clientX, e.detail.clientY);
 			Dom.removeClass(self.view, "hide");

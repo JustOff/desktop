@@ -73,10 +73,13 @@ console.time("SStart");
 			Dom.addClass(document.body, 'b-head');
 	}
 
-	function updateLockStatus() {
+	function updateLockStatus(skipgrid) {
 		var s = SStart.isLocked();
 		Dom.removeClass(document.body, s ? 'unlock-edits' : 'lock-edits');
 		Dom.addClass(document.body, s ? 'lock-edits' : 'unlock-edits');
+		if (!skipgrid && Prefs.getBool("showGridOnUnlock")) {
+			SStart.updateGridStatus(!s);
+		}
 	}
 		
 	ContextMenu.enable(document, Dom.get("menu"));
@@ -246,11 +249,14 @@ console.time("SStart");
 	}, false);
 
 	Drag.enable(document);
+	
 	if (SStart.isEditOn()) {
 		SStart.setLocked(false);
 		SStart.setEditOff();
+		updateLockStatus();
+	} else {
+		updateLockStatus(true);
 	}
-	updateLockStatus();
 
 	// Disable cache for page
 	window.onbeforeunload = function () {

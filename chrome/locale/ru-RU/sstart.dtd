@@ -9,6 +9,7 @@
 <!ENTITY sstart.bottomHeader "Выводить заголовки снизу">
 <!ENTITY sstart.Positioning "Выравнивание">
 <!ENTITY sstart.GridSize "Размер сетки">
+<!ENTITY sstart.showGridOnUnlock "Показывать сетку, когда страница разблокирована">
 
 <!ENTITY sstart.Properties "Свойства">
 <!ENTITY sstart.SearchEngine "Поисковая система">

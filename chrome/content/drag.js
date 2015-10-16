@@ -92,7 +92,9 @@ justoff.sstart.Drag = new function () {
 			return;
 		}
 		if (Drag.inProgress) {
-			Drag.removeGrid();
+			if (Drag.isGrid) {
+				SStart.updateGridStatus(false);
+			}
 			Drag.removeGlass();
 			Drag.inProgress = false;
 
@@ -129,23 +131,6 @@ justoff.sstart.Drag = new function () {
 		glass.parentNode.removeChild(glass);
 	};
 
-	this.createGrid = function (element) {
-		Drag.gridInterval = SStart.getGridInterval();
-		Drag.snapInterval = Drag.gridInterval * 0.2;
-		var grid = document.createElement("div");
-		grid.id = "grid";
-		grid.style.zIndex = -1;
-		grid.style.width = "100%";
-		grid.style.height = document.body.scrollHeight + "px";
-		grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + Drag.gridInterval + ".png)";
-		document.body.appendChild(grid);
-	};
-
-	this.removeGrid = function () {
-		var grid = document.getElementById("grid");
-		grid.parentNode.removeChild(grid);
-	};
-
 	this.getBorder = function (element, x, y) {
 		var border = "";
 		var deltaLeft = x - element.offsetLeft,
@@ -173,7 +158,7 @@ justoff.sstart.Drag = new function () {
 		if (!Drag.inProgress && Drag.object &&
 			(Drag.click.border != "" || Math.abs(Drag.click.x - e.pageX) + Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG)) {
 			Drag.inProgress = true;
-			Drag.createGrid();
+			Drag.isGrid = SStart.updateGridStatus(true);
 			if (Drag.click.border != "") {
 				var cursor = Drag.click.border + "-resize";
 			} else {

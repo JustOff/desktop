@@ -170,7 +170,10 @@ justoff.sstart.Installer = new function () {
 					}
 					break;
 				case "gridInterval":
-					SStart.updateGridInterval();
+					SStart.updateGridInterval(true);
+					break;
+				case "showGridOnUnlock":
+					SStart.updateGridOnUnlock(Dom.hasClass);
 					break;
 				case "newtabOnLockDrag":
 					SStart.updateNewtabOnLockDrag();

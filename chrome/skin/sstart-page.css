@@ -241,3 +241,7 @@ body.no-decorations.lock-edits .widget .header {
 .hide {
 	display: none;
 }
+
+#grid {
+	z-index: -1;
+}

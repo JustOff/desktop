@@ -88,7 +88,7 @@ justoff.sstart.SStart = new function () {
 	};
 
 	this.isOverWidget = function (el) {
-		return !(el.nodeName.toLowerCase() in {"body":1,"html":1}) && el.id != "quickstart";
+		return !(el.nodeName.toLowerCase() in {"body":1,"html":1}) && !(el.id in {"quickstart":1,"grid":1});
 	};
 	
 	this.isURI = function (url) {
@@ -120,15 +120,24 @@ justoff.sstart.SStart = new function () {
 		bookmarksService.runInBatchMode(callback, null);
 	};
 
-	this.updateGridInterval = function (s) {
+	this.updateGridInterval = function (live) {
 		justoff.sstart.cache.gridInterval = Prefs.getInt("gridInterval");
+		if (live) {
+			var gBrowser = Utils.getBrowser();
+			if (SStart.isSStart(gBrowser.contentDocument)) {
+				var grid = gBrowser.contentDocument.getElementById("grid");
+				if (grid) {
+					grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + SStart.getGridInterval() + ".png)";
+				}
+			}
+		}
 	};
 
 	this.getGridInterval = function () {
 		return justoff.sstart.cache.gridInterval;
 	};
 
-	this.updateNewtabOnLockDrag = function (s) {
+	this.updateNewtabOnLockDrag = function () {
 		justoff.sstart.cache.newtabOnLockDrag = Prefs.getBool("newtabOnLockDrag");
 	};
 
@@ -136,11 +145,11 @@ justoff.sstart.SStart = new function () {
 		return justoff.sstart.cache.newtabOnLockDrag;
 	};
 
-	this.clearCache = function (s) {
+	this.clearCache = function () {
 		justoff.sstart.cache.fragment = false;
 	};
 
-	this.updateAutoZoom = function (s) {
+	this.updateAutoZoom = function () {
 		justoff.sstart.cache.autoZoom = Prefs.getBool("autoZoom");
 		if (justoff.sstart.cache.autoZoom) {
 			justoff.sstart.cache.fragment = false;
@@ -169,6 +178,48 @@ justoff.sstart.SStart = new function () {
 
 	this.isUpdateMenu = function () {
 		return justoff.sstart.cache.updateMenu;
+	};
+
+	this.updateGridOnUnlock = function (hasClass) {
+		var gBrowser = Utils.getBrowser();
+		if (SStart.isSStart(gBrowser.contentDocument)) {
+			var grid = gBrowser.contentDocument.getElementById("grid");
+			if (Prefs.getBool("showGridOnUnlock")) {
+				if (!grid && hasClass(gBrowser.contentDocument.body, "unlock-edits")) {
+					var doc = gBrowser.contentDocument;
+					grid = doc.createElement("div");
+					grid.id = "grid";
+					grid.style.height = doc.body.scrollHeight + "px";
+					grid.style.width = doc.body.scrollWidth + "px";
+					grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + SStart.getGridInterval() + ".png)";
+					doc.body.appendChild(grid);
+				}
+			} else {
+				if (grid) {
+					grid.parentNode.removeChild(grid);
+				}
+			}
+		}
+	}
+	
+	this.updateGridStatus = function (show) {
+		var grid = document.getElementById("grid");
+		if (show) {
+			if (grid) {
+				return false;
+			}
+			grid = document.createElement("div");
+			grid.id = "grid";
+			grid.style.height = document.body.scrollHeight + "px";
+			grid.style.width = document.body.scrollWidth + "px";
+			grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + SStart.getGridInterval() + ".png)";
+			document.body.appendChild(grid);
+			return true;
+		} else {
+			if (grid) {
+				grid.parentNode.removeChild(grid);
+			}
+		}
 	};
 
 	this.alignToGrid = function (pos) {
