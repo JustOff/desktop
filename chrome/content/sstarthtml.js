@@ -278,7 +278,7 @@ console.time("SStart");
 		updateLockStatus(true);
 	}
 
-	// Disable cache for page
+	// Disable bfcache
 	window.addEventListener("beforeunload", function () {} );
 console.timeEnd("SStart");
 })();

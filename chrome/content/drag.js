@@ -3,6 +3,7 @@ justoff.sstart.Drag = new function () {
 	var Drag = this
 	var SStart = justoff.sstart.SStart
 	var Dom = justoff.sstart.Dom
+	var Utils = justoff.sstart.Utils
 
 	this.MIN_DRAG = 5;
 	this.MIN_GESTURE_DRAG = 10;
@@ -82,12 +83,7 @@ justoff.sstart.Drag = new function () {
 			Drag.removeGlass();
 			Drag.inProgress = false;
 			var anchor = Dom.child(theObject, "a");
-			var mrw = Components.classes["@mozilla.org/appshell/window-mediator;1"].
-				getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
-			var tb = mrw.getBrowser();
-			var tab = tb.loadOneTab(anchor.href, {inBackground: true, relatedToCurrent: true});
-			if (e.pageY - Drag.click.y < 0)
-				mrw.setTimeout(function() { tb.selectedTab = tab; }, 0);
+			Utils.getBrowser().loadOneTab(anchor.href, {inBackground: (e.pageY - Drag.click.y > 0), relatedToCurrent: true});
 			e.preventDefault();
 			return;
 		}
