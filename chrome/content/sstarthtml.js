@@ -279,7 +279,6 @@ console.time("SStart");
 	}
 
 	// Disable cache for page
-	window.onbeforeunload = function () {
-	}
+	window.addEventListener("beforeunload", function () {} );
 console.timeEnd("SStart");
 })();
