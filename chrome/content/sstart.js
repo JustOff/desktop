@@ -265,7 +265,8 @@ justoff.sstart.SStart = new function () {
 		var engine = SStart.getSearchEngine(Dom.child(input.parentNode.parentNode.parentNode, "title").textContent);
 		input.value = "";
 		var submission = engine.getSubmission(text);
-		Utils.getBrowser().loadURIWithFlags(submission.uri.spec, 0, null, null, submission.postData);
+		Utils.getBrowser().loadURIWithFlags(submission.uri.spec, 
+			Components.interfaces.nsIWebNavigation.LOAD_FLAGS_NONE, null, null, submission.postData);
 	};
 	
 	this.getDialogFeatures = function (w, h, l, t, m) {
