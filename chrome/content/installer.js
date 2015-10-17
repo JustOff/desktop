@@ -5,6 +5,7 @@ justoff.sstart.Installer = new function () {
 	var Dom = justoff.sstart.Dom
 	var Bookmark = justoff.sstart.Bookmark
 	var File = justoff.sstart.File
+	var Utils = justoff.sstart.Utils
 
 	this.addonId = "SStart@Off.JustOff"
 	this.newTabURI = "chrome://sstart/content/sstart.html"
@@ -126,9 +127,7 @@ justoff.sstart.Installer = new function () {
 				var ssurl = this.newTabURI + "?folder=" + folderId;
 			}
 			SStart.setEditOn();
-			var mrw = Components.classes["@mozilla.org/appshell/window-mediator;1"].
-				getService(Components.interfaces.nsIWindowMediator).getMostRecentWindow("navigator:browser");
-			mrw.getBrowser().loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
+			Utils.getBrowser().loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
 		}
 	};
 
