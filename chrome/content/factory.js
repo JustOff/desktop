@@ -87,7 +87,11 @@ justoff.sstart.Factory = function (storage) {
 				}
 			}
 			if (pageId == 0) {
-				justoff.sstart.cache.fragment = fragment;
+				var doc = Utils.getBrowserWindow().document;
+				doc.getElementById("hidden-box").appendChild(doc.importNode(fragment, true));
+				var widgets = doc.getElementById("widgets");
+				justoff.sstart.cache.fragment = widgets.cloneNode(true);
+				Dom.remove(widgets);
 				SStart.setCacheDOM(false);
 				if (SStart.autoZoom()) {
 					justoff.sstart.cache.maxBottom = maxBottom;
