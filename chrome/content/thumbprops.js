@@ -29,9 +29,11 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		if (this.isFolder) {
 			Dom.get("name").value = properties.title || "";
 			Dom.get("urlrow").hidden = true;
+			Dom.get("name").focus();
 		} else {
 			Dom.get("url").value = properties.url || "";
 			Dom.get("namerow").hidden = true;
+			Dom.get("url").focus();
 		}
 		Dom.get("bgColor").value = properties.background || "#";
 		var bgColorBtn = Dom.get("bgColorBtn");
