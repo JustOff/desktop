@@ -76,6 +76,11 @@ justoff.sstart.Factory = function (storage) {
 				var maxRight = 1;
 			}
 			var objects = storage.getObjects();
+			if (pageId == 0) {
+				SStart.resetFVC();
+				var factory = Dom.get("factory");
+				factory.addEventListener("savecache", SStart.saveCache, false);
+			}
 			var fragment = document.createElement('span');
 			fragment.setAttribute("id", "widgets");
 			for (var i in objects) {
@@ -87,12 +92,13 @@ justoff.sstart.Factory = function (storage) {
 				}
 			}
 			if (pageId == 0) {
-				var doc = Utils.getBrowserWindow().document;
-				doc.getElementById("hidden-box").appendChild(doc.importNode(fragment, true));
-				var widgets = doc.getElementById("widgets");
-				justoff.sstart.cache.fragment = widgets;
-				Dom.remove(widgets);
-				SStart.setCacheDOM(false);
+				if (SStart.getFVC() == 0) {
+					if (hasWidgets) {
+						SStart.saveCache(null, fragment);
+					} else {
+						factory.removeEventListener("savecache", SStart.saveCache);
+					}
+				}
 				if (SStart.autoZoom()) {
 					justoff.sstart.cache.maxBottom = maxBottom;
 					justoff.sstart.cache.maxRight = maxRight;

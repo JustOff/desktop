@@ -36,11 +36,17 @@ justoff.sstart.Widget = function () {
 		} else if (this.properties.url == SEARCH_URL) {
 			icon.style.backgroundImage = "url(" + SStart.getSearchEngine(this.properties.title).iconURI.spec + ")";
 		} else if (this.properties.url) {
+			SStart.incFVC();
 			uri = ios.newURI(this.properties.url, null, null);
 			fis.getFaviconURLForPage(uri, 
 				function (furi, len, data, mimeType) {
 					if (furi) {
 						icon.style.backgroundImage = "url(moz-anno:favicon:" + furi.spec + ")";
+					}
+					if (SStart.decFVC() == 0) {
+						var factory = Dom.get("factory");
+						var event = new Event("savecache");
+						factory.dispatchEvent(event);
 					}
 				}
 			);

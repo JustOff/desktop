@@ -47,6 +47,38 @@ justoff.sstart.SStart = new function () {
 		return SStart.bundle.GetStringFromName(key);
 	};
 
+	this.saveCache = function (e, fragment) {
+		var doc = Utils.getBrowserWindow().document;
+		if (typeof fragment != "undefined") {
+			doc.getElementById("hidden-box").appendChild(doc.importNode(fragment, true));
+		} else {
+			doc.getElementById("hidden-box").appendChild(doc.importNode(document.getElementById("widgets"), true));
+		}
+		var widgets = doc.getElementById("widgets");
+		justoff.sstart.cache.fragment = widgets;
+		Dom.remove(widgets);
+		SStart.setCacheDOM(false);
+		var factory = Dom.get("factory");
+		factory.removeEventListener("savecache", SStart.saveCache);
+	};
+
+	this.getFVC = function () {
+		return SStart.FaviCount;
+	};
+
+	this.incFVC = function () {
+		SStart.FaviCount = SStart.FaviCount + 1;
+	};
+
+	this.decFVC = function () {
+		SStart.FaviCount = SStart.FaviCount - 1;
+		return SStart.FaviCount;
+	};
+
+	this.resetFVC = function () {
+		SStart.FaviCount = 0;
+	};
+
 	this.getPageId = function () {
 		return SStart.PageId;
 	};
