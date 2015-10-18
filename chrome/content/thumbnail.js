@@ -27,8 +27,6 @@ justoff.sstart.Thumbnail = function () {
 		}
 		if (this.properties.isFolder) {
 			this.properties.url = "chrome://sstart/content/sstart.html?folder=" + this.properties.id;
-			if (!this.properties.title)
-				this.properties.title = "Folder " + this.properties.id;
 		}
 	}
 

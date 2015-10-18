@@ -210,6 +210,9 @@ justoff.sstart.Widget = function () {
 		function updateTitle() {
 			self.properties.title = title.firstChild.value;
 			self.save.call(self);
+			if (self.properties.isFolder) {
+				SStart.setUpdateMenu(true);
+			}
 			removeInput();
 		}
 

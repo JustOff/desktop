@@ -139,12 +139,22 @@ justoff.sstart.Storage = function (folderId) {
 
 	this.saveObject = function (object) {
 		if (object.id) {
-			if (object.isFolder) Bookmark.updateFolder(object.id, object.title);
-			else Bookmark.updateBookmark(object.id, object.url, object.title);
+			if (object.isFolder) {
+				Bookmark.updateFolder(object.id, object.title);
+			} else {
+				Bookmark.updateBookmark(object.id, object.url, object.title);
+			}
 		}
 		else {
-			if (object.isFolder) object.id = Bookmark.createFolder(object.title, folderId);
-			else object.id = Bookmark.createBookmark(object.url, object.title, folderId);
+			if (object.isFolder) {
+				object.id = Bookmark.createFolder(object.title, folderId);
+				if (object.title == "") {
+					object.title = "Folder " + object.id;
+					Bookmark.updateFolder(object.id, object.title);
+				}
+			} else {
+				object.id = Bookmark.createBookmark(object.url, object.title, folderId);
+			}
 		}
 		var annotation = Utils.clone(object);
 		var exclude = ["id", "url", "title", "isFolder"];
