@@ -50,7 +50,11 @@ justoff.sstart.Installer = new function () {
 				var menuitem = Dom.get("sstart-add-page");
 				if (gContextMenu.linkURL) {
 					menu.setAttribute("data-url", gContextMenu.linkURL);
-					menu.setAttribute("data-title", gContextMenu.link.textContent.trim());
+					if (gContextMenu.link) {
+						menu.setAttribute("data-title", gContextMenu.link.textContent.trim());
+					} else {
+						menu.setAttribute("data-title", gContextMenu.linkURL);
+					}
 					menu.setAttribute("label", linkToSStart);
 					menuitem.setAttribute("label", linkToSStart);
 				} else {
