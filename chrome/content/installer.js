@@ -14,7 +14,7 @@ justoff.sstart.Installer = new function () {
 
 	var SStartBeingUninstalled = false
 
-	function install() {
+	function install () {
 		if (Installer.installed) return;
 		Installer.installed = true;
 		
@@ -258,7 +258,7 @@ justoff.sstart.Installer = new function () {
 	}
 
 	function init() {
-		setTimeout(install, 0);
+		setTimeout(function () { install() }, 0);
 		this.prefsService = Components.classes["@mozilla.org/preferences-service;1"]
 			.getService(Components.interfaces.nsIPrefService)
 		this.prefs = this.prefsService.getBranch("extensions.sstart.");
@@ -278,7 +278,7 @@ justoff.sstart.Installer = new function () {
 		AddonManager.addAddonListener(AddonListener);
 	}
 
-	function uninstall() {
+	function uninstall () {
 		this.observerService.removeObserver(NewTabURLWatcher, "newtab-url-changed");
 		this.observerService.removeObserver(LifecycleWatcher, "profile-before-change");
 		this.newTabPrefs.removeObserver("", BrowserWatcher);
