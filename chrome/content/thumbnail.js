@@ -207,6 +207,7 @@ justoff.sstart.Thumbnail = function () {
 					loading = false;
 					URL.removeFromCache(getImageURL.call(self));
 					self.updateView.call(self);
+					SStart.clearCache();
 				});
 			},
 			TIMEOUT_RENDER);
