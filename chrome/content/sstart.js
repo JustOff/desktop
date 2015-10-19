@@ -120,7 +120,8 @@ justoff.sstart.SStart = new function () {
 	};
 
 	this.isOverWidget = function (el) {
-		return !(el.nodeName.toLowerCase() in {"body":1,"html":1}) && !(el.id in {"quickstart":1,"grid":1});
+		return el && !(el.nodeName && el.nodeName.toLowerCase() in {"body":1,"html":1}) && 
+			!(el.id && el.id in {"quickstart":1,"grid":1});
 	};
 	
 	this.isURI = function (url) {
