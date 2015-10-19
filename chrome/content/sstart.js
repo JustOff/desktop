@@ -277,7 +277,7 @@ justoff.sstart.SStart = new function () {
 			if (!(hoverEl.id in SStart.SearchNodes)) {
 				input.addEventListener("keypress", function (e) {
 					if (e.keyCode == e.DOM_VK_RETURN) {
-						SStart.doSearch.call(self, this.value, input);
+						SStart.doSearch.call(self, this.value, input, e.ctrlKey);
 					}
 				}, false);
 				SStart.SearchNodes[hoverEl.id] = true;
@@ -293,12 +293,17 @@ justoff.sstart.SStart = new function () {
 			searchService.currentEngine;
 	};
 
-	this.doSearch = function (text, input) {
+	this.doSearch = function (text, input, newtab) {
 		var engine = SStart.getSearchEngine(Dom.child(input.parentNode.parentNode.parentNode, "title").textContent);
 		input.value = "";
 		var submission = engine.getSubmission(text);
-		Utils.getBrowser().loadURIWithFlags(submission.uri.spec, 
-			Components.interfaces.nsIWebNavigation.LOAD_FLAGS_NONE, null, null, submission.postData);
+		if (newtab) {
+			Utils.getBrowser().loadOneTab(submission.uri.spec, 
+				{postData: submission.postData, inBackground: false, relatedToCurrent: true});
+		} else {
+			Utils.getBrowser().loadURIWithFlags(submission.uri.spec, 
+				Components.interfaces.nsIWebNavigation.LOAD_FLAGS_NONE, null, null, submission.postData);
+		}
 	};
 	
 	this.getDialogFeatures = function (w, h, l, t, m) {
