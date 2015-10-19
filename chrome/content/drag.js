@@ -49,7 +49,7 @@ justoff.sstart.Drag = new function () {
 	};
 
 	this.onMouseDown = function (e) {
-		if (!SStart.newtabOnLockDrag() && SStart.isLocked()) return;
+		if (e.button != 0 || (!SStart.newtabOnLockDrag() && SStart.isLocked())) return;
 
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 		if (SStart.isOverWidget(hoverEl)) {
@@ -77,6 +77,7 @@ justoff.sstart.Drag = new function () {
 	};
 
 	this.onMouseUp = function (e) {
+		if (e.button != 0) return;
 		var theObject = Drag.object;
 		Drag.object = null;
 		if (SStart.newtabOnLockDrag() && SStart.isLocked() && Drag.inProgress) {
