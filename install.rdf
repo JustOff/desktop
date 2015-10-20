@@ -28,8 +28,8 @@
     <em:targetApplication>
       <em:Description>
         <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
-        <em:minVersion>2.0</em:minVersion>
-        <em:maxVersion>2.*</em:maxVersion>
+        <em:minVersion>2.3</em:minVersion>
+        <em:maxVersion>2.5</em:maxVersion>
       </em:Description>
     </em:targetApplication>
   </Description>
