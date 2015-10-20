@@ -11,6 +11,7 @@ justoff.sstart.Installer = new function () {
 	this.newTabURI = "chrome://sstart/content/sstart.html"
 
 	this.installed = false
+	this.addTab = false
 
 	var SStartBeingUninstalled = false
 
@@ -23,13 +24,27 @@ justoff.sstart.Installer = new function () {
 		SStart.updateAutoZoom();
 		attachContextMenu();
 
-		if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
-			try {
-				Components.utils.import("resource:///modules/NewTabURL.jsm");
-				NewTabURL.override(justoff.sstart.Installer.newTabURI);
-			} catch(e) { }
-			// need to set it anyway for Tab Mix Plus compat
-			Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
+		var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
+			.getService(Components.interfaces.nsIXULAppInfo);
+		if (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
+			if (!justoff.sstart.Installer.addTab) {
+				justoff.sstart.Installer.addTab = gBrowser.addTab;
+				gBrowser.addTab = function () {
+					if (arguments[0] == "about:blank" && Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
+						arguments[0] = justoff.sstart.Installer.newTabURI;
+					}
+					return justoff.sstart.Installer.addTab.apply(gBrowser, arguments);
+				}
+			}
+		} else {
+			if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
+				try {
+					Components.utils.import("resource:///modules/NewTabURL.jsm");
+					NewTabURL.override(justoff.sstart.Installer.newTabURI);
+				} catch(e) { }
+				// need to set it anyway for Tab Mix Plus compat
+				Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
+			}
 		}
 
 		if (Services.prefs.getBoolPref("extensions.sstart.overrideHomePage"))
