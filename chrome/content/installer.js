@@ -1,6 +1,5 @@
 justoff.sstart.Installer = new function () {
 
-	var Installer = this
 	var SStart = justoff.sstart.SStart
 	var Dom = justoff.sstart.Dom
 	var Bookmark = justoff.sstart.Bookmark
@@ -16,8 +15,8 @@ justoff.sstart.Installer = new function () {
 	var SStartBeingUninstalled = false
 
 	function install () {
-		if (Installer.installed) return;
-		Installer.installed = true;
+		if (justoff.sstart.Installer.installed) return;
+		justoff.sstart.Installer.installed = true;
 		
 		SStart.updateGridInterval();
 		SStart.updateNewtabOnLockDrag();
