@@ -157,7 +157,7 @@ justoff.sstart.Installer = new function () {
 							NewTabURL.reset();
 						} catch(e) { }
 						// need to set it anyway for Tab Mix Plus compat
-						var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
+						var newTabURI = SStart.getBrowserNewtabUrl();
 						if (newTabURI == justoff.sstart.Installer.newTabURI)
 							Services.prefs.clearUserPref("browser.newtab.url");
 					}
@@ -194,7 +194,7 @@ justoff.sstart.Installer = new function () {
 			if (topic != "nsPref:changed") return;
 			switch (data) {
 				case "newtab.url":
-					var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
+					var newTabURI = SStart.getBrowserNewtabUrl();
 					if (newTabURI != justoff.sstart.Installer.newTabURI)
 						Services.prefs.setBoolPref("extensions.sstart.overrideNewTab", false);
 					break;
@@ -227,7 +227,7 @@ justoff.sstart.Installer = new function () {
 							Components.utils.import("resource:///modules/NewTabURL.jsm");
 							NewTabURL.reset();
 						} catch(e) { }
-						var newTabURI = Services.prefs.getCharPref("browser.newtab.url");
+						var newTabURI = SStart.getBrowserNewtabUrl();
 						if (newTabURI == justoff.sstart.Installer.newTabURI)
 							Services.prefs.clearUserPref("browser.newtab.url");
 						var homeURI = Services.prefs.getCharPref("browser.startup.homepage");

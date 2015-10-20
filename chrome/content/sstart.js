@@ -346,5 +346,16 @@ justoff.sstart.SStart = new function () {
 		return features;
 	};
 	
+	this.getBrowserNewtabUrl = function () {
+		var bprefs = Components.classes["@mozilla.org/preferences-service;1"]
+			.getService(Components.interfaces.nsIPrefService).getBranch("browser.");
+		try {
+			var newTabURI = bprefs.getCharPref("newtab.url");
+		} catch (e) {
+			var newTabURI = "";
+		}
+		return newTabURI;
+	}
+	
 };
 
