@@ -6,7 +6,7 @@ justoff.sstart.Utils = new function () {
 		var params = new Array();
 		var regexp = /[?&](\w+)=(\w+)/g;
 		var match;
-		while (match = regexp.exec(url)) {
+		while ((match = regexp.exec(url))) {
 			params[match[1]] = match[2];
 		}
 		return params;

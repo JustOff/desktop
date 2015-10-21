@@ -10,7 +10,7 @@ justoff.sstart.Dom = new function () {
 		var elements = [ element ];
 		var regexp = new RegExp("\\b" + classOrType + "\\b");
 
-		while (element = elements.shift()) {
+		while ((element = elements.shift())) {
 			for (var i = 0; i < element.childNodes.length; i++) {
 				var child = element.childNodes[i];
 				if (child.nodeName.toLowerCase() == classOrType ||
@@ -23,7 +23,7 @@ justoff.sstart.Dom = new function () {
 	this.parent = function (element, classOrType) {
 		var regexp = new RegExp("\\b" + classOrType + "\\b");
 
-		while (element = element.parentNode) {
+		while ((element = element.parentNode)) {
 			if (element.nodeName.toLowerCase() == classOrType ||
 				element.className && element.className.match(regexp)) return element;
 		}
