@@ -165,8 +165,12 @@ justoff.sstart.Thumbnail = function () {
 	}
 
 	function getSiteFavicon(siteURI, icon) {
-		var hostURI = "http://" + siteURI.split(/\/+/g)[1] + "/";
-		var faviconURI = hostURI + "favicon.ico";
+		var splitURI = siteURI.split(/\/+/g);
+		if (splitURI[0] && splitURI[1]) {
+			var faviconURI = splitURI[0] + "//" + splitURI[1] + "/favicon.ico";
+		} else {
+			return;
+		}
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", siteURI, true);
 		xhr.responseType = "document";	  
