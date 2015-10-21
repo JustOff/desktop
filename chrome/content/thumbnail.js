@@ -30,11 +30,11 @@ justoff.sstart.Thumbnail = function () {
 		}
 	}
 
-	getImageFile = function () {
+	var getImageFile = function () {
 		return File.getDataFile(this.properties.id);
 	}
 
-	getImageURL = function () {
+	var getImageURL = function () {
 		if (this.properties.customImage)
 			if (SStart.isURI(this.properties.customImage)) {
 				return this.properties.customImage;
@@ -292,18 +292,18 @@ justoff.sstart.Thumbnail = function () {
 			dstData = ctx.createImageData(w, h),
 			dstBuff = dstData.data,
 			srcBuff = ctx.getImageData(0, 0, w, h).data,
-			y = h;
+			y = h, x, sy, sx, dstOff, r, g, b, a, cy, cx, scy, scx, srcOff, wt;
 		while (y--) {
 			x = w;
 			while (x--) {
-				var sy = y, sx = x, dstOff = (y * w + x) * 4, r = 0, g = 0, b = 0, a = 0;
-				for (var cy = 0; cy < side; cy++) {
-					for (var cx = 0; cx < side; cx++) {
-						var scy = sy + cy - half;
-						var scx = sx + cx - half;
+				sy = y; sx = x; dstOff = (y * w + x) * 4; r = 0; g = 0; b = 0; a = 0;
+				for (cy = 0; cy < side; cy++) {
+					for (cx = 0; cx < side; cx++) {
+						scy = sy + cy - half;
+						scx = sx + cx - half;
 						if (scy >= 0 && scy < h && scx >= 0 && scx < w) {
-							var srcOff = (scy * w + scx) * 4;
-							var wt = weights[cy * side + cx];
+							srcOff = (scy * w + scx) * 4;
+							wt = weights[cy * side + cx];
 							r += srcBuff[srcOff] * wt;
 							g += srcBuff[srcOff + 1] * wt;
 							b += srcBuff[srcOff + 2] * wt;
