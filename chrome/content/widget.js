@@ -37,7 +37,7 @@ justoff.sstart.Widget = function () {
 			icon.style.backgroundImage = "url(" + SStart.getSearchEngine(this.properties.title).iconURI.spec + ")";
 		} else if (this.properties.url) {
 			SStart.incFVC();
-			uri = ios.newURI(this.properties.url, null, null);
+			var uri = ios.newURI(this.properties.url, null, null);
 			fis.getFaviconURLForPage(uri, 
 				function (furi, len, data, mimeType) {
 					if (furi) {
