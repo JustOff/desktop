@@ -11,10 +11,8 @@ justoff.sstart.SearchPropertiesXul = new function () {
 
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
-
 		var listbox = Dom.get("engines");
 		var engines = getEngines();
-
 		for (var i in engines) {
 			var listitem = document.createElement("listitem");
 			listitem.setAttribute("class", "listitem-iconic");
@@ -27,6 +25,9 @@ justoff.sstart.SearchPropertiesXul = new function () {
 					Dom.get("focus").checked = true;
 				}
 			}
+		}
+		if (!listbox.selectedItem && listbox.firstChild) {
+			listbox.selectedItem = listbox.firstChild;
 		}
 	}
 
