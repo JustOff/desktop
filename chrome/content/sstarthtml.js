@@ -11,13 +11,15 @@ console.time("SStart");
 	var Drag = justoff.sstart.Drag
 
 	var params = Utils.getQueryParams(document.location);
-	var storage = new Storage(params.folder);
 
-	if (!params.folder) {
-		var pageId = 0;
-	} else {
+	if (params.folder) {
+		var storage = new Storage(params.folder);
 		var pageId = params.folder;
+	} else {
+		var storage = new Storage(false);
+		var pageId = 0;
 	}
+
 	SStart.setPageId(pageId);
 
 	document.title = storage.getTitle();
