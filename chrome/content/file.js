@@ -11,7 +11,7 @@ justoff.sstart.File = new function () {
 			.get("ProfD", Components.interfaces.nsIFile);
 		dir.append("sstart");
 		if (!dir.exists()) {
-			dir.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 0777);
+			dir.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, parseInt("0777", 8));
 		}
 		return dir;
 	};
