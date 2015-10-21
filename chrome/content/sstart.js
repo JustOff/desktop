@@ -12,6 +12,7 @@ justoff.sstart.SStart = new function () {
 	this.CacheDOM = false;
 	this.Zoom = 1;
 	this.PageId = 0;
+	this.FaviCount = 0;
 	this.SearchNodes = {};
 
 	this.isSStart = function (doc) {

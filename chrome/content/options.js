@@ -117,15 +117,15 @@ justoff.sstart.SStartOptionsXul = new function () {
 			dstDir.createUnique(Components.interfaces.nsIFile.DIRECTORY_TYPE, FileUtils.PERMS_DIRECTORY);
 			var zr = Cc["@mozilla.org/libjar/zip-reader;1"].createInstance(Ci.nsIZipReader);
 			zr.open(zfile);
-			var entries = zr.findEntries('*');
+			var entries = zr.findEntries('*'), entryName, target;
 			while (entries.hasMore()) {
-				var entryName = entries.getNext();
+				entryName = entries.getNext();
 				target = tmpDir.clone();
 				target.append(entryName);
 				zr.extract(entryName, target);
 			}
 			zr.close();
-			cfile = tmpDir.clone(); cfile.append("sstart.conf");
+			var cfile = tmpDir.clone(); cfile.append("sstart.conf");
 			NetUtil.asyncFetch(cfile, function(istream, status) {
 			  try {
 				if (!Components.isSuccessCode(status)) {
@@ -221,14 +221,14 @@ justoff.sstart.SStartOptionsXul = new function () {
 		}
 	}
 	
-	function importImage(srcDir, dstDir, newId, oldId, params) {
-		var params = Utils.fromJSON(params);
+	function importImage(srcDir, dstDir, newId, oldId, paramsJS) {
+		var params = Utils.fromJSON(paramsJS);
 		var sdir = srcDir.clone();
 		sdir.append(oldId + ".png");
 		if (sdir.exists()) {
 			sdir.copyTo(dstDir, newId + ".png");
 		}
-		if (params["backgroundImage"] == "1") {
+		if (params["backgroundImage"] && params["backgroundImage"] == "1") {
 			sdir = srcDir.clone();
 			sdir.append("bg_" + oldId);
 			if (sdir.exists()) {
