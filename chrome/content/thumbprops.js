@@ -92,7 +92,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 				return;
 			}
 		}
-		if (this.origImage != properties.customImage) {
+		if (this.origImage && this.origImage != properties.customImage) {
 			var dir = File.getDataDirectory();
 			try {
 				dir.append(this.origImage);
