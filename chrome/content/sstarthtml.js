@@ -59,7 +59,7 @@ console.time("SStart");
 		if (pageId > 0 && properties.useMainBgImage != "0" && SStart.isMainBgImage()) {
 			document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
 			Dom.addClass(document.body, 'background-style-' + Prefs.getInt('backgroundStyle'));
-		} else if (properties.backgroundImage == "1") {
+		} else if (properties.backgroundImage && properties.backgroundImage == "1") {
 			document.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + pageId) + ")";
 			Dom.addClass(document.body, 'background-style-' + (properties.backgroundStyle || 1));
 		}
