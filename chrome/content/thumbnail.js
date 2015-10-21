@@ -151,7 +151,9 @@ justoff.sstart.Thumbnail = function () {
 
 	function refreshImage() {
 		var self = this;
-		getSiteFavicon.call(self, self.properties.url);
+		if (!this.properties.isFolder) {
+			getSiteFavicon.call(self, self.properties.url);
+		}
 		loadURI(this.properties.url || "about:blank", this.properties.width, this.properties.height - HEADER_HEIGHT, function (iframe) {
 			if (!self.properties.title) {
 				var doc = iframe.contentDocument;
