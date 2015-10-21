@@ -2,7 +2,7 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
 	<em:id>SStart@Off.JustOff</em:id>
-	<em:version>1.8.4</em:version>
+	<em:version>1.8.5</em:version>
 	<em:type>2</em:type>
 	<em:name>Speed Start</em:name>
 	<em:description>Speed Dial &amp; Start Page with flexible layout for fast access to sites via visual bookmarks.</em:description>
@@ -25,12 +25,12 @@
 		<em:maxVersion>99.*</em:maxVersion>
 	  </Description>
 	</em:targetApplication>
-    <em:targetApplication>
-      <em:Description>
-        <em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
-        <em:minVersion>2.24</em:minVersion>
-        <em:maxVersion>2.41</em:maxVersion>
-      </em:Description>
-    </em:targetApplication>
+	<em:targetApplication>
+	  <em:Description>
+		<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
+		<em:minVersion>2.24</em:minVersion>
+		<em:maxVersion>2.41</em:maxVersion>
+	  </em:Description>
+	</em:targetApplication>
   </Description>
 </RDF>
