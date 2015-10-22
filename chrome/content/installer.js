@@ -10,7 +10,6 @@ justoff.sstart.Installer = new function () {
 	this.newTabURI = "chrome://sstart/content/sstart.html"
 
 	this.installed = false
-	this.addTab = false
 
 	var SStartBeingUninstalled = false
 
@@ -27,15 +26,15 @@ justoff.sstart.Installer = new function () {
 			.getService(Components.interfaces.nsIXULAppInfo);
 		if (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
 			// SeaMonkey
-			if (!justoff.sstart.Installer.addTab) {
-				justoff.sstart.Installer.addTab = gBrowser.addTab;
-				gBrowser.addTab = function () {
+			gBrowser.addTab = (function () {
+				var origAddTab = gBrowser.addTab;
+				return function () {
 					if (arguments[0] == "about:blank" && Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
 						arguments[0] = justoff.sstart.Installer.newTabURI;
 					}
-					return justoff.sstart.Installer.addTab.apply(gBrowser, arguments);
+					return origAddTab.apply(gBrowser, arguments);
 				}
-			}
+			})();
 		} else {
 			if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
 				try {
@@ -43,12 +42,12 @@ justoff.sstart.Installer = new function () {
 					NewTabURL.override(justoff.sstart.Installer.newTabURI);
 				} catch(e) { }
 				// need to set it anyway for Tab Mix Plus compat
-				Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
+				justoff.sstart.Installer.browserPref("newtab.url", "set");
 			}
 		}
 
 		if (Services.prefs.getBoolPref("extensions.sstart.overrideHomePage"))
-			Services.prefs.setCharPref("browser.startup.homepage", justoff.sstart.Installer.newTabURI);
+			justoff.sstart.Installer.browserPref("startup.homepage", "set");
 
 		// Blank address line for Speed Start
 		if (gInitialPages.constructor === Array && gInitialPages.indexOf(justoff.sstart.Installer.newTabURI) == -1) {
@@ -152,6 +151,34 @@ justoff.sstart.Installer = new function () {
 		}
 	};
 
+	this.browserPref = function (pref, cmd) {
+		var bprefs = Components.classes["@mozilla.org/preferences-service;1"]
+			.getService(Components.interfaces.nsIPrefService).getBranch("browser.");
+		switch (cmd) {
+			case "get":
+				try {
+					var newTabURI = bprefs.getCharPref(pref);
+				} catch (e) {
+					var newTabURI = "";
+				}
+				return newTabURI;
+				break;
+			case "set":
+				try {
+					bprefs.setCharPref(pref, justoff.sstart.Installer.newTabURI);
+				} catch (e) {}
+				break;
+			case "clear":
+				try {
+					var newTabURI = bprefs.getCharPref(pref);
+					if (newTabURI == justoff.sstart.Installer.newTabURI) {
+						bprefs.clearUserPref(pref);
+					}
+				} catch (e) {}
+				break;
+		}
+	}
+	
 	var Watcher = new function () {
 		this.observe = function (subject, topic, data) {
 			if (topic != "nsPref:changed") return;
@@ -166,27 +193,21 @@ justoff.sstart.Installer = new function () {
 							Components.utils.import("resource:///modules/NewTabURL.jsm");
 							NewTabURL.override(justoff.sstart.Installer.newTabURI);
 						} catch(e) { }
-						// need to set it anyway for Tab Mix Plus compat
-						Services.prefs.setCharPref("browser.newtab.url", justoff.sstart.Installer.newTabURI);
+						justoff.sstart.Installer.browserPref("newtab.url", "set");
 					} else {
 						try {
 							Components.utils.import("resource:///modules/NewTabURL.jsm");
 							NewTabURL.reset();
 						} catch(e) { }
-						// need to set it anyway for Tab Mix Plus compat
-						var newTabURI = SStart.getBrowserNewtabUrl();
-						if (newTabURI == justoff.sstart.Installer.newTabURI)
-							Services.prefs.clearUserPref("browser.newtab.url");
+						justoff.sstart.Installer.browserPref("newtab.url", "clear");
 					}
 					break;
 				case "overrideHomePage":
 					var useOurHomePage = Services.prefs.getBoolPref("extensions.sstart.overrideHomePage");
 					if (useOurHomePage) {
-						Services.prefs.setCharPref("browser.startup.homepage", justoff.sstart.Installer.newTabURI);
+						justoff.sstart.Installer.browserPref("startup.homepage", "set");
 					} else {
-						var homeURI = Services.prefs.getCharPref("browser.startup.homepage");
-						if (homeURI == justoff.sstart.Installer.newTabURI)
-							Services.prefs.clearUserPref("browser.startup.homepage");
+						justoff.sstart.Installer.browserPref("startup.homepage", "clear");
 					}
 					break;
 				case "gridInterval":
@@ -211,12 +232,12 @@ justoff.sstart.Installer = new function () {
 			if (topic != "nsPref:changed") return;
 			switch (data) {
 				case "newtab.url":
-					var newTabURI = SStart.getBrowserNewtabUrl();
+					var newTabURI = justoff.sstart.Installer.browserPref("newtab.url", "get");
 					if (newTabURI != justoff.sstart.Installer.newTabURI)
 						Services.prefs.setBoolPref("extensions.sstart.overrideNewTab", false);
 					break;
 				case "startup.homepage":
-					var homeURI = Services.prefs.getCharPref("browser.startup.homepage");
+					var homeURI = justoff.sstart.Installer.browserPref("startup.homepage", "get");
 					if (homeURI != justoff.sstart.Installer.newTabURI)
 						Services.prefs.setBoolPref("extensions.sstart.overrideHomePage", false);
 					break;
@@ -244,12 +265,8 @@ justoff.sstart.Installer = new function () {
 							Components.utils.import("resource:///modules/NewTabURL.jsm");
 							NewTabURL.reset();
 						} catch(e) { }
-						var newTabURI = SStart.getBrowserNewtabUrl();
-						if (newTabURI == justoff.sstart.Installer.newTabURI)
-							Services.prefs.clearUserPref("browser.newtab.url");
-						var homeURI = Services.prefs.getCharPref("browser.startup.homepage");
-						if (homeURI == justoff.sstart.Installer.newTabURI)
-							Services.prefs.clearUserPref("browser.startup.homepage");
+						justoff.sstart.Installer.browserPref("newtab.url", "clear");
+						justoff.sstart.Installer.browserPref("startup.homepage", "clear");
 					}
 					break;
 			}
