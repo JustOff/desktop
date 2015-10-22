@@ -8,9 +8,6 @@ justoff.sstart.Widget = function () {
 	
 	const SEARCH_URL = "sstart://search/";
 
-	this.properties;
-	this.view;
-
 	this.setProperties = function (properties) {
 		this.properties = properties;
 	}
