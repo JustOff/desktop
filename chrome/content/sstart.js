@@ -279,7 +279,7 @@ justoff.sstart.SStart = new function () {
 			if (!(hoverEl.id in SStart.SearchNodes)) {
 				input.addEventListener("keypress", function (e) {
 					if (e.keyCode == e.DOM_VK_RETURN) {
-						SStart.doSearch.call(self, this.value, input, e.ctrlKey);
+						SStart.doSearch.call(self, this.value, input, e.ctrlKey || e.metaKey);
 					}
 				}, false);
 				SStart.SearchNodes[hoverEl.id] = true;
