@@ -12,7 +12,7 @@ justoff.sstart.Thumbnail = function () {
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
-	const TIMEOUT_LOAD = 60 * 1000;
+	const TIMEOUT_LOAD = 30 * 1000;
 	const TIMEOUT_RENDER = 0.5 * 1000;
 	const HEADER_HEIGHT = 20;
 
