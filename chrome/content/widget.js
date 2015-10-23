@@ -230,10 +230,14 @@ justoff.sstart.Widget = function () {
 			}
 		}
 
+		if (title.firstChild && title.firstChild.nodeName == "INPUT") return;
 		var input = document.createElement("input");
 		input.type = "text";
-		input.style = "background: #FFFFFF";
+		input.style = "background: #F0F0F0";
 		input.value = this.properties.title;
+		var dtt = document.createAttribute("data-title");
+		dtt.value = "true";
+		input.setAttributeNode(dtt);
 		title.removeChild(title.firstChild);
 		title.appendChild(input);
 		input.focus();

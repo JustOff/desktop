@@ -52,6 +52,7 @@ justoff.sstart.Drag = new function () {
 		if (e.button != 0 || (!SStart.newtabOnLockDrag() && SStart.isLocked())) return;
 
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+		if (hoverEl.nodeName == "INPUT" && (SStart.isLocked() || hoverEl.getAttribute("data-title") == "true")) return;
 		if (SStart.isOverWidget(hoverEl)) {
 			while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
 			if (hoverEl) {
