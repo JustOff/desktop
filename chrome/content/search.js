@@ -51,6 +51,7 @@ justoff.sstart.Search = function () {
 	}
 
 	this.editTitle = function () {
+		this.openProperties();
 	}
 }
 
