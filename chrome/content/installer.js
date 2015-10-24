@@ -52,9 +52,9 @@ justoff.sstart.Installer = new function () {
 		}
 
 		// Blank address line for Speed Start
-		if (gInitialPages.constructor === Array && gInitialPages.indexOf(justoff.sstart.Installer.newTabURI) == -1) {
+		if (gInitialPages.constructor.name == "Array" && gInitialPages.indexOf(justoff.sstart.Installer.newTabURI) == -1) {
 			gInitialPages.push(justoff.sstart.Installer.newTabURI);
-		} else if (gInitialPages.constructor === Set && !gInitialPages.has(justoff.sstart.Installer.newTabURI)) {
+		} else if (gInitialPages.constructor.name == "Set" && !gInitialPages.has(justoff.sstart.Installer.newTabURI)) {
 			gInitialPages.add(justoff.sstart.Installer.newTabURI);
 		}
 	}
