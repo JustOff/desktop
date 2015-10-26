@@ -236,7 +236,7 @@ justoff.sstart.Thumbnail = function () {
 		
 		iframe.setAttribute("type", "content-targetable");
 		iframe.style.overflow = "hidden";
-		doc.getElementById("hidden-box").appendChild(iframe);
+		doc.getElementById("sstart-hidden-box").appendChild(iframe);
 		return iframe;
 	}
 

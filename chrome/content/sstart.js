@@ -51,9 +51,9 @@ justoff.sstart.SStart = new function () {
 	this.saveCache = function (e, fragment) {
 		var doc = Utils.getBrowserWindow().document;
 		if (typeof fragment != "undefined") {
-			doc.getElementById("hidden-box").appendChild(doc.importNode(fragment, true));
+			doc.getElementById("sstart-hidden-box").appendChild(doc.importNode(fragment, true));
 		} else {
-			doc.getElementById("hidden-box").appendChild(doc.importNode(document.getElementById("widgets"), true));
+			doc.getElementById("sstart-hidden-box").appendChild(doc.importNode(document.getElementById("widgets"), true));
 		}
 		var widgets = doc.getElementById("widgets");
 		justoff.sstart.cache.fragment = widgets;

@@ -2,8 +2,8 @@
 <!DOCTYPE overlay SYSTEM "chrome://sstart/locale/sstart.dtd">
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<window id="main-window">
-		<hbox style="overflow:hidden; height: 0;">
-			<vbox id="hidden-box"/>
+		<hbox id="sstart-container" style="overflow:hidden;height:0;">
+			<vbox id="sstart-hidden-box"/>
 		</hbox>
 	</window>
     <popup id="contentAreaContextMenu">
