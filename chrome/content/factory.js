@@ -10,7 +10,7 @@ justoff.sstart.Factory = function (storage) {
 	
 	const SEARCH_URL = "sstart://search/";
 	
-	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
+	Components.utils.import("chrome://sstart/content/cache.js", justoff.sstart);
 
 	this.createWidget = function (type, x, y) {
 		var properties = {

@@ -6,7 +6,7 @@ justoff.sstart.SStart = new function () {
 	var Prefs = justoff.sstart.Prefs;
 	var Dom = justoff.sstart.Dom;
 
-	Components.utils.import("resource://sstart/cache.js", justoff.sstart);
+	Components.utils.import("chrome://sstart/content/cache.js", justoff.sstart);
 	
 	this.Locked = true;
 	this.CacheDOM = false;
