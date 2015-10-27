@@ -160,7 +160,7 @@ console.time("SStart");
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
-		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+		while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 		if (e.target.type == "thumbnail") {
 			var r = Dom.child(document.getElementById(hoverEl.id), "refresh");
 			if (r) {
@@ -184,7 +184,7 @@ console.time("SStart");
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
-		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+		while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 		var r = Dom.child(document.getElementById(hoverEl.id), "properties");
 		if (r) {
 			var event = new Event("click");
@@ -200,7 +200,7 @@ console.time("SStart");
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
-		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+		while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 		var r = Dom.child(document.getElementById(hoverEl.id), "remove");
 		if (r) {
 			var event = new Event("click");
@@ -216,7 +216,7 @@ console.time("SStart");
 			SStart.setLocked(true);
 		}
 		var hoverEl = ContextMenu.click.el;
-		while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+		while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 		var r = Dom.child(document.getElementById(hoverEl.id), "title");
 		if (r) {
 			var event = new MouseEvent('dblclick', {
