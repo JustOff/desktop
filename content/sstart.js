@@ -43,7 +43,7 @@ justoff.sstart.SStart = new function () {
 		if (!SStart.bundle) {
 			SStart.bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
 				.getService(Components.interfaces.nsIStringBundleService)
-				.createBundle("chrome://sstart/locale/sstart.strings");
+				.createBundle("chrome://sstart/locale/sstart.strings" + "?" + Math.random());
 		}
 		return SStart.bundle.GetStringFromName(key);
 	};
