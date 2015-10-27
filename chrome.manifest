@@ -4,21 +4,13 @@ overlay chrome://browser/content/browser.xul chrome://sstart/content/overlay.xul
 overlay chrome://browser/content/browser.xul chrome://sstart/content/overlay.xul application={8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}
 overlay chrome://navigator/content/navigator.xul chrome://sstart/content/overlay.xul application={92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}
 
-skin sstart classic skin/
-
-style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-winnt.css os=WINNT
-style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-darwin.css os=Darwin
-style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-unix.css os=Linux
-style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-unix.css os=FreeBSD
-style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-unix.css os=OpenBSD
-style chrome://sstart/content/properties.xul chrome://sstart/skin/properties-unix.css os=NetBSD
-style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-winnt.css os=WINNT
-style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-darwin.css os=Darwin
-style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=Linux
-style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=FreeBSD
-style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=OpenBSD
-style chrome://sstart/content/thumbprops.xul chrome://sstart/skin/properties-unix.css os=NetBSD
-style chrome://sstart/content/options.xul chrome://sstart/skin/properties-winnt.css os=WINNT
+skin sstart classic/1.0 skin/
+skin sstart-os classic/1.0 skin/winnt/ os=WINNT
+skin sstart-os classic/1.0 skin/darwin/ os=Darwin
+skin sstart-os classic/1.0 skin/unix/ os=Linux
+skin sstart-os classic/1.0 skin/unix/ os=FreeBSD
+skin sstart-os classic/1.0 skin/unix/ os=OpenBSD
+skin sstart-os classic/1.0 skin/unix/ os=NetBSD
 
 locale sstart en-US locale/en-US/
 locale sstart ru-RU locale/ru-RU/
