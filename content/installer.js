@@ -1,7 +1,5 @@
 justoff.sstart.Installer = new function () {
 
-	var SStart = justoff.sstart.SStart
-
 	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
 	Components.utils.import("chrome://sstart/content/bookmark.js");

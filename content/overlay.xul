@@ -16,7 +16,6 @@
     </popup>
 	<script src="namespace.js"/>
 	<script src="prefs.js"/>
-	<script src="sstart.js"/>
 	<script src="installer.js"/>
 	<script>
 	<![CDATA[
