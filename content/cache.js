@@ -73,7 +73,7 @@ var Cache = {
 		}
 	},
 
-	getAutoZoom = function () {
+	getAutoZoom: function () {
 		return this.autoZoom;
 	},
 
