@@ -5,6 +5,7 @@ justoff.sstart.Thumbnail = function () {
 	var Widget = justoff.sstart.Widget
 	var SStart = justoff.sstart.SStart
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/file.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
@@ -198,7 +199,7 @@ justoff.sstart.Thumbnail = function () {
 		if (icon) {
 			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE, function () {
 				icon.style.backgroundImage = "url(moz-anno:favicon:" + iconURI.spec + ")";
-				SStart.clearCache();
+				cache.clearCache();
 			});
 		} else {
 			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE);
@@ -214,7 +215,7 @@ justoff.sstart.Thumbnail = function () {
 					loading = false;
 					URL.removeFromCache(getImageURL.call(self));
 					self.updateView.call(self);
-					SStart.clearCache();
+					cache.clearCache();
 				});
 			},
 			TIMEOUT_RENDER);

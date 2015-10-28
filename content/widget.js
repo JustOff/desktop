@@ -131,7 +131,7 @@ justoff.sstart.Widget = function () {
 						bookmarksService.moveItem(self.view.id, bookmarksService.getFolderIdForItem(params.folder), 
 							bookmarksService.DEFAULT_INDEX);
 						Dom.remove(self.view);
-						SStart.clearCache();
+						cache.clearCache();
 						return;
 					}
 				}
@@ -158,7 +158,7 @@ justoff.sstart.Widget = function () {
 				self.refresh.call(self);
 			}
 			if (SStart.getZoom() && SStart.getPageId() == 0 && (resized || moved)) {
-				SStart.clearCache();
+				cache.clearCache();
 			}
 		}, false);
 
@@ -179,10 +179,10 @@ justoff.sstart.Widget = function () {
 			if (this.view) Dom.remove(this.view);
 			this.storage.removeObject(this.properties.id);
 			if (SStart.getZoom() && SStart.getPageId() == 0) {
-				SStart.clearCache();
+				cache.clearCache();
 			}
 			if (this.properties.isFolder) {
-				SStart.setUpdateMenu(true);
+				cache.setUpdateMenu(true);
 			}
 		}
 	}
@@ -217,7 +217,7 @@ justoff.sstart.Widget = function () {
 			self.properties.title = title.firstChild.value;
 			self.save.call(self);
 			if (self.properties.isFolder) {
-				SStart.setUpdateMenu(true);
+				cache.setUpdateMenu(true);
 			}
 			removeInput();
 		}

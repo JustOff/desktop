@@ -3,6 +3,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 	var SStart = justoff.sstart.SStart
 	var Prefs = justoff.sstart.Prefs
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/file.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/bookmark.js");
@@ -193,8 +194,8 @@ justoff.sstart.SStartOptionsXul = new function () {
 				if (delDir.exists()) {
 					delDir.remove(true);
 				}
-				SStart.clearCache();
-				SStart.setUpdateMenu(true);
+				cache.clearCache();
+				cache.setUpdateMenu(true);
 				Utils.reloadEachSStartBrowser();
 				Utils.alert(Utils.translate("importOk"));
 			  } catch(e) {

@@ -45,10 +45,10 @@ justoff.sstart.Factory = function (storage) {
 		createWidget(properties, fragment);
 		document.getElementById("widgets").appendChild(fragment);
 		if (SStart.getZoom() && SStart.getPageId() == 0) {
-			SStart.clearCache();
+			justoff.sstart.cache.clearCache();
 		}
 		if (type == "folder") {
-			SStart.setUpdateMenu(true);
+			justoff.sstart.cache.setUpdateMenu(true);
 		}
 		return true;
 	}

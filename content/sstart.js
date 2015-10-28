@@ -129,48 +129,16 @@ justoff.sstart.SStart = new function () {
 		bookmarksService.runInBatchMode(callback, null);
 	};
 
-	this.updateGridInterval = function (live) {
-		justoff.sstart.cache.gridInterval = Prefs.getInt("gridInterval");
-		if (live) {
-			var gBrowser = Utils.getBrowser();
-			if (SStart.isSStart(gBrowser.contentDocument)) {
-				var grid = gBrowser.contentDocument.getElementById("grid");
-				if (grid) {
-					grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + SStart.getGridInterval() + ".png)";
-				}
-			}
-		}
-	};
-
 	this.getGridInterval = function () {
 		return justoff.sstart.cache.gridInterval;
-	};
-
-	this.updateNewtabOnLockDrag = function () {
-		justoff.sstart.cache.newtabOnLockDrag = Prefs.getBool("newtabOnLockDrag");
 	};
 
 	this.newtabOnLockDrag = function () {
 		return justoff.sstart.cache.newtabOnLockDrag;
 	};
 
-	this.clearCache = function () {
-		justoff.sstart.cache.fragment = false;
-	};
-
-	this.updateAutoZoom = function () {
-		justoff.sstart.cache.autoZoom = Prefs.getBool("autoZoom");
-		if (justoff.sstart.cache.autoZoom) {
-			justoff.sstart.cache.fragment = false;
-		}
-	};
-
 	this.autoZoom = function () {
 		return justoff.sstart.cache.autoZoom;
-	};
-
-	this.setEditOn = function () {
-		justoff.sstart.cache.editOn = true;
 	};
 
 	this.setEditOff = function () {
@@ -179,14 +147,6 @@ justoff.sstart.SStart = new function () {
 
 	this.isEditOn = function () {
 		return justoff.sstart.cache.editOn;
-	};
-
-	this.setUpdateMenu = function (s) {
-		justoff.sstart.cache.updateMenu = s;
-	};
-
-	this.isUpdateMenu = function () {
-		return justoff.sstart.cache.updateMenu;
 	};
 
 	this.updateGridStatus = function (show) {

@@ -19,9 +19,9 @@ justoff.sstart.Installer = new function () {
 		if (justoff.sstart.Installer.installed) return;
 		justoff.sstart.Installer.installed = true;
 		
-		SStart.updateGridInterval();
-		SStart.updateNewtabOnLockDrag();
-		SStart.updateAutoZoom();
+		cache.updateGridInterval();
+		cache.updateNewtabOnLockDrag();
+		cache.updateAutoZoom();
 		attachContextMenu();
 
 		var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
@@ -85,12 +85,12 @@ justoff.sstart.Installer = new function () {
 					menu.setAttribute("label", pageToSStart);
 					menuitem.setAttribute("label", pageToSStart);
 				}
-				if (!SStart.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
+				if (!cache.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
 					return;
 				}
 				menuitem.hidden = initFoldersMenu(menu.firstChild);
 				menu.hidden = !menuitem.hidden;
-				SStart.setUpdateMenu(false);
+				cache.setUpdateMenu(false);
 			}, false);
 	};
 	
@@ -147,12 +147,12 @@ justoff.sstart.Installer = new function () {
 				'{"left":' + left + ',"top":' + top + ',"width":' + width + ',"height":' + height +'}');
 			File.delDataFile(newId);
 			if (folderId == data.getAttribute("data-fid")) {
-				SStart.clearCache();
+				cache.clearCache();
 				var ssurl = this.newTabURI;
 			} else {
 				var ssurl = this.newTabURI + "?folder=" + folderId;
 			}
-			SStart.setEditOn();
+			cache.setEditOn();
 			Utils.getBrowser().loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
 		}
 	};
@@ -219,16 +219,16 @@ justoff.sstart.Installer = new function () {
 					}
 					break;
 				case "gridInterval":
-					SStart.updateGridInterval(true);
+					cache.updateGridInterval(true);
 					break;
 				case "showGridOnUnlock":
 					cache.updateGridOnUnlock();
 					break;
 				case "newtabOnLockDrag":
-					SStart.updateNewtabOnLockDrag();
+					cache.updateNewtabOnLockDrag();
 					break;
 				case "autoZoom":
-					SStart.updateAutoZoom();
+					cache.updateAutoZoom();
 					Utils.reloadEachSStartBrowser();
 					break;
 			}
