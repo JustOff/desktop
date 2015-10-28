@@ -207,28 +207,6 @@ justoff.sstart.SStart = new function () {
 		return justoff.sstart.cache.updateMenu;
 	};
 
-	this.updateGridOnUnlock = function (hasClass) {
-		var gBrowser = Utils.getBrowser();
-		if (SStart.isSStart(gBrowser.contentDocument)) {
-			var grid = gBrowser.contentDocument.getElementById("grid");
-			if (Prefs.getBool("showGridOnUnlock")) {
-				if (!grid && hasClass(gBrowser.contentDocument.body, "unlock-edits")) {
-					var doc = gBrowser.contentDocument;
-					grid = doc.createElement("div");
-					grid.id = "grid";
-					grid.style.height = doc.body.scrollHeight + "px";
-					grid.style.width = doc.body.scrollWidth + "px";
-					grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + SStart.getGridInterval() + ".png)";
-					doc.body.appendChild(grid);
-				}
-			} else {
-				if (grid) {
-					grid.parentNode.removeChild(grid);
-				}
-			}
-		}
-	}
-	
 	this.updateGridStatus = function (show) {
 		var grid = document.getElementById("grid");
 		if (show) {
@@ -247,14 +225,6 @@ justoff.sstart.SStart = new function () {
 				grid.parentNode.removeChild(grid);
 			}
 		}
-	};
-
-	this.alignToGrid = function (pos) {
-		var min = Math.floor(pos / justoff.sstart.cache.gridInterval) * justoff.sstart.cache.gridInterval;
-		if (pos - min > justoff.sstart.cache.gridInterval / 2)
-			return min + justoff.sstart.cache.gridInterval;
-		else
-			return min;
 	};
 
 	this.deleteSearchNode = function (node) {

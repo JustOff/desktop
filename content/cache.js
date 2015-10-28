@@ -3,8 +3,10 @@ var EXPORTED_SYMBOLS = ["cache"];
 var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
 
 Cu.import("resource://gre/modules/Services.jsm");
+Cu.import("chrome://sstart/content/dom.js");
 
 var cache = { 
+
 	fragment: false, maxBottom: 1, maxRight: 1, gridInterval: 32, 
 	newtabOnLockDrag: true, autoZoom: false, editOn: false, updateMenu: false,
 
@@ -22,10 +24,12 @@ var cache = {
 			}
 		}
 	},
+
 	updateNewtabOnLockDrag: function () {
 		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 		this.newtabOnLockDrag = prefService.getBoolPref("extensions.sstart.newtabOnLockDrag");
 	},
+
 	updateAutoZoom: function () {
 		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 		this.autoZoom = prefService.getBoolPref("extensions.sstart.autoZoom");
@@ -33,9 +37,7 @@ var cache = {
 			this.fragment = false;
 		}
 	},
-	hasClass: function (element, className) {
-		return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
-	},
+
 	updateGridOnUnlock: function () {
 		var gBrowser = Services.wm.getMostRecentWindow("navigator:browser").getBrowser();
 		if (gBrowser.contentDocument && gBrowser.contentDocument.location
@@ -43,7 +45,7 @@ var cache = {
 			var grid = gBrowser.contentDocument.getElementById("grid");
 			var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 			if (prefService.getBoolPref("extensions.sstart.showGridOnUnlock")) {
-				if (!grid && this.hasClass(gBrowser.contentDocument.body, "unlock-edits")) {
+				if (!grid && Dom.hasClass(gBrowser.contentDocument.body, "unlock-edits")) {
 					var doc = gBrowser.contentDocument;
 					grid = doc.createElement("div");
 					grid.id = "grid";
@@ -58,5 +60,30 @@ var cache = {
 				}
 			}
 		}
+	},
+
+	isUpdateMenu: function () {
+		return this.updateMenu;
+	},
+	
+	setUpdateMenu: function (s) {
+		this.updateMenu = s;
+	},
+	
+	clearCache: function () {
+		this.fragment = false;
+	},
+	
+	setEditOn: function () {
+		this.editOn = true;
+	},
+	
+	alignToGrid: function (pos) {
+		var min = Math.floor(pos / this.gridInterval) * this.gridInterval;
+		if (pos - min > this.gridInterval / 2)
+			return min + this.gridInterval;
+		else
+			return min;
 	}
+
 };

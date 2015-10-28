@@ -2,6 +2,7 @@ justoff.sstart.Widget = function () {
 
 	var SStart = justoff.sstart.SStart
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
 
@@ -136,17 +137,17 @@ justoff.sstart.Widget = function () {
 				}
 			}
 			if (self.properties.top != self.view.offsetTop)
-				self.view.style.top = SStart.alignToGrid(self.view.offsetTop);
+				self.view.style.top = cache.alignToGrid(self.view.offsetTop);
 			if (self.properties.left != self.view.offsetLeft)
-				self.view.style.left = SStart.alignToGrid(self.view.offsetLeft);
+				self.view.style.left = cache.alignToGrid(self.view.offsetLeft);
 			var moved = (self.properties.top != parseInt(self.view.style.top, 10) 
 				|| self.properties.left != parseInt(self.view.style.left, 10));
 			self.properties.top = parseInt(self.view.style.top, 10);
 			self.properties.left = parseInt(self.view.style.left, 10);
 			if (self.properties.width != self.view.clientWidth)
-				self.view.style.width = SStart.alignToGrid(self.view.clientWidth);
+				self.view.style.width = cache.alignToGrid(self.view.clientWidth);
 			if (self.properties.height != self.view.clientHeight)
-				self.view.style.height = SStart.alignToGrid(self.view.clientHeight);
+				self.view.style.height = cache.alignToGrid(self.view.clientHeight);
 			var resized = (self.properties.width != parseInt(self.view.style.width, 10) 
 				|| self.properties.height != parseInt(self.view.style.height, 10));
 			self.properties.width = parseInt(self.view.style.width, 10);
@@ -162,11 +163,11 @@ justoff.sstart.Widget = function () {
 		}, false);
 
 		this.view.addEventListener("align", function (e) {
-			self.view.style.top = self.properties.top = SStart.alignToGrid(self.properties.top);
-			self.view.style.left = self.properties.left = SStart.alignToGrid(self.properties.left);
-			self.view.style.width = self.properties.width = SStart.alignToGrid(self.properties.width);
+			self.view.style.top = self.properties.top = cache.alignToGrid(self.properties.top);
+			self.view.style.left = self.properties.left = cache.alignToGrid(self.properties.left);
+			self.view.style.width = self.properties.width = cache.alignToGrid(self.properties.width);
 			if (self.properties.url != SEARCH_URL)
-				self.view.style.height = self.properties.height = SStart.alignToGrid(self.properties.height);
+				self.view.style.height = self.properties.height = cache.alignToGrid(self.properties.height);
 			self.save.call(self);
 		}, false);
 

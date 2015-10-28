@@ -7,6 +7,7 @@ console.time("SStart");
 	var SStart = justoff.sstart.SStart
 	var Drag = justoff.sstart.Drag
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/file.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
@@ -97,7 +98,7 @@ console.time("SStart");
 			widgets.parentNode.removeChild(widgets);
 			factory.createWidgets(pageId);
 		}
-		if (factory.createWidget(e.target.type, SStart.alignToGrid(ContextMenu.click.x), SStart.alignToGrid(ContextMenu.click.y))) {
+		if (factory.createWidget(e.target.type, cache.alignToGrid(ContextMenu.click.x), cache.alignToGrid(ContextMenu.click.y))) {
 			quickstart.style.display = "none";
 		} else {
 			SStart.setLocked(lockStatus);

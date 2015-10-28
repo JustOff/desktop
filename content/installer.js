@@ -2,6 +2,7 @@ justoff.sstart.Installer = new function () {
 
 	var SStart = justoff.sstart.SStart
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
 	Components.utils.import("chrome://sstart/content/bookmark.js");
 	Components.utils.import("chrome://sstart/content/file.js");
@@ -115,7 +116,7 @@ justoff.sstart.Installer = new function () {
 		var bookmarks = Bookmark.getBookmarks(folderId);
 		for (var i in bookmarks) {
 			var bookmark = bookmarks[i];
-				if (!bookmark.isFolder) continue;
+			if (!bookmark.isFolder) continue;
 			var menuitem;
 			var submenu = document.createElement("menupopup");
 			submenu.addEventListener("popupshowing", function(e) { e.stopPropagation(); }, false);
@@ -138,10 +139,10 @@ justoff.sstart.Installer = new function () {
 		if (folderId > 0) {
 			var data = document.getElementById("sstart-add-page-menu");
 			var newId = Bookmark.createBookmark(data.getAttribute("data-url"), data.getAttribute("data-title"), folderId);
-			var width = SStart.alignToGrid(content.innerWidth / 4);
-			var height = SStart.alignToGrid(content.innerHeight / 4);
-			var left = SStart.alignToGrid((content.innerWidth - width) / 2);
-			var top = SStart.alignToGrid((content.innerHeight - height) / 2);
+			var width = cache.alignToGrid(content.innerWidth / 4);
+			var height = cache.alignToGrid(content.innerHeight / 4);
+			var left = cache.alignToGrid((content.innerWidth - width) / 2);
+			var top = cache.alignToGrid((content.innerHeight - height) / 2);
 			Bookmark.setAnnotation(newId, "bookmarkProperties/description", 
 				'{"left":' + left + ',"top":' + top + ',"width":' + width + ',"height":' + height +'}');
 			File.delDataFile(newId);
@@ -221,7 +222,7 @@ justoff.sstart.Installer = new function () {
 					SStart.updateGridInterval(true);
 					break;
 				case "showGridOnUnlock":
-					SStart.updateGridOnUnlock(Dom.hasClass);
+					cache.updateGridOnUnlock();
 					break;
 				case "newtabOnLockDrag":
 					SStart.updateNewtabOnLockDrag();

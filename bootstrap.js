@@ -12,7 +12,7 @@ var SSTART_MODULES = [
 
 Cu.import("resource://gre/modules/Services.jsm");
 
-var _gWindowListener = null;
+var _gWindowListener = null, linkToSStart, pageToSStart;
 var sstartTabURI = "chrome://sstart/content/sstart.html";
 var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 
@@ -49,6 +49,24 @@ function browserWindowStartup (aWindow) {
 	vbox.id = "sstart-hidden-box";
 	hbox.appendChild(vbox);
 	window.appendChild(hbox);
+	var cmenu = aWindow.document.getElementById("contentAreaContextMenu");
+	var smenu = aWindow.document.createElement("menu");
+	smenu.id = "sstart-add-page-menu";
+	smenu.className = "menu-iconic";
+	smenu.setAttribute("image", "chrome://sstart/skin/icon.png");
+	var smenupopup = aWindow.document.createElement("menupopup");
+	smenupopup.setAttribute("onclick", "this.hidePopup();");
+	smenu.appendChild(smenupopup);
+	smenu.addEventListener("click", addPage, false);
+	var csp = aWindow.document.getElementById("context-savepage");
+	cmenu.insertBefore(smenu, csp);
+	var smitem = aWindow.document.createElement("menuitem");
+	smitem.id = "sstart-add-page";
+	smitem.className = "menuitem-iconic";
+	smitem.setAttribute("image", "chrome://sstart/skin/icon.png");
+	smitem.addEventListener("click", addPage, false);
+	cmenu.insertBefore(smitem, csp);
+	cmenu.addEventListener("popupshowing", cPopupShowingListener, false);
 	if (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
 		// SeaMonkey
 		aWindow.gBrowser || aWindow.getBrowser();
@@ -82,10 +100,108 @@ function browserWindowShutdown (aWindow) {
 		aWindow.gBrowser.addTab = aWindow.gBrowserOrigAddTab;
 		aWindow.gBrowserOrigAddTab = null;
 	}
+	var cmenu = aWindow.document.getElementById("contentAreaContextMenu");
+	cmenu.removeEventListener("popupshowing", cPopupShowingListener);
+	var smenu = aWindow.document.getElementById("sstart-add-page-menu");
+	smenu.removeEventListener("click", addPage);
+	var smitem = aWindow.document.getElementById("sstart-add-page");
+	smitem.removeEventListener("click", addPage);
+	cmenu.removeChild(smenu);
+	cmenu.removeChild(smitem);
 	var window = aWindow.document.getElementById("main-window");
 	var hbox = aWindow.document.getElementById("sstart-container");
 	window.removeChild(hbox);
 }
+
+function cPopupShowingListener (e) {
+	var menu = Utils.getBrowserWindow().document.getElementById("sstart-add-page-menu");
+	var menuitem = Utils.getBrowserWindow().document.getElementById("sstart-add-page");
+	if (Utils.getBrowserWindow().gContextMenu.linkURL) {
+		menu.setAttribute("data-url", Utils.getBrowserWindow().gContextMenu.linkURL);
+		if (Utils.getBrowserWindow().gContextMenu.link) {
+			menu.setAttribute("data-title", Utils.getBrowserWindow().gContextMenu.link.textContent.trim());
+		} else {
+			menu.setAttribute("data-title", Utils.getBrowserWindow().gContextMenu.linkURL);
+		}
+		menu.setAttribute("label", linkToSStart);
+		menuitem.setAttribute("label", linkToSStart);
+	} else {
+		menu.setAttribute("data-url", Utils.getBrowserWindow().content.location.href);
+		menu.setAttribute("data-title", Utils.getBrowserWindow().content.document.title);
+		menu.setAttribute("label", pageToSStart);
+		menuitem.setAttribute("label", pageToSStart);
+	}
+	if (!cache.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
+		return;
+	}
+	menuitem.hidden = initFoldersMenu(menu.firstChild);
+	menu.hidden = !menuitem.hidden;
+	cache.setUpdateMenu(false);
+}
+	
+function initFoldersMenu (menupopup) {
+	Dom.clear(menupopup);
+	var rootId = 0;
+	var bookmarks = Bookmark.getBookmarks();
+	for (var i in bookmarks) {
+		if (bookmarks[i].isFolder && bookmarks[i].title == "SStart") {
+			rootId = bookmarks[i].id;
+			break;
+		}
+	}
+	if (rootId > 0) {
+		menupopup.parentNode.setAttribute("data-fid", rootId);
+		Utils.getBrowserWindow().document.getElementById("sstart-add-page").setAttribute("data-fid", rootId);
+		createFoldersMenu(rootId, menupopup);
+	}
+	return menupopup.childNodes.length > 0;
+};
+
+function createFoldersMenu (folderId, menupopup) {
+	var bookmarks = Bookmark.getBookmarks(folderId);
+	for (var i in bookmarks) {
+		var bookmark = bookmarks[i];
+		if (!bookmark.isFolder) continue;
+		var menuitem;
+		var submenu = Utils.getBrowserWindow().document.createElement("menupopup");
+		submenu.addEventListener("popupshowing", function(e) { e.stopPropagation(); }, false);
+		createFoldersMenu(bookmark.id, submenu);
+		if (submenu.childNodes.length > 0) {
+			menuitem = Utils.getBrowserWindow().document.createElement("menu");
+			menuitem.appendChild(submenu);
+		} else {
+			menuitem = Utils.getBrowserWindow().document.createElement("menuitem");
+		}
+		menuitem.setAttribute("label", bookmark.title);
+		menuitem.setAttribute("data-fid", bookmark.id);
+		menupopup.appendChild(menuitem);
+	}
+};
+
+function addPage (e) {
+	Utils.getBrowserWindow().document.getElementById("contentAreaContextMenu").hidePopup();
+	var folderId = e.target.getAttribute("data-fid") || 0;
+	if (folderId > 0) {
+		var data = Utils.getBrowserWindow().document.getElementById("sstart-add-page-menu");
+		var newId = Bookmark.createBookmark(data.getAttribute("data-url"), data.getAttribute("data-title"), folderId);
+		var cont = Utils.getBrowserWindow().content;
+		var width = cache.alignToGrid(cont.innerWidth / 4);
+		var height = cache.alignToGrid(cont.innerHeight / 4);
+		var left = cache.alignToGrid((cont.innerWidth - width) / 2);
+		var top = cache.alignToGrid((cont.innerHeight - height) / 2);
+		Bookmark.setAnnotation(newId, "bookmarkProperties/description", 
+			'{"left":' + left + ',"top":' + top + ',"width":' + width + ',"height":' + height +'}');
+		File.delDataFile(newId);
+		if (folderId == data.getAttribute("data-fid")) {
+			cache.clearCache();
+			var ssurl = sstartTabURI;
+		} else {
+			var ssurl = sstartTabURI + "?folder=" + folderId;
+		}
+		cache.setEditOn();
+		Utils.getBrowser().loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
+	}
+};
 
 function browserPref (pref, cmd) {
 	var bprefs = Cc["@mozilla.org/preferences-service;1"]
@@ -241,6 +357,12 @@ function uninstall (params, reason)
 function startup (params, reason)
 {
 	Cu.import("chrome://sstart/content/prefloader.js");
+	Cu.import("chrome://sstart/content/cache.js");
+    Cu.import("chrome://sstart/content/file.js");
+    Cu.import("chrome://sstart/content/dom.js");
+    Cu.import("chrome://sstart/content/utils.js");
+    Cu.import("chrome://sstart/content/bookmark.js");
+
 	PrefLoader.loadDefaultPrefs(params.installPath, "sstart.js");
 
 	if (appInfo.ID != "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
@@ -259,6 +381,9 @@ function startup (params, reason)
 		browserPref("startup.homepage", "set");
 	}
 
+	linkToSStart = Utils.translate("linkToSStart");
+	pageToSStart = Utils.translate("pageToSStart");
+
 	var ww = Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(Ci.nsIWindowWatcher);
 	_gWindowListener = new BrowserWindowObserver({
 		onStartup: browserWindowStartup,
@@ -271,8 +396,6 @@ function startup (params, reason)
 	while (winenu.hasMoreElements()) {
 		browserWindowStartup(winenu.getNext());
 	}
-
-	Cu.import("chrome://sstart/content/cache.js");
 	
 	myPrefsWatcher.register();
 	browserPrefsWatcher.register();
@@ -281,13 +404,6 @@ function startup (params, reason)
 	cache.updateGridInterval();
 	cache.updateNewtabOnLockDrag();
 	cache.updateAutoZoom();
-
-    Cu.import("chrome://sstart/content/file.js");
-    Cu.import("chrome://sstart/content/dom.js");
-    Cu.import("chrome://sstart/content/utils.js");
-    Cu.import("chrome://sstart/content/bookmark.js");
-
-//	attachContextMenu();
 }
 
 function shutdown (params, reason)
