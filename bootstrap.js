@@ -12,7 +12,7 @@ var SSTART_MODULES = [
 
 Cu.import("resource://gre/modules/Services.jsm");
 
-var _gWindowListener = null, linkToSStart, pageToSStart;
+var gWindowListener = null, linkToSStart, pageToSStart;
 var sstartTabURI = "chrome://sstart/content/sstart.html";
 var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 
@@ -373,11 +373,11 @@ function startup (params, reason)
 	pageToSStart = Utils.translate("pageToSStart");
 
 	var ww = Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(Ci.nsIWindowWatcher);
-	_gWindowListener = new BrowserWindowObserver({
+	gWindowListener = new BrowserWindowObserver({
 		onStartup: browserWindowStartup,
 		onShutdown: browserWindowShutdown
 	});
-	ww.registerNotification(_gWindowListener);
+	ww.registerNotification(gWindowListener);
 	
 	var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
 	var winenu = wm.getEnumerator("navigator:browser");
@@ -407,8 +407,8 @@ function shutdown (params, reason)
 	myPrefsWatcher.unregister();
 
 	var ww = Cc["@mozilla.org/embedcomp/window-watcher;1"].getService(Ci.nsIWindowWatcher);
-	ww.unregisterNotification(_gWindowListener);
-	_gWindowListener = null;
+	ww.unregisterNotification(gWindowListener);
+	gWindowListener = null;
 
 	var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
 	var winenu = wm.getEnumerator("navigator:browser");
