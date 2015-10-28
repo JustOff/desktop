@@ -1,10 +1,12 @@
 justoff.sstart.Installer = new function () {
 
-	Components.utils.import("chrome://sstart/content/cache.js");
-	Components.utils.import("chrome://sstart/content/dom.js");
-	Components.utils.import("chrome://sstart/content/bookmark.js");
-	Components.utils.import("chrome://sstart/content/file.js");
-	Components.utils.import("chrome://sstart/content/utils.js");
+	var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
+
+	Cu.import("chrome://sstart/content/cache.js");
+	Cu.import("chrome://sstart/content/dom.js");
+	Cu.import("chrome://sstart/content/bookmark.js");
+	Cu.import("chrome://sstart/content/file.js");
+	Cu.import("chrome://sstart/content/utils.js");
 
 	this.addonId = "SStart@Off.JustOff"
 	this.newTabURI = "chrome://sstart/content/sstart.html"
@@ -22,8 +24,7 @@ justoff.sstart.Installer = new function () {
 		cache.updateAutoZoom();
 		attachContextMenu();
 
-		var appInfo = Components.classes["@mozilla.org/xre/app-info;1"]
-			.getService(Components.interfaces.nsIXULAppInfo);
+		var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 		if (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
 			// SeaMonkey
 			gBrowser.addTab = (function () {
@@ -39,7 +40,7 @@ justoff.sstart.Installer = new function () {
 		} else {
 			if (typeof NewTabURL !== "object") {
 				try {
-					Components.utils.import("resource:///modules/NewTabURL.jsm");
+					Cu.import("resource:///modules/NewTabURL.jsm");
 				} catch (e) {}
 			}
 			if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
@@ -156,8 +157,8 @@ justoff.sstart.Installer = new function () {
 	};
 
 	this.browserPref = function (pref, cmd) {
-		var bprefs = Components.classes["@mozilla.org/preferences-service;1"]
-			.getService(Components.interfaces.nsIPrefService).getBranch("browser."), newTabURI;
+		var bprefs = Cc["@mozilla.org/preferences-service;1"]
+			.getService(Ci.nsIPrefService).getBranch("browser."), newTabURI;
 		switch (cmd) {
 			case "get":
 				try {
@@ -296,22 +297,22 @@ justoff.sstart.Installer = new function () {
 
 	function init() {
 		setTimeout(function () { install() }, 0);
-		this.prefsService = Components.classes["@mozilla.org/preferences-service;1"]
-			.getService(Components.interfaces.nsIPrefService)
+		this.prefsService = Cc["@mozilla.org/preferences-service;1"]
+			.getService(Ci.nsIPrefService)
 		this.prefs = this.prefsService.getBranch("extensions.sstart.");
-		this.prefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+		this.prefs.QueryInterface(Ci.nsIPrefBranch2);
 		this.prefs.addObserver("", Watcher, false);
 
 		this.newTabPrefs = this.prefsService.getBranch("browser.");
-		this.newTabPrefs.QueryInterface(Components.interfaces.nsIPrefBranch2);
+		this.newTabPrefs.QueryInterface(Ci.nsIPrefBranch2);
 		this.newTabPrefs.addObserver("", BrowserWatcher, false);
 
-		this.observerService = Components.classes["@mozilla.org/observer-service;1"]
-			.getService(Components.interfaces.nsIObserverService);
+		this.observerService = Cc["@mozilla.org/observer-service;1"]
+			.getService(Ci.nsIObserverService);
 		this.observerService.addObserver(LifecycleWatcher, "profile-before-change", false)
 		this.observerService.addObserver(NewTabURLWatcher, "newtab-url-changed", false)
 
-		Components.utils.import("resource://gre/modules/AddonManager.jsm");
+		Cu.import("resource://gre/modules/AddonManager.jsm");
 		AddonManager.addAddonListener(AddonListener);
 	}
 

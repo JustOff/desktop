@@ -15,7 +15,6 @@
                   image="chrome://sstart/skin/icon.png" onclick="justoff.sstart.Installer.addPage(event);"/>
     </popup>
 	<script src="namespace.js"/>
-	<script src="prefs.js"/>
 	<script src="installer.js"/>
 	<script>
 	<![CDATA[
