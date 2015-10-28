@@ -392,6 +392,10 @@ function startup (params, reason)
 	Cache.updateGridInterval();
 	Cache.updateNewtabOnLockDrag();
 	Cache.updateAutoZoom();
+	
+	if (reason != APP_STARTUP) {
+		Utils.reloadEachSStartBrowser();
+	}
 }
 
 function shutdown (params, reason)
