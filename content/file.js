@@ -1,5 +1,7 @@
 var EXPORTED_SYMBOLS = ["File"];
 
+Components.utils.import("chrome://sstart/content/utils.js");
+
 Components.utils.import("resource://gre/modules/NetUtil.jsm");
 Components.utils.import("resource://gre/modules/FileUtils.jsm");
 
@@ -60,7 +62,7 @@ var File = {
 	chooseFile: function (mode, filters, name) {
 		var fp = Components.classes["@mozilla.org/filepicker;1"]
 			.createInstance(Components.interfaces.nsIFilePicker);
-		fp.init(window, null, mode == "save" ? fp.modeSave :
+		fp.init(Utils.getBrowserWindow(), null, mode == "save" ? fp.modeSave :
 			mode == "folder" ? fp.modeGetFolder : fp.modeOpen);
 		for (var i in filters) {
 			switch (filters[i]) {
