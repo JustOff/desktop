@@ -1,4 +1,4 @@
-var EXPORTED_SYMBOLS = ["cache"];
+var EXPORTED_SYMBOLS = ["Cache"];
 
 var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
 
