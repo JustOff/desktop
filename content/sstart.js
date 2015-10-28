@@ -1,10 +1,11 @@
 justoff.sstart.SStart = new function () {
 
 	var SStart = this;
-	var Utils = justoff.sstart.Utils;
-	var File = justoff.sstart.File;
 	var Prefs = justoff.sstart.Prefs;
-	var Dom = justoff.sstart.Dom;
+
+	Components.utils.import("chrome://sstart/content/utils.js");
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/dom.js");
 
 	Components.utils.import("chrome://sstart/content/cache.js", justoff.sstart);
 	
@@ -39,15 +40,6 @@ justoff.sstart.SStart = new function () {
 		return bg.exists();
 	};
 
-	this.translate = function (key) {
-		if (!SStart.bundle) {
-			SStart.bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
-				.getService(Components.interfaces.nsIStringBundleService)
-				.createBundle("chrome://sstart/locale/sstart.strings" + "?" + Math.random());
-		}
-		return SStart.bundle.GetStringFromName(key);
-	};
-
 	this.saveCache = function (e, fragment) {
 		var doc = Utils.getBrowserWindow().document;
 		if (typeof fragment != "undefined") {
@@ -59,7 +51,7 @@ justoff.sstart.SStart = new function () {
 		justoff.sstart.cache.fragment = widgets;
 		Dom.remove(widgets);
 		SStart.setCacheDOM(false);
-		var factory = Dom.get("factory");
+		var factory = document.getElementById("factory");
 		factory.removeEventListener("savecache", SStart.saveCache);
 	};
 

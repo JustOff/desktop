@@ -1,8 +1,10 @@
 justoff.sstart.Widget = function () {
 
-	var Utils = justoff.sstart.Utils
-	var Dom = justoff.sstart.Dom
 	var SStart = justoff.sstart.SStart
+
+	Components.utils.import("chrome://sstart/content/utils.js");
+	Components.utils.import("chrome://sstart/content/dom.js");
+
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 	
@@ -41,7 +43,7 @@ justoff.sstart.Widget = function () {
 						icon.style.backgroundImage = "url(moz-anno:favicon:" + furi.spec + ")";
 					}
 					if (SStart.decFVC() == 0) {
-						var factory = Dom.get("factory");
+						var factory = document.getElementById("factory");
 						var event = new Event("savecache");
 						factory.dispatchEvent(event);
 					}
@@ -56,7 +58,7 @@ justoff.sstart.Widget = function () {
 	}
 
 	this.renderView = function () {
-		this.view = Dom.get("widget").cloneNode(true);
+		this.view = document.getElementById("widget").cloneNode(true);
 		Dom.child(this.view, "body").appendChild(this.createView());
 		this.view.id = this.properties.id;
 		if (this.properties.url == SEARCH_URL) {
@@ -107,7 +109,7 @@ justoff.sstart.Widget = function () {
 				var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
 					.getService(Components.interfaces.nsINavBookmarksService);
 				if (bookmarksService.getItemType(hoverEl.id) == bookmarksService.TYPE_FOLDER) {
-					if (Utils.confirm(SStart.translate("dialogMoveWidget"))) {
+					if (Utils.confirm(Utils.translate("dialogMoveWidget"))) {
 						bookmarksService.moveItem(self.view.id, hoverEl.id, bookmarksService.DEFAULT_INDEX);
 						Dom.remove(self.view);
 						var c = document.getElementById(hoverEl.id);
@@ -121,7 +123,7 @@ justoff.sstart.Widget = function () {
 				}
 			} else if (self.view.offsetTop < 0 || self.view.offsetLeft < 0) {
 				if (!(document.location.href.lastIndexOf("?") == -1)) {
-					if (Utils.confirm(SStart.translate("dialogMoveUpWidget"))) {
+					if (Utils.confirm(Utils.translate("dialogMoveUpWidget"))) {
 						var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
 							.getService(Components.interfaces.nsINavBookmarksService);
 						var params = Utils.getQueryParams(document.location);
@@ -172,7 +174,7 @@ justoff.sstart.Widget = function () {
 	}
 
 	this.remove = function () {
-		if (Utils.confirm("\n\"" + this.properties.title + "\"\n\n" + SStart.translate("dialogRemoveWidget") + "\n\n")) {
+		if (Utils.confirm("\n\"" + this.properties.title + "\"\n\n" + Utils.translate("dialogRemoveWidget") + "\n\n")) {
 			if (this.view) Dom.remove(this.view);
 			this.storage.removeObject(this.properties.id);
 			if (SStart.getZoom() && SStart.getPageId() == 0) {

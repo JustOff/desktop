@@ -1,7 +1,8 @@
 justoff.sstart.Prefs = new function () {
 
 	var Prefs = this;
-	var Utils = justoff.sstart.Utils
+
+	Components.utils.import("chrome://sstart/content/utils.js");
 
 	this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
 		.getService(Components.interfaces.nsIPrefService)

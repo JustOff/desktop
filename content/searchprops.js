@@ -1,6 +1,5 @@
 justoff.sstart.SearchPropertiesXul = new function () {
 
-	var Dom = justoff.sstart.Dom
 	var Prefs = justoff.sstart.Prefs
 
 	var getEngines = function () {
@@ -11,7 +10,7 @@ justoff.sstart.SearchPropertiesXul = new function () {
 
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
-		var listbox = Dom.get("engines");
+		var listbox = document.getElementById("engines");
 		var engines = getEngines();
 		for (var i in engines) {
 			var listitem = document.createElement("listitem");
@@ -22,7 +21,7 @@ justoff.sstart.SearchPropertiesXul = new function () {
 			if (engines[i].name == properties.title) {
 				listbox.selectedItem = listitem;
 				if (properties.id == Prefs.getString("focus")) {
-					Dom.get("focus").checked = true;
+					document.getElementById("focus").checked = true;
 				}
 			}
 		}
@@ -33,8 +32,8 @@ justoff.sstart.SearchPropertiesXul = new function () {
 
 	this.onAccept = function () {
 		var properties = window.arguments[0].properties;
-		properties.title = Dom.get("engines").selectedItem.label;
-		if (Dom.get("focus").checked == true) {
+		properties.title = document.getElementById("engines").selectedItem.label;
+		if (document.getElementById("focus").checked == true) {
 			Prefs.setString("focus", properties.id);
 		}
 		else if (properties.id == Prefs.getString("focus")) {

@@ -1,10 +1,11 @@
 justoff.sstart.SStartOptionsXul = new function () {
 
-	var File = justoff.sstart.File
 	var SStart = justoff.sstart.SStart
-	var Utils = justoff.sstart.Utils
 	var Prefs = justoff.sstart.Prefs
-	var Bookmark = justoff.sstart.Bookmark
+
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/utils.js");
+	Components.utils.import("chrome://sstart/content/bookmark.js");
 			
 	const BACKUP_VERSION = "1.0";
 	const ROOT_TITLE = "SStart";
@@ -53,7 +54,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 					NetUtil.asyncCopy(istream, ostream, function(status) {
 					  try {
 						if (!Components.isSuccessCode(status)) {
-							throw SStart.translate("bfileWError");
+							throw Utils.translate("bfileWError");
 						}
 						var zw = Cc['@mozilla.org/zipwriter;1'].createInstance(Ci.nsIZipWriter);
 						zw.open(zfile, pr.PR_RDWR | pr.PR_CREATE_FILE | pr.PR_TRUNCATE);
@@ -69,7 +70,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 							}
 						}
 						zw.close();
-						Utils.alert(SStart.translate("exportOk"));
+						Utils.alert(Utils.translate("exportOk"));
 					  } catch(e) {
 						Utils.alert(e);
 					  }
@@ -105,7 +106,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 	}
 
 	this.importData = function () {
-		if (!Utils.confirm(SStart.translate("importWarn"))) {
+		if (!Utils.confirm(Utils.translate("importWarn"))) {
 			return;
 		}
 		var zfile = File.chooseFile("open", ["zip"], "sstart-backup.zip");
@@ -129,17 +130,17 @@ justoff.sstart.SStartOptionsXul = new function () {
 			NetUtil.asyncFetch(cfile, function(istream, status) {
 			  try {
 				if (!Components.isSuccessCode(status)) {
-					throw SStart.translate("bfileRError");
+					throw Utils.translate("bfileRError");
 				}
 				var data = NetUtil.readInputStreamToString(istream, istream.available(), {charset:"UTF-8"});
 				var datahash = data.slice(0,32);
 				data = data.slice(32);
 				if (datahash != md5hash(data)) {
-					throw SStart.translate("bfileCorrupt");
+					throw Utils.translate("bfileCorrupt");
 				}
 				data = Utils.fromJSON(data);
 				if (data["version"] != BACKUP_VERSION) {
-					throw SStart.translate("bfileWrongVer");
+					throw Utils.translate("bfileWrongVer");
 				}
 				Prefs.setInt("thumbnail.width", data["prefs"]["thw"]);
 				Prefs.setInt("thumbnail.height", data["prefs"]["thh"]);
@@ -195,7 +196,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				SStart.clearCache();
 				SStart.setUpdateMenu(true);
 				SStart.forEachSStartBrowser(SStart.reloadPage);
-				Utils.alert(SStart.translate("importOk"));
+				Utils.alert(Utils.translate("importOk"));
 			  } catch(e) {
 				Utils.alert(e);
 			  }

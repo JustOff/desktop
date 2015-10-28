@@ -1,9 +1,10 @@
 justoff.sstart.Storage = function (folderId) {
 
-	var File = justoff.sstart.File
-	var Utils = justoff.sstart.Utils
-	var Bookmark = justoff.sstart.Bookmark
 	var Prefs = justoff.sstart.Prefs
+
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/utils.js");
+	Components.utils.import("chrome://sstart/content/bookmark.js");
 
 	const ROOT_TITLE = "SStart";
 	const DESKTOP_ROOT = "Desktop";

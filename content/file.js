@@ -1,11 +1,11 @@
-justoff.sstart.File = new function () {
+var EXPORTED_SYMBOLS = ["File"];
 
-	var File = this
+Components.utils.import("resource://gre/modules/NetUtil.jsm");
+Components.utils.import("resource://gre/modules/FileUtils.jsm");
 
-	Components.utils.import("resource://gre/modules/NetUtil.jsm");
-	Components.utils.import("resource://gre/modules/FileUtils.jsm");
+var File = {
 	
-	this.getDataDirectory = function () {
+	getDataDirectory: function () {
 		var dir = Components.classes["@mozilla.org/file/directory_service;1"]
 			.getService(Components.interfaces.nsIProperties)
 			.get("ProfD", Components.interfaces.nsIFile);
@@ -14,29 +14,29 @@ justoff.sstart.File = new function () {
 			dir.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, parseInt("0777", 8));
 		}
 		return dir;
-	};
+	},
 
-	this.getDataFile = function (id) {
-		var f = File.getDataDirectory();
+	getDataFile: function (id) {
+		var f = this.getDataDirectory();
 		f.append(id + ".png");
 		return f;
-	}
+	},
 
-	this.delDataFile = function (id) {
-		var f = File.getDataDirectory();
+	delDataFile: function (id) {
+		var f = this.getDataDirectory();
 		f.append(id + ".png");
 		try {
 			f.remove(false);
 		} catch(e) {};
-	}
+	},
 
-	this.getDataFileURL = function (file) {
-		var f = File.getDataDirectory();
+	getDataFileURL: function (file) {
+		var f = this.getDataDirectory();
 		f.append(file);
-		return File.getFileURL(f);
-	};
+		return this.getFileURL(f);
+	},
 
-	this.writeFileAsync = function (file, dataUri, callback) {
+	writeFileAsync: function (file, dataUri, callback) {
 		NetUtil.asyncFetch(dataUri, function(istream, status) {
 			if (!istream || !Components.isSuccessCode(status)) {
 				console.log("Input stream error!")
@@ -55,9 +55,9 @@ justoff.sstart.File = new function () {
 				callback();
 			});
 		});
-	};
+	},
 
-	this.chooseFile = function (mode, filters, name) {
+	chooseFile: function (mode, filters, name) {
 		var fp = Components.classes["@mozilla.org/filepicker;1"]
 			.createInstance(Components.interfaces.nsIFilePicker);
 		fp.init(window, null, mode == "save" ? fp.modeSave :
@@ -81,9 +81,9 @@ justoff.sstart.File = new function () {
 		var result = fp.show();
 		if (result == fp.returnOK ||
 			result == fp.returnReplace) return fp.file;
-	};
+	},
 
-	this.getNsiFile = function (file) {
+	getNsiFile: function (file) {
 		if (file instanceof Components.interfaces.nsIFile) return file;
 		else {
 			var nsiFile = Components.classes["@mozilla.org/file/local;1"]
@@ -91,57 +91,13 @@ justoff.sstart.File = new function () {
 			nsiFile.initWithPath(file);
 			return nsiFile;
 		}
-	};
+	},
 
-	this.getFileURL = function (file) {
-		var nsiFile = File.getNsiFile(file);
+	getFileURL: function (file) {
+		var nsiFile = this.getNsiFile(file);
 		var ios = Components.classes["@mozilla.org/network/io-service;1"]
 			.getService(Components.interfaces.nsIIOService);
 		return ios.newFileURI(nsiFile).spec;
-	};
-
-};
-
-justoff.sstart.URL = new function () {
-
-	var URL = this;
-
-	this.getNsiURL = function (url) {
-		var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-			.getService(Components.interfaces.nsIIOService);
-		return ioService.newURI(url ? url : "about:blank", null, null);
-	};
-
-	this.getScheme = function (url) {
-		if (url) {
-			return URL.getNsiURL(url).scheme;
-		}
-	};
-
-	this.readURL = function (url) {
-		var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-			.getService(Components.interfaces.nsIIOService);
-		var channel = ioService.newChannel(url, null, null);
-		var stream = channel.open();
-
-		var binary = Components.classes["@mozilla.org/binaryinputstream;1"]
-			.createInstance(Components.interfaces.nsIBinaryInputStream);
-		binary.setInputStream(stream);
-		var data = binary.readBytes(binary.available());
-		binary.close();
-		stream.close();
-
-		return data;
-	};
-
-	this.removeFromCache = function (url) {
-		if (!url) return;
-		try {
-			var cacheService = Components.classes["@mozilla.org/image/tools;1"]
-				.getService(Components.interfaces.imgITools).getImgCacheForDocument(null);
-			cacheService.removeEntry(URL.getNsiURL(url));
-		} catch (e) {
-		}
-	};
+	}
 
 };

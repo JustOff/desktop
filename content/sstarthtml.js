@@ -1,14 +1,15 @@
 (function () {
 console.time("SStart");
-	var Utils = justoff.sstart.Utils
-	var File = justoff.sstart.File
 	var Prefs = justoff.sstart.Prefs
 	var Storage = justoff.sstart.Storage
 	var Factory = justoff.sstart.Factory
-	var Dom = justoff.sstart.Dom
 	var ContextMenu = justoff.sstart.ContextMenu
 	var SStart = justoff.sstart.SStart
 	var Drag = justoff.sstart.Drag
+
+	Components.utils.import("chrome://sstart/content/utils.js");
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/dom.js");
 
 	var params = Utils.getQueryParams(document.location);
 
@@ -24,7 +25,7 @@ console.time("SStart");
 
 	document.title = storage.getTitle();
 	if (document.title == "" || document.title == "SStart") {
-		document.title = SStart.translate("SStart");
+		document.title = Utils.translate("SStart");
 	}
 	
 	if (pageId == 0 && window.history.length == 1) {
@@ -34,9 +35,9 @@ console.time("SStart");
 	var factory = new Factory(storage);
 	var hasWidgets = factory.createWidgets(pageId, true);
 
-	var quickstart = Dom.get("quickstart");
+	var quickstart = document.getElementById("quickstart");
 	if (!hasWidgets) {
-		var qscontent = document.createTextNode(SStart.translate("quickstart"));
+		var qscontent = document.createTextNode(Utils.translate("quickstart"));
 		quickstart.appendChild(qscontent);
 		quickstart.style.display = "block";
 	}
@@ -84,9 +85,9 @@ console.time("SStart");
 		}
 	}
 		
-	ContextMenu.enable(document, Dom.get("menu"));
+	ContextMenu.enable(document, document.getElementById("menu"));
 
-	Dom.get("menu-add").addEventListener("click", function (e) {
+	document.getElementById("menu-add").addEventListener("click", function (e) {
 		var lockStatus = SStart.isLocked();
 		if (lockStatus) {
 			SStart.setLocked(false);
@@ -103,14 +104,14 @@ console.time("SStart");
 		}
 		updateLockStatus();
 	}, false);
-	Dom.get("menu-prefs").addEventListener("click", function (e) {
+	document.getElementById("menu-prefs").addEventListener("click", function (e) {
 		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", SStart.getDialogFeatures());
 	}, false);
-	Dom.get("menu-lock").addEventListener("click", function (e) {
+	document.getElementById("menu-lock").addEventListener("click", function (e) {
 		SStart.setLocked(true);
 		updateLockStatus();
 	}, false);
-	Dom.get("menu-unlock").addEventListener("click", function (e) {
+	document.getElementById("menu-unlock").addEventListener("click", function (e) {
 		SStart.setLocked(false);
 		if (SStart.isCacheDOM() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
@@ -119,7 +120,7 @@ console.time("SStart");
 		}
 		updateLockStatus();
 	}, false);
-	Dom.get("menu-alignall").addEventListener("click", function (e) {
+	document.getElementById("menu-alignall").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
@@ -130,11 +131,11 @@ console.time("SStart");
 		SStart.alignAll();
 		updateLockStatus();
 	}, false);
-	Dom.get("menu-refresh").addEventListener("click", function (e) {
+	document.getElementById("menu-refresh").addEventListener("click", function (e) {
 		if (e.target.type == "thumbnails") {
-			var confirm = SStart.translate("contextRefreshAll") + " " + SStart.translate("contextThumbnails").toLowerCase();
+			var confirm = Utils.translate("contextRefreshAll") + " " + Utils.translate("contextThumbnails").toLowerCase();
 		} else {
-			var confirm = SStart.translate("contextRefreshAll") + " " + SStart.translate("contextIcons").toLowerCase();
+			var confirm = Utils.translate("contextRefreshAll") + " " + Utils.translate("contextIcons").toLowerCase();
 		}
 		if (Utils.confirm("\n" + confirm + "?\n\n")) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
@@ -151,7 +152,7 @@ console.time("SStart");
 			}
 		}
 	}, false);
-	Dom.get("menu-refreshone").addEventListener("click", function (e) {
+	document.getElementById("menu-refreshone").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
@@ -175,7 +176,7 @@ console.time("SStart");
 			}
 		}
 	}, false);
-	Dom.get("menu-properties").addEventListener("click", function (e) {
+	document.getElementById("menu-properties").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
@@ -191,7 +192,7 @@ console.time("SStart");
 			r.dispatchEvent(event);
 		}
 	}, false);
-	Dom.get("menu-remove").addEventListener("click", function (e) {
+	document.getElementById("menu-remove").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
@@ -207,7 +208,7 @@ console.time("SStart");
 			r.dispatchEvent(event);
 		}
 	}, false);
-	Dom.get("menu-rename").addEventListener("click", function (e) {
+	document.getElementById("menu-rename").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
 			widgets.parentNode.removeChild(widgets);
@@ -227,7 +228,7 @@ console.time("SStart");
 			r.dispatchEvent(event);
 		}
 	}, false);
-	Dom.get("menu-props").addEventListener("click", function (e) {
+	document.getElementById("menu-props").addEventListener("click", function (e) {
 		var param = { properties: properties, pageId: pageId, body: document.body, sSheet: document.styleSheets[1], doc: document };
 		var xul = 'properties.xul';
 		openDialog(xul, "properties", SStart.getDialogFeatures(250, 290), param);

@@ -1,5 +1,15 @@
 var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
 
+var SSTART_MODULES = [
+    "chrome://sstart/content/prefloader.js",
+    "chrome://sstart/content/cache.js",
+    "chrome://sstart/content/file.js",
+    "chrome://sstart/content/url.js",
+    "chrome://sstart/content/dom.js",
+    "chrome://sstart/content/utils.js",
+    "chrome://sstart/content/bookmark.js"
+];
+
 Cu.import("resource://gre/modules/Services.jsm");
 
 var _gWindowListener = null;
@@ -271,9 +281,13 @@ function startup (params, reason)
 	cache.updateGridInterval();
 	cache.updateNewtabOnLockDrag();
 	cache.updateAutoZoom();
-/*
-	attachContextMenu();
-*/
+
+    Cu.import("chrome://sstart/content/file.js");
+    Cu.import("chrome://sstart/content/dom.js");
+    Cu.import("chrome://sstart/content/utils.js");
+    Cu.import("chrome://sstart/content/bookmark.js");
+
+//	attachContextMenu();
 }
 
 function shutdown (params, reason)
@@ -297,10 +311,9 @@ function shutdown (params, reason)
 	browserPref("newtab.url", "clear");
 	browserPref("startup.homepage", "clear");
 	
-	Cu.unload("chrome://sstart/content/cache.js");
-	
 	PrefLoader.clearDefaultPrefs();
-	Cu.unload("chrome://sstart/content/prefloader.js");
+
+	SSTART_MODULES.forEach(Cu.unload, Cu);
 	
 	Services.obs.notifyObservers(null, "chrome-flush-caches", null);
 }

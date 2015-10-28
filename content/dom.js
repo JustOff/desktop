@@ -1,12 +1,8 @@
-justoff.sstart.Dom = new function () {
+var EXPORTED_SYMBOLS = ["Dom"];
 
-	var Dom = this
+var Dom = {
 
-	this.get = function (id) {
-		return document.getElementById(id);
-	};
-
-	this.child = function (element, classOrType) {
+	child: function (element, classOrType) {
 		var elements = [ element ];
 		var regexp = new RegExp("\\b" + classOrType + "\\b");
 
@@ -18,43 +14,43 @@ justoff.sstart.Dom = new function () {
 				elements.push(child);
 			}
 		}
-	};
+	},
 
-	this.parent = function (element, classOrType) {
+	parent: function (element, classOrType) {
 		var regexp = new RegExp("\\b" + classOrType + "\\b");
 
 		while ((element = element.parentNode)) {
 			if (element.nodeName.toLowerCase() == classOrType ||
 				element.className && element.className.match(regexp)) return element;
 		}
-	};
+	},
 
-	this.prepend = function (parentNode, child) {
+	prepend: function (parentNode, child) {
 		parent.insertBefore(child, parentNode.firstChild);
-	};
+	},
 
-	this.addClass = function (element, className) {
+	addClass: function (element, className) {
 		if (element.className.indexOf(className) == -1) {
 			element.className += " " + className;
 		}
-	};
+	},
 
-	this.removeClass = function (element, className) {
+	removeClass: function (element, className) {
 		element.className = element.className.replace(new RegExp("((^)|( +))" + className + "(( +)|($))"), " ")
-	};
+	},
 	
-	this.hasClass = function (element, className) {
+	hasClass: function (element, className) {
 		return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
-	};
+	},
 
-	this.remove = function (element) {
+	remove: function (element) {
 		element.parentNode.removeChild(element);
-	};
+	},
 
-	this.clear = function(element) {
+	clear: function(element) {
 		for (var i = element.childNodes.length - 1; i >= 0; i--) {
 			element.removeChild(element.childNodes[i]);
 		}
-	};
+	}
+	
 };
-

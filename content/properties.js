@@ -1,12 +1,13 @@
 justoff.sstart.SStartPropertiesXul = new function () {
 
 	var self = this
-	var File = justoff.sstart.File
-	var Dom = justoff.sstart.Dom
 	var SStart = justoff.sstart.SStart
-	var Utils = justoff.sstart.Utils
 	var Prefs = justoff.sstart.Prefs
-	var URL = justoff.sstart.URL
+
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/dom.js");
+	Components.utils.import("chrome://sstart/content/utils.js");
+	Components.utils.import("chrome://sstart/content/url.js");
 			
 	this.toggleSelectBgImage = function (repaint) {
 		if (repaint && this.backgroundImage == "1") {
@@ -19,9 +20,9 @@ justoff.sstart.SStartPropertiesXul = new function () {
 			}
 			URL.removeFromCache(File.getDataFileURL("bg_" + this.pageId + "t"));
 		}
-		if (Dom.get("useMainBgImage").checked) {
-			Dom.get("BackgroundImage").hidden = true;
-			Dom.get("backgroundStyle").hidden = true;
+		if (document.getElementById("useMainBgImage").checked) {
+			document.getElementById("BackgroundImage").hidden = true;
+			document.getElementById("backgroundStyle").hidden = true;
 			if (repaint) {
 				Dom.removeClass(this.body, 'background-style-1');
 				Dom.removeClass(this.body, 'background-style-2');
@@ -31,21 +32,21 @@ justoff.sstart.SStartPropertiesXul = new function () {
 				} else {
 					if (this.backgroundImage == "1") {
 						this.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + this.pageId + "t") + ")";
-						Dom.addClass(this.body, 'background-style-' + Dom.get("bgStyle").value);
+						Dom.addClass(this.body, 'background-style-' + document.getElementById("bgStyle").value);
 					} else {
 						this.body.style.backgroundImage = "";
 					}
 				}
 			}
 		} else {
-			Dom.get("BackgroundImage").hidden = false;
-			Dom.get("backgroundStyle").hidden = false;
+			document.getElementById("BackgroundImage").hidden = false;
+			document.getElementById("backgroundStyle").hidden = false;
 			if (repaint) {
 				Dom.removeClass(this.body, 'background-style-1');
 				Dom.removeClass(this.body, 'background-style-2');
 				if (this.backgroundImage == "1") {
 					this.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + this.pageId + "t") + ")";
-					Dom.addClass(this.body, 'background-style-' + Dom.get("bgStyle").value);
+					Dom.addClass(this.body, 'background-style-' + document.getElementById("bgStyle").value);
 				} else {
 					this.body.style.backgroundImage = "";
 				}
@@ -54,7 +55,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	}
 
 	this.setremoveBackgroundImage = function () {
-		if (Dom.get("SetRemove").label == this.SetStr) {
+		if (document.getElementById("SetRemove").label == this.SetStr) {
 			this.setBackgroundImage();
 		} else {
 			this.clearBackgroundImage();
@@ -75,8 +76,8 @@ justoff.sstart.SStartPropertiesXul = new function () {
 			this.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + this.pageId + "t") + ")";
 			Dom.removeClass(this.body, 'background-style-1');
 			Dom.removeClass(this.body, 'background-style-2');
-			Dom.addClass(this.body, 'background-style-' + Dom.get("bgStyle").value);
-			Dom.get("SetRemove").label = this.RemoveStr;
+			Dom.addClass(this.body, 'background-style-' + document.getElementById("bgStyle").value);
+			document.getElementById("SetRemove").label = this.RemoveStr;
 		}
 	}
 
@@ -89,53 +90,53 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		this.backgroundImage = "0";
 		Dom.removeClass(this.body, 'background-style-1');
 		Dom.removeClass(this.body, 'background-style-2');
-		if (this.pageId > 0 && Dom.get("useMainBgImage").checked && SStart.isMainBgImage()) {
+		if (this.pageId > 0 && document.getElementById("useMainBgImage").checked && SStart.isMainBgImage()) {
 			this.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
 			Dom.addClass(document.body, 'background-style-' + Prefs.getInt('backgroundStyle'));
 		} else {
 			this.body.style.backgroundImage = "";
 		}
-		Dom.get("SetRemove").label = this.SetStr;
+		document.getElementById("SetRemove").label = this.SetStr;
 	}
 			
 	this.toggleBackgroundStyle = function () {
 		Dom.removeClass(this.body, 'background-style-1');
 		Dom.removeClass(this.body, 'background-style-2');
-		Dom.addClass(this.body, 'background-style-' + Dom.get("bgStyle").value);
+		Dom.addClass(this.body, 'background-style-' + document.getElementById("bgStyle").value);
 	}
 
 	this.updatePageBgColor = function () {
-		this.body.style.backgroundColor = Dom.get("bgColor").value;
-		Dom.get("bgColorBtn").style.backgroundColor = Dom.get("bgColor").value;
+		this.body.style.backgroundColor = document.getElementById("bgColor").value;
+		document.getElementById("bgColorBtn").style.backgroundColor = document.getElementById("bgColor").value;
 	}
 
 	this.cpickPageBg = function () {
-		var title = Dom.get("labelPage").label + ", " + Dom.get("labelBgColor").value;
+		var title = document.getElementById("labelPage").label + ", " + document.getElementById("labelBgColor").value;
 		var param = { doc: document, tbox: "bgColor", element: self.body, attr: "backgroundColor", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
 	this.updateHeaderTColor = function () {
-		this.sSheet.cssRules[11].style.color = Dom.get("titleColor").value;
-		Dom.get("titleColorBtn").style.backgroundColor = Dom.get("titleColor").value;
+		this.sSheet.cssRules[11].style.color = document.getElementById("titleColor").value;
+		document.getElementById("titleColorBtn").style.backgroundColor = document.getElementById("titleColor").value;
 	}
 
 	this.cpickHeaderT = function () {
-		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelTitleColor").value;
+		var title = document.getElementById("labelHeader").label + ", " + document.getElementById("labelTitleColor").value;
 		var param = { doc: document, tbox: "titleColor", element: self.sSheet.cssRules[11], attr: "color", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
 	this.updateHeaderBgColor = function () {
-		this.sSheet.cssRules[6].style.backgroundColor = Dom.get("headerColor").value;
-		this.sSheet.cssRules[4].style.border = "1px solid " + Dom.get("headerColor").value;
-		Dom.get("headerColorBtn").style.backgroundColor = Dom.get("headerColor").value;
+		this.sSheet.cssRules[6].style.backgroundColor = document.getElementById("headerColor").value;
+		this.sSheet.cssRules[4].style.border = "1px solid " + document.getElementById("headerColor").value;
+		document.getElementById("headerColorBtn").style.backgroundColor = document.getElementById("headerColor").value;
 	}
 
 	this.cpickHeaderBg = function () {
-		var title = Dom.get("labelHeader").label + ", " + Dom.get("labelHeaderColor").value;
+		var title = document.getElementById("labelHeader").label + ", " + document.getElementById("labelHeaderColor").value;
 		var param = { doc: document, tbox: "headerColor", element: self.sSheet.cssRules[6], attr: "backgroundColor", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
@@ -143,36 +144,36 @@ justoff.sstart.SStartPropertiesXul = new function () {
 
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
-		this.SetStr = SStart.translate("imageSet");
-		this.RemoveStr = SStart.translate("imageRemove");
+		this.SetStr = Utils.translate("imageSet");
+		this.RemoveStr = Utils.translate("imageRemove");
 		this.pageId = window.arguments[0].pageId;
 		this.body = window.arguments[0].body;
 		this.doc = window.arguments[0].doc;
 		this.sSheet = window.arguments[0].sSheet;
-		Dom.get("bgColor").value = properties.background || "#FFFFFF";
-		var bgColorBtn = Dom.get("bgColorBtn");
+		document.getElementById("bgColor").value = properties.background || "#FFFFFF";
+		var bgColorBtn = document.getElementById("bgColorBtn");
 		bgColorBtn.style.backgroundColor = properties.background || "#FFFFFF";
 		bgColorBtn.addEventListener('click', this.cpickPageBg, true);
-		Dom.get("titleColor").value = properties.titleColor || "#000000";
-		var titleColorBtn = Dom.get("titleColorBtn");
+		document.getElementById("titleColor").value = properties.titleColor || "#000000";
+		var titleColorBtn = document.getElementById("titleColorBtn");
 		titleColorBtn.style.backgroundColor = properties.titleColor || "#000000";
 		titleColorBtn.addEventListener('click', this.cpickHeaderT, true);
-		Dom.get("headerColor").value = properties.headerColor || "#E0E0E0";
-		var headerColorBtn = Dom.get("headerColorBtn");
+		document.getElementById("headerColor").value = properties.headerColor || "#E0E0E0";
+		var headerColorBtn = document.getElementById("headerColorBtn");
 		headerColorBtn.style.backgroundColor = properties.headerColor || "#E0E0E0";
 		headerColorBtn.addEventListener('click', this.cpickHeaderBg, true);
 		this.backgroundImage = properties.backgroundImage || "0";
-		Dom.get("bgStyle").value = properties.backgroundStyle || 1;
+		document.getElementById("bgStyle").value = properties.backgroundStyle || 1;
 		if (this.backgroundImage == "1") {
-			Dom.get("SetRemove").label = this.RemoveStr;
+			document.getElementById("SetRemove").label = this.RemoveStr;
 		} else {
-			Dom.get("SetRemove").label = this.SetStr;
+			document.getElementById("SetRemove").label = this.SetStr;
 		}
 		if (this.pageId > 0) {
-			Dom.get("useMainBgImage").checked = properties.useMainBgImage != "0";
+			document.getElementById("useMainBgImage").checked = properties.useMainBgImage != "0";
 			this.toggleSelectBgImage(false);
 		} else {
-			Dom.get("hboxMainBgImage").hidden = true;
+			document.getElementById("hboxMainBgImage").hidden = true;
 		}
 	}
 
@@ -181,11 +182,11 @@ justoff.sstart.SStartPropertiesXul = new function () {
 			this.cpicker.close();
 		}
 		var properties = window.arguments[0].properties;
-		properties.background = (Dom.get("bgColor").value == "") ? "#FFFFFF" : Dom.get("bgColor").value;
-		properties.titleColor = (Dom.get("titleColor").value == "") ? "#000000" : Dom.get("titleColor").value;
-		properties.headerColor = (Dom.get("headerColor").value == "") ? "#E0E0E0" : Dom.get("headerColor").value;
+		properties.background = (document.getElementById("bgColor").value == "") ? "#FFFFFF" : document.getElementById("bgColor").value;
+		properties.titleColor = (document.getElementById("titleColor").value == "") ? "#000000" : document.getElementById("titleColor").value;
+		properties.headerColor = (document.getElementById("headerColor").value == "") ? "#E0E0E0" : document.getElementById("headerColor").value;
 		properties.backgroundImage = this.backgroundImage;
-		properties.backgroundStyle = Dom.get("bgStyle").value;
+		properties.backgroundStyle = document.getElementById("bgStyle").value;
 		var dir = File.getDataDirectory();
 		dir.append("bg_" + this.pageId + "t");
 		if (dir.exists()) {
@@ -196,7 +197,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 			}
 			dir.moveTo(null, "bg_" + this.pageId)
 			URL.removeFromCache(File.getDataFileURL("bg_" + this.pageId));
-			if (this.pageId > 0 && Dom.get("useMainBgImage").checked && SStart.isMainBgImage()) {
+			if (this.pageId > 0 && document.getElementById("useMainBgImage").checked && SStart.isMainBgImage()) {
 				this.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
 			} else {
 				this.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + this.pageId) + ")";
@@ -211,7 +212,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 		if (this.pageId == 0) {
 			Prefs.setInt('backgroundStyle', properties.backgroundStyle);
 		} else {
-			properties.useMainBgImage = Dom.get("useMainBgImage").checked ? "1" : "0";
+			properties.useMainBgImage = document.getElementById("useMainBgImage").checked ? "1" : "0";
 		}
 	}
 

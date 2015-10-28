@@ -1,10 +1,11 @@
 justoff.sstart.Installer = new function () {
 
 	var SStart = justoff.sstart.SStart
-	var Dom = justoff.sstart.Dom
-	var Bookmark = justoff.sstart.Bookmark
-	var File = justoff.sstart.File
-	var Utils = justoff.sstart.Utils
+
+	Components.utils.import("chrome://sstart/content/dom.js");
+	Components.utils.import("chrome://sstart/content/bookmark.js");
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/utils.js");
 
 	this.addonId = "SStart@Off.JustOff"
 	this.newTabURI = "chrome://sstart/content/sstart.html"
@@ -62,12 +63,12 @@ justoff.sstart.Installer = new function () {
 	}
 
 	function attachContextMenu () {
-		var linkToSStart = SStart.translate("linkToSStart");
-		var pageToSStart = SStart.translate("pageToSStart");
-		Dom.get("contentAreaContextMenu").addEventListener("popupshowing", 
+		var linkToSStart = Utils.translate("linkToSStart");
+		var pageToSStart = Utils.translate("pageToSStart");
+		document.getElementById("contentAreaContextMenu").addEventListener("popupshowing", 
 			function(e) {
-				var menu = Dom.get("sstart-add-page-menu");
-				var menuitem = Dom.get("sstart-add-page");
+				var menu = document.getElementById("sstart-add-page-menu");
+				var menuitem = document.getElementById("sstart-add-page");
 				if (gContextMenu.linkURL) {
 					menu.setAttribute("data-url", gContextMenu.linkURL);
 					if (gContextMenu.link) {
@@ -104,7 +105,7 @@ justoff.sstart.Installer = new function () {
 		}
 		if (rootId > 0) {
 			menupopup.parentNode.setAttribute("data-fid", rootId);
-			Dom.get("sstart-add-page").setAttribute("data-fid", rootId);
+			document.getElementById("sstart-add-page").setAttribute("data-fid", rootId);
 			createFoldersMenu(rootId, menupopup);
 		}
 		return menupopup.childNodes.length > 0;
@@ -132,10 +133,10 @@ justoff.sstart.Installer = new function () {
 	};
 
 	this.addPage = function (e) {
-		Dom.get("contentAreaContextMenu").hidePopup();
+		document.getElementById("contentAreaContextMenu").hidePopup();
 		var folderId = e.target.getAttribute("data-fid") || 0;
 		if (folderId > 0) {
-			var data = Dom.get("sstart-add-page-menu");
+			var data = document.getElementById("sstart-add-page-menu");
 			var newId = Bookmark.createBookmark(data.getAttribute("data-url"), data.getAttribute("data-title"), folderId);
 			var width = SStart.alignToGrid(content.innerWidth / 4);
 			var height = SStart.alignToGrid(content.innerHeight / 4);

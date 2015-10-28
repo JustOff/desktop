@@ -2,8 +2,9 @@ justoff.sstart.Drag = new function () {
 
 	var Drag = this
 	var SStart = justoff.sstart.SStart
-	var Dom = justoff.sstart.Dom
-	var Utils = justoff.sstart.Utils
+
+	Components.utils.import("chrome://sstart/content/dom.js");
+	Components.utils.import("chrome://sstart/content/utils.js");
 
 	this.MIN_DRAG = 5;
 	this.MIN_GESTURE_DRAG = 10;

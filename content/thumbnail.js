@@ -1,13 +1,14 @@
 justoff.sstart.Thumbnail = function () {
 
 	var Thumbnail = justoff.sstart.Thumbnail
-	var Utils = justoff.sstart.Utils
 	var Prefs = justoff.sstart.Prefs
-	var File = justoff.sstart.File
-	var Dom = justoff.sstart.Dom
 	var Widget = justoff.sstart.Widget
-	var URL = justoff.sstart.URL
 	var SStart = justoff.sstart.SStart
+
+	Components.utils.import("chrome://sstart/content/utils.js");
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/dom.js");
+	Components.utils.import("chrome://sstart/content/url.js");
 
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
@@ -46,7 +47,7 @@ justoff.sstart.Thumbnail = function () {
 	}
 
 	this.createView = function () {
-		return Dom.get("thumbnail").cloneNode(true);
+		return document.getElementById("thumbnail").cloneNode(true);
 	}
 
 	this.updateView = function () {

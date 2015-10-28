@@ -48,9 +48,6 @@
 	</grid>
 
 	<script src="namespace.js"/>
-	<script src="utils.js"/>
-	<script src="file.js"/>
-	<script src="dom.js"/>
 	<script src="sstart.js"/>
 	<script src="thumbprops.js"/>
 </dialog>

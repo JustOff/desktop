@@ -95,9 +95,6 @@
 	</vbox>
 
 	<script src="namespace.js"/>
-	<script src="utils.js"/>
-	<script src="file.js"/>
-	<script src="dom.js"/>
 	<script src="sstart.js"/>
 	<script src="prefs.js"/>
 	<script src="properties.js"/>

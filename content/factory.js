@@ -3,10 +3,10 @@ justoff.sstart.Factory = function (storage) {
 	var Thumbnail = justoff.sstart.Thumbnail
 	var Search = justoff.sstart.Search
 	var SStart = justoff.sstart.SStart
-	var Dom = justoff.sstart.Dom
 	var Prefs = justoff.sstart.Prefs
-	var File = justoff.sstart.File
-	var Utils = justoff.sstart.Utils
+
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/utils.js");
 	
 	const SEARCH_URL = "sstart://search/";
 	
@@ -78,7 +78,7 @@ justoff.sstart.Factory = function (storage) {
 			var objects = storage.getObjects();
 			if (pageId == 0) {
 				SStart.resetFVC();
-				var factory = Dom.get("factory");
+				var factory = document.getElementById("factory");
 				factory.addEventListener("savecache", SStart.saveCache, false);
 			}
 			var fragment = document.createElement('span');

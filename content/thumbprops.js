@@ -1,21 +1,21 @@
 justoff.sstart.ThumbnailPropertiesXul = new function () {
 
 	var self = this
-	var File = justoff.sstart.File
-	var Dom = justoff.sstart.Dom
-	var URL = justoff.sstart.URL
 	var SStart = justoff.sstart.SStart
 
+	Components.utils.import("chrome://sstart/content/file.js");
+	Components.utils.import("chrome://sstart/content/url.js");
+
 	this.updateBgColor = function () {
-		var bgColor = Dom.get("bgColor").value == "#" ? "" : Dom.get("bgColor").value;
+		var bgColor = document.getElementById("bgColor").value == "#" ? "" : document.getElementById("bgColor").value;
 		if (this.view) {
 			this.view.style.backgroundColor = bgColor;
 		}
-		Dom.get("bgColorBtn").style.backgroundColor = bgColor;
+		document.getElementById("bgColorBtn").style.backgroundColor = bgColor;
 	}
 
 	this.cpickBgColor = function () {
-		var title = Dom.get("labelBgColor").value;
+		var title = document.getElementById("labelBgColor").value;
 		var param = { doc: document, tbox: "bgColor", element: self.view, attr: "backgroundColor", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
@@ -25,30 +25,30 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		var properties = window.arguments[0].properties;
 		this.view = window.arguments[0].view || null;
 		this.isFolder = properties.isFolder;
-		Dom.get("thumbnail-properties").setAttribute("title", Dom.get("thumbnail-properties").getAttribute("title") + ": " + properties.title);
+		document.getElementById("thumbnail-properties").setAttribute("title", document.getElementById("thumbnail-properties").getAttribute("title") + ": " + properties.title);
 		if (this.isFolder) {
-			Dom.get("name").value = properties.title || "";
-			Dom.get("urlrow").hidden = true;
-			Dom.get("name").focus();
+			document.getElementById("name").value = properties.title || "";
+			document.getElementById("urlrow").hidden = true;
+			document.getElementById("name").focus();
 		} else {
-			Dom.get("url").value = properties.url || "";
-			Dom.get("namerow").hidden = true;
-			Dom.get("url").focus();
+			document.getElementById("url").value = properties.url || "";
+			document.getElementById("namerow").hidden = true;
+			document.getElementById("url").focus();
 		}
-		Dom.get("bgColor").value = properties.background || "#";
-		var bgColorBtn = Dom.get("bgColorBtn");
+		document.getElementById("bgColor").value = properties.background || "#";
+		var bgColorBtn = document.getElementById("bgColorBtn");
 		bgColorBtn.style.backgroundColor = properties.background || "";
 		bgColorBtn.addEventListener('click', this.cpickBgColor, true);
-		Dom.get("width").value = properties.width || "";
-		Dom.get("height").value = properties.height || "";
+		document.getElementById("width").value = properties.width || "";
+		document.getElementById("height").value = properties.height || "";
 		if (properties.customImage && SStart.isURI(properties.customImage)) {
-			Dom.get("customImage").value = properties.customImage || "";
+			document.getElementById("customImage").value = properties.customImage || "";
 		} else {
 			if (properties.customImage) {
-				Dom.get("customImage").value = properties.customImage.slice(9);
+				document.getElementById("customImage").value = properties.customImage.slice(9);
 				this.origImage = properties.customImage;
 			} else {
-				Dom.get("customImage").value = "";
+				document.getElementById("customImage").value = "";
 			}
 		}
 	}
@@ -59,9 +59,9 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		}
 		var properties = window.arguments[0].properties;
 		if (this.isFolder) {
-			properties.title = Dom.get("name").value;
+			properties.title = document.getElementById("name").value;
 		} else {
-			var url = Dom.get("url").value.trim();
+			var url = document.getElementById("url").value.trim();
 			if (url != properties.url) properties.title = "";
 			if (url) {
 				try {
@@ -75,18 +75,18 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 				properties.url = "about:blank";
 			}
 		}
-		properties.background = (Dom.get("bgColor").value == "#") ? "" : Dom.get("bgColor").value;
-		properties.width = Dom.get("width").value;
-		properties.height = Dom.get("height").value;
-		if (Dom.get("customImage").value == "" || SStart.isURI(Dom.get("customImage").value)) {
-			properties.customImage = Dom.get("customImage").value.trim();
+		properties.background = (document.getElementById("bgColor").value == "#") ? "" : document.getElementById("bgColor").value;
+		properties.width = document.getElementById("width").value;
+		properties.height = document.getElementById("height").value;
+		if (document.getElementById("customImage").value == "" || SStart.isURI(document.getElementById("customImage").value)) {
+			properties.customImage = document.getElementById("customImage").value.trim();
 		} else {
 			var dir = File.getDataDirectory();
 			try {
-				dir.append("tmp." + this.hashWord + "." + Dom.get("customImage").value);
+				dir.append("tmp." + this.hashWord + "." + document.getElementById("customImage").value);
 				if (dir.exists()) {
-					dir.moveTo(null, this.hashWord + "." + Dom.get("customImage").value);
-					properties.customImage = this.hashWord + "." + Dom.get("customImage").value;
+					dir.moveTo(null, this.hashWord + "." + document.getElementById("customImage").value);
+					properties.customImage = this.hashWord + "." + document.getElementById("customImage").value;
 				}
 			} catch (e) {
 				return;
@@ -125,7 +125,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	this.browseCustomImage = function () {
 		var file = File.chooseFile("open", ["images"]);
 		if (file) {
-			if (!SStart.isURI(Dom.get("customImage").value)) {
+			if (!SStart.isURI(document.getElementById("customImage").value)) {
 				var dir = File.getDataDirectory();
 				try {
 					dir.append("tmp." + this.hashWord + "." + this.tmpName);
@@ -136,7 +136,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			}
 			this.hashWord = (Math.random().toString(36)+'00000000000000000').slice(2, 10);
 			file.copyTo(File.getDataDirectory(), "tmp." + this.hashWord + "." + file.leafName);
-			Dom.get("customImage").value = file.leafName;
+			document.getElementById("customImage").value = file.leafName;
 			this.tmpName = file.leafName;
 		}
 	}

@@ -1,8 +1,8 @@
-justoff.sstart.Utils = new function () {
+var EXPORTED_SYMBOLS = ["Utils"];
 
-	var Utils = this
+var Utils = {
 
-	this.getQueryParams = function (url) {
+	getQueryParams: function (url) {
 		var params = new Array();
 		var regexp = /[?&](\w+)=(\w+)/g;
 		var match;
@@ -10,13 +10,13 @@ justoff.sstart.Utils = new function () {
 			params[match[1]] = match[2];
 		}
 		return params;
-	};
+	},
 
-	this.clone = function (object) {
-		return Utils.merge({}, object);
-	};
+	clone: function (object) {
+		return this.merge({}, object);
+	},
 
-	this.merge = function (target) {
+	merge: function (target) {
 		if (!target) target = new Object();
 
 		for (var j = 1; j < arguments.length; j++) {
@@ -32,19 +32,19 @@ justoff.sstart.Utils = new function () {
 						target[i] = source[i];
 						break;
 					default:
-						target[i] = Utils.merge(target[i], source[i]);
+						target[i] = this.merge(target[i], source[i]);
 						break;
 				}
 			}
 		}
 		return target;
-	};
+	},
 
-	this.toJSON = function (object) {
+	toJSON: function (object) {
 		return JSON.stringify(object);
-	};
+	},
 
-	this.fromJSON = function (str) {
+	fromJSON: function (str) {
 		if (!str || /^ *$/.test(str))
 			return {};
 		try {
@@ -58,41 +58,50 @@ justoff.sstart.Utils = new function () {
 			}
 			return {};
 		}
-	};
+	},
 
-	this.alert = function (message) {
+	translate: function (key) {
+		if (!this.bundle) {
+			this.bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
+				.getService(Components.interfaces.nsIStringBundleService)
+				.createBundle("chrome://sstart/locale/sstart.strings" + "?" + Math.random());
+		}
+		return this.bundle.GetStringFromName(key);
+	},
+
+	alert: function (message) {
 		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 			.getService(Components.interfaces.nsIPromptService);
-		return prompts.alert(window, justoff.sstart.SStart.translate("SpeedStart"), message);
-	};
+		return prompts.alert(this.getBrowserWindow(), this.translate("SpeedStart"), message);
+	},
 
-	this.confirm = function (message) {
+	confirm: function (message) {
 		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
 			.getService(Components.interfaces.nsIPromptService);
-		return prompts.confirm(window, justoff.sstart.SStart.translate("SpeedStart"), message);
-	};
+		return prompts.confirm(this.getBrowserWindow(), this.translate("SpeedStart"), message);
+	},
 
-	this.getBrowserWindow = function () {
+	getBrowserWindow: function () {
 		var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
 			.getService(Components.interfaces.nsIWindowMediator);
 		return wm.getMostRecentWindow("navigator:browser");
-	};
+	},
 
-	this.getBrowser = function () {
-		return Utils.getBrowserWindow().getBrowser();
-	};
+	getBrowser: function () {
+		return this.getBrowserWindow().getBrowser();
+	},
 
-	this.trim = function (str) {
+	trim: function (str) {
 		return str.replace(/^[\s]*(.*[\S])[\s]*$/, '$1');
-	};
+	},
 
-	this.getDocumentTab = function (doc) {
+	getDocumentTab: function (doc) {
 		var tabs = gBrowser.tabContainer.childNodes;
 		for (var i = 0; i < tabs.length; i++) {
 			if (tabs[i].linkedBrowser.contentDocument == doc) {
 				return tabs[i];
 			}
 		}
-	};
+	}
 
-}
+};

@@ -1,9 +1,10 @@
 justoff.sstart.Search = function () {
 
 	var Search = justoff.sstart.Search
-	var Utils = justoff.sstart.Utils
-	var Dom = justoff.sstart.Dom
 	var SStart = justoff.sstart.SStart
+
+	Components.utils.import("chrome://sstart/content/utils.js");
+	Components.utils.import("chrome://sstart/content/dom.js");
 
 	this.setProperties = function (properties) {
 		Search.prototype.setProperties.call(this, properties);
@@ -15,7 +16,7 @@ justoff.sstart.Search = function () {
 	}
 
 	this.createView = function () {
-		return Dom.get("sdiv").cloneNode(true);
+		return document.getElementById("sdiv").cloneNode(true);
 	}
 
 	this.updateView = function () {
