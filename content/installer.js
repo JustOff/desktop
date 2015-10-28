@@ -200,7 +200,7 @@ justoff.sstart.Installer = new function () {
 			if (topic != "nsPref:changed") return;
 			switch (data) {
 				case "bottomHeader":
-					SStart.forEachSStartBrowser(SStart.reloadPage);
+					Utils.reloadEachSStartBrowser();
 					break;
 				case "overrideNewTab":
 					var useOurNewTab = Services.prefs.getBoolPref("extensions.sstart.overrideNewTab");
@@ -229,7 +229,7 @@ justoff.sstart.Installer = new function () {
 					break;
 				case "autoZoom":
 					SStart.updateAutoZoom();
-					SStart.forEachSStartBrowser(SStart.reloadPage);
+					Utils.reloadEachSStartBrowser();
 					break;
 			}
 		}

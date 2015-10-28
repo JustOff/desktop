@@ -16,24 +16,6 @@ justoff.sstart.SStart = new function () {
 	this.FaviCount = 0;
 	this.SearchNodes = {};
 
-	this.isSStart = function (doc) {
-		return doc && doc.location
-			&& /chrome:\/\/sstart\/content\/sstart.html(\?.*)?/.test(doc.location.href);
-	};
-
-	this.reloadPage = function (doc) {
-		doc.reload(false);
-	};
-
-	this.forEachSStartBrowser = function (onPage) {
-		var gBrowser = Utils.getBrowser();
-		for (var i = 0; i < gBrowser.browsers.length; i++) {
-			var br = gBrowser.browsers[i];
-			if (SStart.isSStart(br.contentDocument))
-				onPage(br);
-		}
-	};
-
 	this.isMainBgImage = function () {
 		var bg = File.getDataDirectory();
 		bg.append("bg_0");

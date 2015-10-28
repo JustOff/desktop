@@ -102,6 +102,21 @@ var Utils = {
 				return tabs[i];
 			}
 		}
+	},
+	
+	isSStart: function (doc) {
+		return doc && doc.location
+			&& /chrome:\/\/sstart\/content\/sstart.html(\?.*)?/.test(doc.location.href);
+	},
+	
+	reloadEachSStartBrowser: function () {
+		var gBrowser = this.getBrowser();
+		for (var i = 0; i < gBrowser.browsers.length; i++) {
+			var br = gBrowser.browsers[i];
+			if (this.isSStart(br.contentDocument)) {
+				br.reload(false);
+			}
+		}
 	}
 
 };

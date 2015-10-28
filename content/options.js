@@ -195,7 +195,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				}
 				SStart.clearCache();
 				SStart.setUpdateMenu(true);
-				SStart.forEachSStartBrowser(SStart.reloadPage);
+				Utils.reloadEachSStartBrowser();
 				Utils.alert(Utils.translate("importOk"));
 			  } catch(e) {
 				Utils.alert(e);

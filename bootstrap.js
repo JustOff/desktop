@@ -240,23 +240,12 @@ function browserPref (pref, cmd) {
 	}
 }
 
-function reloadEachSStartBrowser () {
-	var gBrowser = Services.wm.getMostRecentWindow("navigator:browser").getBrowser();
-	for (var i = 0; i < gBrowser.browsers.length; i++) {
-		var br = gBrowser.browsers[i];
-		if (br.contentDocument && br.contentDocument.location
-			&& /chrome:\/\/sstart\/content\/sstart.html(\?.*)?/.test(br.contentDocument.location.href)) {
-			br.reload(false);
-		}
-	}
-};
-
 var myPrefsWatcher = {
 	observe: function (subject, topic, data) {
 		if (topic != "nsPref:changed") return;
 		switch (data) {
 			case "bottomHeader":
-				reloadEachSStartBrowser();
+				Utils.reloadEachSStartBrowser();
 				break;
 			case "overrideNewTab":
 				var useOurNewTab = Services.prefs.getBoolPref("extensions.sstart.overrideNewTab");
@@ -285,7 +274,7 @@ var myPrefsWatcher = {
 				break;
 			case "autoZoom":
 				cache.updateAutoZoom();
-				reloadEachSStartBrowser();
+				Utils.reloadEachSStartBrowser();
 				break;
 		}
 	},
