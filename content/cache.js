@@ -6,7 +6,7 @@ Cu.import("resource://gre/modules/Services.jsm");
 Cu.import("chrome://sstart/content/dom.js");
 Cu.import("chrome://sstart/content/utils.js");
 
-var cache = { 
+var Cache = { 
 
 	fragment: false, maxBottom: 1, maxRight: 1, gridInterval: 32, 
 	newtabOnLockDrag: true, autoZoom: false, editOn: false, updateMenu: false,

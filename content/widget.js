@@ -131,23 +131,23 @@ justoff.sstart.Widget = function () {
 						bookmarksService.moveItem(self.view.id, bookmarksService.getFolderIdForItem(params.folder), 
 							bookmarksService.DEFAULT_INDEX);
 						Dom.remove(self.view);
-						cache.clearCache();
+						Cache.clearCache();
 						return;
 					}
 				}
 			}
 			if (self.properties.top != self.view.offsetTop)
-				self.view.style.top = cache.alignToGrid(self.view.offsetTop);
+				self.view.style.top = Cache.alignToGrid(self.view.offsetTop);
 			if (self.properties.left != self.view.offsetLeft)
-				self.view.style.left = cache.alignToGrid(self.view.offsetLeft);
+				self.view.style.left = Cache.alignToGrid(self.view.offsetLeft);
 			var moved = (self.properties.top != parseInt(self.view.style.top, 10) 
 				|| self.properties.left != parseInt(self.view.style.left, 10));
 			self.properties.top = parseInt(self.view.style.top, 10);
 			self.properties.left = parseInt(self.view.style.left, 10);
 			if (self.properties.width != self.view.clientWidth)
-				self.view.style.width = cache.alignToGrid(self.view.clientWidth);
+				self.view.style.width = Cache.alignToGrid(self.view.clientWidth);
 			if (self.properties.height != self.view.clientHeight)
-				self.view.style.height = cache.alignToGrid(self.view.clientHeight);
+				self.view.style.height = Cache.alignToGrid(self.view.clientHeight);
 			var resized = (self.properties.width != parseInt(self.view.style.width, 10) 
 				|| self.properties.height != parseInt(self.view.style.height, 10));
 			self.properties.width = parseInt(self.view.style.width, 10);
@@ -158,16 +158,16 @@ justoff.sstart.Widget = function () {
 				self.refresh.call(self);
 			}
 			if (SStart.getZoom() && SStart.getPageId() == 0 && (resized || moved)) {
-				cache.clearCache();
+				Cache.clearCache();
 			}
 		}, false);
 
 		this.view.addEventListener("align", function (e) {
-			self.view.style.top = self.properties.top = cache.alignToGrid(self.properties.top);
-			self.view.style.left = self.properties.left = cache.alignToGrid(self.properties.left);
-			self.view.style.width = self.properties.width = cache.alignToGrid(self.properties.width);
+			self.view.style.top = self.properties.top = Cache.alignToGrid(self.properties.top);
+			self.view.style.left = self.properties.left = Cache.alignToGrid(self.properties.left);
+			self.view.style.width = self.properties.width = Cache.alignToGrid(self.properties.width);
 			if (self.properties.url != SEARCH_URL)
-				self.view.style.height = self.properties.height = cache.alignToGrid(self.properties.height);
+				self.view.style.height = self.properties.height = Cache.alignToGrid(self.properties.height);
 			self.save.call(self);
 		}, false);
 
@@ -179,10 +179,10 @@ justoff.sstart.Widget = function () {
 			if (this.view) Dom.remove(this.view);
 			this.storage.removeObject(this.properties.id);
 			if (SStart.getZoom() && SStart.getPageId() == 0) {
-				cache.clearCache();
+				Cache.clearCache();
 			}
 			if (this.properties.isFolder) {
-				cache.setUpdateMenu(true);
+				Cache.setUpdateMenu(true);
 			}
 		}
 	}
@@ -217,7 +217,7 @@ justoff.sstart.Widget = function () {
 			self.properties.title = title.firstChild.value;
 			self.save.call(self);
 			if (self.properties.isFolder) {
-				cache.setUpdateMenu(true);
+				Cache.setUpdateMenu(true);
 			}
 			removeInput();
 		}

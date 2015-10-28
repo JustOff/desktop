@@ -199,7 +199,7 @@ justoff.sstart.Thumbnail = function () {
 		if (icon) {
 			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE, function () {
 				icon.style.backgroundImage = "url(moz-anno:favicon:" + iconURI.spec + ")";
-				cache.clearCache();
+				Cache.clearCache();
 			});
 		} else {
 			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE);
@@ -215,7 +215,7 @@ justoff.sstart.Thumbnail = function () {
 					loading = false;
 					URL.removeFromCache(getImageURL.call(self));
 					self.updateView.call(self);
-					cache.clearCache();
+					Cache.clearCache();
 				});
 			},
 			TIMEOUT_RENDER);

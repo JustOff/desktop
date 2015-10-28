@@ -44,10 +44,10 @@ justoff.sstart.Factory = function (storage) {
 		createWidget(properties, fragment);
 		document.getElementById("widgets").appendChild(fragment);
 		if (SStart.getZoom() && SStart.getPageId() == 0) {
-			cache.clearCache();
+			Cache.clearCache();
 		}
 		if (type == "folder") {
-			cache.setUpdateMenu(true);
+			Cache.setUpdateMenu(true);
 		}
 		return true;
 	}
@@ -69,7 +69,7 @@ justoff.sstart.Factory = function (storage) {
 
 	this.createWidgets = function (pageId, autoZoom) {
 		var hasWidgets = false;
-		if (!SStart.isLocked() || pageId > 0 || !cache.fragment) {
+		if (!SStart.isLocked() || pageId > 0 || !Cache.fragment) {
 			if (SStart.autoZoom()) {
 				var maxBottom = 1;
 				var maxRight = 1;
@@ -99,17 +99,17 @@ justoff.sstart.Factory = function (storage) {
 					}
 				}
 				if (SStart.autoZoom()) {
-					cache.maxBottom = maxBottom;
-					cache.maxRight = maxRight;
+					Cache.maxBottom = maxBottom;
+					Cache.maxRight = maxRight;
 				}
 			}
 		} else if (pageId == 0) {
-			var fragment = cache.fragment.cloneNode(true);
+			var fragment = Cache.fragment.cloneNode(true);
 			hasWidgets = fragment.hasChildNodes();
 			SStart.setCacheDOM(true);
 			if (SStart.autoZoom()) {
-				var maxBottom = cache.maxBottom;
-				var maxRight = cache.maxRight;
+				var maxBottom = Cache.maxBottom;
+				var maxRight = Cache.maxRight;
 			}
 		}
 		

@@ -19,9 +19,9 @@ justoff.sstart.Installer = new function () {
 		if (justoff.sstart.Installer.installed) return;
 		justoff.sstart.Installer.installed = true;
 		
-		cache.updateGridInterval();
-		cache.updateNewtabOnLockDrag();
-		cache.updateAutoZoom();
+		Cache.updateGridInterval();
+		Cache.updateNewtabOnLockDrag();
+		Cache.updateAutoZoom();
 		attachContextMenu();
 
 		var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
@@ -84,12 +84,12 @@ justoff.sstart.Installer = new function () {
 					menu.setAttribute("label", pageToSStart);
 					menuitem.setAttribute("label", pageToSStart);
 				}
-				if (!cache.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
+				if (!Cache.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
 					return;
 				}
 				menuitem.hidden = initFoldersMenu(menu.firstChild);
 				menu.hidden = !menuitem.hidden;
-				cache.setUpdateMenu(false);
+				Cache.setUpdateMenu(false);
 			}, false);
 	};
 	
@@ -138,20 +138,20 @@ justoff.sstart.Installer = new function () {
 		if (folderId > 0) {
 			var data = document.getElementById("sstart-add-page-menu");
 			var newId = Bookmark.createBookmark(data.getAttribute("data-url"), data.getAttribute("data-title"), folderId);
-			var width = cache.alignToGrid(content.innerWidth / 4);
-			var height = cache.alignToGrid(content.innerHeight / 4);
-			var left = cache.alignToGrid((content.innerWidth - width) / 2);
-			var top = cache.alignToGrid((content.innerHeight - height) / 2);
+			var width = Cache.alignToGrid(content.innerWidth / 4);
+			var height = Cache.alignToGrid(content.innerHeight / 4);
+			var left = Cache.alignToGrid((content.innerWidth - width) / 2);
+			var top = Cache.alignToGrid((content.innerHeight - height) / 2);
 			Bookmark.setAnnotation(newId, "bookmarkProperties/description", 
 				'{"left":' + left + ',"top":' + top + ',"width":' + width + ',"height":' + height +'}');
 			File.delDataFile(newId);
 			if (folderId == data.getAttribute("data-fid")) {
-				cache.clearCache();
+				Cache.clearCache();
 				var ssurl = this.newTabURI;
 			} else {
 				var ssurl = this.newTabURI + "?folder=" + folderId;
 			}
-			cache.setEditOn();
+			Cache.setEditOn();
 			Utils.getBrowser().loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
 		}
 	};
@@ -218,16 +218,16 @@ justoff.sstart.Installer = new function () {
 					}
 					break;
 				case "gridInterval":
-					cache.updateGridInterval(true);
+					Cache.updateGridInterval(true);
 					break;
 				case "showGridOnUnlock":
-					cache.updateGridOnUnlock();
+					Cache.updateGridOnUnlock();
 					break;
 				case "newtabOnLockDrag":
-					cache.updateNewtabOnLockDrag();
+					Cache.updateNewtabOnLockDrag();
 					break;
 				case "autoZoom":
-					cache.updateAutoZoom();
+					Cache.updateAutoZoom();
 					Utils.reloadEachSStartBrowser();
 					break;
 			}

@@ -98,7 +98,7 @@ console.time("SStart");
 			widgets.parentNode.removeChild(widgets);
 			factory.createWidgets(pageId);
 		}
-		if (factory.createWidget(e.target.type, cache.alignToGrid(ContextMenu.click.x), cache.alignToGrid(ContextMenu.click.y))) {
+		if (factory.createWidget(e.target.type, Cache.alignToGrid(ContextMenu.click.x), Cache.alignToGrid(ContextMenu.click.y))) {
 			quickstart.style.display = "none";
 		} else {
 			SStart.setLocked(lockStatus);

@@ -130,12 +130,12 @@ function cPopupShowingListener (e) {
 		menu.setAttribute("label", pageToSStart);
 		menuitem.setAttribute("label", pageToSStart);
 	}
-	if (!cache.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
+	if (!Cache.isUpdateMenu() && menu.firstChild.hasChildNodes()) {
 		return;
 	}
 	menuitem.hidden = initFoldersMenu(menu.firstChild);
 	menu.hidden = !menuitem.hidden;
-	cache.setUpdateMenu(false);
+	Cache.setUpdateMenu(false);
 }
 	
 function initFoldersMenu (menupopup) {
@@ -184,20 +184,20 @@ function addPage (e) {
 		var data = Utils.getBrowserWindow().document.getElementById("sstart-add-page-menu");
 		var newId = Bookmark.createBookmark(data.getAttribute("data-url"), data.getAttribute("data-title"), folderId);
 		var cont = Utils.getBrowserWindow().content;
-		var width = cache.alignToGrid(cont.innerWidth / 4);
-		var height = cache.alignToGrid(cont.innerHeight / 4);
-		var left = cache.alignToGrid((cont.innerWidth - width) / 2);
-		var top = cache.alignToGrid((cont.innerHeight - height) / 2);
+		var width = Cache.alignToGrid(cont.innerWidth / 4);
+		var height = Cache.alignToGrid(cont.innerHeight / 4);
+		var left = Cache.alignToGrid((cont.innerWidth - width) / 2);
+		var top = Cache.alignToGrid((cont.innerHeight - height) / 2);
 		Bookmark.setAnnotation(newId, "bookmarkProperties/description", 
 			'{"left":' + left + ',"top":' + top + ',"width":' + width + ',"height":' + height +'}');
 		File.delDataFile(newId);
 		if (folderId == data.getAttribute("data-fid")) {
-			cache.clearCache();
+			Cache.clearCache();
 			var ssurl = sstartTabURI;
 		} else {
 			var ssurl = sstartTabURI + "?folder=" + folderId;
 		}
-		cache.setEditOn();
+		Cache.setEditOn();
 		Utils.getBrowser().loadOneTab(ssurl, {inBackground: false, relatedToCurrent: true});
 	}
 };
@@ -264,16 +264,16 @@ var myPrefsWatcher = {
 				}
 				break;
 			case "gridInterval":
-				cache.updateGridInterval(true);
+				Cache.updateGridInterval(true);
 				break;
 			case "showGridOnUnlock":
-				cache.updateGridOnUnlock();
+				Cache.updateGridOnUnlock();
 				break;
 			case "newtabOnLockDrag":
-				cache.updateNewtabOnLockDrag();
+				Cache.updateNewtabOnLockDrag();
 				break;
 			case "autoZoom":
-				cache.updateAutoZoom();
+				Cache.updateAutoZoom();
 				Utils.reloadEachSStartBrowser();
 				break;
 		}
@@ -389,9 +389,9 @@ function startup (params, reason)
 	browserPrefsWatcher.register();
 	newTabURLWatcher.register();
 
-	cache.updateGridInterval();
-	cache.updateNewtabOnLockDrag();
-	cache.updateAutoZoom();
+	Cache.updateGridInterval();
+	Cache.updateNewtabOnLockDrag();
+	Cache.updateAutoZoom();
 }
 
 function shutdown (params, reason)

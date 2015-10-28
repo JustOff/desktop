@@ -29,7 +29,7 @@ justoff.sstart.SStart = new function () {
 			doc.getElementById("sstart-hidden-box").appendChild(doc.importNode(document.getElementById("widgets"), true));
 		}
 		var widgets = doc.getElementById("widgets");
-		cache.fragment = widgets;
+		Cache.fragment = widgets;
 		Dom.remove(widgets);
 		SStart.setCacheDOM(false);
 		var factory = document.getElementById("factory");
@@ -129,23 +129,23 @@ justoff.sstart.SStart = new function () {
 	};
 
 	this.getGridInterval = function () {
-		return cache.gridInterval;
+		return Cache.gridInterval;
 	};
 
 	this.newtabOnLockDrag = function () {
-		return cache.newtabOnLockDrag;
+		return Cache.newtabOnLockDrag;
 	};
 
 	this.autoZoom = function () {
-		return cache.autoZoom;
+		return Cache.autoZoom;
 	};
 
 	this.setEditOff = function () {
-		cache.editOn = false;
+		Cache.editOn = false;
 	};
 
 	this.isEditOn = function () {
-		return cache.editOn;
+		return Cache.editOn;
 	};
 
 	this.updateGridStatus = function (show) {

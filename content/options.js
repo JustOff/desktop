@@ -194,8 +194,8 @@ justoff.sstart.SStartOptionsXul = new function () {
 				if (delDir.exists()) {
 					delDir.remove(true);
 				}
-				cache.clearCache();
-				cache.setUpdateMenu(true);
+				Cache.clearCache();
+				Cache.setUpdateMenu(true);
 				Utils.reloadEachSStartBrowser();
 				Utils.alert(Utils.translate("importOk"));
 			  } catch(e) {
