@@ -102,7 +102,7 @@ justoff.sstart.Widget = function () {
 			Dom.addClass(self.view, "hide");
 			var hoverEl = document.elementFromPoint(e.detail.clientX, e.detail.clientY);
 			Dom.removeClass(self.view, "hide");
-			while ((hoverEl = hoverEl.parentElement) && !hoverEl.classList.contains("widget"));
+			while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 			if (hoverEl && hoverEl.id) {
 				var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
 					.getService(Components.interfaces.nsINavBookmarksService);
