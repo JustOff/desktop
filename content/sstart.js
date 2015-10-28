@@ -128,46 +128,6 @@ justoff.sstart.SStart = new function () {
 		bookmarksService.runInBatchMode(callback, null);
 	};
 
-	this.getGridInterval = function () {
-		return Cache.gridInterval;
-	};
-
-	this.newtabOnLockDrag = function () {
-		return Cache.newtabOnLockDrag;
-	};
-
-	this.autoZoom = function () {
-		return Cache.autoZoom;
-	};
-
-	this.setEditOff = function () {
-		Cache.editOn = false;
-	};
-
-	this.isEditOn = function () {
-		return Cache.editOn;
-	};
-
-	this.updateGridStatus = function (show) {
-		var grid = document.getElementById("grid");
-		if (show) {
-			if (grid) {
-				return false;
-			}
-			grid = document.createElement("div");
-			grid.id = "grid";
-			grid.style.height = document.body.scrollHeight + "px";
-			grid.style.width = document.body.scrollWidth + "px";
-			grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + SStart.getGridInterval() + ".png)";
-			document.body.appendChild(grid);
-			return true;
-		} else {
-			if (grid) {
-				grid.parentNode.removeChild(grid);
-			}
-		}
-	};
-
 	this.deleteSearchNode = function (node) {
 		if (node in SStart.SearchNodes) {
 			delete SStart.SearchNodes[node];
@@ -230,7 +190,7 @@ justoff.sstart.SStart = new function () {
 		if (typeof w == "undefined" || typeof h == "undefined") {
 			features = features + ",centerscreen,resizable";
 		} else {
-			if (this.autoZoom()) {
+			if (Cache.getAutoZoom()) {
 				w = Math.round(w / this.getZoom());
 				h = Math.round(h / this.getZoom());
 			}

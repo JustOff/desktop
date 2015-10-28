@@ -82,7 +82,7 @@ console.time("SStart");
 		Dom.removeClass(document.body, s ? 'unlock-edits' : 'lock-edits');
 		Dom.addClass(document.body, s ? 'lock-edits' : 'unlock-edits');
 		if (!skipgrid && Prefs.getBool("showGridOnUnlock")) {
-			SStart.updateGridStatus(!s);
+			Cache.updateGridStatus(!s);
 		}
 	}
 		
@@ -274,9 +274,9 @@ console.time("SStart");
 
 	Drag.enable(document);
 	
-	if (SStart.isEditOn()) {
+	if (Cache.isEditOn()) {
 		SStart.setLocked(false);
-		SStart.setEditOff();
+		Cache.setEditOff();
 		updateLockStatus();
 	} else {
 		updateLockStatus(true);

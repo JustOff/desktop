@@ -3,6 +3,7 @@ justoff.sstart.Drag = new function () {
 	var Drag = this
 	var SStart = justoff.sstart.SStart
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 
@@ -50,7 +51,7 @@ justoff.sstart.Drag = new function () {
 	};
 
 	this.onMouseDown = function (e) {
-		if (e.button != 0 || (!SStart.newtabOnLockDrag() && SStart.isLocked())) return;
+		if (e.button != 0 || (!Cache.getNewtabOnLockDrag() && SStart.isLocked())) return;
 
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 		if (hoverEl.nodeName == "INPUT" && (SStart.isLocked() || hoverEl.parentNode && hoverEl.parentNode.id == "title")) return;
@@ -82,7 +83,7 @@ justoff.sstart.Drag = new function () {
 		if (e.button != 0) return;
 		var theObject = Drag.object;
 		Drag.object = null;
-		if (SStart.newtabOnLockDrag() && SStart.isLocked() && Drag.inProgress) {
+		if (Cache.getNewtabOnLockDrag() && SStart.isLocked() && Drag.inProgress) {
 			Drag.removeGlass();
 			Drag.inProgress = false;
 			var anchor = Dom.child(theObject, "a");
@@ -92,7 +93,7 @@ justoff.sstart.Drag = new function () {
 		}
 		if (Drag.inProgress) {
 			if (Drag.isGrid) {
-				SStart.updateGridStatus(false);
+				Cache.updateGridStatus(false);
 			}
 			Drag.removeGlass();
 			Drag.inProgress = false;
@@ -145,7 +146,7 @@ justoff.sstart.Drag = new function () {
 	};
 
 	this.onMouseMove = function (e) {
-		if (SStart.newtabOnLockDrag() && SStart.isLocked()) { 
+		if (Cache.getNewtabOnLockDrag() && SStart.isLocked()) { 
 			if (!Drag.inProgress && Drag.object && Math.abs(Drag.click.x - e.pageX) +
 					Math.abs(Drag.click.y - e.pageY) > Drag.MIN_GESTURE_DRAG) {
 				Drag.inProgress = true;
@@ -157,7 +158,7 @@ justoff.sstart.Drag = new function () {
 		if (!Drag.inProgress && Drag.object &&
 			(Drag.click.border != "" || Math.abs(Drag.click.x - e.pageX) + Math.abs(Drag.click.y - e.pageY) > Drag.MIN_DRAG)) {
 			Drag.inProgress = true;
-			Drag.isGrid = SStart.updateGridStatus(true);
+			Drag.isGrid = Cache.updateGridStatus(true);
 			if (Drag.click.border != "") {
 				var cursor = Drag.click.border + "-resize";
 			} else {

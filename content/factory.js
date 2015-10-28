@@ -70,7 +70,7 @@ justoff.sstart.Factory = function (storage) {
 	this.createWidgets = function (pageId, autoZoom) {
 		var hasWidgets = false;
 		if (!SStart.isLocked() || pageId > 0 || !Cache.fragment) {
-			if (SStart.autoZoom()) {
+			if (Cache.getAutoZoom()) {
 				var maxBottom = 1;
 				var maxRight = 1;
 			}
@@ -85,7 +85,7 @@ justoff.sstart.Factory = function (storage) {
 			for (var i in objects) {
 				createWidget(objects[i], fragment);
 				hasWidgets = true;
-				if (SStart.autoZoom()) {
+				if (Cache.getAutoZoom()) {
 					maxBottom = Math.max(maxBottom, (parseInt(objects[i].top, 10) || 0) + (parseInt(objects[i].height, 10) || 1));
 					maxRight = Math.max(maxRight, (parseInt(objects[i].left, 10) || 0) + (parseInt(objects[i].width, 10) || 1));
 				}
@@ -98,7 +98,7 @@ justoff.sstart.Factory = function (storage) {
 						factory.removeEventListener("savecache", SStart.saveCache);
 					}
 				}
-				if (SStart.autoZoom()) {
+				if (Cache.getAutoZoom()) {
 					Cache.maxBottom = maxBottom;
 					Cache.maxRight = maxRight;
 				}
@@ -107,13 +107,13 @@ justoff.sstart.Factory = function (storage) {
 			var fragment = Cache.fragment.cloneNode(true);
 			hasWidgets = fragment.hasChildNodes();
 			SStart.setCacheDOM(true);
-			if (SStart.autoZoom()) {
+			if (Cache.getAutoZoom()) {
 				var maxBottom = Cache.maxBottom;
 				var maxRight = Cache.maxRight;
 			}
 		}
 		
-		if (autoZoom && SStart.autoZoom()) {
+		if (autoZoom && Cache.getAutoZoom()) {
 			var zoom = Math.round(Math.min(window.innerWidth / maxRight, window.innerHeight / maxBottom) * 100) / 100;
 			if (zoom <= 1) {
 				var gBrowser = Utils.getBrowser();

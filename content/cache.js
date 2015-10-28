@@ -11,6 +11,10 @@ var Cache = {
 	fragment: false, maxBottom: 1, maxRight: 1, gridInterval: 32, 
 	newtabOnLockDrag: true, autoZoom: false, editOn: false, updateMenu: false,
 
+	clearCache: function () {
+		this.fragment = false;
+	},
+	
 	updateGridInterval: function (live) {
 		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 		this.gridInterval = prefService.getIntPref("extensions.sstart.gridInterval");
@@ -25,16 +29,24 @@ var Cache = {
 		}
 	},
 
-	updateNewtabOnLockDrag: function () {
-		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
-		this.newtabOnLockDrag = prefService.getBoolPref("extensions.sstart.newtabOnLockDrag");
-	},
-
-	updateAutoZoom: function () {
-		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
-		this.autoZoom = prefService.getBoolPref("extensions.sstart.autoZoom");
-		if (this.autoZoom) {
-			this.fragment = false;
+	updateGridStatus: function (show) {
+		var doc = gBrowser = Services.wm.getMostRecentWindow("navigator:browser").getBrowser().contentDocument;
+		var grid = doc.getElementById("grid");
+		if (show) {
+			if (grid) {
+				return false;
+			}
+			grid = doc.createElement("div");
+			grid.id = "grid";
+			grid.style.height = doc.body.scrollHeight + "px";
+			grid.style.width = doc.body.scrollWidth + "px";
+			grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + this.gridInterval + ".png)";
+			doc.body.appendChild(grid);
+			return true;
+		} else {
+			if (grid) {
+				grid.parentNode.removeChild(grid);
+			}
 		}
 	},
 
@@ -61,6 +73,18 @@ var Cache = {
 		}
 	},
 
+	getAutoZoom = function () {
+		return this.autoZoom;
+	},
+
+	updateAutoZoom: function () {
+		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
+		this.autoZoom = prefService.getBoolPref("extensions.sstart.autoZoom");
+		if (this.autoZoom) {
+			this.fragment = false;
+		}
+	},
+
 	isUpdateMenu: function () {
 		return this.updateMenu;
 	},
@@ -69,14 +93,27 @@ var Cache = {
 		this.updateMenu = s;
 	},
 	
-	clearCache: function () {
-		this.fragment = false;
+	isEditOn: function () {
+		return this.editOn;
 	},
-	
+
+	setEditOff: function () {
+		this.editOn = false;
+	},
+
 	setEditOn: function () {
 		this.editOn = true;
 	},
 	
+	getNewtabOnLockDrag: function () {
+		return this.newtabOnLockDrag;
+	},
+
+	updateNewtabOnLockDrag: function () {
+		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
+		this.newtabOnLockDrag = prefService.getBoolPref("extensions.sstart.newtabOnLockDrag");
+	},
+
 	alignToGrid: function (pos) {
 		var min = Math.floor(pos / this.gridInterval) * this.gridInterval;
 		if (pos - min > this.gridInterval / 2)
