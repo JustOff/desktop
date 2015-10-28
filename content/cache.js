@@ -4,6 +4,7 @@ var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
 
 Cu.import("resource://gre/modules/Services.jsm");
 Cu.import("chrome://sstart/content/dom.js");
+Cu.import("chrome://sstart/content/utils.js");
 
 var cache = { 
 
@@ -15,8 +16,7 @@ var cache = {
 		this.gridInterval = prefService.getIntPref("extensions.sstart.gridInterval");
 		if (live) {
 			var gBrowser = Services.wm.getMostRecentWindow("navigator:browser").getBrowser();
-			if (gBrowser.contentDocument && gBrowser.contentDocument.location
-				&& /chrome:\/\/sstart\/content\/sstart.html(\?.*)?/.test(gBrowser.contentDocument.location.href)) {
+			if (Utils.isSStart(gBrowser.contentDocument)) {
 				var grid = gBrowser.contentDocument.getElementById("grid");
 				if (grid) {
 					grid.style.backgroundImage = "url(chrome://sstart/skin/grid" + this.gridInterval + ".png)";
@@ -40,8 +40,7 @@ var cache = {
 
 	updateGridOnUnlock: function () {
 		var gBrowser = Services.wm.getMostRecentWindow("navigator:browser").getBrowser();
-		if (gBrowser.contentDocument && gBrowser.contentDocument.location
-			&& /chrome:\/\/sstart\/content\/sstart.html(\?.*)?/.test(gBrowser.contentDocument.location.href)) {
+		if (Utils.isSStart(gBrowser.contentDocument)) {
 			var grid = gBrowser.contentDocument.getElementById("grid");
 			var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 			if (prefService.getBoolPref("extensions.sstart.showGridOnUnlock")) {
