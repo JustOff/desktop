@@ -55,7 +55,6 @@ function browserWindowStartup (aWindow) {
 	smenu.className = "menu-iconic";
 	smenu.setAttribute("image", "chrome://sstart/skin/icon.png");
 	var smenupopup = aWindow.document.createElement("menupopup");
-	smenupopup.setAttribute("onclick", "this.hidePopup();");
 	smenu.appendChild(smenupopup);
 	smenu.addEventListener("click", addPage, false);
 	var csp = aWindow.document.getElementById("context-savepage");
