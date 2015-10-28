@@ -3,11 +3,10 @@ justoff.sstart.SStart = new function () {
 	var SStart = this;
 	var Prefs = justoff.sstart.Prefs;
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/file.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
-
-	Components.utils.import("chrome://sstart/content/cache.js", justoff.sstart);
 	
 	this.Locked = true;
 	this.CacheDOM = false;
@@ -30,7 +29,7 @@ justoff.sstart.SStart = new function () {
 			doc.getElementById("sstart-hidden-box").appendChild(doc.importNode(document.getElementById("widgets"), true));
 		}
 		var widgets = doc.getElementById("widgets");
-		justoff.sstart.cache.fragment = widgets;
+		cache.fragment = widgets;
 		Dom.remove(widgets);
 		SStart.setCacheDOM(false);
 		var factory = document.getElementById("factory");
@@ -130,23 +129,23 @@ justoff.sstart.SStart = new function () {
 	};
 
 	this.getGridInterval = function () {
-		return justoff.sstart.cache.gridInterval;
+		return cache.gridInterval;
 	};
 
 	this.newtabOnLockDrag = function () {
-		return justoff.sstart.cache.newtabOnLockDrag;
+		return cache.newtabOnLockDrag;
 	};
 
 	this.autoZoom = function () {
-		return justoff.sstart.cache.autoZoom;
+		return cache.autoZoom;
 	};
 
 	this.setEditOff = function () {
-		justoff.sstart.cache.editOn = false;
+		cache.editOn = false;
 	};
 
 	this.isEditOn = function () {
-		return justoff.sstart.cache.editOn;
+		return cache.editOn;
 	};
 
 	this.updateGridStatus = function (show) {

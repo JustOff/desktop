@@ -5,12 +5,11 @@ justoff.sstart.Factory = function (storage) {
 	var SStart = justoff.sstart.SStart
 	var Prefs = justoff.sstart.Prefs
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/file.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	
 	const SEARCH_URL = "sstart://search/";
-	
-	Components.utils.import("chrome://sstart/content/cache.js", justoff.sstart);
 
 	this.createWidget = function (type, x, y) {
 		var properties = {
@@ -45,10 +44,10 @@ justoff.sstart.Factory = function (storage) {
 		createWidget(properties, fragment);
 		document.getElementById("widgets").appendChild(fragment);
 		if (SStart.getZoom() && SStart.getPageId() == 0) {
-			justoff.sstart.cache.clearCache();
+			cache.clearCache();
 		}
 		if (type == "folder") {
-			justoff.sstart.cache.setUpdateMenu(true);
+			cache.setUpdateMenu(true);
 		}
 		return true;
 	}
@@ -70,7 +69,7 @@ justoff.sstart.Factory = function (storage) {
 
 	this.createWidgets = function (pageId, autoZoom) {
 		var hasWidgets = false;
-		if (!SStart.isLocked() || pageId > 0 || !justoff.sstart.cache.fragment) {
+		if (!SStart.isLocked() || pageId > 0 || !cache.fragment) {
 			if (SStart.autoZoom()) {
 				var maxBottom = 1;
 				var maxRight = 1;
@@ -100,17 +99,17 @@ justoff.sstart.Factory = function (storage) {
 					}
 				}
 				if (SStart.autoZoom()) {
-					justoff.sstart.cache.maxBottom = maxBottom;
-					justoff.sstart.cache.maxRight = maxRight;
+					cache.maxBottom = maxBottom;
+					cache.maxRight = maxRight;
 				}
 			}
 		} else if (pageId == 0) {
-			var fragment = justoff.sstart.cache.fragment.cloneNode(true);
+			var fragment = cache.fragment.cloneNode(true);
 			hasWidgets = fragment.hasChildNodes();
 			SStart.setCacheDOM(true);
 			if (SStart.autoZoom()) {
-				var maxBottom = justoff.sstart.cache.maxBottom;
-				var maxRight = justoff.sstart.cache.maxRight;
+				var maxBottom = cache.maxBottom;
+				var maxRight = cache.maxRight;
 			}
 		}
 		
