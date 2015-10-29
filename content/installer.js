@@ -24,6 +24,10 @@ justoff.sstart.Installer = new function () {
 		Cache.updateAutoZoom();
 		attachContextMenu();
 
+		try {
+			Cu.import("resource://gre/modules/PageThumbs.jsm");
+		} catch (e) {}
+
 		var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 		if (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
 			// SeaMonkey
@@ -50,6 +54,10 @@ justoff.sstart.Installer = new function () {
 
 		if (Services.prefs.getBoolPref("extensions.sstart.overrideHomePage")) {
 			justoff.sstart.Installer.browserPref("startup.homepage", "set");
+		}
+		
+		if (Services.prefs.getBoolPref("extensions.sstart.disableSysThumbs")) {
+			justoff.sstart.Installer.browserPref("pagethumbnails", "set");
 		}
 
 		// Blank address line for Speed Start
@@ -172,9 +180,19 @@ justoff.sstart.Installer = new function () {
 				if (pref == "newtab.url" && typeof NewTabURL === "object" && typeof NewTabURL.override === "function") {
 					NewTabURL.override(justoff.sstart.Installer.newTabURI);
 				}
-				try {
-					bprefs.setCharPref(pref, justoff.sstart.Installer.newTabURI);
-				} catch (e) {}
+				if (pref == "pagethumbnails") {
+					try {
+						bprefs.setBoolPref("pageThumbs.enabled", false);
+						bprefs.setBoolPref("pagethumbnails.capturing_disabled", true);
+					} catch (e) {}
+					if (typeof PageThumbsStorage === "object" && typeof PageThumbsStorage.wipe === "function") {
+						PageThumbsStorage.wipe();
+					}
+				} else {
+					try {
+						bprefs.setCharPref(pref, justoff.sstart.Installer.newTabURI);
+					} catch (e) {}
+				}
 				break;
 			case "clear":
 				if (pref == "newtab.url" && typeof NewTabURL === "object" 
@@ -184,12 +202,19 @@ justoff.sstart.Installer = new function () {
 						NewTabURL.reset();
 					}
 				}
-				try {
-					newTabURI = bprefs.getCharPref(pref);
-					if (newTabURI == justoff.sstart.Installer.newTabURI) {
-						bprefs.clearUserPref(pref);
-					}
-				} catch (e) {}
+				if (pref == "pagethumbnails") {
+					try {
+						bprefs.clearUserPref("pageThumbs.enabled");
+						bprefs.clearUserPref("pagethumbnails.capturing_disabled");
+					} catch (e) {}
+				} else {
+					try {
+						newTabURI = bprefs.getCharPref(pref);
+						if (newTabURI == justoff.sstart.Installer.newTabURI) {
+							bprefs.clearUserPref(pref);
+						}
+					} catch (e) {}
+				}
 				break;
 		}
 	}
@@ -215,6 +240,14 @@ justoff.sstart.Installer = new function () {
 						justoff.sstart.Installer.browserPref("startup.homepage", "set");
 					} else {
 						justoff.sstart.Installer.browserPref("startup.homepage", "clear");
+					}
+					break;
+				case "disableSysThumbs":
+					var disableSysThumbs = Services.prefs.getBoolPref("extensions.sstart.disableSysThumbs");
+					if (disableSysThumbs) {
+						justoff.sstart.Installer.browserPref("pagethumbnails", "set");
+					} else {
+						justoff.sstart.Installer.browserPref("pagethumbnails", "clear");
 					}
 					break;
 				case "gridInterval":
@@ -270,6 +303,7 @@ justoff.sstart.Installer = new function () {
 					if (SStartBeingUninstalled) {
 						justoff.sstart.Installer.browserPref("newtab.url", "clear");
 						justoff.sstart.Installer.browserPref("startup.homepage", "clear");
+						justoff.sstart.Installer.browserPref("pagethumbnails", "clear");
 					}
 					break;
 			}
