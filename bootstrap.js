@@ -221,6 +221,16 @@ function browserPref (pref, cmd) {
 			try {
 				bprefs.setCharPref(pref, sstartTabURI);
 			} catch (e) {}
+			try {
+				bprefs.setCharPref(pref, sstartTabURI);
+			} catch (e) {}
+			try {
+				bprefs.setBoolPref("pageThumbs.enabled", false);
+				bprefs.setBoolPref("pagethumbnails.capturing_disabled", true);
+			} catch (e) {}
+			if (pref == "newtab.url" && typeof PageThumbsStorage === "object" && typeof PageThumbsStorage.wipe === "function") {
+				PageThumbsStorage.wipe();
+			}
 			break;
 		case "clear":
 			if (pref == "newtab.url" && typeof NewTabURL === "object" 
@@ -235,6 +245,10 @@ function browserPref (pref, cmd) {
 				if (newTabURI == sstartTabURI) {
 					bprefs.clearUserPref(pref);
 				}
+			} catch (e) {}
+			try {
+				bprefs.clearUserPref("pageThumbs.enabled");
+				bprefs.clearUserPref("pagethumbnails.capturing_disabled");
 			} catch (e) {}
 			break;
 	}
@@ -350,8 +364,12 @@ function startup (params, reason)
     Cu.import("chrome://sstart/content/dom.js");
     Cu.import("chrome://sstart/content/utils.js");
     Cu.import("chrome://sstart/content/bookmark.js");
-
+	
 	PrefLoader.loadDefaultPrefs(params.installPath, "sstart.js");
+
+	try {
+		Cu.import("resource://gre/modules/PageThumbs.jsm");
+	} catch (e) {}
 
 	if (appInfo.ID != "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
 		// != SeaMonkey
