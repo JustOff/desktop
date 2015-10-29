@@ -25,7 +25,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				gri: Prefs.getInt("gridInterval"), bgs: Prefs.getInt("backgroundStyle"), fcs: Prefs.getString("focus"),
 				swd: Prefs.getBool("showDecorations"), ont: Prefs.getBool("overrideNewTab"), ohp: Prefs.getBool("overrideHomePage"),
 				ntd: Prefs.getBool("newtabOnLockDrag"), bth: Prefs.getBool("bottomHeader"), azm: Prefs.getBool("autoZoom"),
-				guo: Prefs.getBool("showGridOnUnlock"), eld: Prefs.getInt("enlargeDialogs")}};
+				guo: Prefs.getBool("showGridOnUnlock"), dst: Prefs.getBool("disableSysThumbs"), eld: Prefs.getInt("enlargeDialogs")}};
 			data["version"] = BACKUP_VERSION;
 			var bookmarks = Bookmark.getBookmarks();
 			for (var i in bookmarks) {
@@ -155,6 +155,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				Prefs.setBool("bottomHeader", data["prefs"]["bth"]);
 				Prefs.setBool("autoZoom", data["prefs"]["azm"]);
 				if (typeof data["prefs"]["guo"] != "undefined") Prefs.setBool("showGridOnUnlock", data["prefs"]["guo"]);
+				if (typeof data["prefs"]["dst"] != "undefined") Prefs.setBool("disableSysThumbs", data["prefs"]["dst"]);
 				if (typeof data["prefs"]["eld"] != "undefined") Prefs.setInt("enlargeDialogs", data["prefs"]["eld"]);
 				var newId = Bookmark.createFolder(dstFolder);
 				Bookmark.setAnnotation(newId, ANNOTATION, data["params"]);

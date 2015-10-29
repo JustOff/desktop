@@ -4,6 +4,7 @@
 
 <!ENTITY sstart.OpenInNewTabs "Показывать в новых вкладках">
 <!ENTITY sstart.UseAsHomePage "Использовать как домашнюю страницу">
+<!ENTITY sstart.DisableSysThumbs "Отключить системные миниатюры">
 <!ENTITY sstart.newtabOnLockDrag "Открывать в новой вкладке при перетаскивании">
 <!ENTITY sstart.autoZoom "Автоматически уменьшать для соблюдения границ">
 <!ENTITY sstart.bottomHeader "Выводить заголовки снизу">

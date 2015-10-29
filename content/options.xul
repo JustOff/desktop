@@ -5,12 +5,13 @@
 			persist="width height"
 			title="&sstart.Preferences;"
 			dlgbuttons="accept,cancel"
-			style="min-width: 340px; min-height: 365px;"
+			style="min-width: 340px; min-height: 390px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<prefpane id="general-pane" label="&sstart.Preferences;">
 		<preferences>
 			<preference id="extensions.sstart.overrideNewTab" name="extensions.sstart.overrideNewTab" type="bool"/>
 			<preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage" type="bool"/>
+			<preference id="extensions.sstart.disableSysThumbs" name="extensions.sstart.disableSysThumbs" type="bool"/>
 			<preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag" type="bool"/>
 			<preference id="extensions.sstart.autoZoom" name="extensions.sstart.autoZoom" type="bool"/>
 			<preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
@@ -26,6 +27,10 @@
 			<hbox>
 				<checkbox id="useAsHomePage" label="&sstart.UseAsHomePage;"
 						  preference="extensions.sstart.overrideHomePage"/>
+			</hbox>
+			<hbox>
+				<checkbox id="disableSysThumbs" label="&sstart.DisableSysThumbs;"
+						  preference="extensions.sstart.disableSysThumbs"/>
 			</hbox>
 			<hbox>
 				<checkbox id="openNewtabOnLockDrag" label="&sstart.newtabOnLockDrag;"

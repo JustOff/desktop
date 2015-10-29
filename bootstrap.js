@@ -218,18 +218,18 @@ function browserPref (pref, cmd) {
 			if (pref == "newtab.url" && typeof NewTabURL === "object" && typeof NewTabURL.override === "function") {
 				NewTabURL.override(sstartTabURI);
 			}
-			try {
-				bprefs.setCharPref(pref, sstartTabURI);
-			} catch (e) {}
-			try {
-				bprefs.setCharPref(pref, sstartTabURI);
-			} catch (e) {}
-			try {
-				bprefs.setBoolPref("pageThumbs.enabled", false);
-				bprefs.setBoolPref("pagethumbnails.capturing_disabled", true);
-			} catch (e) {}
-			if (pref == "newtab.url" && typeof PageThumbsStorage === "object" && typeof PageThumbsStorage.wipe === "function") {
-				PageThumbsStorage.wipe();
+			if (pref == "pagethumbnails") {
+				try {
+					bprefs.setBoolPref("pageThumbs.enabled", false);
+					bprefs.setBoolPref("pagethumbnails.capturing_disabled", true);
+				} catch (e) {}
+				if (typeof PageThumbsStorage === "object" && typeof PageThumbsStorage.wipe === "function") {
+					PageThumbsStorage.wipe();
+				}
+			} else {
+				try {
+					bprefs.setCharPref(pref, sstartTabURI);
+				} catch (e) {}
 			}
 			break;
 		case "clear":
@@ -240,16 +240,19 @@ function browserPref (pref, cmd) {
 					NewTabURL.reset();
 				}
 			}
-			try {
-				newTabURI = bprefs.getCharPref(pref);
-				if (newTabURI == sstartTabURI) {
-					bprefs.clearUserPref(pref);
-				}
-			} catch (e) {}
-			try {
-				bprefs.clearUserPref("pageThumbs.enabled");
-				bprefs.clearUserPref("pagethumbnails.capturing_disabled");
-			} catch (e) {}
+			if (pref == "pagethumbnails") {
+				try {
+					bprefs.clearUserPref("pageThumbs.enabled");
+					bprefs.clearUserPref("pagethumbnails.capturing_disabled");
+				} catch (e) {}
+			} else {
+				try {
+					newTabURI = bprefs.getCharPref(pref);
+					if (newTabURI == sstartTabURI) {
+						bprefs.clearUserPref(pref);
+					}
+				} catch (e) {}
+			}
 			break;
 	}
 }
@@ -275,6 +278,14 @@ var myPrefsWatcher = {
 					browserPref("startup.homepage", "set");
 				} else {
 					browserPref("startup.homepage", "clear");
+				}
+				break;
+			case "disableSysThumbs":
+				var disableSysThumbs = Services.prefs.getBoolPref("extensions.sstart.disableSysThumbs");
+				if (disableSysThumbs) {
+					browserPref("pagethumbnails", "set");
+				} else {
+					browserPref("pagethumbnails", "clear");
 				}
 				break;
 			case "gridInterval":
@@ -386,6 +397,10 @@ function startup (params, reason)
 	if (Services.prefs.getBoolPref("extensions.sstart.overrideHomePage")) {
 		browserPref("startup.homepage", "set");
 	}
+	
+	if (Services.prefs.getBoolPref("extensions.sstart.disableSysThumbs")) {
+		browserPref("pagethumbnails", "set");
+	}
 
 	linkToSStart = Utils.translate("linkToSStart");
 	pageToSStart = Utils.translate("pageToSStart");
@@ -436,6 +451,7 @@ function shutdown (params, reason)
 	
 	browserPref("newtab.url", "clear");
 	browserPref("startup.homepage", "clear");
+	browserPref("pagethumbnails", "clear");
 	
 	PrefLoader.clearDefaultPrefs();
 
