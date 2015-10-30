@@ -25,7 +25,7 @@ justoff.sstart.Factory = function (storage) {
 			var param = { properties: properties };
 			openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(300, 230), param);
 		} else {
-			properties.width = 200;
+			properties.width = Prefs.getInt("thumbnail.width");
 			properties.height = 40;
 			properties.url = SEARCH_URL;
 			var param = { properties: properties };

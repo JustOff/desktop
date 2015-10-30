@@ -2,6 +2,7 @@ justoff.sstart.Search = function () {
 
 	var Search = justoff.sstart.Search
 	var SStart = justoff.sstart.SStart
+	var Prefs = justoff.sstart.Prefs
 
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
@@ -10,7 +11,7 @@ justoff.sstart.Search = function () {
 		Search.prototype.setProperties.call(this, properties);
 
 		if (!this.properties.width) {
-			this.properties.width = 200;
+			this.properties.width = Prefs.getInt("thumbnail.width");
 			this.properties.height = 40;
 		}
 	}
