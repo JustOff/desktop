@@ -23,7 +23,6 @@ body {
 .widget {
 	position: absolute;
 	border: 1px solid #E0E0E0;
-	-moz-border-radius: 3px;
 }
 
 .widget:hover {
