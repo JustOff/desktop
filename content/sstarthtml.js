@@ -274,7 +274,7 @@ console.time("SStart");
 
 	Drag.enable(document);
 	
-	if (!hasWidgets || Cache.isEditOn()) {
+	if (Cache.isEditOn()) {
 		SStart.setLocked(false);
 		Cache.setEditOff();
 		updateLockStatus();
