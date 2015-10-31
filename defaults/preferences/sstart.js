@@ -1,5 +1,6 @@
 pref("extensions.sstart.thumbnail.width", 224);
 pref("extensions.sstart.thumbnail.height", 128);
+pref("extensions.sstart.autoUpdSize", true);
 pref("extensions.sstart.gridInterval", 32);
 pref("extensions.sstart.backgroundStyle", 1);
 pref("extensions.sstart.focus", "");

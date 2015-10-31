@@ -5,7 +5,7 @@
 			persist="width height"
 			title="&sstart.Preferences;"
 			dlgbuttons="accept,cancel"
-			style="min-width: 340px; min-height: 390px;"
+			style="min-width: 350px; min-height: 290px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<prefpane id="general-pane" label="&sstart.Preferences;">
 		<preferences>
@@ -17,73 +17,122 @@
 			<preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
 			<preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
 			<preference id="extensions.sstart.showGridOnUnlock" name="extensions.sstart.showGridOnUnlock" type="bool"/>
+			<preference id="extensions.sstart.thumbnail.width" name="extensions.sstart.thumbnail.width" type="int"/>
+			<preference id="extensions.sstart.thumbnail.height" name="extensions.sstart.thumbnail.height" type="int"/>
+			<preference id="extensions.sstart.autoUpdSize" name="extensions.sstart.autoUpdSize" type="bool"/>
 		</preferences>
-		<groupbox flex="1">
-			<caption label="&sstart.General;"/>
-			<hbox>
-				<checkbox id="openInNewTabs" label="&sstart.OpenInNewTabs;"
-						  preference="extensions.sstart.overrideNewTab"/>
-			</hbox>
-			<hbox>
-				<checkbox id="useAsHomePage" label="&sstart.UseAsHomePage;"
-						  preference="extensions.sstart.overrideHomePage"/>
-			</hbox>
-			<hbox>
-				<checkbox id="disableSysThumbs" label="&sstart.DisableSysThumbs;"
-						  preference="extensions.sstart.disableSysThumbs"/>
-			</hbox>
-			<hbox>
-				<checkbox id="openNewtabOnLockDrag" label="&sstart.newtabOnLockDrag;"
-						  preference="extensions.sstart.newtabOnLockDrag"/>
-			</hbox>
-			<hbox>
-				<checkbox id="useAutoZoom" label="&sstart.autoZoom;"
-						  preference="extensions.sstart.autoZoom"/>
-			</hbox>
-			<hbox>
-				<checkbox id="bottomHeader" label="&sstart.bottomHeader;"
-						  preference="extensions.sstart.bottomHeader"/>
-			</hbox>
-		</groupbox>
-		<groupbox flex="1">
-			<caption label="&sstart.Positioning;"/>
-			<hbox align="center">
-				<label control="browse">&sstart.GridSize;:</label>
-				<menulist id="gridInterval" preference="extensions.sstart.gridInterval">
-					<menupopup>
-						<menuitem label="16" value="16"/>
-						<menuitem label="24" value="24"/>
-						<menuitem label="32" value="32"/>
-						<menuitem label="48" value="48"/>
-						<menuitem label="64" value="64"/>
-					</menupopup>
-				</menulist>
-			</hbox>
-			<hbox>
-				<checkbox id="showGridOnUnlock" label="&sstart.showGridOnUnlock;"
-						  preference="extensions.sstart.showGridOnUnlock"/>
-			</hbox>
-		</groupbox>
-		<groupbox flex="1">
-			<caption label="&sstart.Backup;"/>
-			<grid>
-				<columns>
-					<column flex="1"/>
-					<column/>
-				</columns>
-				<rows>
-					<row align="center">
-						<label control="browse" flex="1">&sstart.Data;:</label>
+		<tabbox>
+			<tabs>
+				<tab label="&sstart.PageTab;"/>
+				<tab label="&sstart.WidgetsTab;"/>
+				<tab label="&sstart.ExtraTab;"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel id="general" orient="vertical">
+					<groupbox flex="1">
+						<caption label="&sstart.General;"/>
 						<hbox>
-							<button class="browse" label="&sstart.Export;"
-									oncommand="justoff.sstart.SStartOptionsXul.exportData();"/>
-							<button class="browse" label="&sstart.Import;"
-									oncommand="justoff.sstart.SStartOptionsXul.importData();"/>
+							<checkbox id="openInNewTabs" label="&sstart.OpenInNewTabs;"
+									preference="extensions.sstart.overrideNewTab"/>
 						</hbox>
-					</row>
-				</rows>
-			</grid>
-		</groupbox>
+						<hbox>
+							<checkbox id="useAsHomePage" label="&sstart.UseAsHomePage;"
+									preference="extensions.sstart.overrideHomePage"/>
+						</hbox>
+						<hbox>
+							<checkbox id="useAutoZoom" label="&sstart.autoZoom;"
+									preference="extensions.sstart.autoZoom"/>
+						</hbox>
+					</groupbox>
+					<groupbox flex="1">
+						<caption label="&sstart.Positioning;"/>
+						<hbox align="center">
+							<label control="browse">&sstart.GridSize;:</label>
+							<menulist id="gridInterval" preference="extensions.sstart.gridInterval">
+								<menupopup>
+									<menuitem label="16" value="16"/>
+									<menuitem label="24" value="24"/>
+									<menuitem label="32" value="32"/>
+									<menuitem label="48" value="48"/>
+									<menuitem label="64" value="64"/>
+								</menupopup>
+							</menulist>
+						</hbox>
+						<hbox>
+							<checkbox id="showGridOnUnlock" label="&sstart.showGridOnUnlock;"
+									preference="extensions.sstart.showGridOnUnlock"/>
+						</hbox>
+					</groupbox>
+				</tabpanel>
+				<tabpanel  id="widgets" orient="vertical">
+					<groupbox flex="1">
+						<caption label="&sstart.General;"/>
+						<hbox>
+							<checkbox id="openNewtabOnLockDrag" label="&sstart.newtabOnLockDrag;"
+									preference="extensions.sstart.newtabOnLockDrag"/>
+						</hbox>
+						<hbox>
+							<checkbox id="bottomHeader" label="&sstart.bottomHeader;"
+									preference="extensions.sstart.bottomHeader"/>
+						</hbox>
+					</groupbox>
+					<groupbox flex="1">
+						<caption label="&sstart.DefSize;"/>
+						<grid>
+							<columns>
+								<column/>
+								<column width="100"/>
+							</columns>
+							<rows>
+								<row align="center">
+									<label value="&sstart.Width;:"/>
+									<textbox id="width" preference="extensions.sstart.thumbnail.width"/>
+								</row>
+								<row align="center">
+									<label value="&sstart.Height;:"/>
+									<textbox id="height" preference="extensions.sstart.thumbnail.height"/>
+								</row>
+							</rows>
+						</grid>
+						<hbox>
+							<checkbox id="autoUpdSize" label="&sstart.AutoUpdSize;"
+									preference="extensions.sstart.autoUpdSize"/>
+						</hbox>
+					</groupbox>
+				</tabpanel>
+				<tabpanel  id="extra" orient="vertical">
+					<groupbox>
+						<caption label="&sstart.General;"/>
+						<hbox>
+							<checkbox id="disableSysThumbs" label="&sstart.DisableSysThumbs;"
+									preference="extensions.sstart.disableSysThumbs"/>
+						</hbox>
+					</groupbox>
+					<spacer flex="1"/>
+					<groupbox>
+						<caption label="&sstart.Backup;"/>
+						<grid>
+							<columns>
+								<column flex="1"/>
+								<column/>
+							</columns>
+							<rows>
+								<row align="center">
+									<label control="browse" flex="1">&sstart.Data;:</label>
+									<hbox>
+										<button class="browse" label="&sstart.Export;"
+												oncommand="justoff.sstart.SStartOptionsXul.exportData();"/>
+										<button class="browse" label="&sstart.Import;"
+												oncommand="justoff.sstart.SStartOptionsXul.importData();"/>
+									</hbox>
+								</row>
+							</rows>
+						</grid>
+					</groupbox>
+					<spacer flex="1"/>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
 	</prefpane>
 	<script src="namespace.js"/>
 	<script src="sstart.js"/>

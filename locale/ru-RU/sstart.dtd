@@ -1,5 +1,9 @@
 <!ENTITY sstart.Preferences "Настройки Speed Start">
 
+<!ENTITY sstart.PageTab "Страница">
+<!ENTITY sstart.WidgetsTab "Миниатюры">
+<!ENTITY sstart.ExtraTab "Дополнительно">
+
 <!ENTITY sstart.General "Общие">
 
 <!ENTITY sstart.OpenInNewTabs "Показывать в новых вкладках">
@@ -11,6 +15,8 @@
 <!ENTITY sstart.Positioning "Выравнивание">
 <!ENTITY sstart.GridSize "Размер сетки">
 <!ENTITY sstart.showGridOnUnlock "Показывать сетку, когда страница разблокирована">
+<!ENTITY sstart.DefSize "Размер по умолчанию">
+<!ENTITY sstart.AutoUpdSize "Автоматически обновлять при изменении">
 
 <!ENTITY sstart.Properties "Свойства">
 <!ENTITY sstart.SearchEngine "Поисковая система">

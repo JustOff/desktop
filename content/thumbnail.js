@@ -91,8 +91,10 @@ justoff.sstart.Thumbnail = function () {
 		var self = this;
 
 		this.view.addEventListener("drop", function () {
-			Prefs.setInt("thumbnail.width", self.properties.width);
-			Prefs.setInt("thumbnail.height", self.properties.height);
+			if (Prefs.getBool("autoUpdSize")) {
+				Prefs.setInt("thumbnail.width", self.properties.width);
+				Prefs.setInt("thumbnail.height", self.properties.height);
+			}
 		}, false);
 
 		// This code disables Tab Mix Plus "Force new tab" option. Magic.

@@ -1,5 +1,9 @@
 <!ENTITY sstart.Preferences "Speed Start Options">
 
+<!ENTITY sstart.PageTab "Page">
+<!ENTITY sstart.WidgetsTab "Widgets">
+<!ENTITY sstart.ExtraTab "Extra">
+
 <!ENTITY sstart.General "General">
 
 <!ENTITY sstart.OpenInNewTabs "Load in new tabs">
@@ -11,6 +15,8 @@
 <!ENTITY sstart.Positioning "Aligning">
 <!ENTITY sstart.GridSize "Grid size">
 <!ENTITY sstart.showGridOnUnlock "Show grid when page is unlocked">
+<!ENTITY sstart.DefSize "Default size">
+<!ENTITY sstart.AutoUpdSize "Auto update on resize">
 
 <!ENTITY sstart.Properties "Properties">
 <!ENTITY sstart.SearchEngine "Search Engine">
