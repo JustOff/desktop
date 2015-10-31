@@ -1,12 +1,12 @@
 <!ENTITY sstart.Preferences "Налаштування Speed Start">
 
 <!ENTITY sstart.PageTab "Сторінка">
-<!ENTITY sstart.WidgetsTab "Мініатюри">
+<!ENTITY sstart.WidgetsTab "Віджети">
 <!ENTITY sstart.ExtraTab "Додатково">
 
 <!ENTITY sstart.General "Загальні">
 
-<!ENTITY sstart.OpenInNewTabs "Відкривати в нових вкладках">
+<!ENTITY sstart.OpenInNewTabs "Показувати в новій вкладці">
 <!ENTITY sstart.UseAsHomePage "Використовувати як домашню сторінку">
 <!ENTITY sstart.DisableSysThumbs "Відключити системні мініатюри">
 <!ENTITY sstart.newtabOnLockDrag "Відкривати в новій вкладці при перетягуванні">

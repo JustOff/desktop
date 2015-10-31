@@ -16,14 +16,14 @@ contextIcons=Іконки
 contextRefresh=Оновити
 contextThumbnail=Мініатюру
 contextIcon=Іконку
-contextAlignThumbnails=Вирівняти всі об`єкти
+contextAlignThumbnails=Вирівняти всі віджети
 contextProperties=Властивості
 contextRename=Переіменувати
 contextRemove=Видалити
 
-dialogRemoveWidget=Видалити об`єкт?
-dialogMoveWidget=Перемістити об'єкт в папку?
-dialogMoveUpWidget=Перемістити об'єкт на рівень вище?
+dialogRemoveWidget=Видалити віджет?
+dialogMoveWidget=Перемістити віджет в папку?
+dialogMoveUpWidget=Перемістити віджет на рівень вище?
 
 imageSet=Встановити
 imageRemove=Видалити
