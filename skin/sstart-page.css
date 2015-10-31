@@ -247,6 +247,15 @@ body.no-decorations.lock-edits .widget .header {
 	display: none;
 }
 
+.new {
+	border: 2px solid #FF0000;
+	margin: -1px;
+}
+
+.new:hover {
+	border-color: #CC0000;
+}
+
 #grid {
 	z-index: -1;
 }

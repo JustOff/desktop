@@ -154,6 +154,7 @@ justoff.sstart.Widget = function () {
 			self.properties.height = parseInt(self.view.style.height, 10);
 			self.save.call(self);
 			self.updateView.call(self);
+			Dom.removeClass(self.view, "new");
 			if (resized) {
 				self.refresh.call(self);
 			}

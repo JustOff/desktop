@@ -278,6 +278,8 @@ console.time("SStart");
 		SStart.setLocked(false);
 		Cache.setEditOff();
 		updateLockStatus();
+		var widgets = document.getElementById("widgets");
+		Dom.addClass(widgets.lastChild, "new");
 	} else {
 		updateLockStatus(true);
 	}

@@ -184,8 +184,8 @@ function addPage (e) {
 		var data = Utils.getBrowserWindow().document.getElementById("sstart-add-page-menu");
 		var newId = Bookmark.createBookmark(data.getAttribute("data-url"), data.getAttribute("data-title"), folderId);
 		var cont = Utils.getBrowserWindow().content;
-		var width = Cache.alignToGrid(cont.innerWidth / 4);
-		var height = Cache.alignToGrid(cont.innerHeight / 4);
+		var width = Services.prefs.getIntPref("extensions.sstart.thumbnail.width");
+		var height = Services.prefs.getIntPref("extensions.sstart.thumbnail.height");
 		var left = Cache.alignToGrid((cont.innerWidth - width) / 2);
 		var top = Cache.alignToGrid((cont.innerHeight - height) / 2);
 		Bookmark.setAnnotation(newId, "bookmarkProperties/description", 
