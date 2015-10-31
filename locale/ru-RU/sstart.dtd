@@ -4,7 +4,9 @@
 <!ENTITY sstart.WidgetsTab "Виджеты">
 <!ENTITY sstart.ExtraTab "Дополнительно">
 
-<!ENTITY sstart.General "Общие">
+<!ENTITY sstart.Main "Основное">
+<!ENTITY sstart.General "Общее">
+<!ENTITY sstart.Misc "Разное">
 
 <!ENTITY sstart.OpenInNewTabs "Показывать в новой вкладке">
 <!ENTITY sstart.UseAsHomePage "Использовать как домашнюю страницу">
@@ -40,7 +42,7 @@
 
 <!ENTITY sstart.GiveFocus "Выделять при старте">
 
-<!ENTITY sstart.Backup "Резарвная копия">
+<!ENTITY sstart.Backup "Резервная копия">
 <!ENTITY sstart.Data "Данные">
 <!ENTITY sstart.Export "Сохранить">
 <!ENTITY sstart.Import "Загрузить">

@@ -4,7 +4,9 @@
 <!ENTITY sstart.WidgetsTab "Widgets">
 <!ENTITY sstart.ExtraTab "Extra">
 
+<!ENTITY sstart.Main "Main">
 <!ENTITY sstart.General "General">
+<!ENTITY sstart.Misc "Misc">
 
 <!ENTITY sstart.OpenInNewTabs "Load in new tab">
 <!ENTITY sstart.UseAsHomePage "Use as home page">

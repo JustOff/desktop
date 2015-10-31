@@ -4,7 +4,9 @@
 <!ENTITY sstart.WidgetsTab "Віджети">
 <!ENTITY sstart.ExtraTab "Додатково">
 
-<!ENTITY sstart.General "Загальні">
+<!ENTITY sstart.Main "Основне">
+<!ENTITY sstart.General "Загальне">
+<!ENTITY sstart.Misc "Різне">
 
 <!ENTITY sstart.OpenInNewTabs "Показувати в новій вкладці">
 <!ENTITY sstart.UseAsHomePage "Використовувати як домашню сторінку">

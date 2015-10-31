@@ -30,7 +30,7 @@
 			<tabpanels>
 				<tabpanel id="general" orient="vertical">
 					<groupbox flex="1">
-						<caption label="&sstart.General;"/>
+						<caption label="&sstart.Main;"/>
 						<hbox>
 							<checkbox id="openInNewTabs" label="&sstart.OpenInNewTabs;"
 									preference="extensions.sstart.overrideNewTab"/>
@@ -102,7 +102,7 @@
 				</tabpanel>
 				<tabpanel  id="extra" orient="vertical">
 					<groupbox>
-						<caption label="&sstart.General;"/>
+						<caption label="&sstart.Misc;"/>
 						<hbox>
 							<checkbox id="disableSysThumbs" label="&sstart.DisableSysThumbs;"
 									preference="extensions.sstart.disableSysThumbs"/>
