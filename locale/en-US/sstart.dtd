@@ -10,7 +10,7 @@
 
 <!ENTITY sstart.OpenInNewTabs "Load in new tab">
 <!ENTITY sstart.UseAsHomePage "Use as home page">
-<!ENTITY sstart.DisableSysThumbs "Disable system thumbnails">
+<!ENTITY sstart.DisableSysThumbs "Disable 'about:newtab' thumbnails">
 <!ENTITY sstart.newtabOnLockDrag "Open in new tab on drag">
 <!ENTITY sstart.autoZoom "Auto zoom out to fit borders">
 <!ENTITY sstart.bottomHeader "Display headers at bottom">
