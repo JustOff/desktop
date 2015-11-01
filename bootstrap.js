@@ -304,8 +304,7 @@ var myPrefsWatcher = {
 		}
 	},
 	register: function () {
-		var prefsService = Cc["@mozilla.org/preferences-service;1"]
-			.getService(Ci.nsIPrefService);
+		var prefsService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
 		this.prefBranch = prefsService.getBranch("extensions.sstart.");
 		this.prefBranch.addObserver("", this, false);
 	},
@@ -333,8 +332,7 @@ var browserPrefsWatcher = {
 		}
 	},
 	register: function () {
-		var prefsService = Cc["@mozilla.org/preferences-service;1"]
-			.getService(Ci.nsIPrefService);
+		var prefsService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService);
 		this.prefBranch = prefsService.getBranch("browser.");
 		this.prefBranch.addObserver("", this, false);
 	},
@@ -350,8 +348,7 @@ var newTabURLWatcher = {
 		}
 	},
 	register: function () {
-		this.observerService = Cc["@mozilla.org/observer-service;1"]
-			.getService(Ci.nsIObserverService);
+		this.observerService = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
 		this.observerService.addObserver(this, "newtab-url-changed", false)
 	},
 	unregister: function () {
