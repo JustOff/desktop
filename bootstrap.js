@@ -12,9 +12,8 @@ var SSTART_MODULES = [
 
 Cu.import("resource://gre/modules/Services.jsm");
 
-var gWindowListener = null, linkToSStart, pageToSStart;
+var gWindowListener = null, linkToSStart, pageToSStart, isSeaMonkey;
 var sstartTabURI = "chrome://sstart/content/sstart.html";
-var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 
 function BrowserWindowObserver(handlers) {
 	this.handlers = handlers;
@@ -66,8 +65,7 @@ function browserWindowStartup (aWindow) {
 	smitem.addEventListener("click", addPage, false);
 	cmenu.insertBefore(smitem, csp);
 	cmenu.addEventListener("popupshowing", cPopupShowingListener, false);
-	if (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
-		// SeaMonkey
+	if (isSeaMonkey) {
 		aWindow.gBrowser || aWindow.getBrowser();
 		aWindow.gBrowserOrigAddTab = aWindow.gBrowser.addTab;
 		aWindow.gBrowser.addTab = function () {
@@ -77,7 +75,6 @@ function browserWindowStartup (aWindow) {
 			return aWindow.gBrowserOrigAddTab.apply(aWindow.gBrowser, arguments);
 		}
 	}
-	// Blank address line for sstartTabURI
 	if (Object.prototype.toString.call(aWindow.gInitialPages).slice(8, -1) == "Array"
 		&& aWindow.gInitialPages.indexOf(sstartTabURI) == -1) {
 		aWindow.gInitialPages.push(sstartTabURI);
@@ -95,7 +92,7 @@ function browserWindowShutdown (aWindow) {
 		&& aWindow.gInitialPages.has(sstartTabURI)) {
 		aWindow.gInitialPages.delete(sstartTabURI);
 	}
-	if (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
+	if (isSeaMonkey) {
 		aWindow.gBrowser.addTab = aWindow.gBrowserOrigAddTab;
 		aWindow.gBrowserOrigAddTab = null;
 	}
@@ -378,9 +375,11 @@ function startup (params, reason)
 	try {
 		Cu.import("resource://gre/modules/PageThumbs.jsm");
 	} catch (e) {}
+	
+	var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+	isSeaMonkey = (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}");
 
-	if (appInfo.ID != "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}") {
-		// != SeaMonkey
+	if (!isSeaMonkey) {
 		if (typeof NewTabURL !== "object") {
 			try {
 				Cu.import("resource:///modules/NewTabURL.jsm");
