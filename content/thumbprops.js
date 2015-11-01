@@ -7,7 +7,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	Components.utils.import("chrome://sstart/content/url.js");
 
 	this.updateBgColor = function () {
-		var bgColor = document.getElementById("bgColor").value == "#" ? "" : document.getElementById("bgColor").value;
+		var bgColor = CSS.supports("color", document.getElementById("bgColor").value) ? document.getElementById("bgColor").value : "";
 		if (this.view) {
 			this.view.style.backgroundColor = bgColor;
 		}
@@ -75,12 +75,12 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 				properties.url = "about:blank";
 			}
 		}
-		properties.background = (document.getElementById("bgColor").value == "#") ? "" : document.getElementById("bgColor").value;
+		properties.background = CSS.supports("color", document.getElementById("bgColor").value) ? document.getElementById("bgColor").value : "";
 		properties.width = document.getElementById("width").value;
 		properties.height = document.getElementById("height").value;
 		if (document.getElementById("customImage").value == "" || SStart.isURI(document.getElementById("customImage").value)) {
 			properties.customImage = document.getElementById("customImage").value.trim();
-		} else {
+		} else if (this.hashWord) {
 			var dir = File.getDataDirectory();
 			try {
 				dir.append("tmp." + this.hashWord + "." + document.getElementById("customImage").value);
@@ -111,7 +111,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			this.view.style.backgroundColor = window.arguments[0].properties.background || "";
 		}
 		window.arguments[0].properties = null;
-		if (this.tmpName) {
+		if (this.tmpName && this.hashWord) {
 			var dir = File.getDataDirectory();
 			try {
 				dir.append("tmp." + this.hashWord + "." + this.tmpName);
@@ -125,7 +125,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	this.browseCustomImage = function () {
 		var file = File.chooseFile("open", ["images"]);
 		if (file) {
-			if (!SStart.isURI(document.getElementById("customImage").value)) {
+			if (!SStart.isURI(document.getElementById("customImage").value) && this.hashWord && this.tmpName) {
 				var dir = File.getDataDirectory();
 				try {
 					dir.append("tmp." + this.hashWord + "." + this.tmpName);

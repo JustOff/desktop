@@ -106,8 +106,11 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	}
 
 	this.updatePageBgColor = function () {
-		this.body.style.backgroundColor = document.getElementById("bgColor").value;
-		document.getElementById("bgColorBtn").style.backgroundColor = document.getElementById("bgColor").value;
+		var bgc = document.getElementById("bgColor").value;
+		if (CSS.supports("color", bgc)) {
+			this.body.style.backgroundColor = bgc;
+			document.getElementById("bgColorBtn").style.backgroundColor = bgc
+		}
 	}
 
 	this.cpickPageBg = function () {
@@ -118,8 +121,11 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	}
 
 	this.updateHeaderTColor = function () {
-		this.sSheet.cssRules[11].style.color = document.getElementById("titleColor").value;
-		document.getElementById("titleColorBtn").style.backgroundColor = document.getElementById("titleColor").value;
+		var htc = document.getElementById("titleColor").value;
+		if (CSS.supports("color", htc)) {
+			this.sSheet.cssRules[11].style.color = htc;
+			document.getElementById("titleColorBtn").style.backgroundColor = htc;
+		}
 	}
 
 	this.cpickHeaderT = function () {
@@ -130,9 +136,12 @@ justoff.sstart.SStartPropertiesXul = new function () {
 	}
 
 	this.updateHeaderBgColor = function () {
-		this.sSheet.cssRules[6].style.backgroundColor = document.getElementById("headerColor").value;
-		this.sSheet.cssRules[4].style.border = "1px solid " + document.getElementById("headerColor").value;
-		document.getElementById("headerColorBtn").style.backgroundColor = document.getElementById("headerColor").value;
+		var hbc = document.getElementById("headerColor").value;
+		if (CSS.supports("color", hbc)) {
+			this.sSheet.cssRules[6].style.backgroundColor = hbc;
+			this.sSheet.cssRules[4].style.border = "1px solid " + hbc;
+			document.getElementById("headerColorBtn").style.backgroundColor = hbc;
+		}
 	}
 
 	this.cpickHeaderBg = function () {
@@ -182,9 +191,9 @@ justoff.sstart.SStartPropertiesXul = new function () {
 			this.cpicker.close();
 		}
 		var properties = window.arguments[0].properties;
-		properties.background = (document.getElementById("bgColor").value == "") ? "#FFFFFF" : document.getElementById("bgColor").value;
-		properties.titleColor = (document.getElementById("titleColor").value == "") ? "#000000" : document.getElementById("titleColor").value;
-		properties.headerColor = (document.getElementById("headerColor").value == "") ? "#E0E0E0" : document.getElementById("headerColor").value;
+		properties.background = CSS.supports("color", document.getElementById("bgColor").value) ? document.getElementById("bgColor").value : "#FFFFFF";
+		properties.titleColor = CSS.supports("color", document.getElementById("titleColor").value) ? document.getElementById("titleColor").value : "#000000";
+		properties.headerColor = CSS.supports("color", document.getElementById("headerColor").value) ? document.getElementById("headerColor").value : "#E0E0E0";
 		properties.backgroundImage = this.backgroundImage;
 		properties.backgroundStyle = document.getElementById("bgStyle").value;
 		var dir = File.getDataDirectory();
