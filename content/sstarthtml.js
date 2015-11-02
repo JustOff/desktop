@@ -261,6 +261,22 @@ console.time("SStart");
 		}
 	}, false);
 
+	document.addEventListener("click", function (e) {
+		if (e.button != 0 || e.clientX == 0 || !Cache.getNewtabOpenAlways()) return;
+		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+		if (!SStart.isOverWidget(hoverEl)) return;
+		if (hoverEl.parentElement && hoverEl.parentElement.nodeName == "A" && hoverEl.parentElement.href) {
+			if (e.ctrlKey || e.metaKey) {
+				Utils.getBrowser().loadURI(hoverEl.parentElement.href);
+			} else {
+				Utils.getBrowser().loadOneTab(hoverEl.parentElement.href, {inBackground: false, relatedToCurrent: true});
+			}
+			e.stopPropagation();
+			e.preventDefault();
+			return false;
+		}
+	}, false);
+
 	document.addEventListener("dblclick", function (e) {
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 		if (e.clientX == 0 || SStart.isOverWidget(hoverEl))

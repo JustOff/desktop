@@ -8,6 +8,7 @@ pref("extensions.sstart.showDecorations", true);
 pref("extensions.sstart.overrideNewTab", true);
 pref("extensions.sstart.overrideHomePage", false);
 pref("extensions.sstart.disableSysThumbs", false);
+pref("extensions.sstart.newtabOpen", true);
 pref("extensions.sstart.newtabOnLockDrag", true);
 pref("extensions.sstart.bottomHeader", false);
 pref("extensions.sstart.autoZoom", false);

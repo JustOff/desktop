@@ -5,13 +5,14 @@
 			persist="width height"
 			title="&sstart.Preferences;"
 			dlgbuttons="accept,cancel"
-			style="min-width: 350px; min-height: 290px;"
+			style="min-width: &sstart.MinWidth;; min-height: 290px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-	<prefpane id="general-pane" label="&sstart.Preferences;">
+	<prefpane id="general-pane" label="&sstart.Preferences;" flex="1">
 		<preferences>
 			<preference id="extensions.sstart.overrideNewTab" name="extensions.sstart.overrideNewTab" type="bool"/>
 			<preference id="extensions.sstart.overrideHomePage" name="extensions.sstart.overrideHomePage" type="bool"/>
 			<preference id="extensions.sstart.disableSysThumbs" name="extensions.sstart.disableSysThumbs" type="bool"/>
+			<preference id="extensions.sstart.newtabOpen" name="extensions.sstart.newtabOpen" type="bool"/>
 			<preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag" type="bool"/>
 			<preference id="extensions.sstart.autoZoom" name="extensions.sstart.autoZoom" type="bool"/>
 			<preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
@@ -68,8 +69,12 @@
 					<groupbox flex="1">
 						<caption label="&sstart.General;"/>
 						<hbox>
-							<checkbox id="openNewtabOnLockDrag" label="&sstart.newtabOnLockDrag;"
-									preference="extensions.sstart.newtabOnLockDrag"/>
+							<checkbox id="openNewtabOpen" label="&sstart.newtabOpen;"
+									preference="extensions.sstart.newtabOpen"/>
+							<radiogroup orient="horizontal" preference="extensions.sstart.newtabOnLockDrag">
+								<radio value="true" id="openNewtabOnLockDrag" label="&sstart.newtabOnLockDrag;"/>
+								<radio  value="false" id="openNewtabAlways" label="&sstart.newtabAlways;"/>
+							</radiogroup>
 						</hbox>
 						<hbox>
 							<checkbox id="bottomHeader" label="&sstart.bottomHeader;"

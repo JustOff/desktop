@@ -9,7 +9,7 @@ Cu.import("chrome://sstart/content/utils.js");
 var Cache = { 
 
 	fragment: false, maxBottom: 1, maxRight: 1, gridInterval: 32, 
-	newtabOnLockDrag: true, autoZoom: false, editOn: false, updateMenu: false,
+	newtabOpenAlways: true, newtabOnLockDrag: true, autoZoom: false, editOn: false, updateMenu: false,
 
 	clearCache: function () {
 		this.fragment = false;
@@ -108,10 +108,20 @@ var Cache = {
 	getNewtabOnLockDrag: function () {
 		return this.newtabOnLockDrag;
 	},
+	
+	getNewtabOpenAlways: function () {
+		return this.newtabOpenAlways;
+	},
 
-	updateNewtabOnLockDrag: function () {
+	updateNewtabOpen: function () {
 		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
-		this.newtabOnLockDrag = prefService.getBoolPref("extensions.sstart.newtabOnLockDrag");
+		if (prefService.getBoolPref("extensions.sstart.newtabOpen")) {
+			this.newtabOnLockDrag = prefService.getBoolPref("extensions.sstart.newtabOnLockDrag");
+			this.newtabOpenAlways = !this.newtabOnLockDrag;
+		} else {
+			this.newtabOnLockDrag = false;
+			this.newtabOpenAlways = false;
+		}
 	},
 
 	alignToGrid: function (pos) {

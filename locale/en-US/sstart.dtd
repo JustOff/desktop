@@ -1,4 +1,5 @@
 <!ENTITY sstart.Preferences "Speed Start Options">
+<!ENTITY sstart.MinWidth "350px">
 
 <!ENTITY sstart.PageTab "Page">
 <!ENTITY sstart.WidgetsTab "Widgets">
@@ -11,7 +12,9 @@
 <!ENTITY sstart.OpenInNewTabs "Load in new tab">
 <!ENTITY sstart.UseAsHomePage "Use as home page">
 <!ENTITY sstart.DisableSysThumbs "Disable 'about:newtab' thumbnails">
-<!ENTITY sstart.newtabOnLockDrag "Open in new tab on drag">
+<!ENTITY sstart.newtabOpen "Open in new tab">
+<!ENTITY sstart.newtabOnLockDrag "on drag">
+<!ENTITY sstart.newtabAlways "always">
 <!ENTITY sstart.autoZoom "Auto zoom out to fit borders">
 <!ENTITY sstart.bottomHeader "Display headers at bottom">
 <!ENTITY sstart.Positioning "Aligning">

@@ -291,8 +291,9 @@ var myPrefsWatcher = {
 			case "showGridOnUnlock":
 				Cache.updateGridOnUnlock();
 				break;
+			case "newtabOpen":
 			case "newtabOnLockDrag":
-				Cache.updateNewtabOnLockDrag();
+				Cache.updateNewtabOpen();
 				break;
 			case "autoZoom":
 				Cache.updateAutoZoom();
@@ -419,7 +420,7 @@ function startup (params, reason)
 	newTabURLWatcher.register();
 
 	Cache.updateGridInterval();
-	Cache.updateNewtabOnLockDrag();
+	Cache.updateNewtabOpen();
 	Cache.updateAutoZoom();
 	
 	if (reason != APP_STARTUP) {

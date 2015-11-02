@@ -1,4 +1,5 @@
 <!ENTITY sstart.Preferences "Настройки Speed Start">
+<!ENTITY sstart.MinWidth "460px">
 
 <!ENTITY sstart.PageTab "Страница">
 <!ENTITY sstart.WidgetsTab "Виджеты">
@@ -11,7 +12,9 @@
 <!ENTITY sstart.OpenInNewTabs "Показывать в новой вкладке">
 <!ENTITY sstart.UseAsHomePage "Использовать как домашнюю страницу">
 <!ENTITY sstart.DisableSysThumbs "Отключить 'about:newtab' миниатюры">
-<!ENTITY sstart.newtabOnLockDrag "Открывать в новой вкладке при перетаскивании">
+<!ENTITY sstart.newtabOpen "Открывать в новой вкладке">
+<!ENTITY sstart.newtabOnLockDrag "при перетаскивании">
+<!ENTITY sstart.newtabAlways "всегда">
 <!ENTITY sstart.autoZoom "Автоматически уменьшать для соблюдения границ">
 <!ENTITY sstart.bottomHeader "Выводить заголовки снизу">
 <!ENTITY sstart.Positioning "Выравнивание">

@@ -97,15 +97,6 @@ justoff.sstart.Thumbnail = function () {
 			}
 		}, false);
 
-		// This code disables Tab Mix Plus "Force new tab" option. Magic.
-		var anchor = Dom.child(this.view, "a");
-		anchor.addEventListener("click", function (e) {
-			if (e.button == 0 && !e.ctrlKey && !e.metaKey) {
-				e.stopPropagation();
-				return false;
-			}
-		}, false);
-
 		return this.view;
 	}
 
