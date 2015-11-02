@@ -27,7 +27,6 @@ justoff.sstart.Search = function () {
 
 	this.renderView = function () {
 		Search.prototype.renderView.call(this);
-		this.updateView();
 
 		var refresh = Dom.child(this.view, "refresh");
 		refresh.style.display = "none";

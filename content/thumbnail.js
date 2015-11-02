@@ -85,8 +85,9 @@ justoff.sstart.Thumbnail = function () {
 			this.openProperties();
 		}
 
-		if (!this.properties.customImage && !getImageFile.call(this).exists() && !SStart.isInternal()) this.refresh();
-		//else this.updateView();}
+		if (!this.properties.customImage && !getImageFile.call(this).exists() && !SStart.isInternal()) {
+			this.refresh();
+		}
 
 		var self = this;
 
