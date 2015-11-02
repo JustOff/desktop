@@ -24,7 +24,9 @@ console.time("SStart");
 
 	SStart.setPageId(pageId);
 
-	SStart.setInternal(params.internal && params.internal == "yes");
+	if (params.internal) {
+		SStart.setInternal(params.internal == "yes");
+	}
 
 	document.title = storage.getTitle();
 	if (document.title == "" || document.title == "SStart") {
