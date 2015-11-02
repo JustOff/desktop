@@ -85,7 +85,7 @@ justoff.sstart.Thumbnail = function () {
 			this.openProperties();
 		}
 
-		if (!this.properties.customImage && !getImageFile.call(this).exists()) this.refresh();
+		if (!this.properties.customImage && !getImageFile.call(this).exists() && !SStart.isInternal()) this.refresh();
 		//else this.updateView();}
 
 		var self = this;
@@ -217,6 +217,7 @@ justoff.sstart.Thumbnail = function () {
 					loading = false;
 					URL.removeFromCache(getImageURL.call(self));
 					self.updateView.call(self);
+					self.refreshFolder.call(self);
 					Cache.clearCache();
 				});
 			},
@@ -261,6 +262,9 @@ justoff.sstart.Thumbnail = function () {
 		var iframe = createFrame(height / width, url);
 		iframe.addEventListener("load", onFrameLoad, true);
 		var loadTimeout = setTimeout(onFrameTimeout, TIMEOUT_LOAD);
+		if (url.slice(0,16) == "chrome://sstart/") {
+			url = url + "&internal=yes"
+		}
 		iframe.setAttribute("src", url);
 	}
 

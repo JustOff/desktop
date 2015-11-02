@@ -201,6 +201,10 @@ justoff.sstart.Widget = function () {
 		this.storage.saveObject(this.properties);
 	}
 
+	this.refreshFolder = function () {
+		this.storage.refreshFolder();
+	}
+
 	this.editTitle = function () {
 		if (SStart.isLocked())
 			Dom.addClass(document.body, 'no-hlink');

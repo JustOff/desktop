@@ -10,6 +10,7 @@ justoff.sstart.SStart = new function () {
 	
 	this.Locked = true;
 	this.CacheDOM = false;
+	this.Internal = false;
 	this.Zoom = 1;
 	this.PageId = 0;
 	this.FaviCount = 0;
@@ -75,6 +76,14 @@ justoff.sstart.SStart = new function () {
 
 	this.setCacheDOM = function (s) {
 		SStart.CacheDOM = s;
+	};
+
+	this.isInternal = function () {
+		return SStart.Internal;
+	};
+
+	this.setInternal = function (s) {
+		SStart.Internal = s;
 	};
 
 	this.isLocked = function () {

@@ -102,7 +102,7 @@ justoff.sstart.Storage = function (folderId) {
 		return Utils.toJSON(properties);
 	}
 
-	function refreshFolder() {
+	this.refreshFolder = function () {
 		try {
 			File.getDataFile(folderId).remove(false)
 		} catch (e) {
@@ -164,13 +164,13 @@ justoff.sstart.Storage = function (folderId) {
 		}
 		if (Object.getOwnPropertyNames(annotation).length > 0)
 			Bookmark.setAnnotation(object.id, ANNOTATION, Utils.toJSON(annotation));
-		refreshFolder.call(this);
+		this.refreshFolder.call(this);
 	}
 
 	this.removeObject = function (id) {
 		Bookmark.removeAnnotation(id, ANNOTATION);
 		Bookmark.removeBookmark(id);
-		refreshFolder.call(this);
+		this.refreshFolder.call(this);
 	}
 
 }

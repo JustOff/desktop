@@ -24,6 +24,8 @@ console.time("SStart");
 
 	SStart.setPageId(pageId);
 
+	SStart.setInternal(params.internal && params.internal == "yes");
+
 	document.title = storage.getTitle();
 	if (document.title == "" || document.title == "SStart") {
 		document.title = Utils.translate("SStart");
