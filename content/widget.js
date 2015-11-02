@@ -159,7 +159,7 @@ justoff.sstart.Widget = function () {
 			if (resized) {
 				self.refresh.call(self);
 			}
-			if (SStart.getZoom() && SStart.getPageId() == 0 && (resized || moved)) {
+			if ((SStart.getZoom() && SStart.getPageId() == 0 && resized) || moved) {
 				Cache.clearCache();
 			}
 		}, false);
