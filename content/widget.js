@@ -131,6 +131,7 @@ justoff.sstart.Widget = function () {
 						bookmarksService.moveItem(self.view.id, bookmarksService.getFolderIdForItem(params.folder), 
 							bookmarksService.DEFAULT_INDEX);
 						Dom.remove(self.view);
+						self.refreshFolder.call(self);
 						Cache.clearCache();
 						return;
 					}
