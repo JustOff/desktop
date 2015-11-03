@@ -26,7 +26,7 @@
 <!ENTITY sstart.SearchEngine "Поисковая система">
 
 <!ENTITY sstart.Page "Фон страницы">
-<!ENTITY sstart.BackgroundColor "Цвет">
+<!ENTITY sstart.Color "Цвет">
 <!ENTITY sstart.UseMainImage "Изображение с главной страницы">
 <!ENTITY sstart.BackgroundImage "Изображение">
 <!ENTITY sstart.BackgroundStyle "Заполнение">
@@ -41,6 +41,7 @@
 <!ENTITY sstart.Width "Ширина">
 <!ENTITY sstart.Height "Высота">
 <!ENTITY sstart.CustomImage "Изображение">
+<!ENTITY sstart.BackgroundColor "Фон">
 
 <!ENTITY sstart.GiveFocus "Выделять при старте">
 

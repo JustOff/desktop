@@ -35,7 +35,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			document.getElementById("namerow").hidden = true;
 			document.getElementById("url").focus();
 		}
-		document.getElementById("bgColor").value = properties.background || "#";
+		document.getElementById("bgColor").value = properties.background || "";
 		var bgColorBtn = document.getElementById("bgColorBtn");
 		bgColorBtn.style.backgroundColor = properties.background || "";
 		bgColorBtn.addEventListener('click', this.cpickBgColor, true);

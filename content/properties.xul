@@ -20,7 +20,7 @@
 				</columns>
 				<rows>
 					<row align="center">
-						<label id="labelBgColor" control="bgColor" flex="1" value="&sstart.BackgroundColor;:"/>
+						<label id="labelBgColor" control="bgColor" flex="1" value="&sstart.Color;:"/>
 						<hbox>
 							<spacer flex="1"/>
 							<textbox id="bgColor" class="colortext"
