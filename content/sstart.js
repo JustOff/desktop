@@ -171,7 +171,7 @@ justoff.sstart.SStart = new function () {
 		var engine = SStart.getSearchEngine(Dom.child(input.parentNode.parentNode.parentNode, "title").textContent);
 		input.value = "";
 		var submission = engine.getSubmission(text);
-		if (newtab) {
+		if (newtab && !Cache.getNewtabOpenAlways() || !newtab && Cache.getNewtabOpenAlways()) {
 			Utils.getBrowser().loadOneTab(submission.uri.spec, 
 				{postData: submission.postData, inBackground: false, relatedToCurrent: true});
 		} else {
