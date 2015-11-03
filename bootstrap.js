@@ -12,7 +12,7 @@ var SSTART_MODULES = [
 
 Cu.import("resource://gre/modules/Services.jsm");
 
-var gWindowListener = null, linkToSStart, pageToSStart, isSeaMonkey;
+var gWindowListener = null, linkToSStart, pageToSStart, isFirefox, isSeaMonkey;
 var sstartTabURI = "chrome://sstart/content/sstart.html";
 
 function BrowserWindowObserver(handlers) {
@@ -199,6 +199,55 @@ function addPage (e) {
 	}
 };
 
+var newtabAPI = {
+	init: function () {
+		try {
+			Cc["@mozilla.org/browser/aboutnewtab-service;1"].getService(Ci.nsIAboutNewTabService);
+			this.type = 1;
+		} catch (e) {
+			try {
+				Cu.import("resource:///modules/NewTabURL.jsm");
+				this.type = 2;
+			} catch (e) {
+				this.type = 0;
+			}
+		}
+	},
+	get: function () {
+		switch (this.type) {
+			case 1:
+				var aboutNewTabService = Cc["@mozilla.org/browser/aboutnewtab-service;1"].getService(Ci.nsIAboutNewTabService);
+				return aboutNewTabService.newTabURL;
+				break;
+			case 2:
+				return NewTabURL.get();
+				break;
+		}
+	},
+	set: function () {
+		switch (this.type) {
+			case 1:
+				var aboutNewTabService = Cc["@mozilla.org/browser/aboutnewtab-service;1"].getService(Ci.nsIAboutNewTabService);
+				aboutNewTabService.newTabURL = sstartTabURI;
+				break;
+			case 2:
+				NewTabURL.override(sstartTabURI);
+				break;
+		}
+	},
+	reset: function () {
+		switch (this.type) {
+			case 1:
+				var aboutNewTabService = Cc["@mozilla.org/browser/aboutnewtab-service;1"].getService(Ci.nsIAboutNewTabService);
+				aboutNewTabService.resetNewTabURL();
+				break;
+			case 2:
+				NewTabURL.reset();
+				break;
+		}
+	}
+}
+
 function browserPref (pref, cmd) {
 	var bprefs = Cc["@mozilla.org/preferences-service;1"]
 		.getService(Ci.nsIPrefService).getBranch("browser."), newTabURI;
@@ -212,8 +261,8 @@ function browserPref (pref, cmd) {
 			return newTabURI;
 			break;
 		case "set":
-			if (pref == "newtab.url" && typeof NewTabURL === "object" && typeof NewTabURL.override === "function") {
-				NewTabURL.override(sstartTabURI);
+			if (isFirefox && pref == "newtab.url") {
+				newtabAPI.set();
 			}
 			if (pref == "pagethumbnails") {
 				try {
@@ -230,11 +279,10 @@ function browserPref (pref, cmd) {
 			}
 			break;
 		case "clear":
-			if (pref == "newtab.url" && typeof NewTabURL === "object" 
-				&& typeof NewTabURL.get === "function" && typeof NewTabURL.reset === "function") {
-				newTabURI = NewTabURL.get();
+			if (isFirefox && pref == "newtab.url") {
+				newTabURI = newtabAPI.get();
 				if (newTabURI == sstartTabURI) {
-					NewTabURL.reset();
+					newtabAPI.reset();
 				}
 			}
 			if (pref == "pagethumbnails") {
@@ -392,17 +440,15 @@ function startup (params, reason)
 	} catch (e) {}
 	
 	var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
+	isFirefox = (appInfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}");
 	isSeaMonkey = (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}");
 
-	if (!isSeaMonkey) {
-		if (typeof NewTabURL !== "object") {
-			try {
-				Cu.import("resource:///modules/NewTabURL.jsm");
-			} catch (e) {}
-		}
-		if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
-			browserPref("newtab.url", "set");
-		}
+	if (isFirefox) {
+		newtabAPI.init();
+	}
+
+	if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
+		browserPref("newtab.url", "set");
 	}
 
 	if (Services.prefs.getBoolPref("extensions.sstart.overrideHomePage")) {
