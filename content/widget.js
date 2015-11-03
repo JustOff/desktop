@@ -157,6 +157,7 @@ justoff.sstart.Widget = function () {
 			self.updateView.call(self);
 			Dom.removeClass(self.view, "new");
 			if (resized) {
+				self.updateDefaultSize.call(self);
 				self.refresh.call(self);
 			}
 			if ((SStart.getZoom() && SStart.getPageId() == 0 && resized) || moved) {
@@ -193,6 +194,9 @@ justoff.sstart.Widget = function () {
 	}
 
 	this.irefresh = function () {
+	}
+
+	this.updateDefaultSize = function () {
 	}
 
 	this.openProperties = function () {

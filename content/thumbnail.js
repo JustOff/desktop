@@ -89,15 +89,6 @@ justoff.sstart.Thumbnail = function () {
 			this.refresh();
 		}
 
-		var self = this;
-
-		this.view.addEventListener("drop", function () {
-			if (Prefs.getBool("autoUpdSize")) {
-				Prefs.setInt("thumbnail.width", self.properties.width);
-				Prefs.setInt("thumbnail.height", self.properties.height);
-			}
-		}, false);
-
 		return this.view;
 	}
 
@@ -126,6 +117,13 @@ justoff.sstart.Thumbnail = function () {
 		if (!this.properties.isFolder) {
 			var self = this;
 			getSiteFavicon.call(self, self.properties.url, Dom.child(self.view, "icon"));
+		}
+	}
+
+	this.updateDefaultSize = function () {
+		if (Prefs.getBool("autoUpdSize")) {
+			Prefs.setInt("thumbnail.width", this.properties.width);
+			Prefs.setInt("thumbnail.height", this.properties.height);
 		}
 	}
 

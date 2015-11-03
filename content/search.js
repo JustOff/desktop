@@ -40,6 +40,12 @@ justoff.sstart.Search = function () {
 		return this.view;
 	}
 
+	this.updateDefaultSize = function () {
+		if (Prefs.getBool("autoUpdSize")) {
+			Prefs.setInt("thumbnail.width", this.properties.width);
+		}
+	}
+
 	this.openProperties = function () {
 		var param = { properties:Utils.clone(this.properties) };
 		openDialog("searchprops.xul", "properties", SStart.getDialogFeatures(), param);
