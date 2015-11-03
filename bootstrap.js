@@ -467,6 +467,8 @@ function startup (params, reason)
 	
 	if (reason != APP_STARTUP) {
 		Utils.reloadEachSStartBrowser();
+	} else {
+		Cc["@mozilla.org/browser/search-service;1"].getService(Ci.nsIBrowserSearchService).init();
 	}
 }
 
