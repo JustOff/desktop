@@ -299,6 +299,20 @@ var myPrefsWatcher = {
 				Cache.updateAutoZoom();
 				Utils.reloadEachSStartBrowser();
 				break;
+			case "thumbnail.width":
+				var twidth = Services.prefs.getIntPref("extensions.sstart.thumbnail.width");
+				if (twidth < 72) {
+					if (twidth <= 0) { twidth = 224; } else { twidth = 72; }
+					Services.prefs.setIntPref("extensions.sstart.thumbnail.width", twidth);
+				}
+				break;
+			case "thumbnail.height":
+				var theight = Services.prefs.getIntPref("extensions.sstart.thumbnail.height");
+				if (theight < 20) {
+					if (theight <= 0) { theight = 128; } else { theight = 20; }
+					Services.prefs.setIntPref("extensions.sstart.thumbnail.height", theight);
+				}
+				break;
 		}
 	},
 	register: function () {

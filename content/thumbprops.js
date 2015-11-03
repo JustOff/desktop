@@ -39,8 +39,8 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		var bgColorBtn = document.getElementById("bgColorBtn");
 		bgColorBtn.style.backgroundColor = properties.background || "";
 		bgColorBtn.addEventListener('click', this.cpickBgColor, true);
-		document.getElementById("width").value = properties.width || "";
-		document.getElementById("height").value = properties.height || "";
+		document.getElementById("width").value = properties.width || "224";
+		document.getElementById("height").value = properties.height || "128";
 		if (properties.customImage && SStart.isURI(properties.customImage)) {
 			document.getElementById("customImage").value = properties.customImage || "";
 		} else {
@@ -76,8 +76,12 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 			}
 		}
 		properties.background = CSS.supports("color", document.getElementById("bgColor").value) ? document.getElementById("bgColor").value : "";
-		properties.width = document.getElementById("width").value;
-		properties.height = document.getElementById("height").value;
+		var twidth = parseInt(document.getElementById("width").value, 10) || 224;
+		if (twidth < 72) { if (twidth <= 0) { twidth = 224; } else { twidth = 72; } }
+		properties.width = twidth;
+		var theight = parseInt(document.getElementById("height").value, 10) || 128;
+		if (theight < 20) { if (theight <= 0) { theight = 128; } else { theight = 20; } }
+		properties.height = theight;
 		if (document.getElementById("customImage").value == "" || SStart.isURI(document.getElementById("customImage").value)) {
 			properties.customImage = document.getElementById("customImage").value.trim();
 		} else if (this.hashWord) {
