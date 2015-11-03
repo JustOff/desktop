@@ -203,25 +203,14 @@ var newtabAPI = {
 	init: function () {
 		try {
 			Cc["@mozilla.org/browser/aboutnewtab-service;1"].getService(Ci.nsIAboutNewTabService);
-			this.type = 1;
+			this.type = 1; //FF43+
 		} catch (e) {
 			try {
 				Cu.import("resource:///modules/NewTabURL.jsm");
-				this.type = 2;
+				this.type = 2; //FF41+
 			} catch (e) {
 				this.type = 0;
 			}
-		}
-	},
-	get: function () {
-		switch (this.type) {
-			case 1:
-				var aboutNewTabService = Cc["@mozilla.org/browser/aboutnewtab-service;1"].getService(Ci.nsIAboutNewTabService);
-				return aboutNewTabService.newTabURL;
-				break;
-			case 2:
-				return NewTabURL.get();
-				break;
 		}
 	},
 	set: function () {
@@ -239,31 +228,30 @@ var newtabAPI = {
 		switch (this.type) {
 			case 1:
 				var aboutNewTabService = Cc["@mozilla.org/browser/aboutnewtab-service;1"].getService(Ci.nsIAboutNewTabService);
-				aboutNewTabService.resetNewTabURL();
+				if (aboutNewTabService.newTabURL == sstartTabURI) {
+					aboutNewTabService.resetNewTabURL();
+				}
 				break;
 			case 2:
-				NewTabURL.reset();
+				if (NewTabURL.get() == sstartTabURI) {
+					NewTabURL.reset();
+				}
 				break;
 		}
 	}
 }
 
 function browserPref (pref, cmd) {
-	var bprefs = Cc["@mozilla.org/preferences-service;1"]
-		.getService(Ci.nsIPrefService).getBranch("browser."), newTabURI;
+	var bprefs = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("browser.");
 	switch (cmd) {
 		case "get":
 			try {
-				newTabURI = bprefs.getCharPref(pref);
+				return  bprefs.getCharPref(pref);
 			} catch (e) {
-				newTabURI = "";
+				return  "";
 			}
-			return newTabURI;
 			break;
 		case "set":
-			if (isFirefox && pref == "newtab.url") {
-				newtabAPI.set();
-			}
 			if (pref == "pagethumbnails") {
 				try {
 					bprefs.setBoolPref("pageThumbs.enabled", false);
@@ -273,27 +261,26 @@ function browserPref (pref, cmd) {
 					PageThumbsStorage.wipe();
 				}
 			} else {
+				if (isFirefox && pref == "newtab.url") {
+					newtabAPI.set();
+				}
 				try {
 					bprefs.setCharPref(pref, sstartTabURI);
 				} catch (e) {}
 			}
 			break;
 		case "clear":
-			if (isFirefox && pref == "newtab.url") {
-				newTabURI = newtabAPI.get();
-				if (newTabURI == sstartTabURI) {
-					newtabAPI.reset();
-				}
-			}
 			if (pref == "pagethumbnails") {
 				try {
 					bprefs.clearUserPref("pageThumbs.enabled");
 					bprefs.clearUserPref("pagethumbnails.capturing_disabled");
 				} catch (e) {}
 			} else {
+				if (isFirefox && pref == "newtab.url") {
+					newtabAPI.reset();
+				}
 				try {
-					newTabURI = bprefs.getCharPref(pref);
-					if (newTabURI == sstartTabURI) {
+					if (bprefs.getCharPref(pref) == sstartTabURI) {
 						bprefs.clearUserPref(pref);
 					}
 				} catch (e) {}
@@ -310,24 +297,21 @@ var myPrefsWatcher = {
 				Utils.reloadEachSStartBrowser();
 				break;
 			case "overrideNewTab":
-				var useOurNewTab = Services.prefs.getBoolPref("extensions.sstart.overrideNewTab");
-				if (useOurNewTab) {
+				if (Services.prefs.getBoolPref("extensions.sstart.overrideNewTab")) {
 					browserPref("newtab.url", "set");
 				} else {
 					browserPref("newtab.url", "clear");
 				}
 				break;
 			case "overrideHomePage":
-				var useOurHomePage = Services.prefs.getBoolPref("extensions.sstart.overrideHomePage");
-				if (useOurHomePage) {
+				if (Services.prefs.getBoolPref("extensions.sstart.overrideHomePage")) {
 					browserPref("startup.homepage", "set");
 				} else {
 					browserPref("startup.homepage", "clear");
 				}
 				break;
 			case "disableSysThumbs":
-				var disableSysThumbs = Services.prefs.getBoolPref("extensions.sstart.disableSysThumbs");
-				if (disableSysThumbs) {
+				if (Services.prefs.getBoolPref("extensions.sstart.disableSysThumbs")) {
 					browserPref("pagethumbnails", "set");
 				} else {
 					browserPref("pagethumbnails", "clear");
@@ -378,14 +362,12 @@ var browserPrefsWatcher = {
 		if (topic != "nsPref:changed") return;
 		switch (data) {
 			case "newtab.url":
-				var newTabURI = browserPref("newtab.url", "get");
-				if (newTabURI != sstartTabURI) {
+				if (browserPref("newtab.url", "get") != sstartTabURI) {
 					Services.prefs.setBoolPref("extensions.sstart.overrideNewTab", false);
 				}
 				break;
 			case "startup.homepage":
-				var homeURI = browserPref("startup.homepage", "get");
-				if (homeURI != sstartTabURI) {
+				if (browserPref("startup.homepage", "get") != sstartTabURI) {
 					Services.prefs.setBoolPref("extensions.sstart.overrideHomePage", false);
 				}
 				break;
