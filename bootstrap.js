@@ -301,8 +301,8 @@ var myPrefsWatcher = {
 				break;
 			case "thumbnail.width":
 				var twidth = Services.prefs.getIntPref("extensions.sstart.thumbnail.width");
-				if (twidth < 72) {
-					if (twidth <= 0) { twidth = 224; } else { twidth = 72; }
+				if (twidth < 20) {
+					if (twidth <= 0) { twidth = 224; } else { twidth = 20; }
 					Services.prefs.setIntPref("extensions.sstart.thumbnail.width", twidth);
 				}
 				break;
