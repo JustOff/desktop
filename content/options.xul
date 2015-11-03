@@ -4,8 +4,9 @@
 <prefwindow id="sstart-preferences-window"
 			persist="width height"
 			title="&sstart.Preferences;"
+			onload="justoff.sstart.SStartOptionsXul.updateNewtabDisable();"
 			dlgbuttons="accept,cancel"
-			style="min-width: &sstart.MinWidth;; min-height: 290px;"
+			style="min-width: &sstart.MinWidth;; min-height: 300px;"
 			xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<prefpane id="general-pane" label="&sstart.Preferences;" flex="1">
 		<preferences>
@@ -22,7 +23,8 @@
 			<preference id="extensions.sstart.thumbnail.height" name="extensions.sstart.thumbnail.height" type="int"/>
 			<preference id="extensions.sstart.autoUpdSize" name="extensions.sstart.autoUpdSize" type="bool"/>
 		</preferences>
-		<tabbox>
+		<spacer flex="1"/>
+		<tabbox flex="1">
 			<tabs>
 				<tab label="&sstart.PageTab;"/>
 				<tab label="&sstart.WidgetsTab;"/>
@@ -67,19 +69,14 @@
 				</tabpanel>
 				<tabpanel  id="widgets" orient="vertical">
 					<groupbox flex="1">
-						<caption label="&sstart.General;"/>
-						<hbox>
-							<checkbox id="openNewtabOpen" label="&sstart.newtabOpen;"
-									preference="extensions.sstart.newtabOpen"/>
-							<radiogroup orient="horizontal" preference="extensions.sstart.newtabOnLockDrag">
-								<radio value="true" id="openNewtabOnLockDrag" label="&sstart.newtabOnLockDrag;"/>
-								<radio  value="false" id="openNewtabAlways" label="&sstart.newtabAlways;"/>
-							</radiogroup>
-						</hbox>
-						<hbox>
-							<checkbox id="bottomHeader" label="&sstart.bottomHeader;"
-									preference="extensions.sstart.bottomHeader"/>
-						</hbox>
+						<caption>
+							<checkbox id="openNewtabOpen" label="&sstart.newtabOpen;" preference="extensions.sstart.newtabOpen"
+								oncommand="justoff.sstart.SStartOptionsXul.updateNewtabDisable();"/>
+						</caption>
+						<radiogroup orient="horizontal" preference="extensions.sstart.newtabOnLockDrag">
+							<radio value="true" id="openNewtabOnLockDrag" label="&sstart.newtabOnLockDrag;"/>
+							<radio  value="false" id="openNewtabAlways" label="&sstart.newtabAlways;"/>
+						</radiogroup>
 					</groupbox>
 					<groupbox flex="1">
 						<caption label="&sstart.DefSize;"/>
@@ -111,6 +108,10 @@
 						<hbox>
 							<checkbox id="disableSysThumbs" label="&sstart.DisableSysThumbs;"
 									preference="extensions.sstart.disableSysThumbs"/>
+						</hbox>
+						<hbox>
+							<checkbox id="bottomHeader" label="&sstart.bottomHeader;"
+									preference="extensions.sstart.bottomHeader"/>
 						</hbox>
 					</groupbox>
 					<spacer flex="1"/>

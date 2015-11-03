@@ -1,12 +1,11 @@
 <!ENTITY sstart.Preferences "Настройки Speed Start">
-<!ENTITY sstart.MinWidth "460px">
+<!ENTITY sstart.MinWidth "450px">
 
-<!ENTITY sstart.PageTab "Страница">
+<!ENTITY sstart.PageTab "Общие">
 <!ENTITY sstart.WidgetsTab "Виджеты">
 <!ENTITY sstart.ExtraTab "Дополнительно">
 
-<!ENTITY sstart.Main "Основное">
-<!ENTITY sstart.General "Общее">
+<!ENTITY sstart.Main "Основные">
 <!ENTITY sstart.Misc "Разное">
 
 <!ENTITY sstart.OpenInNewTabs "Показывать в новой вкладке">
@@ -16,7 +15,7 @@
 <!ENTITY sstart.newtabOnLockDrag "при перетаскивании">
 <!ENTITY sstart.newtabAlways "всегда">
 <!ENTITY sstart.autoZoom "Автоматически уменьшать для соблюдения границ">
-<!ENTITY sstart.bottomHeader "Выводить заголовки снизу">
+<!ENTITY sstart.bottomHeader "Выводить заголовки виджетов снизу">
 <!ENTITY sstart.Positioning "Выравнивание">
 <!ENTITY sstart.GridSize "Размер сетки">
 <!ENTITY sstart.showGridOnUnlock "Показывать сетку, когда страница разблокирована">

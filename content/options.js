@@ -18,6 +18,16 @@ justoff.sstart.SStartOptionsXul = new function () {
 	Cu.import("resource://gre/modules/NetUtil.jsm");
 	Cu.import("resource://gre/modules/FileUtils.jsm");
 	
+	this.updateNewtabDisable = function () {
+		if (document.getElementById("openNewtabOpen").hasAttribute("checked")) {
+			document.getElementById("openNewtabOnLockDrag").removeAttribute("disabled");
+			document.getElementById("openNewtabAlways").removeAttribute("disabled");
+		} else {
+			document.getElementById("openNewtabOnLockDrag").setAttribute("disabled", "true");
+			document.getElementById("openNewtabAlways").setAttribute("disabled", "true");
+		}
+	}
+
 	this.exportData = function () {
 		var zfile = File.chooseFile("save", ["zip"], "sstart-backup.zip");
 		if (zfile) {

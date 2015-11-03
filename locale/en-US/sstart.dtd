@@ -1,12 +1,11 @@
 <!ENTITY sstart.Preferences "Speed Start Options">
 <!ENTITY sstart.MinWidth "350px">
 
-<!ENTITY sstart.PageTab "Page">
+<!ENTITY sstart.PageTab "General">
 <!ENTITY sstart.WidgetsTab "Widgets">
 <!ENTITY sstart.ExtraTab "Extra">
 
 <!ENTITY sstart.Main "Main">
-<!ENTITY sstart.General "General">
 <!ENTITY sstart.Misc "Misc">
 
 <!ENTITY sstart.OpenInNewTabs "Load in new tab">
@@ -16,7 +15,7 @@
 <!ENTITY sstart.newtabOnLockDrag "on drag">
 <!ENTITY sstart.newtabAlways "always">
 <!ENTITY sstart.autoZoom "Auto zoom out to fit borders">
-<!ENTITY sstart.bottomHeader "Display headers at bottom">
+<!ENTITY sstart.bottomHeader "Display widgets headers at bottom">
 <!ENTITY sstart.Positioning "Aligning">
 <!ENTITY sstart.GridSize "Grid size">
 <!ENTITY sstart.showGridOnUnlock "Show grid when page is unlocked">
