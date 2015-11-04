@@ -75,13 +75,15 @@ justoff.sstart.Widget = function () {
 		}, false);
 
 		var remove = Dom.child(this.view, "remove");
-		remove.addEventListener("click", function () {
+		remove.addEventListener("click", function (e) {
 			self.remove.call(self);
+			e.stopPropagation();
 		}, false);
 
 		var refresh = Dom.child(this.view, "refresh");
-		refresh.addEventListener("click", function () {
+		refresh.addEventListener("click", function (e) {
 			self.refresh.call(self);
+			e.stopPropagation();
 		}, false);
 
 		var icon = Dom.child(this.view, "icon");
@@ -90,8 +92,9 @@ justoff.sstart.Widget = function () {
 		}, false);
 
 		var properties = Dom.child(this.view, "properties");
-		properties.addEventListener("click", function () {
+		properties.addEventListener("click", function (e) {
 			self.openProperties.call(self);
+			e.stopPropagation();
 		}, false);
 
 		this.view.addEventListener("drop", function (e) {

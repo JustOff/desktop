@@ -108,9 +108,11 @@ console.time("SStart");
 			SStart.setLocked(lockStatus);
 		}
 		updateLockStatus();
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-prefs").addEventListener("click", function (e) {
 		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", SStart.getDialogFeatures());
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-lock").addEventListener("click", function (e) {
 		SStart.setLocked(true);
@@ -156,6 +158,7 @@ console.time("SStart");
 				SStart.refreshAll("icon", "refresh");
 			}
 		}
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-refreshone").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
@@ -261,22 +264,35 @@ console.time("SStart");
 				dir.remove(false);
 			}
 		}
+		e.stopPropagation();
 	}, false);
 
 	document.addEventListener("click", function (e) {
-		if (e.button != 0 || e.clientX == 0 || !Cache.getNewtabOpenAlways()) return;
+		if (e.button != 0 || e.clientX == 0 || (!Cache.getNewtabOpenAlways() && (!e.altKey || SStart.isLocked()))) return;
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 		if (!SStart.isOverWidget(hoverEl)) return;
-		if (hoverEl.parentElement && hoverEl.parentElement.nodeName == "A" && hoverEl.parentElement.href) {
-			if (e.ctrlKey || e.metaKey) {
-				Utils.getBrowser().loadURI(hoverEl.parentElement.href);
-			} else {
-				Utils.getBrowser().loadOneTab(hoverEl.parentElement.href, {inBackground: false, relatedToCurrent: true});
+		if (e.altKey && !SStart.isLocked()) {
+			while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
+			if (hoverEl) {
+				hoverEl.style.width = Prefs.getInt("thumbnail.width");
+				if (hoverEl.getAttribute("data-search") != "true") {
+					hoverEl.style.height = Prefs.getInt("thumbnail.height");
+				}
+				var event = new CustomEvent("drop", {'detail':{'clientX':e.clientX, 'clientY':e.clientY}});
+				hoverEl.dispatchEvent(event);
 			}
-			e.stopPropagation();
-			e.preventDefault();
-			return false;
+		} else if (Cache.getNewtabOpenAlways()) {
+			if (hoverEl.parentElement && hoverEl.parentElement.nodeName == "A" && hoverEl.parentElement.href) {
+				if (e.ctrlKey || e.metaKey) {
+					Utils.getBrowser().loadURI(hoverEl.parentElement.href);
+				} else {
+					Utils.getBrowser().loadOneTab(hoverEl.parentElement.href, {inBackground: false, relatedToCurrent: true});
+				}
+			}
 		}
+		e.stopPropagation();
+		e.preventDefault();
+		return false;
 	}, false);
 
 	document.addEventListener("dblclick", function (e) {
