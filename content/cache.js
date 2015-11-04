@@ -124,7 +124,8 @@ var Cache = {
 		}
 	},
 
-	alignToGrid: function (pos) {
+	alignToGrid: function (pos, ignore) {
+		if (ignore) return pos;
 		var min = Math.floor(pos / this.gridInterval) * this.gridInterval;
 		if (pos - min > this.gridInterval / 2)
 			return min + this.gridInterval;

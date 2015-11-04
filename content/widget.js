@@ -146,9 +146,9 @@ justoff.sstart.Widget = function () {
 			self.properties.top = parseInt(self.view.style.top, 10);
 			self.properties.left = parseInt(self.view.style.left, 10);
 			if (self.properties.width != self.view.clientWidth)
-				self.view.style.width = Cache.alignToGrid(self.view.clientWidth);
+				self.view.style.width = Cache.alignToGrid(self.view.clientWidth, self.view.clientWidth == 20);
 			if (self.properties.height != self.view.clientHeight)
-				self.view.style.height = Cache.alignToGrid(self.view.clientHeight);
+				self.view.style.height = Cache.alignToGrid(self.view.clientHeight, self.view.clientHeight == 20);
 			var resized = (self.properties.width != parseInt(self.view.style.width, 10) 
 				|| self.properties.height != parseInt(self.view.style.height, 10));
 			self.properties.width = parseInt(self.view.style.width, 10);
@@ -168,9 +168,9 @@ justoff.sstart.Widget = function () {
 		this.view.addEventListener("align", function (e) {
 			self.view.style.top = self.properties.top = Cache.alignToGrid(self.properties.top);
 			self.view.style.left = self.properties.left = Cache.alignToGrid(self.properties.left);
-			self.view.style.width = self.properties.width = Cache.alignToGrid(self.properties.width);
+			self.view.style.width = self.properties.width = Cache.alignToGrid(self.properties.width, self.properties.width == 20);
 			if (self.properties.url != SEARCH_URL)
-				self.view.style.height = self.properties.height = Cache.alignToGrid(self.properties.height);
+				self.view.style.height = self.properties.height = Cache.alignToGrid(self.properties.height, self.properties.height == 20);
 			self.save.call(self);
 		}, false);
 

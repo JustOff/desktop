@@ -35,6 +35,9 @@ justoff.sstart.Search = function () {
 		this.view.addEventListener("resize", function () {
 			self.view.style.top = self.properties.top;
 			self.view.style.height = self.properties.height;
+			if (parseInt(self.view.style.width, 10) < 20) {
+				self.view.style.width = 20;
+			}
 		}, false);
 
 		return this.view;

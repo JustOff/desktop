@@ -203,7 +203,7 @@ var newtabAPI = {
 	init: function () {
 		try {
 			Cc["@mozilla.org/browser/aboutnewtab-service;1"].getService(Ci.nsIAboutNewTabService);
-			this.type = 1; //FF43+
+			this.type = 1; //FF44+
 		} catch (e) {
 			try {
 				Cu.import("resource:///modules/NewTabURL.jsm");

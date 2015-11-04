@@ -89,6 +89,16 @@ justoff.sstart.Thumbnail = function () {
 			this.refresh();
 		}
 
+		var self = this;
+		this.view.addEventListener("resize", function () {
+			if (parseInt(self.view.style.height, 10) < HEADER_HEIGHT) {
+				self.view.style.height = HEADER_HEIGHT;
+			}
+			if (parseInt(self.view.style.width, 10) < HEADER_HEIGHT) {
+				self.view.style.width = HEADER_HEIGHT;
+			}
+		}, false);
+
 		return this.view;
 	}
 
@@ -97,8 +107,7 @@ justoff.sstart.Thumbnail = function () {
 			try {
 				getImageFile.call(this).remove(false);
 			}
-			catch (e) {
-			}
+			catch (e) {}
 		}
 	}
 
@@ -107,8 +116,15 @@ justoff.sstart.Thumbnail = function () {
 			URL.removeFromCache(getImageURL.call(this));
 			this.updateView();
 		} else {
-			loading = true;
-			refreshImage.call(this);
+			if (this.properties.width < HEADER_HEIGHT || this.properties.height < (HEADER_HEIGHT + 4)) {
+				try {
+					getImageFile.call(this).remove(false);
+				}
+				catch (e) {}
+			} else {
+				loading = true;
+				refreshImage.call(this);
+			}
 			this.updateView();
 		}
 	}
