@@ -85,7 +85,9 @@ justoff.sstart.Thumbnail = function () {
 			this.openProperties();
 		}
 
-		if (!this.properties.customImage && !getImageFile.call(this).exists() && !SStart.isInternal()) {
+		if (!this.properties.customImage && !SStart.isInternal() 
+			&& ((this.properties.height <= HEADER_HEIGHT) && !this.properties.title)
+				|| ((this.properties.height > HEADER_HEIGHT) && !getImageFile.call(this).exists())) {
 			this.refresh();
 		}
 
@@ -116,15 +118,8 @@ justoff.sstart.Thumbnail = function () {
 			URL.removeFromCache(getImageURL.call(this));
 			this.updateView();
 		} else {
-			if (this.properties.width < HEADER_HEIGHT || this.properties.height < (HEADER_HEIGHT + 4)) {
-				try {
-					getImageFile.call(this).remove(false);
-				}
-				catch (e) {}
-			} else {
-				loading = true;
-				refreshImage.call(this);
-			}
+			loading = true;
+			refreshImage.call(this);
 			this.updateView();
 		}
 	}
@@ -166,11 +161,22 @@ justoff.sstart.Thumbnail = function () {
 		}
 		loadURI(this.properties.url || "about:blank", this.properties.width, this.properties.height - HEADER_HEIGHT, function (iframe) {
 			if (!self.properties.title) {
-				var doc = iframe.contentDocument;
-				self.properties.title = doc.title;
+				self.properties.title = iframe.contentDocument.title;
 				self.save.call(self);
 			}
-			saveImage.call(self, iframe);
+			if (self.properties.height <= HEADER_HEIGHT) {
+				try {
+					getImageFile.call(self).remove(false);
+				}
+				catch (e) {}
+				loading = false;
+				Dom.remove(iframe);
+				self.updateView.call(self);
+				self.refreshFolder.call(self);
+				Cache.clearCache();
+			} else {
+				saveImage.call(self, iframe);
+			}
 		});
 	}
 
