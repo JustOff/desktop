@@ -85,9 +85,7 @@ justoff.sstart.Thumbnail = function () {
 			this.openProperties();
 		}
 
-		if (!this.properties.customImage && !SStart.isInternal() 
-			&& ((this.properties.height <= HEADER_HEIGHT) && !this.properties.title)
-				|| ((this.properties.height > HEADER_HEIGHT) && !getImageFile.call(this).exists())) {
+		if (!SStart.isInternal() && !this.properties.customImage && !getImageFile.call(this).exists()) {
 			this.refresh();
 		}
 
@@ -108,8 +106,7 @@ justoff.sstart.Thumbnail = function () {
 		if (Thumbnail.prototype.remove.call(this)) {
 			try {
 				getImageFile.call(this).remove(false);
-			}
-			catch (e) {}
+			} catch (e) {}
 		}
 	}
 
@@ -118,9 +115,16 @@ justoff.sstart.Thumbnail = function () {
 			URL.removeFromCache(getImageURL.call(this));
 			this.updateView();
 		} else {
-			loading = true;
-			refreshImage.call(this);
-			this.updateView();
+			if (this.properties.height <= HEADER_HEIGHT) {
+				try {
+					getImageFile.call(this).remove(false);
+				} catch (e) {}
+			}
+			if (((this.properties.height <= HEADER_HEIGHT) && !this.properties.title) || (this.properties.height > HEADER_HEIGHT)) {
+				loading = true;
+				refreshImage.call(this);
+				this.updateView();
+			}
 		}
 	}
 
@@ -165,10 +169,6 @@ justoff.sstart.Thumbnail = function () {
 				self.save.call(self);
 			}
 			if (self.properties.height <= HEADER_HEIGHT) {
-				try {
-					getImageFile.call(self).remove(false);
-				}
-				catch (e) {}
 				loading = false;
 				Dom.remove(iframe);
 				self.updateView.call(self);
