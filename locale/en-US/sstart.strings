@@ -38,3 +38,5 @@ bfileWError=File write error!
 bfileRError=File read error!
 bfileCorrupt=Backup file is corrupted!
 bfileWrongVer=Incompatible backup version!
+
+newDefSize=Default widget size is set to

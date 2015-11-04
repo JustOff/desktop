@@ -126,6 +126,7 @@ console.time("SStart");
 			factory.createWidgets(pageId);
 		}
 		updateLockStatus();
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-alignall").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
@@ -137,6 +138,7 @@ console.time("SStart");
 		SStart.setLocked(false);
 		SStart.alignAll();
 		updateLockStatus();
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-refresh").addEventListener("click", function (e) {
 		if (e.target.type == "thumbnails") {
@@ -183,6 +185,7 @@ console.time("SStart");
 				r.dispatchEvent(event);
 			}
 		}
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-properties").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
@@ -199,6 +202,7 @@ console.time("SStart");
 			var event = new Event("click");
 			r.dispatchEvent(event);
 		}
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-remove").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
@@ -215,6 +219,7 @@ console.time("SStart");
 			var event = new Event("click");
 			r.dispatchEvent(event);
 		}
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-rename").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
@@ -235,6 +240,7 @@ console.time("SStart");
 				});
 			r.dispatchEvent(event);
 		}
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-props").addEventListener("click", function (e) {
 		var param = { properties: properties, pageId: pageId, body: document.body, sSheet: document.styleSheets[1], doc: document };
@@ -274,12 +280,20 @@ console.time("SStart");
 		if (e.altKey && !SStart.isLocked()) {
 			while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 			if (hoverEl) {
-				hoverEl.style.width = Prefs.getInt("thumbnail.width");
-				if (hoverEl.getAttribute("data-search") != "true") {
-					hoverEl.style.height = Prefs.getInt("thumbnail.height");
+				if (e.ctrlKey || e.metaKey) {
+					Prefs.setInt("thumbnail.width", parseInt(hoverEl.style.width, 10));
+					if (hoverEl.getAttribute("data-search") != "true") {
+						Prefs.setInt("thumbnail.height", parseInt(hoverEl.style.height, 10));
+					}
+					Utils.alert(Utils.translate("newDefSize") + " " + Prefs.getInt("thumbnail.width") + " x " + Prefs.getInt("thumbnail.height"));
+				} else {
+					hoverEl.style.width = Prefs.getInt("thumbnail.width");
+					if (hoverEl.getAttribute("data-search") != "true") {
+						hoverEl.style.height = Prefs.getInt("thumbnail.height");
+					}
+					var event = new CustomEvent("drop", {'detail':{'clientX':e.clientX, 'clientY':e.clientY}});
+					hoverEl.dispatchEvent(event);
 				}
-				var event = new CustomEvent("drop", {'detail':{'clientX':e.clientX, 'clientY':e.clientY}});
-				hoverEl.dispatchEvent(event);
 			}
 		} else if (Cache.getNewtabOpenAlways()) {
 			if (hoverEl.parentElement && hoverEl.parentElement.nodeName == "A" && hoverEl.parentElement.href) {
