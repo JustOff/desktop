@@ -294,6 +294,7 @@ var myPrefsWatcher = {
 		if (topic != "nsPref:changed") return;
 		switch (data) {
 			case "bottomHeader":
+			case "autoZoom":
 				Utils.reloadEachSStartBrowser();
 				break;
 			case "overrideNewTab":
@@ -326,10 +327,6 @@ var myPrefsWatcher = {
 			case "newtabOpen":
 			case "newtabOnLockDrag":
 				Cache.updateNewtabOpen();
-				break;
-			case "autoZoom":
-				Cache.updateAutoZoom();
-				Utils.reloadEachSStartBrowser();
 				break;
 			case "thumbnail.width":
 				var twidth = Services.prefs.getIntPref("extensions.sstart.thumbnail.width");
@@ -463,7 +460,6 @@ function startup (params, reason)
 
 	Cache.updateGridInterval();
 	Cache.updateNewtabOpen();
-	Cache.updateAutoZoom();
 	
 	if (reason != APP_STARTUP) {
 		Utils.reloadEachSStartBrowser();

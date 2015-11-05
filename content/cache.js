@@ -9,7 +9,7 @@ Cu.import("chrome://sstart/content/utils.js");
 var Cache = { 
 
 	fragment: false, maxBottom: 1, maxRight: 1, gridInterval: 32, 
-	newtabOpenAlways: true, newtabOnLockDrag: true, autoZoom: false, editOn: false, updateMenu: false,
+	newtabOpenAlways: true, newtabOnLockDrag: true, editOn: false, updateMenu: false,
 
 	clearCache: function () {
 		this.fragment = false;
@@ -70,18 +70,6 @@ var Cache = {
 					grid.parentNode.removeChild(grid);
 				}
 			}
-		}
-	},
-
-	getAutoZoom: function () {
-		return this.autoZoom;
-	},
-
-	updateAutoZoom: function () {
-		var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
-		this.autoZoom = prefService.getBoolPref("extensions.sstart.autoZoom");
-		if (this.autoZoom) {
-			this.fragment = false;
 		}
 	},
 

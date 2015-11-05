@@ -164,7 +164,8 @@ justoff.sstart.SStart = new function () {
 		if (typeof w == "undefined" || typeof h == "undefined") {
 			features = features + ",centerscreen,resizable";
 		} else {
-			if (Cache.getAutoZoom()) {
+			var autoZoom = Prefs.getBool("autoZoom");
+			if (autoZoom) {
 				w = Math.round(w / this.getZoom());
 				h = Math.round(h / this.getZoom());
 			}
