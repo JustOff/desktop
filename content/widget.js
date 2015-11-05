@@ -28,7 +28,8 @@ justoff.sstart.Widget = function () {
 		var icon = Dom.child(this.view, "icon");
 
 		if (this.properties.url != SEARCH_URL && this.properties.background) {
-			this.view.style.backgroundColor = this.properties.background;
+			var body = Dom.child(this.view, "body");
+			body.style.backgroundColor = this.properties.background;
 		}
 
 		if (this.properties.isFolder) {

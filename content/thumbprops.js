@@ -9,22 +9,22 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 
 	this.updateBgColor = function () {
 		var bgColor = CSS.supports("color", document.getElementById("bgColor").value) ? document.getElementById("bgColor").value : "";
-		if (this.view) {
-			this.view.style.backgroundColor = bgColor;
+		if (this.body) {
+			this.body.style.backgroundColor = bgColor;
 		}
 		document.getElementById("bgColorBtn").style.backgroundColor = bgColor;
 	}
 
 	this.cpickBgColor = function () {
 		var title = document.getElementById("labelBgColor").value;
-		var param = { doc: document, tbox: "bgColor", element: self.view, attr: "backgroundColor", title: title };
+		var param = { doc: document, tbox: "bgColor", element: self.body, attr: "backgroundColor", title: title };
 		self.cpicker = openDialog("chrome://sstart/content/colorpicker.xul", "sstart-colorpicker-window",
 			SStart.getDialogFeatures(300, 300, window.screenX + window.outerWidth, window.screenY, false), param);
 	}
 
 	this.initialize = function () {
 		var properties = window.arguments[0].properties;
-		this.view = window.arguments[0].view || null;
+		this.body = window.arguments[0].body || null;
 		this.isFolder = properties.isFolder;
 		document.getElementById("thumbnail-properties").setAttribute("title", document.getElementById("thumbnail-properties").getAttribute("title") + ": " + properties.title);
 		if (this.isFolder) {
@@ -112,8 +112,8 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		if (this.cpicker) {
 			this.cpicker.close();
 		}
-		if (this.view) {
-			this.view.style.backgroundColor = window.arguments[0].properties.background || "";
+		if (this.body) {
+			this.body.style.backgroundColor = window.arguments[0].properties.background || "";
 		}
 		window.arguments[0].properties = null;
 		if (this.tmpName && this.hashWord) {

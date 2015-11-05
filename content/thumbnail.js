@@ -143,7 +143,7 @@ justoff.sstart.Thumbnail = function () {
 	}
 
 	this.openProperties = function () {
-		var param = { properties:Utils.clone(this.properties), view: this.view };
+		var param = { properties:Utils.clone(this.properties), body: Dom.child(this.view, "body") };
 		openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(300, 230), param);
 		if (param.properties) {
 			var refreshNeeded = param.properties.url != this.properties.url ||
