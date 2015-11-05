@@ -125,7 +125,7 @@ console.time("SStart");
 		}
 		if (SStart.isCacheDOM() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
+			Dom.remove(widgets);
 			factory.createWidgets(pageId);
 		}
 		if (factory.createWidget(e.target.type, Cache.alignToGrid(ContextMenu.click.x), Cache.alignToGrid(ContextMenu.click.y))) {
@@ -148,7 +148,7 @@ console.time("SStart");
 		SStart.setLocked(false);
 		if (SStart.isCacheDOM() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
+			Dom.remove(widgets);
 			factory.createWidgets(pageId);
 		}
 		updateLockStatus();
@@ -157,7 +157,7 @@ console.time("SStart");
 	document.getElementById("menu-alignall").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
+			Dom.remove(widgets);
 			SStart.setLocked(false);
 			factory.createWidgets(pageId);
 		}
@@ -175,7 +175,7 @@ console.time("SStart");
 		if (Utils.confirm("\n" + confirm + "?\n\n")) {
 			if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 				var widgets = document.getElementById("widgets");
-				widgets.parentNode.removeChild(widgets);
+				Dom.remove(widgets);
 				SStart.setLocked(false);
 				factory.createWidgets(pageId);
 				SStart.setLocked(true);
@@ -191,7 +191,7 @@ console.time("SStart");
 	document.getElementById("menu-refreshone").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
+			Dom.remove(widgets);
 			SStart.setLocked(false);
 			factory.createWidgets(pageId);
 			SStart.setLocked(true);
@@ -216,7 +216,7 @@ console.time("SStart");
 	document.getElementById("menu-properties").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
+			Dom.remove(widgets);
 			SStart.setLocked(false);
 			factory.createWidgets(pageId);
 			SStart.setLocked(true);
@@ -233,7 +233,7 @@ console.time("SStart");
 	document.getElementById("menu-remove").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
+			Dom.remove(widgets);
 			SStart.setLocked(false);
 			factory.createWidgets(pageId);
 			SStart.setLocked(true);
@@ -250,7 +250,7 @@ console.time("SStart");
 	document.getElementById("menu-rename").addEventListener("click", function (e) {
 		if (SStart.isCacheDOM() && SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
+			Dom.remove(widgets);
 			SStart.setLocked(false);
 			factory.createWidgets(pageId);
 			SStart.setLocked(true);
@@ -342,7 +342,7 @@ console.time("SStart");
 		SStart.toggleLocked();
 		if (SStart.isCacheDOM() && !SStart.isLocked() && pageId == 0) {
 			var widgets = document.getElementById("widgets");
-			widgets.parentNode.removeChild(widgets);
+			Dom.remove(widgets);
 			factory.createWidgets(pageId);
 		}
 		updateLockStatus();

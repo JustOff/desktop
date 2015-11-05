@@ -4,6 +4,7 @@ var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
 
 Cu.import("resource://gre/modules/Services.jsm");
 Cu.import("chrome://sstart/content/utils.js");
+Cu.import("chrome://sstart/content/dom.js");
 
 var Cache = { 
 
@@ -44,7 +45,7 @@ var Cache = {
 			return true;
 		} else {
 			if (grid) {
-				grid.parentNode.removeChild(grid);
+				Dom.remove(grid);
 			}
 		}
 	},
@@ -66,7 +67,7 @@ var Cache = {
 				}
 			} else {
 				if (grid) {
-					grid.parentNode.removeChild(grid);
+					Dom.remove(grid);
 				}
 			}
 		}

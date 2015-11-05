@@ -128,7 +128,7 @@ justoff.sstart.Drag = new function () {
 
 	this.removeGlass = function () {
 		var glass = document.getElementById("glass");
-		glass.parentNode.removeChild(glass);
+		Dom.remove(glass);
 	};
 
 	this.getBorder = function (element, x, y) {
