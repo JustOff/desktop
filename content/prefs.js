@@ -1,9 +1,5 @@
 justoff.sstart.Prefs = new function () {
 
-	var Prefs = this;
-
-	Components.utils.import("chrome://sstart/content/utils.js");
-
 	this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
 		.getService(Components.interfaces.nsIPrefService)
 		.getBranch("extensions.sstart."),
@@ -49,27 +45,4 @@ justoff.sstart.Prefs = new function () {
 		this.prefs.setBoolPref(name, value);
 	};
 
-	this.getObject = function (name) {
-		return Utils.fromJSON(this.getCharPref(name));
-	};
-
-	this.setObject = function (name, value) {
-		this.setCharPref(name, Utils.toJSON(value));
-	};
-
-	this.delete = function (name) {
-		try {
-			if (name) this.prefs.deleteBranch(name);
-		} catch (e) {
-		}
-	};
-
-	this.clear = function (name) {
-		try {
-			if (name) this.prefs.clearUserPref(name);
-		} catch (e) {
-		}
-	};
-
 };
-
