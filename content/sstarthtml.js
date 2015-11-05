@@ -73,7 +73,7 @@ console.time("SStart");
 	
 	updateBgImage (properties, pageId);
 
-	if (!SStart.areDecorationsVisible()) {
+	if (!Prefs.getBool("showDecorations")) {
 		Dom.addClass(document.body, 'no-decorations');
 	}
 

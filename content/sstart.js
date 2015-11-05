@@ -98,10 +98,6 @@ justoff.sstart.SStart = new function () {
 		SStart.Locked = !SStart.Locked;
 	};
 
-	this.areDecorationsVisible = function () {
-		return Prefs.getBool("showDecorations");
-	};
-
 	this.deleteSearchNode = function (node) {
 		if (node in SStart.SearchNodes) {
 			delete SStart.SearchNodes[node];
@@ -170,9 +166,7 @@ justoff.sstart.SStart = new function () {
 				h = Math.round(h / this.getZoom());
 			}
 			if (typeof l == "undefined" || typeof t == "undefined") {
-				var edc = Components.classes["@mozilla.org/preferences-service;1"]
-							.getService(Components.interfaces.nsIPrefService)
-							.getBranch("extensions.sstart.").getIntPref("enlargeDialogs");
+				var edc = Prefs.getInt("enlargeDialogs");
 				if (edc > 100) {
 					w = Math.round(w * edc / 100); 
 					h = Math.round(h * (1 + (edc / 100 - 1) / 2));
