@@ -104,7 +104,7 @@ justoff.sstart.Drag = new function () {
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 			if (Utils.isOverWidget(hoverEl)) {
 				while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
-				if (hoverEl && hoverEl.getAttribute("data-search") == "true") {
+				if (hoverEl && hoverEl.classList.contains("swidget")) {
 					SStart.focusSearch(hoverEl);
 				}
 			}

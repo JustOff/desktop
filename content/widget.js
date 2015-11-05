@@ -64,7 +64,7 @@ justoff.sstart.Widget = function () {
 		Dom.child(this.view, "body").appendChild(this.createView());
 		this.view.id = this.properties.id;
 		if (this.properties.url == SEARCH_URL) {
-			this.view.setAttribute("data-search", "true");
+			Dom.addClass(this.view, "swidget");
 		}
 
 		this.updateView();

@@ -308,13 +308,13 @@ console.time("SStart");
 			if (hoverEl) {
 				if (e.ctrlKey || e.metaKey) {
 					Prefs.setInt("thumbnail.width", parseInt(hoverEl.style.width, 10));
-					if (hoverEl.getAttribute("data-search") != "true") {
+					if (!hoverEl.classList.contains("swidget")) {
 						Prefs.setInt("thumbnail.height", parseInt(hoverEl.style.height, 10));
 					}
 					Utils.alert(Utils.translate("newDefSize") + " " + Prefs.getInt("thumbnail.width") + " x " + Prefs.getInt("thumbnail.height"));
 				} else {
 					hoverEl.style.width = Prefs.getInt("thumbnail.width");
-					if (hoverEl.getAttribute("data-search") != "true") {
+					if (!hoverEl.classList.contains("swidget")) {
 						hoverEl.style.height = Prefs.getInt("thumbnail.height");
 					}
 					var event = new CustomEvent("drop", {'detail':{'clientX':e.clientX, 'clientY':e.clientY}});

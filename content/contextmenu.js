@@ -20,7 +20,7 @@ justoff.sstart.ContextMenu = new function () {
 			if (s) {
 				var hoverTmp = hoverEl;
 				while (!hoverTmp.classList.contains("widget") && hoverTmp.parentElement) { hoverTmp = hoverTmp.parentElement }
-				if (hoverTmp && hoverTmp.getAttribute("data-search") == "true") {
+				if (hoverTmp && hoverTmp.classList.contains("swidget")) {
 					Dom.addClass(document.body, 'is-search');
 				} else {
 					Dom.removeClass(document.body, 'is-search');
