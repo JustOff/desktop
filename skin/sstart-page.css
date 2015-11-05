@@ -259,6 +259,8 @@ body.no-decorations.lock-edits .sicon {
 
 body.no-decorations.lock-edits .sindiv {
 	padding-left: 20px;
+	border: 1px solid #e6e6e6;
+	height: 18px;
 }
 
 /* Misc */
