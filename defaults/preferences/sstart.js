@@ -4,7 +4,7 @@ pref("extensions.sstart.autoUpdSize", true);
 pref("extensions.sstart.gridInterval", 32);
 pref("extensions.sstart.backgroundStyle", 1);
 pref("extensions.sstart.focus", "");
-pref("extensions.sstart.showDecorations", true);
+pref("extensions.sstart.hideDecorations", false);
 pref("extensions.sstart.overrideNewTab", true);
 pref("extensions.sstart.overrideHomePage", false);
 pref("extensions.sstart.disableSysThumbs", false);

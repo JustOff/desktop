@@ -33,7 +33,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 		if (zfile) {
 			var data = {prefs: {thw: Prefs.getInt("thumbnail.width"), thh: Prefs.getInt("thumbnail.height"),
 				gri: Prefs.getInt("gridInterval"), bgs: Prefs.getInt("backgroundStyle"), fcs: Prefs.getString("focus"),
-				swd: Prefs.getBool("showDecorations"), ont: Prefs.getBool("overrideNewTab"), ohp: Prefs.getBool("overrideHomePage"),
+				hdc: Prefs.getBool("hideDecorations"), ont: Prefs.getBool("overrideNewTab"), ohp: Prefs.getBool("overrideHomePage"),
 				ntd: Prefs.getBool("newtabOnLockDrag"), bth: Prefs.getBool("bottomHeader"), azm: Prefs.getBool("autoZoom"),
 				guo: Prefs.getBool("showGridOnUnlock"), dst: Prefs.getBool("disableSysThumbs"), aus: Prefs.getBool("autoUpdSize"),
 				nto: Prefs.getBool("newtabOpen"), eld: Prefs.getInt("enlargeDialogs")}};
@@ -159,7 +159,6 @@ justoff.sstart.SStartOptionsXul = new function () {
 				Prefs.setInt("gridInterval", data["prefs"]["gri"]);
 				Prefs.setInt("backgroundStyle", data["prefs"]["bgs"]);
 				Prefs.setString("focus", data["prefs"]["fcs"]);
-				Prefs.setBool("showDecorations", data["prefs"]["swd"]);
 				Prefs.setBool("overrideNewTab", data["prefs"]["ont"]);
 				Prefs.setBool("overrideHomePage", data["prefs"]["ohp"]);
 				Prefs.setBool("newtabOnLockDrag", data["prefs"]["ntd"]);
@@ -169,6 +168,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				if (typeof data["prefs"]["dst"] != "undefined") Prefs.setBool("disableSysThumbs", data["prefs"]["dst"]);
 				if (typeof data["prefs"]["aus"] != "undefined") Prefs.setBool("autoUpdSize", data["prefs"]["aus"]);
 				if (typeof data["prefs"]["nto"] != "undefined") Prefs.setBool("newtabOpen", data["prefs"]["nto"]);
+				if (typeof data["prefs"]["hdc"] != "undefined") Prefs.setBool("hideDecorations", data["prefs"]["hdc"]);
 				if (typeof data["prefs"]["eld"] != "undefined") Prefs.setInt("enlargeDialogs", data["prefs"]["eld"]);
 				var newId = Bookmark.createFolder(dstFolder);
 				Bookmark.setAnnotation(newId, ANNOTATION, data["params"]);
