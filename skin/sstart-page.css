@@ -231,10 +231,12 @@ body.lock-edits.b-head.no-hlink .hlinkb {
 /* Decorations */
 
 body.no-decorations.lock-edits .widget {
-	border: 1px transparent;
+	border: 1px solid transparent;
 }
 
-body.no-decorations.lock-edits .widget .header {
+body.no-decorations.lock-edits .widget .header,
+body.no-decorations.lock-edits .hlink,
+body.no-decorations.lock-edits .hlinkb  {
 	display: none;
 }
 
