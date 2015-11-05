@@ -102,32 +102,6 @@ justoff.sstart.SStart = new function () {
 		return Prefs.getBool("showDecorations");
 	};
 
-	this.refreshAll = function (rclass, revent) {
-		var c = document.body.getElementsByClassName("widget");
-		for (var i = 0; i < c.length; i++) {
-			var r = Dom.child(c[i], rclass);
-			if (r) {
-				var event = new Event(revent);
-				r.dispatchEvent(event);
-			}
-		}
-	};
-
-	this.alignAll = function () {
-		var c = document.body.getElementsByClassName("widget");
-		var event = new Event("align");
-		var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
-			.getService(Components.interfaces.nsINavBookmarksService);
-		var callback = {
-			runBatched: function() {
-				for (var i = 0; i < c.length; i++) {
-					c[i].dispatchEvent(event);
-				}
-			}
-		}
-		bookmarksService.runInBatchMode(callback, null);
-	};
-
 	this.deleteSearchNode = function (node) {
 		if (node in SStart.SearchNodes) {
 			delete SStart.SearchNodes[node];

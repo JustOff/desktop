@@ -81,7 +81,7 @@ console.time("SStart");
 			Dom.addClass(document.body, 'b-head');
 	}
 
-	function updateLockStatus(skipgrid) {
+	function updateLockStatus (skipgrid) {
 		var s = SStart.isLocked();
 		Dom.removeClass(document.body, s ? 'unlock-edits' : 'lock-edits');
 		Dom.addClass(document.body, s ? 'lock-edits' : 'unlock-edits');
@@ -91,6 +91,32 @@ console.time("SStart");
 	}
 		
 	ContextMenu.enable(document, document.getElementById("menu"));
+	
+	function refreshAll (rclass, revent) {
+		var c = document.body.getElementsByClassName("widget");
+		for (var i = 0; i < c.length; i++) {
+			var r = Dom.child(c[i], rclass);
+			if (r) {
+				var event = new Event(revent);
+				r.dispatchEvent(event);
+			}
+		}
+	};
+
+	function alignAll () {
+		var c = document.body.getElementsByClassName("widget");
+		var event = new Event("align");
+		var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
+			.getService(Components.interfaces.nsINavBookmarksService);
+		var callback = {
+			runBatched: function() {
+				for (var i = 0; i < c.length; i++) {
+					c[i].dispatchEvent(event);
+				}
+			}
+		}
+		bookmarksService.runInBatchMode(callback, null);
+	};
 
 	document.getElementById("menu-add").addEventListener("click", function (e) {
 		var lockStatus = SStart.isLocked();
@@ -136,7 +162,7 @@ console.time("SStart");
 			factory.createWidgets(pageId);
 		}
 		SStart.setLocked(false);
-		SStart.alignAll();
+		alignAll();
 		updateLockStatus();
 		e.stopPropagation();
 	}, false);
@@ -155,9 +181,9 @@ console.time("SStart");
 				SStart.setLocked(true);
 			}
 			if (e.target.type == "thumbnails") {
-				SStart.refreshAll("refresh", "click");
+				refreshAll("refresh", "click");
 			} else {
-				SStart.refreshAll("icon", "refresh");
+				refreshAll("icon", "refresh");
 			}
 		}
 		e.stopPropagation();
