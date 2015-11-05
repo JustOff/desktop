@@ -17,13 +17,11 @@ var Dom = {
 	},
 
 	addClass: function (element, className) {
-		if (element.className.indexOf(className) == -1) {
-			element.className += " " + className;
-		}
+		element.classList.add(className);
 	},
 
 	removeClass: function (element, className) {
-		element.className = element.className.replace(new RegExp("((^)|( +))" + className + "(( +)|($))"), " ")
+		element.classList.remove(className);
 	},
 	
 	remove: function (element) {
