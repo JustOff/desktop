@@ -1,7 +1,6 @@
 justoff.sstart.ContextMenu = new function () {
 
 	var ContextMenu = this
-	var SStart = justoff.sstart.SStart
 
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
@@ -14,7 +13,7 @@ justoff.sstart.ContextMenu = new function () {
 			if (e.button != 2) return;
 
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-			var s = SStart.isOverWidget(hoverEl);
+			var s = Utils.isOverWidget(hoverEl);
 			Dom.removeClass(document.body, s ? 'no-widget' : 'is-widget');
 			Dom.addClass(document.body, s ? 'is-widget' : 'no-widget');
 				

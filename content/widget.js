@@ -9,7 +9,7 @@ justoff.sstart.Widget = function () {
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 	
-	const SEARCH_URL = "sstart://search/";
+	var SEARCH_URL = "sstart://search/";
 
 	this.setProperties = function (properties) {
 		this.properties = properties;

@@ -3,6 +3,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	var self = this
 	var SStart = justoff.sstart.SStart
 
+	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/file.js");
 	Components.utils.import("chrome://sstart/content/url.js");
 
@@ -41,7 +42,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		bgColorBtn.addEventListener('click', this.cpickBgColor, true);
 		document.getElementById("width").value = properties.width || 224;
 		document.getElementById("height").value = properties.height || 128;
-		if (properties.customImage && SStart.isURI(properties.customImage)) {
+		if (properties.customImage && Utils.isURI(properties.customImage)) {
 			document.getElementById("customImage").value = properties.customImage || "";
 		} else {
 			if (properties.customImage) {
@@ -82,7 +83,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		var theight = parseInt(document.getElementById("height").value, 10) || properties.height || 128;
 		if (theight < 20) { if (theight <= 0) { theight = properties.height || 128; } else { theight = 20; } }
 		properties.height = theight;
-		if (document.getElementById("customImage").value == "" || SStart.isURI(document.getElementById("customImage").value)) {
+		if (document.getElementById("customImage").value == "" || Utils.isURI(document.getElementById("customImage").value)) {
 			properties.customImage = document.getElementById("customImage").value.trim();
 		} else if (this.hashWord) {
 			var dir = File.getDataDirectory();
@@ -129,7 +130,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 	this.browseCustomImage = function () {
 		var file = File.chooseFile("open", ["images"]);
 		if (file) {
-			if (!SStart.isURI(document.getElementById("customImage").value) && this.hashWord && this.tmpName) {
+			if (!Utils.isURI(document.getElementById("customImage").value) && this.hashWord && this.tmpName) {
 				var dir = File.getDataDirectory();
 				try {
 					dir.append("tmp." + this.hashWord + "." + this.tmpName);

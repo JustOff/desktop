@@ -276,7 +276,7 @@ console.time("SStart");
 	document.addEventListener("click", function (e) {
 		if (e.button != 0 || e.clientX == 0 || (!Cache.getNewtabOpenAlways() && (!e.altKey || SStart.isLocked()))) return;
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-		if (!SStart.isOverWidget(hoverEl)) return;
+		if (!Utils.isOverWidget(hoverEl)) return;
 		if (e.altKey && !SStart.isLocked()) {
 			while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 			if (hoverEl) {
@@ -311,7 +311,7 @@ console.time("SStart");
 
 	document.addEventListener("dblclick", function (e) {
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-		if (e.clientX == 0 || SStart.isOverWidget(hoverEl))
+		if (e.clientX == 0 || Utils.isOverWidget(hoverEl))
 			return;
 		SStart.toggleLocked();
 		if (SStart.isCacheDOM() && !SStart.isLocked() && pageId == 0) {

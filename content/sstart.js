@@ -102,15 +102,6 @@ justoff.sstart.SStart = new function () {
 		return Prefs.getBool("showDecorations");
 	};
 
-	this.isOverWidget = function (el) {
-		return el && !(el.nodeName && el.nodeName.toLowerCase() in {"body":1,"html":1}) && 
-			!(el.id && el.id in {"quickstart":1,"grid":1});
-	};
-	
-	this.isURI = function (url) {
-		return url.trim().slice(0,6) in {"file:/":1, "http:/":1, "https:":1, "data:i":1};
-	}
-
 	this.refreshAll = function (rclass, revent) {
 		var c = document.body.getElementsByClassName("widget");
 		for (var i = 0; i < c.length; i++) {

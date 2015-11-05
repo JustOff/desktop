@@ -1,19 +1,19 @@
 justoff.sstart.SStartOptionsXul = new function () {
 
-	var SStart = justoff.sstart.SStart
 	var Prefs = justoff.sstart.Prefs
+	
+	var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
 
-	Components.utils.import("chrome://sstart/content/cache.js");
-	Components.utils.import("chrome://sstart/content/file.js");
-	Components.utils.import("chrome://sstart/content/utils.js");
-	Components.utils.import("chrome://sstart/content/bookmark.js");
+	Cu.import("chrome://sstart/content/cache.js");
+	Cu.import("chrome://sstart/content/file.js");
+	Cu.import("chrome://sstart/content/utils.js");
+	Cu.import("chrome://sstart/content/bookmark.js");
 			
-	const BACKUP_VERSION = "1.0";
-	const ROOT_TITLE = "SStart";
-	const ROOT_DIR = "sstart";
-	const ANNOTATION = "bookmarkProperties/description";
-	const pr = {PR_RDONLY: 0x01, PR_WRONLY: 0x02, PR_RDWR: 0x04, PR_CREATE_FILE: 0x08, PR_APPEND: 0x10, PR_TRUNCATE: 0x20};
-	const {classes: Cc, interfaces: Ci, utils: Cu} = Components;
+	var BACKUP_VERSION = "1.0";
+	var ROOT_TITLE = "SStart";
+	var ROOT_DIR = "sstart";
+	var ANNOTATION = "bookmarkProperties/description";
+	var pr = {PR_RDONLY: 0x01, PR_WRONLY: 0x02, PR_RDWR: 0x04, PR_CREATE_FILE: 0x08, PR_APPEND: 0x10, PR_TRUNCATE: 0x20};
 
 	Cu.import("resource://gre/modules/NetUtil.jsm");
 	Cu.import("resource://gre/modules/FileUtils.jsm");
@@ -125,9 +125,9 @@ justoff.sstart.SStartOptionsXul = new function () {
 		if (zfile) {
 			var dstFolder = "SStart." + (Math.random().toString(36)+'00000000000000000').slice(2, 10);
 			var tmpDir = FileUtils.getFile("TmpD", ["SpeedStart.tmp"]);
-			tmpDir.createUnique(Components.interfaces.nsIFile.DIRECTORY_TYPE, FileUtils.PERMS_DIRECTORY);
+			tmpDir.createUnique(Ci.nsIFile.DIRECTORY_TYPE, FileUtils.PERMS_DIRECTORY);
 			var dstDir = FileUtils.getFile("ProfD", ["sstart.tmp"]);
-			dstDir.createUnique(Components.interfaces.nsIFile.DIRECTORY_TYPE, FileUtils.PERMS_DIRECTORY);
+			dstDir.createUnique(Ci.nsIFile.DIRECTORY_TYPE, FileUtils.PERMS_DIRECTORY);
 			var zr = Cc["@mozilla.org/libjar/zip-reader;1"].createInstance(Ci.nsIZipReader);
 			zr.open(zfile);
 			var entries = zr.findEntries('*'), entryName, target;
@@ -251,7 +251,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				sdir.copyTo(dstDir, "bg_" + newId);
 			}
 		}
-		if (params["customImage"] && params["customImage"] != "" && !SStart.isURI(params["customImage"])) {
+		if (params["customImage"] && params["customImage"] != "" && !Utils.isURI(params["customImage"])) {
 			sdir = srcDir.clone();
 			sdir.append(params["customImage"]);
 			if (sdir.exists()) {

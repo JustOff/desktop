@@ -6,9 +6,9 @@ justoff.sstart.Storage = function (folderId) {
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/bookmark.js");
 
-	const ROOT_TITLE = "SStart";
-	const DESKTOP_ROOT = "Desktop";
-	const ANNOTATION = "bookmarkProperties/description";
+	var ROOT_TITLE = "SStart";
+	var DESKTOP_ROOT = "Desktop";
+	var ANNOTATION = "bookmarkProperties/description";
 
 	if (!folderId) folderId = getRootId();
 

@@ -14,9 +14,9 @@ justoff.sstart.Thumbnail = function () {
 	var fis = Components.classes["@mozilla.org/browser/favicon-service;1"].getService(Components.interfaces.nsIFaviconService);
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
-	const TIMEOUT_LOAD = 30 * 1000;
-	const TIMEOUT_RENDER = 0.5 * 1000;
-	const HEADER_HEIGHT = 20;
+	var TIMEOUT_LOAD = 30 * 1000;
+	var TIMEOUT_RENDER = 0.5 * 1000;
+	var HEADER_HEIGHT = 20;
 
 	var loading;
 
@@ -38,7 +38,7 @@ justoff.sstart.Thumbnail = function () {
 
 	var getImageURL = function () {
 		if (this.properties.customImage)
-			if (SStart.isURI(this.properties.customImage)) {
+			if (Utils.isURI(this.properties.customImage)) {
 				return this.properties.customImage;
 			} else {
 				return File.getDataFileURL(this.properties.customImage);

@@ -9,7 +9,7 @@ justoff.sstart.Factory = function (storage) {
 	Components.utils.import("chrome://sstart/content/file.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	
-	const SEARCH_URL = "sstart://search/";
+	var SEARCH_URL = "sstart://search/";
 
 	this.createWidget = function (type, x, y) {
 		var properties = {

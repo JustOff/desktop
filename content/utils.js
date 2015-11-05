@@ -109,6 +109,15 @@ var Utils = {
 			&& /chrome:\/\/sstart\/content\/sstart.html(\?.*)?/.test(doc.location.href);
 	},
 	
+	isOverWidget: function (el) {
+		return el && !(el.nodeName && el.nodeName.toLowerCase() in {"body":1,"html":1}) && 
+			!(el.id && el.id in {"quickstart":1,"grid":1});
+	},
+	
+	isURI: function (url) {
+		return url.trim().slice(0,6) in {"file:/":1, "http:/":1, "https:":1, "data:i":1};
+	},
+
 	reloadEachSStartBrowser: function () {
 		var gBrowser = this.getBrowser();
 		for (var i = 0; i < gBrowser.browsers.length; i++) {

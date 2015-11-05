@@ -28,7 +28,7 @@ justoff.sstart.Drag = new function () {
 	this.onMouseOver = function (e) {
 		if (!SStart.isLocked()) {
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-			if (SStart.isOverWidget(hoverEl)) {
+			if (Utils.isOverWidget(hoverEl)) {
 				while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 				if (hoverEl) {
 					Drag.hover = hoverEl;
@@ -55,7 +55,7 @@ justoff.sstart.Drag = new function () {
 
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 		if (hoverEl.nodeName == "INPUT" && (SStart.isLocked() || hoverEl.parentNode && hoverEl.parentNode.id == "title")) return;
-		if (SStart.isOverWidget(hoverEl)) {
+		if (Utils.isOverWidget(hoverEl)) {
 			while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 			if (hoverEl) {
 				Drag.object = hoverEl;
@@ -102,7 +102,7 @@ justoff.sstart.Drag = new function () {
 			theObject.dispatchEvent(event);
 		} else {
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-			if (SStart.isOverWidget(hoverEl)) {
+			if (Utils.isOverWidget(hoverEl)) {
 				while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
 				if (hoverEl && hoverEl.getAttribute("data-search") == "true") {
 					SStart.focusSearch(hoverEl);
