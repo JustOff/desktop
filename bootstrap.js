@@ -295,6 +295,7 @@ var myPrefsWatcher = {
 		switch (data) {
 			case "bottomHeader":
 			case "autoZoom":
+			case "hideDecorations":
 				Cache.clearCache();
 				Utils.reloadEachSStartBrowser();
 				break;

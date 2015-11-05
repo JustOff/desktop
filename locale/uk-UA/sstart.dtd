@@ -16,6 +16,7 @@
 <!ENTITY sstart.newtabAlways "завжди">
 <!ENTITY sstart.autoZoom "Автоматично зменшувати для дотримання меж">
 <!ENTITY sstart.bottomHeader "Виводити заголовки віджетів знизу">
+<!ENTITY sstart.hideDecorations "Приховати заголовки та закрайки віджетів">
 <!ENTITY sstart.Positioning "Вирівнювання">
 <!ENTITY sstart.GridSize "Розмір сітки">
 <!ENTITY sstart.showGridOnUnlock "Показувати сітку, коли сторінка розблокована">
