@@ -3,7 +3,6 @@ var EXPORTED_SYMBOLS = ["Cache"];
 var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
 
 Cu.import("resource://gre/modules/Services.jsm");
-Cu.import("chrome://sstart/content/dom.js");
 Cu.import("chrome://sstart/content/utils.js");
 
 var Cache = { 
@@ -56,7 +55,7 @@ var Cache = {
 			var grid = gBrowser.contentDocument.getElementById("grid");
 			var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 			if (prefService.getBoolPref("extensions.sstart.showGridOnUnlock")) {
-				if (!grid && Dom.hasClass(gBrowser.contentDocument.body, "unlock-edits")) {
+				if (!grid && gBrowser.contentDocument.body.classList.contains("unlock-edits")) {
 					var doc = gBrowser.contentDocument;
 					grid = doc.createElement("div");
 					grid.id = "grid";

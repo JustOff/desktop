@@ -39,10 +39,6 @@ var Dom = {
 		element.className = element.className.replace(new RegExp("((^)|( +))" + className + "(( +)|($))"), " ")
 	},
 	
-	hasClass: function (element, className) {
-		return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
-	},
-
 	remove: function (element) {
 		element.parentNode.removeChild(element);
 	},
