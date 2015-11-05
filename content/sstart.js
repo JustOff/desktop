@@ -1,7 +1,6 @@
 justoff.sstart.SStart = new function () {
 
 	var SStart = this;
-	var Prefs = justoff.sstart.Prefs;
 
 	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
@@ -160,13 +159,15 @@ justoff.sstart.SStart = new function () {
 		if (typeof w == "undefined" || typeof h == "undefined") {
 			features = features + ",centerscreen,resizable";
 		} else {
-			var autoZoom = Prefs.getBool("autoZoom");
+			var prefBranch = Components.classes["@mozilla.org/preferences-service;1"]
+					.getService(Components.interfaces.nsIPrefService).getBranch("extensions.sstart.");
+			var autoZoom = prefBranch.getBoolPref("autoZoom");
 			if (autoZoom) {
 				w = Math.round(w / this.getZoom());
 				h = Math.round(h / this.getZoom());
 			}
 			if (typeof l == "undefined" || typeof t == "undefined") {
-				var edc = Prefs.getInt("enlargeDialogs");
+				var edc = prefBranch.getIntPref("enlargeDialogs");
 				if (edc > 100) {
 					w = Math.round(w * edc / 100); 
 					h = Math.round(h * (1 + (edc / 100 - 1) / 2));
