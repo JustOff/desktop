@@ -26,12 +26,6 @@ var Dom = {
 	
 	remove: function (element) {
 		element.parentNode.removeChild(element);
-	},
-
-	clear: function(element) {
-		for (var i = element.childNodes.length - 1; i >= 0; i--) {
-			element.removeChild(element.childNodes[i]);
-		}
 	}
-	
+
 };

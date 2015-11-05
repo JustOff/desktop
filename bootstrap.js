@@ -136,7 +136,9 @@ function cPopupShowingListener (e) {
 }
 	
 function initFoldersMenu (menupopup) {
-	Dom.clear(menupopup);
+	while (menupopup.firstChild) {
+		menupopup.removeChild(myNode.firstChild);
+	}
 	var rootId = 0;
 	var bookmarks = Bookmark.getBookmarks();
 	for (var i in bookmarks) {
@@ -410,7 +412,6 @@ function startup (params, reason)
 	Cu.import("chrome://sstart/content/prefloader.js");
 	Cu.import("chrome://sstart/content/cache.js");
     Cu.import("chrome://sstart/content/file.js");
-    Cu.import("chrome://sstart/content/dom.js");
     Cu.import("chrome://sstart/content/utils.js");
     Cu.import("chrome://sstart/content/bookmark.js");
 	
