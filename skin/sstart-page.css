@@ -121,6 +121,19 @@ br {
 	padding: 2;
 }
 
+.sicon {
+	margin-top: -18px;
+}
+
+body.b-head .sicon {
+	margin-top: 23px;
+	position: absolute;
+}
+
+.swidget .body {
+	background-color: white;
+}
+
 /* Thumbnail */
 
 .thumbnail {
@@ -239,6 +252,16 @@ body.no-decorations.lock-edits .hlink,
 body.no-decorations.lock-edits .hlinkb  {
 	display: none;
 }
+
+body.no-decorations.lock-edits .sicon {
+	margin-top: 2px;
+}
+
+body.no-decorations.lock-edits .sindiv {
+	padding-left: 20px;
+}
+
+/* Misc */
 
 .z0 {
 	width: 100%;

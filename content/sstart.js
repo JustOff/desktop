@@ -128,7 +128,7 @@ justoff.sstart.SStart = new function () {
 	};
 
 	this.doSearch = function (text, input, newtab) {
-		var engine = SStart.getSearchEngine(Dom.child(input.parentNode.parentNode.parentNode, "title").textContent);
+		var engine = SStart.getSearchEngine(Dom.child(input.parentNode.parentNode.parentNode.parentNode, "title").textContent);
 		input.value = "";
 		var submission = engine.getSubmission(text);
 		if (newtab && !Cache.getNewtabOpenAlways() || !newtab && Cache.getNewtabOpenAlways()) {

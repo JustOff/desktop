@@ -61,11 +61,15 @@ justoff.sstart.Widget = function () {
 
 	this.renderView = function () {
 		this.view = document.getElementById("widget").cloneNode(true);
-		Dom.child(this.view, "body").appendChild(this.createView());
-		this.view.id = this.properties.id;
+
 		if (this.properties.url == SEARCH_URL) {
 			Dom.addClass(this.view, "swidget");
+			var icon = Dom.child(this.view, "icon");
+			Dom.remove(icon);
 		}
+
+		Dom.child(this.view, "body").appendChild(this.createView());
+		this.view.id = this.properties.id;
 
 		this.updateView();
 
