@@ -16,19 +16,6 @@ var Dom = {
 		}
 	},
 
-	parent: function (element, classOrType) {
-		var regexp = new RegExp("\\b" + classOrType + "\\b");
-
-		while ((element = element.parentNode)) {
-			if (element.nodeName.toLowerCase() == classOrType ||
-				element.className && element.className.match(regexp)) return element;
-		}
-	},
-
-	prepend: function (parentNode, child) {
-		parent.insertBefore(child, parentNode.firstChild);
-	},
-
 	addClass: function (element, className) {
 		if (element.className.indexOf(className) == -1) {
 			element.className += " " + className;
