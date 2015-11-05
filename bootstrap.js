@@ -137,7 +137,7 @@ function cPopupShowingListener (e) {
 	
 function initFoldersMenu (menupopup) {
 	while (menupopup.firstChild) {
-		menupopup.removeChild(myNode.firstChild);
+		menupopup.removeChild(menupopup.firstChild);
 	}
 	var rootId = 0;
 	var bookmarks = Bookmark.getBookmarks();
