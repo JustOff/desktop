@@ -30,7 +30,7 @@ var Cache = {
 	},
 
 	updateGridStatus: function (show) {
-		var doc = gBrowser = Services.wm.getMostRecentWindow("navigator:browser").getBrowser().contentDocument;
+		var doc = Services.wm.getMostRecentWindow("navigator:browser").getBrowser().contentDocument;
 		var grid = doc.getElementById("grid");
 		if (show) {
 			if (grid) {
