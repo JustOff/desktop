@@ -6,19 +6,23 @@ Cu.import("chrome://sstart/content/url.js");
 
 var Bookmark = {
 
-	query: function (folderId) {
-		var historyService = Cc["@mozilla.org/browser/nav-history-service;1"].getService(Ci.nsINavHistoryService);
+	bookmarksService: Cc["@mozilla.org/browser/nav-bookmarks-service;1"].getService(Ci.nsINavBookmarksService),
+	
+	historyService: Cc["@mozilla.org/browser/nav-history-service;1"].getService(Ci.nsINavHistoryService),
+	
+	annotationService: Cc["@mozilla.org/browser/annotation-service;1"].getService(Ci.nsIAnnotationService),
 
-		var options = historyService.getNewQueryOptions();
-		var query = historyService.getNewQuery();
+	query: function (folderId) {
+
+		var options = this.historyService.getNewQueryOptions();
+		var query = this.historyService.getNewQuery();
 		query.setFolders([folderId], 1);
 
-		return historyService.executeQuery(query, options);
+		return this.historyService.executeQuery(query, options);
 	},
 
 	getBookmarks: function (folderId) {
-		var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"].getService(Ci.nsINavBookmarksService);
-		var result = this.query(folderId || bookmarksService.bookmarksMenuFolder);
+		var result = this.query(folderId || this.bookmarksService.bookmarksMenuFolder);
 		result.root.containerOpen = true;
 
 		var bookmarks = [];
@@ -36,59 +40,51 @@ var Bookmark = {
 	},
 
 	getTitle: function (id) {
-		var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"].getService(Ci.nsINavBookmarksService);
-		return bookmarksService.getItemTitle(id);
+		return this.bookmarksService.getItemTitle(id);
 	},
 
 	createFolder: function (title, parentId) {
-		var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"].getService(Ci.nsINavBookmarksService);
-		return bookmarksService.createFolder(parentId || bookmarksService.bookmarksMenuFolder, title, -1);
+		return this.bookmarksService.createFolder(parentId || this.bookmarksService.bookmarksMenuFolder, title, -1);
 	},
 
 	createBookmark: function (uri, title, folderId) {
-		var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"].getService(Ci.nsINavBookmarksService);
-		return bookmarksService.insertBookmark(folderId || bookmarksService.bookmarksMenuFolder, URL.getNsiURL(uri), -1, title);
+		return this.bookmarksService.insertBookmark(folderId
+			|| this.bookmarksService.bookmarksMenuFolder, URL.getNsiURL(uri), -1, title);
 	},
 
 	updateFolder: function (id, title) {
-		var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"].getService(Ci.nsINavBookmarksService);
-		bookmarksService.setItemTitle(id, title);
+		this.bookmarksService.setItemTitle(id, title);
 	},
 
 	updateBookmark: function (id, uri, title) {
-		var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"].getService(Ci.nsINavBookmarksService);
-		bookmarksService.setItemTitle(id, title);
-		bookmarksService.changeBookmarkURI(id, URL.getNsiURL(uri));
+		this.bookmarksService.setItemTitle(id, title);
+		this.bookmarksService.changeBookmarkURI(id, URL.getNsiURL(uri));
 	},
 
 	removeBookmark: function (id) {
-		var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"].getService(Ci.nsINavBookmarksService);
-		bookmarksService.removeItem(id);
+		this.bookmarksService.removeItem(id);
 	},
 
 	getAnnotation: function (idOrUri, name) {
-		var annotationService = Cc["@mozilla.org/browser/annotation-service;1"].getService(Ci.nsIAnnotationService);
 		try {
 			return idOrUri instanceof Ci.nsIURI
-				? annotationService.getPageAnnotation(idOrUri, name)
-				: annotationService.getItemAnnotation(idOrUri, name);
+				? this.annotationService.getPageAnnotation(idOrUri, name)
+				: this.annotationService.getItemAnnotation(idOrUri, name);
 		} catch (e) {
 			return null;
 		}
 	},
 
 	setAnnotation: function (idOrUri, name, value) {
-		var annotationService = Cc["@mozilla.org/browser/annotation-service;1"].getService(Ci.nsIAnnotationService);
 		idOrUri instanceof Ci.nsIURI
-			? annotationService.setPageAnnotation(idOrUri, name, value, 0, annotationService.EXPIRE_NEVER)
-			: annotationService.setItemAnnotation(idOrUri, name, value, 0, annotationService.EXPIRE_NEVER);
+			? this.annotationService.setPageAnnotation(idOrUri, name, value, 0, this.annotationService.EXPIRE_NEVER)
+			: this.annotationService.setItemAnnotation(idOrUri, name, value, 0, this.annotationService.EXPIRE_NEVER);
 	},
 
 	removeAnnotation: function (idOrUri, name) {
-		var annotationService = Cc["@mozilla.org/browser/annotation-service;1"].getService(Ci.nsIAnnotationService);
 		idOrUri instanceof Ci.nsIURI
-			? annotationService.removePageAnnotation(idOrUri, name)
-			: annotationService.removeItemAnnotation(idOrUri, name);
+			? this.annotationService.removePageAnnotation(idOrUri, name)
+			: this.annotationService.removeItemAnnotation(idOrUri, name);
 	}
 
 };
