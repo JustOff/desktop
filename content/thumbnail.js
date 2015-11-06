@@ -158,7 +158,7 @@ justoff.sstart.Thumbnail = function () {
 		}
 	}
 
-	function refreshImage() {
+	function refreshImage () {
 		var self = this;
 		if (!this.properties.isFolder) {
 			getSiteFavicon.call(self, self.properties.url);
@@ -180,7 +180,7 @@ justoff.sstart.Thumbnail = function () {
 		});
 	}
 
-	function getSiteFavicon(siteURI, icon) {
+	function getSiteFavicon (siteURI, icon) {
 		var splitURI = siteURI.split(/\/+/g);
 		if (splitURI[0] && splitURI[1] && splitURI[0] in {"http":1,"https":1}) {
 			var faviconURI = splitURI[0] + "//" + splitURI[1] + "/favicon.ico";
@@ -207,7 +207,7 @@ justoff.sstart.Thumbnail = function () {
 		xhr.send();
 	};   
 	
-	function preloadFavicon(faviconURI, siteURI, icon) {
+	function preloadFavicon (faviconURI, siteURI, icon) {
 		var iconURI = ios.newURI(faviconURI, null, null);
 		var bookmarkURI = ios.newURI(siteURI, null, null);
 		if (icon) {
@@ -220,7 +220,7 @@ justoff.sstart.Thumbnail = function () {
 		}
    };
 	
-	function saveImage(iframe) {
+	function saveImage (iframe) {
 		var self = this;
 		setTimeout(function () {
 				var imageUri = createImage(iframe, self.properties.width, self.properties.height - HEADER_HEIGHT);
@@ -236,7 +236,7 @@ justoff.sstart.Thumbnail = function () {
 			TIMEOUT_RENDER);
 	}
 
-	function createFrame(aspect, url) {
+	function createFrame (aspect, url) {
 		var browserWindow = Utils.getBrowserWindow();
 		var doc = browserWindow.document;
 
@@ -257,13 +257,13 @@ justoff.sstart.Thumbnail = function () {
 		return iframe;
 	}
 
-	function loadURI(url, width, height, onReady) {
+	function loadURI (url, width, height, onReady) {
 		function onFrameTimeout() {
 			iframe.removeEventListener("load", onFrameLoad, true);
 			clearTimeout(loadTimeout);
 			onReady(iframe);
 		}
-		function onFrameLoad(event) {
+		function onFrameLoad (event) {
 			if (event.originalTarget instanceof HTMLDocument) {
 				var win = event.originalTarget.defaultView;
 				if (win.frameElement) return;
@@ -280,7 +280,7 @@ justoff.sstart.Thumbnail = function () {
 		iframe.setAttribute("src", url);
 	}
 
-	function createImage(iframe, imageWidth, imageHeight) {
+	function createImage (iframe, imageWidth, imageHeight) {
 		var ifw = iframe.contentDocument.documentElement.offsetWidth || iframe.width;
 		var ifh = Math.round(ifw / imageWidth * imageHeight);
 		var canvas = document.createElement("canvas");
@@ -311,7 +311,7 @@ justoff.sstart.Thumbnail = function () {
 		return canvas.toDataURL("image/png");
 	}
 
-	function sharpenImage(ctx, w, h, mix) {
+	function sharpenImage (ctx, w, h, mix) {
 		var weights = [0, -1, 0, -1, 5, -1, 0, -1, 0],
 			side = Math.round(Math.sqrt(weights.length)),
 			half = Math.floor(side * 0.5),

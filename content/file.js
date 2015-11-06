@@ -1,19 +1,19 @@
 var EXPORTED_SYMBOLS = ["File"];
 
-Components.utils.import("chrome://sstart/content/utils.js");
+var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
 
-Components.utils.import("resource://gre/modules/NetUtil.jsm");
-Components.utils.import("resource://gre/modules/FileUtils.jsm");
+Cu.import("chrome://sstart/content/utils.js");
+
+Cu.import("resource://gre/modules/NetUtil.jsm");
+Cu.import("resource://gre/modules/FileUtils.jsm");
 
 var File = {
 	
 	getDataDirectory: function () {
-		var dir = Components.classes["@mozilla.org/file/directory_service;1"]
-			.getService(Components.interfaces.nsIProperties)
-			.get("ProfD", Components.interfaces.nsIFile);
+		var dir = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties).get("ProfD", Ci.nsIFile);
 		dir.append("sstart");
 		if (!dir.exists()) {
-			dir.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, parseInt("0777", 8));
+			dir.create(Ci.nsIFile.DIRECTORY_TYPE, parseInt("0777", 8));
 		}
 		return dir;
 	},
@@ -39,9 +39,9 @@ var File = {
 	},
 
 	writeFileAsync: function (file, dataUri, callback) {
-		NetUtil.asyncFetch(dataUri, function(istream, status) {
+		NetUtil.asyncFetch(dataUri, function (istream, status) {
 			if (!istream || !Components.isSuccessCode(status)) {
-				console.log("Input stream error!")
+				Cu.reportError("Input stream error!");
 				return;
 			}
 			try {
@@ -49,9 +49,9 @@ var File = {
 			} catch (e) {
 				var ostream = FileUtils.openSafeFileOutputStream(file);
 			}
-			NetUtil.asyncCopy(istream, ostream, function(status) {
+			NetUtil.asyncCopy(istream, ostream, function (status) {
 				if (!Components.isSuccessCode(status)) {
-					console.log("File write error!");
+					Cu.reportError("File write error!");
 					return;
 				}
 				callback();
@@ -60,8 +60,7 @@ var File = {
 	},
 
 	chooseFile: function (mode, filters, name) {
-		var fp = Components.classes["@mozilla.org/filepicker;1"]
-			.createInstance(Components.interfaces.nsIFilePicker);
+		var fp = Cc["@mozilla.org/filepicker;1"].createInstance(Ci.nsIFilePicker);
 		fp.init(Utils.getBrowserWindow(), null, mode == "save" ? fp.modeSave :
 			mode == "folder" ? fp.modeGetFolder : fp.modeOpen);
 		for (var i in filters) {
@@ -81,15 +80,15 @@ var File = {
 		fp.defaultString = name;
 
 		var result = fp.show();
-		if (result == fp.returnOK ||
-			result == fp.returnReplace) return fp.file;
+		if (result == fp.returnOK || result == fp.returnReplace) {
+			return fp.file;
+		}
 	},
 
 	getNsiFile: function (file) {
-		if (file instanceof Components.interfaces.nsIFile) return file;
+		if (file instanceof Ci.nsIFile) return file;
 		else {
-			var nsiFile = Components.classes["@mozilla.org/file/local;1"]
-				.createInstance(Components.interfaces.nsILocalFile);
+			var nsiFile = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsILocalFile);
 			nsiFile.initWithPath(file);
 			return nsiFile;
 		}
@@ -97,8 +96,7 @@ var File = {
 
 	getFileURL: function (file) {
 		var nsiFile = this.getNsiFile(file);
-		var ios = Components.classes["@mozilla.org/network/io-service;1"]
-			.getService(Components.interfaces.nsIIOService);
+		var ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
 		return ios.newFileURI(nsiFile).spec;
 	}
 

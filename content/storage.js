@@ -21,7 +21,7 @@ justoff.sstart.Storage = function (folderId) {
 		return importFromDesktop(bookmarks);
 	}
 
-	function importFromDesktop(bookmarks) {
+	function importFromDesktop (bookmarks) {
 		this.fileProtocolHandler = Components.classes["@mozilla.org/network/protocol;1?name=file"]
 			.createInstance(Components.interfaces.nsIFileProtocolHandler);
 		for (var i in bookmarks) {
@@ -60,7 +60,7 @@ justoff.sstart.Storage = function (folderId) {
 		return Bookmark.createFolder(ROOT_TITLE);
 	}
 	
-	function copyFolder(srcId, dstId) {
+	function copyFolder (srcId, dstId) {
 		var bookmarks = Bookmark.getBookmarks(srcId);
 		var newId, annotation;
 		for (var i in bookmarks) {
@@ -89,7 +89,7 @@ justoff.sstart.Storage = function (folderId) {
 		}
 	}
 	
-	function importCustomImage(annotation) {
+	function importCustomImage (annotation) {
 		var properties = Utils.fromJSON(annotation);
 		try {
 			var cif = this.fileProtocolHandler.getFileFromURLSpec(properties.customImage);

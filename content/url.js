@@ -1,10 +1,11 @@
 var EXPORTED_SYMBOLS = ["URL"];
 
+var Cc = Components.classes, Ci = Components.interfaces;
+
 var URL = {
 
 	getNsiURL: function (url) {
-		var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-			.getService(Components.interfaces.nsIIOService);
+		var ioService = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
 		return ioService.newURI(url ? url : "about:blank", null, null);
 	},
 
@@ -15,13 +16,11 @@ var URL = {
 	},
 
 	readURL: function (url) {
-		var ioService = Components.classes["@mozilla.org/network/io-service;1"]
-			.getService(Components.interfaces.nsIIOService);
+		var ioService = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
 		var channel = ioService.newChannel(url, null, null);
 		var stream = channel.open();
 
-		var binary = Components.classes["@mozilla.org/binaryinputstream;1"]
-			.createInstance(Components.interfaces.nsIBinaryInputStream);
+		var binary = Cc["@mozilla.org/binaryinputstream;1"].createInstance(Ci.nsIBinaryInputStream);
 		binary.setInputStream(stream);
 		var data = binary.readBytes(binary.available());
 		binary.close();
@@ -33,8 +32,7 @@ var URL = {
 	removeFromCache: function (url) {
 		if (!url) return;
 		try {
-			var cacheService = Components.classes["@mozilla.org/image/tools;1"]
-				.getService(Components.interfaces.imgITools).getImgCacheForDocument(null);
+			var cacheService = Cc["@mozilla.org/image/tools;1"].getService(Ci.imgITools).getImgCacheForDocument(null);
 			cacheService.removeEntry(this.getNsiURL(url));
 		} catch (e) {}
 	}

@@ -1,5 +1,7 @@
 var EXPORTED_SYMBOLS = ["Utils"];
 
+var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
+
 var Utils = {
 
 	getQueryParams: function (url) {
@@ -54,7 +56,7 @@ var Utils = {
 			try {
 				return JSON.parse(str);
 			} catch (e) {
-				Components.utils.reportError("Error parsing " + str + ": " + e);
+				Cu.reportError("Error parsing " + str + ": " + e);
 			}
 			return {};
 		}
@@ -62,28 +64,24 @@ var Utils = {
 
 	translate: function (key) {
 		if (!this.bundle) {
-			this.bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
-				.getService(Components.interfaces.nsIStringBundleService)
+			this.bundle = Cc["@mozilla.org/intl/stringbundle;1"].getService(Ci.nsIStringBundleService)
 				.createBundle("chrome://sstart/locale/sstart.strings" + "?" + Math.random());
 		}
 		return this.bundle.GetStringFromName(key);
 	},
 
 	alert: function (message) {
-		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-			.getService(Components.interfaces.nsIPromptService);
+		var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
 		return prompts.alert(this.getBrowserWindow(), this.translate("SpeedStart"), message);
 	},
 
 	confirm: function (message) {
-		var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
-			.getService(Components.interfaces.nsIPromptService);
+		var prompts = Cc["@mozilla.org/embedcomp/prompt-service;1"].getService(Ci.nsIPromptService);
 		return prompts.confirm(this.getBrowserWindow(), this.translate("SpeedStart"), message);
 	},
 
 	getBrowserWindow: function () {
-		var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-			.getService(Components.interfaces.nsIWindowMediator);
+		var wm = Cc["@mozilla.org/appshell/window-mediator;1"].getService(Ci.nsIWindowMediator);
 		return wm.getMostRecentWindow("navigator:browser");
 	},
 
