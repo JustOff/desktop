@@ -1,5 +1,4 @@
 (function () {
-console.time("SStart");
 	var Prefs = justoff.sstart.Prefs
 	var Storage = justoff.sstart.Storage
 	var Factory = justoff.sstart.Factory
@@ -362,5 +361,4 @@ console.time("SStart");
 
 	// Disable bfcache
 	window.addEventListener("beforeunload", function () {} );
-console.timeEnd("SStart");
 })();
