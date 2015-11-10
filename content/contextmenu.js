@@ -54,8 +54,8 @@ justoff.sstart.ContextMenu = new function () {
 
 	this.close = function () {
 		if (ContextMenu.current) {
-			document.addEventListener("click", ContextMenu.close, false);
-			document.addEventListener("blur", ContextMenu.close, false);
+			document.removeEventListener("click", ContextMenu.close, false);
+			document.removeEventListener("blur", ContextMenu.close, false);
 			Dom.remove(ContextMenu.current);
 			ContextMenu.current = null;
 		}

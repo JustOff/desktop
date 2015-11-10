@@ -133,15 +133,19 @@
 			SStart.setLocked(lockStatus);
 		}
 		updateLockStatus();
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-prefs").addEventListener("click", function (e) {
 		openDialog("chrome://sstart/content/options.xul", "sstart-preferences-window", SStart.getDialogFeatures());
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-lock").addEventListener("click", function (e) {
 		SStart.setLocked(true);
 		updateLockStatus();
+		ContextMenu.close();
+		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-unlock").addEventListener("click", function (e) {
 		SStart.setLocked(false);
@@ -151,6 +155,7 @@
 			factory.createWidgets(pageId);
 		}
 		updateLockStatus();
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-alignall").addEventListener("click", function (e) {
@@ -163,6 +168,7 @@
 		SStart.setLocked(false);
 		alignAll();
 		updateLockStatus();
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-refresh").addEventListener("click", function (e) {
@@ -185,6 +191,7 @@
 				refreshAll("icon", "refresh");
 			}
 		}
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-refreshone").addEventListener("click", function (e) {
@@ -210,6 +217,7 @@
 				r.dispatchEvent(event);
 			}
 		}
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-properties").addEventListener("click", function (e) {
@@ -227,6 +235,7 @@
 			var event = new Event("click");
 			r.dispatchEvent(event);
 		}
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-remove").addEventListener("click", function (e) {
@@ -244,6 +253,7 @@
 			var event = new Event("click");
 			r.dispatchEvent(event);
 		}
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-rename").addEventListener("click", function (e) {
@@ -265,6 +275,7 @@
 				});
 			r.dispatchEvent(event);
 		}
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 	document.getElementById("menu-props").addEventListener("click", function (e) {
@@ -295,6 +306,7 @@
 				dir.remove(false);
 			}
 		}
+		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
 
