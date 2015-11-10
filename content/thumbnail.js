@@ -182,7 +182,7 @@ justoff.sstart.Thumbnail = function () {
 
 	function getSiteFavicon (siteURI, icon) {
 		var splitURI = siteURI.split(/\/+/g);
-		if (splitURI[0] && splitURI[1] && splitURI[0] in {"http":1,"https":1}) {
+		if (splitURI[0] && splitURI[1] && splitURI[0] in {"http:":1,"https:":1}) {
 			var faviconURI = splitURI[0] + "//" + splitURI[1] + "/favicon.ico";
 		} else {
 			return;
