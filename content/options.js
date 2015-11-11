@@ -180,6 +180,11 @@ justoff.sstart.SStartOptionsXul = new function () {
 					}
 				}
 				bookmarksService.runInBatchMode(callback, null);
+				var mainbg = tmpDir.clone();
+				mainbg.append("bg_0");
+				if (mainbg.exists()) {
+					mainbg.copyTo(dstDir, "bg_0");
+				}
 			  } catch(e) {
 				Utils.alert(e);
 				Bookmark.removeBookmark(newId);
