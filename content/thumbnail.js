@@ -38,25 +38,7 @@ justoff.sstart.Thumbnail = function () {
 
 	var getImageURL = function () {
 		if (this.properties.customImage)
-			if (this.properties.customImage.trim().slice(0,6) == "data:i") {
-				var data = this.properties.customImage.trim();
-				if (data.match(/^data:image\/(.*);base64/)) {
-					var ext = "." + data.match(/^data:image\/(.*);base64/)[1];
-				} else {
-					var ext = ".bin";
-				}
-				var newname = (Math.random().toString(36)+'00000000000000000').slice(2, 10) + ".image" + this.properties.id + ext;
-				var furl = File.getDataDirectory(); furl.append(newname);
-				var self = this;
-				this.properties.customImage = newname;
-				this.save.call(self);
-				File.writeFileAsync(furl, data, function () {
-					URL.removeFromCache(getImageURL.call(self));
-					self.updateView.call(self);
-					self.refreshFolder.call(self);
-					Cache.clearCache();
-				});
-			} else if (Utils.isURI(this.properties.customImage)) {
+			if (Utils.isURI(this.properties.customImage)) {
 				return this.properties.customImage;
 			} else {
 				return File.getDataFileURL(this.properties.customImage);
