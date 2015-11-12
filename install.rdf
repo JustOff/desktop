@@ -6,12 +6,18 @@
 	<em:type>2</em:type>
 	<em:bootstrap>true</em:bootstrap>
 	<em:name>Speed Start</em:name>
-	<em:description>Speed Dial &amp; Start Page with flexible layout for fast access to sites via visual bookmarks.</em:description>
+	<em:description>Speed Dial &amp; Start Page with flexible layout for fast access to sites via visual bookmarks</em:description>
 	<em:creator>Off JustOff &lt;Off.Just.Off@gmail.com&gt;</em:creator>
 	<em:contributor>telega</em:contributor>
 	<em:contributor>rtimush</em:contributor>
 	<em:homepageURL>https://addons.mozilla.org/firefox/addon/speed-start/</em:homepageURL>
 	<em:optionsURL>chrome://sstart/content/options.xul</em:optionsURL>
+	<em:localized>
+		<Description>
+			<em:locale>ru</em:locale>
+			<em:description>Стартовая страница с настраиваемым дизайном для быстрого доступа к сайтам с помощью визуальных закладок (Speed Dial &amp; Start Page)</em:description>
+		</Description>
+	</em:localized>
 	<em:targetApplication>
 	  <Description>
 		<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
