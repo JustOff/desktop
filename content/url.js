@@ -32,12 +32,12 @@ var URL = {
 	removeFromCache: function (doc, url) {
 		try {
 			var cache = Cc["@mozilla.org/image/tools;1"].getService(Ci.imgITools).getImgCacheForDocument(doc);
-			cache.removeEntry(this.getNsiURL(url));
-		} catch (e) {
-			try {
+			if (typeof cache.removeEntry === "function") {
+				cache.removeEntry(this.getNsiURL(url));
+			} else {
 				cache.clearCache(false);
-			} catch (e) {}
-		}
+			}
+		} catch (e) {}
 	}
 
 };
