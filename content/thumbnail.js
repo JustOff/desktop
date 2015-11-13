@@ -112,8 +112,8 @@ justoff.sstart.Thumbnail = function () {
 
 	this.refresh = function () {
 		if (this.properties.customImage) {
-			URL.removeFromCache(getImageURL.call(this));
 			this.updateView();
+			URL.removeFromCache(document, getImageURL.call(this));
 		} else {
 			if (this.properties.height <= HEADER_HEIGHT) {
 				try {
@@ -227,7 +227,7 @@ justoff.sstart.Thumbnail = function () {
 				Dom.remove(iframe);
 				File.writeFileAsync(getImageFile.call(self), imageUri, function () {
 					loading = false;
-					URL.removeFromCache(getImageURL.call(self));
+					URL.removeFromCache(document, getImageURL.call(self));
 					self.updateView.call(self);
 					self.refreshFolder.call(self);
 					Cache.clearCache();

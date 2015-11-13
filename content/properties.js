@@ -18,7 +18,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 				dir2.append("bg_" + this.pageId);
 				dir2.copyTo(null, "bg_" + this.pageId + "t");
 			}
-			URL.removeFromCache(File.getDataFileURL("bg_" + this.pageId + "t"));
+			URL.removeFromCache(this.doc, File.getDataFileURL("bg_" + this.pageId + "t"));
 		}
 		if (document.getElementById("useMainBgImage").checked) {
 			document.getElementById("BackgroundImage").hidden = true;
@@ -72,7 +72,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 			}
 			file.copyTo(File.getDataDirectory(), "bg_" + this.pageId + "t");
 			this.backgroundImage = "1";
-			URL.removeFromCache(File.getDataFileURL("bg_" + this.pageId + "t"));
+			URL.removeFromCache(this.doc, File.getDataFileURL("bg_" + this.pageId + "t"));
 			this.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_" + this.pageId + "t") + ")";
 			Dom.removeClass(this.body, 'background-style-1');
 			Dom.removeClass(this.body, 'background-style-2');
@@ -205,7 +205,7 @@ justoff.sstart.SStartPropertiesXul = new function () {
 				dir2.remove(false);
 			}
 			dir.moveTo(null, "bg_" + this.pageId)
-			URL.removeFromCache(File.getDataFileURL("bg_" + this.pageId));
+			URL.removeFromCache(this.doc, File.getDataFileURL("bg_" + this.pageId));
 			if (this.pageId > 0 && document.getElementById("useMainBgImage").checked && SStart.isMainBgImage()) {
 				this.body.style.backgroundImage = "url(" + File.getDataFileURL("bg_0") + ")";
 			} else {

@@ -29,12 +29,15 @@ var URL = {
 		return data;
 	},
 
-	removeFromCache: function (url) {
-		if (!url) return;
+	removeFromCache: function (doc, url) {
 		try {
-			var cacheService = Cc["@mozilla.org/image/tools;1"].getService(Ci.imgITools).getImgCacheForDocument(null);
-			cacheService.removeEntry(this.getNsiURL(url));
-		} catch (e) {}
+			var cache = Cc["@mozilla.org/image/tools;1"].getService(Ci.imgITools).getImgCacheForDocument(doc);
+			cache.removeEntry(this.getNsiURL(url));
+		} catch (e) {
+			try {
+				cache.clearCache(false);
+			} catch (e) {}
+		}
 	}
 
 };
