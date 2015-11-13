@@ -112,20 +112,24 @@ justoff.sstart.Thumbnail = function () {
 
 	this.refresh = function () {
 		if (this.properties.customImage) {
-			this.updateView();
 			URL.removeFromCache(document, getImageURL.call(this));
+			if (!this.properties.isFolder && !this.properties.title) {
+				refreshHeader.call(this);
+			}
 		} else {
 			if (this.properties.height <= HEADER_HEIGHT) {
 				try {
 					getImageFile.call(this).remove(false);
 				} catch (e) {}
-			}
-			if (((this.properties.height <= HEADER_HEIGHT) && !this.properties.title) || (this.properties.height > HEADER_HEIGHT)) {
+				if (!this.properties.isFolder && !this.properties.title) {
+					refreshHeader.call(this);
+				} 
+			} else {
 				loading = true;
 				refreshImage.call(this);
-				this.updateView();
 			}
 		}
+		this.updateView();
 	}
 
 	this.irefresh = function () {
@@ -158,6 +162,26 @@ justoff.sstart.Thumbnail = function () {
 		}
 	}
 
+	function refreshHeader () {
+		var self = this;
+		getSiteFavicon.call(self, self.properties.url);
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", this.properties.url, true);
+		xhr.responseType = "document";	  
+		xhr.onload = xhr.onerror = function() {
+			var doc = xhr.responseXML;
+			if ( doc !== null ) {
+				var title = doc.getElementsByTagName("title");
+				self.properties.title = title[0] ? title[0].textContent : "";
+				self.save.call(self);
+				self.updateView.call(self);
+				self.refreshFolder.call(self);
+				Cache.clearCache();
+			}
+		}
+		xhr.send();
+	};   
+	
 	function refreshImage () {
 		var self = this;
 		if (!this.properties.isFolder) {
@@ -168,15 +192,7 @@ justoff.sstart.Thumbnail = function () {
 				self.properties.title = iframe.contentDocument.title;
 				self.save.call(self);
 			}
-			if (self.properties.height <= HEADER_HEIGHT) {
-				loading = false;
-				Dom.remove(iframe);
-				self.updateView.call(self);
-				self.refreshFolder.call(self);
-				Cache.clearCache();
-			} else {
-				saveImage.call(self, iframe);
-			}
+			saveImage.call(self, iframe);
 		});
 	}
 
@@ -201,7 +217,7 @@ justoff.sstart.Thumbnail = function () {
 					}
 				);
 			}
-			var self = this;				
+			var self = this;
 			preloadFavicon.call(self, faviconURI, siteURI, icon ? icon : null); 
 		}
 		xhr.send();
