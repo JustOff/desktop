@@ -15,6 +15,7 @@
 	<em:localized>
 		<Description>
 			<em:locale>ru</em:locale>
+			<em:name>Speed Start</em:name>
 			<em:description>Стартовая страница с настраиваемым дизайном для быстрого доступа к сайтам с помощью визуальных закладок (Speed Dial &amp; Start Page)</em:description>
 		</Description>
 	</em:localized>
