@@ -65,7 +65,7 @@ var Utils = {
 	translate: function (key) {
 		if (!this.bundle) {
 			this.bundle = Cc["@mozilla.org/intl/stringbundle;1"].getService(Ci.nsIStringBundleService)
-				.createBundle("chrome://sstart/locale/sstart.strings" + "?" + Math.random());
+				.createBundle("chrome://sstart/locale/sstart.properties" + "?" + Math.random());
 		}
 		return this.bundle.GetStringFromName(key);
 	},
