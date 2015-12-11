@@ -4,6 +4,7 @@ justoff.sstart.Search = function () {
 	var SStart = justoff.sstart.SStart
 	var Prefs = justoff.sstart.Prefs
 
+	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
 
@@ -53,11 +54,14 @@ justoff.sstart.Search = function () {
 		var param = { properties:Utils.clone(this.properties) };
 		openDialog("searchprops.xul", "properties", SStart.getDialogFeatures(), param);
 		if (param.properties) {
+			var refreshNeeded = param.properties.title != this.properties.title;
 			this.properties = param.properties;
 			this.save();
 			this.updateView();
+			if (refreshNeeded) {
+				Cache.clearCache();
+			}
 		}
-		SStart.deleteSearchNode(this.properties.id);
 	}
 
 	this.editTitle = function () {

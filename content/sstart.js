@@ -97,12 +97,6 @@ justoff.sstart.SStart = new function () {
 		SStart.Locked = !SStart.Locked;
 	};
 
-	this.deleteSearchNode = function (node) {
-		if (node in SStart.SearchNodes) {
-			delete SStart.SearchNodes[node];
-		}
-	};
-
 	this.focusSearch = function (hoverEl) {
 		try {
 			var input = Dom.child(hoverEl.lastElementChild.firstElementChild, "search");
