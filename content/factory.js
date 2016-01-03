@@ -23,7 +23,7 @@ justoff.sstart.Factory = function (storage) {
 			properties.width = Prefs.getInt("thumbnail.width");
 			properties.height = Prefs.getInt("thumbnail.height");
 			var param = { properties: properties };
-			openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(300, 230), param);
+			openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(300, 255), param);
 		} else {
 			properties.width = Prefs.getInt("thumbnail.width");
 			properties.height = 40;
