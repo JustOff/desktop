@@ -41,6 +41,7 @@
 <!ENTITY sstart.URL "URL">
 <!ENTITY sstart.Width "Width">
 <!ENTITY sstart.Height "Height">
+<!ENTITY sstart.Delay "Delay, ms">
 <!ENTITY sstart.CustomImage "Custom image">
 <!ENTITY sstart.BackgroundColor "Background">
 

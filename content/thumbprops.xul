@@ -44,6 +44,10 @@
 				<label value="&sstart.Height;:"/>
 				<textbox id="height"/>
 			</row>
+			<row align="center">
+				<label value="&sstart.Delay;:"/>
+				<textbox id="delay"/>
+			</row>
 		</rows>
 	</grid>
 

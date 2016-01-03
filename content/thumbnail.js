@@ -15,7 +15,6 @@ justoff.sstart.Thumbnail = function () {
 	var ios = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
 	var TIMEOUT_LOAD = 30 * 1000;
-	var TIMEOUT_RENDER = 0.5 * 1000;
 	var HEADER_HEIGHT = 20;
 
 	var loading;
@@ -26,6 +25,9 @@ justoff.sstart.Thumbnail = function () {
 		if (!this.properties.width) {
 			this.properties.width = Prefs.getInt("thumbnail.width");
 			this.properties.height = Prefs.getInt("thumbnail.height");
+		}
+		if (!this.properties.delay) {
+			this.properties.delay = 500;
 		}
 		if (this.properties.isFolder) {
 			this.properties.url = "chrome://sstart/content/sstart.html?folder=" + this.properties.id;
@@ -148,13 +150,14 @@ justoff.sstart.Thumbnail = function () {
 
 	this.openProperties = function () {
 		var param = { properties:Utils.clone(this.properties), body: Dom.child(this.view, "body") };
-		openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(300, 230), param);
+		openDialog("thumbprops.xul", "properties", SStart.getDialogFeatures(300, 255), param);
 		if (param.properties) {
 			var refreshNeeded = param.properties.url != this.properties.url ||
 				param.properties.customImage != this.properties.customImage ||
 				param.properties.background != this.properties.background ||
 				param.properties.width != this.properties.width ||
-				param.properties.height != this.properties.height;
+				param.properties.height != this.properties.height ||
+				param.properties.delay != this.properties.delay;
 			this.properties = param.properties;
 			this.save();
 
@@ -249,7 +252,7 @@ justoff.sstart.Thumbnail = function () {
 					Cache.clearCache();
 				});
 			},
-			TIMEOUT_RENDER);
+			self.properties.delay);
 	}
 
 	function createFrame (aspect, url) {

@@ -42,6 +42,7 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		bgColorBtn.addEventListener('click', this.cpickBgColor, true);
 		document.getElementById("width").value = properties.width || 224;
 		document.getElementById("height").value = properties.height || 128;
+		document.getElementById("delay").value = properties.delay || 500;
 		if (properties.customImage && Utils.isURI(properties.customImage)) {
 			document.getElementById("customImage").value = properties.customImage || "";
 		} else {
@@ -83,6 +84,8 @@ justoff.sstart.ThumbnailPropertiesXul = new function () {
 		var theight = parseInt(document.getElementById("height").value, 10) || properties.height || 128;
 		if (theight < 20) { if (theight <= 0) { theight = properties.height || 128; } else { theight = 20; } }
 		properties.height = theight;
+		var tdelay = parseInt(document.getElementById("delay").value, 10) || properties.delay || 500;
+		if (tdelay < 100 || tdelay > 60000) { properties.delay = 500; } else { properties.delay = tdelay; } 
 		if (document.getElementById("customImage").value == "" || Utils.isURI(document.getElementById("customImage").value)) {
 			properties.customImage = document.getElementById("customImage").value.trim();
 		} else if (this.hashWord) {

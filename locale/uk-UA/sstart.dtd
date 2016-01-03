@@ -41,6 +41,7 @@
 <!ENTITY sstart.URL "URL">
 <!ENTITY sstart.Width "Ширина">
 <!ENTITY sstart.Height "Висота">
+<!ENTITY sstart.Delay "Затримка, мс">
 <!ENTITY sstart.CustomImage "Зображення">
 <!ENTITY sstart.BackgroundColor "Фон">
 
