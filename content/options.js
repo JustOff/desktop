@@ -280,7 +280,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 		ch.init(ch.MD5);
 		ch.update(utf8data, utf8data.length);
 		var hash = ch.finish(false);
-		var hexhash = [toHexString(hash.charCodeAt(i)) for (i in hash)].join("");
+		var hexhash = [...hash].map(char => toHexString(char.charCodeAt(0))).join("");
 		return hexhash;
 	}
 	
