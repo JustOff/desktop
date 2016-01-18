@@ -324,7 +324,9 @@
 			trans.init(null); trans.addDataFlavor("text/unicode");
 			Services.clipboard.getData(trans, Services.clipboard.kGlobalClipboard);
 			var str = {}; var strLength = {};
-			trans.getTransferData("text/unicode", str, strLength);
+			try {
+				trans.getTransferData("text/unicode", str, strLength);
+			} catch (e) {}
 			if (str) {
 				input.value = str.value.QueryInterface(Ci.nsISupportsString).data;
 			}
@@ -344,7 +346,9 @@
 			trans.init(null); trans.addDataFlavor("text/unicode");
 			Services.clipboard.getData(trans, Services.clipboard.kGlobalClipboard);
 			var str = {}; var strLength = {};
-			trans.getTransferData("text/unicode", str, strLength);
+			try {
+				trans.getTransferData("text/unicode", str, strLength);
+			} catch (e) {}
 			if (str) {
 				input.value = str.value.QueryInterface(Ci.nsISupportsString).data;
 			}
