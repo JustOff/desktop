@@ -1,4 +1,6 @@
 (function () {
+	var Cc = Components.classes, Ci = Components.interfaces, Cu = Components.utils;
+	
 	var Prefs = justoff.sstart.Prefs
 	var Storage = justoff.sstart.Storage
 	var Factory = justoff.sstart.Factory
@@ -6,10 +8,12 @@
 	var SStart = justoff.sstart.SStart
 	var Drag = justoff.sstart.Drag
 
-	Components.utils.import("chrome://sstart/content/cache.js");
-	Components.utils.import("chrome://sstart/content/utils.js");
-	Components.utils.import("chrome://sstart/content/file.js");
-	Components.utils.import("chrome://sstart/content/dom.js");
+	Cu.import("resource://gre/modules/Services.jsm");
+
+	Cu.import("chrome://sstart/content/cache.js");
+	Cu.import("chrome://sstart/content/utils.js");
+	Cu.import("chrome://sstart/content/file.js");
+	Cu.import("chrome://sstart/content/dom.js");
 
 	var params = Utils.getQueryParams(document.location);
 
@@ -105,8 +109,8 @@
 	function alignAll () {
 		var c = document.body.getElementsByClassName("widget");
 		var event = new Event("align");
-		var bookmarksService = Components.classes["@mozilla.org/browser/nav-bookmarks-service;1"]
-			.getService(Components.interfaces.nsINavBookmarksService);
+		var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"]
+			.getService(Ci.nsINavBookmarksService);
 		var callback = {
 			runBatched: function() {
 				for (var i = 0; i < c.length; i++) {
@@ -305,6 +309,47 @@
 			if (dir.exists()) {
 				dir.remove(false);
 			}
+		}
+		ContextMenu.close();
+		e.stopPropagation();
+	}, false);
+	document.getElementById("menu-paste").addEventListener("click", function (e) {
+		var hoverEl = ContextMenu.click.el;
+		while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
+		try {
+			var input = Dom.child(hoverEl.lastElementChild.firstElementChild, "search");
+		} catch (e) {}
+		if (input) {
+			var trans = Cc["@mozilla.org/widget/transferable;1"].createInstance(Ci.nsITransferable);
+			trans.init(null); trans.addDataFlavor("text/unicode");
+			Services.clipboard.getData(trans, Services.clipboard.kGlobalClipboard);
+			var str = {}; var strLength = {};
+			trans.getTransferData("text/unicode", str, strLength);
+			if (str) {
+				input.value = str.value.QueryInterface(Ci.nsISupportsString).data;
+			}
+			SStart.focusSearch(hoverEl);
+		}
+		ContextMenu.close();
+		e.stopPropagation();
+	}, false);
+	document.getElementById("menu-paste-search").addEventListener("click", function (e) {
+		var hoverEl = ContextMenu.click.el;
+		while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
+		try {
+			var input = Dom.child(hoverEl.lastElementChild.firstElementChild, "search");
+		} catch (e) {}
+		if (input) {
+			var trans = Cc["@mozilla.org/widget/transferable;1"].createInstance(Ci.nsITransferable);
+			trans.init(null); trans.addDataFlavor("text/unicode");
+			Services.clipboard.getData(trans, Services.clipboard.kGlobalClipboard);
+			var str = {}; var strLength = {};
+			trans.getTransferData("text/unicode", str, strLength);
+			if (str) {
+				input.value = str.value.QueryInterface(Ci.nsISupportsString).data;
+			}
+			SStart.focusSearch(hoverEl);
+			SStart.doSearch(input, e.ctrlKey || e.metaKey);
 		}
 		ContextMenu.close();
 		e.stopPropagation();

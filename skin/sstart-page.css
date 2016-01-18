@@ -201,6 +201,18 @@ body.is-search #menu-rename {
 	display: none;
 }
 
+/* Paste menu */
+
+body #menu-paste,
+body #menu-paste-search {
+	display: none;
+}
+
+body.is-search #menu-paste,
+body.is-search #menu-paste-search {
+	display: block;
+}
+
 /* Lock-unlock */
 
 body.lock-edits #menu-lock,

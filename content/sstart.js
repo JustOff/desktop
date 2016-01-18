@@ -105,7 +105,7 @@ justoff.sstart.SStart = new function () {
 			if (!(hoverEl.id in SStart.SearchNodes)) {
 				input.addEventListener("keypress", function (e) {
 					if (e.keyCode == e.DOM_VK_RETURN) {
-						SStart.doSearch.call(self, this.value, input, e.ctrlKey || e.metaKey);
+						SStart.doSearch.call(self, input, e.ctrlKey || e.metaKey);
 					}
 				}, false);
 				SStart.SearchNodes[hoverEl.id] = true;
@@ -121,10 +121,10 @@ justoff.sstart.SStart = new function () {
 			searchService.currentEngine;
 	};
 
-	this.doSearch = function (text, input, newtab) {
+	this.doSearch = function (input, newtab) {
 		var engine = SStart.getSearchEngine(Dom.child(input.parentNode.parentNode.parentNode.parentNode, "title").textContent);
+		var submission = engine.getSubmission(input.value);
 		input.value = "";
-		var submission = engine.getSubmission(text);
 		if (newtab && !Cache.getNewtabOpenAlways() || !newtab && Cache.getNewtabOpenAlways()) {
 			Utils.getBrowser().loadOneTab(submission.uri.spec, 
 				{postData: submission.postData, inBackground: false, relatedToCurrent: true});
