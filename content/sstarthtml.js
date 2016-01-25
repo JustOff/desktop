@@ -326,11 +326,9 @@
 			var str = {}; var strLength = {};
 			try {
 				trans.getTransferData("text/unicode", str, strLength);
-			} catch (e) {}
-			if (str) {
 				input.value = str.value.QueryInterface(Ci.nsISupportsString).data;
-			}
-			SStart.focusSearch(hoverEl);
+				SStart.focusSearch(hoverEl);
+			} catch (e) {}
 		}
 		ContextMenu.close();
 		e.stopPropagation();
@@ -348,12 +346,10 @@
 			var str = {}; var strLength = {};
 			try {
 				trans.getTransferData("text/unicode", str, strLength);
-			} catch (e) {}
-			if (str) {
 				input.value = str.value.QueryInterface(Ci.nsISupportsString).data;
-			}
-			SStart.focusSearch(hoverEl);
-			SStart.doSearch(input, e.ctrlKey || e.metaKey);
+				SStart.focusSearch(hoverEl);
+				SStart.doSearch(input, e.ctrlKey || e.metaKey);
+			} catch (e) {}
 		}
 		ContextMenu.close();
 		e.stopPropagation();
