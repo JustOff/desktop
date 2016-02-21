@@ -112,7 +112,8 @@ function browserWindowShutdown (aWindow) {
 function cPopupShowingListener (e) {
 	var menu = Utils.getBrowserWindow().document.getElementById("sstart-add-page-menu");
 	var menuitem = Utils.getBrowserWindow().document.getElementById("sstart-add-page");
-	if (Utils.getBrowserWindow().gContextMenu.isTextSelected) {
+	var gcmenu = Utils.getBrowserWindow().gContextMenu;
+	if (gcmenu.isTextSelected || gcmenu.onTextInput) {
 		menuitem.hidden = true;
 		menu.hidden = true;
 		Cache.setUpdateMenu(true);
@@ -124,12 +125,12 @@ function cPopupShowingListener (e) {
 		menu.hidden = true;
 		return;
 	}
-	if (Utils.getBrowserWindow().gContextMenu.linkURL) {
-		menu.setAttribute("data-url", Utils.getBrowserWindow().gContextMenu.linkURL);
-		if (Utils.getBrowserWindow().gContextMenu.link) {
-			menu.setAttribute("data-title", Utils.getBrowserWindow().gContextMenu.link.textContent.trim());
+	if (gcmenu.linkURL) {
+		menu.setAttribute("data-url", gcmenu.linkURL);
+		if (gcmenu.link) {
+			menu.setAttribute("data-title", gcmenu.link.textContent.trim());
 		} else {
-			menu.setAttribute("data-title", Utils.getBrowserWindow().gContextMenu.linkURL);
+			menu.setAttribute("data-title", gcmenu.linkURL);
 		}
 		menu.setAttribute("label", linkToSStart);
 		menuitem.setAttribute("label", linkToSStart);
