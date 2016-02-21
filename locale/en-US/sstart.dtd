@@ -17,6 +17,7 @@
 <!ENTITY sstart.autoZoom "Auto zoom out to fit borders">
 <!ENTITY sstart.bottomHeader "Display widgets headers at bottom">
 <!ENTITY sstart.hideDecorations "Hide widgets headers and borders">
+<!ENTITY sstart.hideContextMenu "Don't show in context menu">
 <!ENTITY sstart.Positioning "Aligning">
 <!ENTITY sstart.GridSize "Grid size">
 <!ENTITY sstart.showGridOnUnlock "Show grid when page is unlocked">

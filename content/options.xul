@@ -17,6 +17,7 @@
 			<preference id="extensions.sstart.newtabOnLockDrag" name="extensions.sstart.newtabOnLockDrag" type="bool"/>
 			<preference id="extensions.sstart.autoZoom" name="extensions.sstart.autoZoom" type="bool"/>
 			<preference id="extensions.sstart.hideDecorations" name="extensions.sstart.hideDecorations" type="bool"/>
+			<preference id="extensions.sstart.hideContextMenu" name="extensions.sstart.hideContextMenu" type="bool"/>
 			<preference id="extensions.sstart.bottomHeader" name="extensions.sstart.bottomHeader" type="bool"/>
 			<preference id="extensions.sstart.gridInterval" name="extensions.sstart.gridInterval" type="int"/>
 			<preference id="extensions.sstart.showGridOnUnlock" name="extensions.sstart.showGridOnUnlock" type="bool"/>
@@ -119,6 +120,10 @@
 						<hbox>
 							<checkbox id="hideDecorations" label="&sstart.hideDecorations;"
 									preference="extensions.sstart.hideDecorations"/>
+						</hbox>
+						<hbox>
+							<checkbox id="hideContextMenu" label="&sstart.hideContextMenu;"
+									preference="extensions.sstart.hideContextMenu"/>
 						</hbox>
 					</groupbox>
 					<spacer flex="1"/>

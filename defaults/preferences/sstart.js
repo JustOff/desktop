@@ -13,4 +13,5 @@ pref("extensions.sstart.newtabOnLockDrag", true);
 pref("extensions.sstart.bottomHeader", false);
 pref("extensions.sstart.autoZoom", false);
 pref("extensions.sstart.showGridOnUnlock", true);
+pref("extensions.sstart.hideContextMenu", false);
 pref("extensions.sstart.enlargeDialogs", 100);

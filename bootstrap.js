@@ -112,6 +112,12 @@ function browserWindowShutdown (aWindow) {
 function cPopupShowingListener (e) {
 	var menu = Utils.getBrowserWindow().document.getElementById("sstart-add-page-menu");
 	var menuitem = Utils.getBrowserWindow().document.getElementById("sstart-add-page");
+	var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
+	if (prefService.getBoolPref("extensions.sstart.hideContextMenu")) {
+		menuitem.hidden = true;
+		menu.hidden = true;
+		return;
+	}
 	if (Utils.getBrowserWindow().gContextMenu.linkURL) {
 		menu.setAttribute("data-url", Utils.getBrowserWindow().gContextMenu.linkURL);
 		if (Utils.getBrowserWindow().gContextMenu.link) {
@@ -327,6 +333,9 @@ var myPrefsWatcher = {
 				break;
 			case "showGridOnUnlock":
 				Cache.updateGridOnUnlock();
+				break;
+			case "hideContextMenu":
+				Cache.setUpdateMenu(true);
 				break;
 			case "newtabOpen":
 			case "newtabOnLockDrag":
