@@ -112,6 +112,12 @@ function browserWindowShutdown (aWindow) {
 function cPopupShowingListener (e) {
 	var menu = Utils.getBrowserWindow().document.getElementById("sstart-add-page-menu");
 	var menuitem = Utils.getBrowserWindow().document.getElementById("sstart-add-page");
+	if (Utils.getBrowserWindow().gContextMenu.isTextSelected) {
+		menuitem.hidden = true;
+		menu.hidden = true;
+		Cache.setUpdateMenu(true);
+		return;
+	}
 	var prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
 	if (prefService.getBoolPref("extensions.sstart.hideContextMenu")) {
 		menuitem.hidden = true;
