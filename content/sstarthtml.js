@@ -354,6 +354,19 @@
 		ContextMenu.close();
 		e.stopPropagation();
 	}, false);
+	document.getElementById("menu-privtab").addEventListener("click", function (e) {
+		var hoverEl = ContextMenu.click.el;
+		while (!hoverEl.classList.contains("widget") && hoverEl.parentElement) { hoverEl = hoverEl.parentElement }
+		try {
+			var thumbnail = Dom.child(hoverEl.lastElementChild, "thumbnail");
+		} catch (e) {}
+		if (thumbnail && thumbnail.nodeName == "A" && thumbnail.href) {
+			Utils.getBrowserWindow().privateTab.readyToOpenTab(true);
+			Utils.getBrowser().loadOneTab(thumbnail.href, {inBackground: false, relatedToCurrent: true});
+		}
+		ContextMenu.close();
+		e.stopPropagation();
+	}, false);
 
 	document.addEventListener("click", function (e) {
 		if (e.button != 0 || e.clientX == 0 || (!Cache.getNewtabOpenAlways() && (!e.altKey || SStart.isLocked()))) return;

@@ -11,6 +11,12 @@ justoff.sstart.ContextMenu = new function () {
 	this.enable = function (element, menu) {
 		var handler = function (e) {
 			if (e.button != 2) return;
+			
+			if (typeof Utils.getBrowserWindow().privateTab == "undefined") {
+				Dom.addClass(document.body, 'no-private');
+			} else {
+				Dom.removeClass(document.body, 'no-private');
+			}
 
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
 			var s = Utils.isOverWidget(hoverEl);
@@ -24,6 +30,9 @@ justoff.sstart.ContextMenu = new function () {
 					Dom.addClass(document.body, 'is-search');
 				} else {
 					Dom.removeClass(document.body, 'is-search');
+				}
+				if (hoverTmp && hoverTmp.classList.contains("folder")) {
+					Dom.addClass(document.body, 'no-private');
 				}
 			}
 

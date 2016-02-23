@@ -201,6 +201,14 @@ body.is-search #menu-rename {
 	display: none;
 }
 
+/* Private Tab */
+
+body.no-widget #menu-privtab,
+body.is-search #menu-privtab,
+body.no-private #menu-privtab {
+	display: none;
+}
+
 /* Paste menu */
 
 body #menu-paste,

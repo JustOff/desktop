@@ -67,6 +67,10 @@ justoff.sstart.Widget = function () {
 			var icon = Dom.child(this.view, "icon");
 			Dom.remove(icon);
 		}
+		
+		if (this.properties.isFolder) {
+			Dom.addClass(this.view, "folder");
+		}
 
 		Dom.child(this.view, "body").appendChild(this.createView());
 		this.view.id = this.properties.id;
