@@ -132,6 +132,11 @@ justoff.sstart.Factory = function (storage) {
 				setTimeout(function () {
 					SStart.focusSearch(focusEl);
 				}, 50);
+		} else {
+			setTimeout(function () {
+				var urlbar = Utils.getBrowserWindow().document.getElementById("urlbar");
+				urlbar.focus();
+			}, 50);
 		}
 		return hasWidgets;
 	}
