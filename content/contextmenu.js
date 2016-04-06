@@ -31,9 +31,6 @@ justoff.sstart.ContextMenu = new function () {
 				} else {
 					Dom.removeClass(document.body, 'is-search');
 				}
-				if (hoverTmp && hoverTmp.classList.contains("folder")) {
-					Dom.addClass(document.body, 'no-private');
-				}
 			}
 
 			e.preventDefault();
