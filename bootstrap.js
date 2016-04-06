@@ -14,6 +14,8 @@ Cu.import("resource://gre/modules/Services.jsm");
 
 var gWindowListener = null, linkToSStart, pageToSStart, isFirefox, isSeaMonkey;
 var sstartTabURI = "chrome://sstart/content/sstart.html";
+var styleSheetService = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
+var hideSStart = Services.io.newURI("chrome://sstart/skin/hidesstart.css", null, null);
 
 function BrowserWindowObserver(handlers) {
 	this.handlers = handlers;
@@ -437,6 +439,10 @@ function startup (params, reason)
 		Cu.import("resource://gre/modules/PageThumbs.jsm");
 	} catch (e) {}
 	
+	if (!styleSheetService.sheetRegistered(hideSStart, styleSheetService.USER_SHEET)) {
+		styleSheetService.loadAndRegisterSheet(hideSStart, styleSheetService.USER_SHEET);
+	}
+
 	var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 	isFirefox = (appInfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}");
 	isSeaMonkey = (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}");
@@ -510,6 +516,10 @@ function shutdown (params, reason)
 	browserPref("pagethumbnails", "clear");
 	
 	PrefLoader.clearDefaultPrefs();
+
+	if (styleSheetService.sheetRegistered(hideSStart, styleSheetService.USER_SHEET)) {
+		styleSheetService.unregisterSheet(hideSStart, styleSheetService.USER_SHEET);
+	}
 
 	SSTART_MODULES.forEach(Cu.unload, Cu);
 	
