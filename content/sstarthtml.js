@@ -395,7 +395,7 @@
 				if (e.ctrlKey || e.metaKey) {
 					Utils.getBrowser().loadURI(hoverEl.parentElement.href);
 				} else {
-					Utils.getBrowser().loadOneTab(hoverEl.parentElement.href, {inBackground: false, relatedToCurrent: true});
+					Utils.getBrowser().loadOneTab(hoverEl.parentElement.href, {inBackground: e.shiftKey, relatedToCurrent: true});
 				}
 			}
 		}
