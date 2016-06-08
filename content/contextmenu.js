@@ -40,6 +40,7 @@ justoff.sstart.ContextMenu = new function () {
 			ContextMenu.open(menu, e.pageX, e.pageY);
 		};
 		element.addEventListener("contextmenu", handler, false);
+		element.addEventListener("dblclick", handler, false);
 	};
 
 	this.open = function (menu, x, y) {

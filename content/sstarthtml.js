@@ -406,7 +406,7 @@
 
 	document.addEventListener("dblclick", function (e) {
 		var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
-		if (e.clientX == 0 || Utils.isOverWidget(hoverEl))
+		if (e.button == 2 || e.clientX == 0 || Utils.isOverWidget(hoverEl))
 			return;
 		SStart.toggleLocked();
 		if (SStart.isCacheDOM() && !SStart.isLocked() && pageId == 0) {
