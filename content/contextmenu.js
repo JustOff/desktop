@@ -19,6 +19,10 @@ justoff.sstart.ContextMenu = new function () {
 			}
 
 			var hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+			if (hoverEl.id == "menu") {
+				hoverEl.style.display = "none";
+				hoverEl = document.elementFromPoint(e.clientX, e.clientY);
+			}
 			var s = Utils.isOverWidget(hoverEl);
 			Dom.removeClass(document.body, s ? 'no-widget' : 'is-widget');
 			Dom.addClass(document.body, s ? 'is-widget' : 'no-widget');
