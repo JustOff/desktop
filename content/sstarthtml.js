@@ -41,7 +41,7 @@
 	}
 
 	var factory = new Factory(storage);
-	var hasWidgets = factory.createWidgets(pageId, true);
+	var hasWidgets = factory.createWidgets(pageId, true, true);
 
 	var quickstart = document.getElementById("quickstart");
 	if (!hasWidgets) {

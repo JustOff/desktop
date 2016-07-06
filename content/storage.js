@@ -168,6 +168,9 @@ justoff.sstart.Storage = function (folderId) {
 	}
 
 	this.removeObject = function (id) {
+		if (Prefs.getString("focus") == id) {
+			Prefs.setString("focus", "");
+		}
 		Bookmark.removeAnnotation(id, ANNOTATION);
 		Bookmark.removeBookmark(id);
 		this.refreshFolder.call(this);

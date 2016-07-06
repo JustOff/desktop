@@ -34,7 +34,7 @@ justoff.sstart.SearchPropertiesXul = new function () {
 		var properties = window.arguments[0].properties;
 		properties.title = document.getElementById("engines").selectedItem.label;
 		if (document.getElementById("focus").checked == true) {
-			Prefs.setString("focus", properties.id);
+			Prefs.setString("focus", properties.id ? properties.id : "0");
 		}
 		else if (properties.id == Prefs.getString("focus")) {
 			Prefs.setString("focus", "");

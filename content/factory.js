@@ -39,6 +39,9 @@ justoff.sstart.Factory = function (storage) {
 		}
 
 		storage.saveObject(properties);
+		if (properties.url == SEARCH_URL && Prefs.getString("focus") == "0") {
+			Prefs.setString("focus", properties.id);
+		}
 		File.delDataFile(properties.id);
 		var fragment = document.createDocumentFragment();
 		createWidget(properties, fragment);
@@ -67,7 +70,7 @@ justoff.sstart.Factory = function (storage) {
 		fragment.appendChild(widget.renderView());
 	}
 
-	this.createWidgets = function (pageId, applyZoom) {
+	this.createWidgets = function (pageId, applyZoom, setFocus) {
 		var hasWidgets = false;
 		var autoZoom = Prefs.getBool("autoZoom");
 		if (!SStart.isLocked() || pageId > 0 || !Cache.fragment) {
@@ -125,18 +128,20 @@ justoff.sstart.Factory = function (storage) {
 		}
 		
 		document.body.appendChild(fragment);
-		var focusId = Prefs.getString("focus");
-		if (focusId != "") {
-			var focusEl = document.getElementById(focusId);
-			if (focusEl)
+		if (setFocus) {
+			var focusId = Prefs.getString("focus");
+			if (focusId != "") {
+				var focusEl = document.getElementById(focusId);
+				if (focusEl)
+					setTimeout(function () {
+						SStart.focusSearch(focusEl);
+					}, 50);
+			} else {
 				setTimeout(function () {
-					SStart.focusSearch(focusEl);
+					var urlbar = Utils.getBrowserWindow().document.getElementById("urlbar");
+					urlbar.focus();
 				}, 50);
-		} else {
-			setTimeout(function () {
-				var urlbar = Utils.getBrowserWindow().document.getElementById("urlbar");
-				urlbar.focus();
-			}, 50);
+			}
 		}
 		return hasWidgets;
 	}
