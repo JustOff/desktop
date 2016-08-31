@@ -229,13 +229,14 @@ justoff.sstart.Thumbnail = function () {
 	function preloadFavicon (faviconURI, siteURI, icon) {
 		var iconURI = ios.newURI(faviconURI, null, null);
 		var bookmarkURI = ios.newURI(siteURI, null, null);
+		var loadPrincipal = Services.scriptSecurityManager.getSystemPrincipal();
 		if (icon) {
 			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE, function () {
 				icon.style.backgroundImage = "url(moz-anno:favicon:" + iconURI.spec + ")";
 				Cache.clearCache();
-			});
+			}, null, loadPrincipal);
 		} else {
-			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE);
+			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE, null, loadPrincipal);
 		}
    };
 	
