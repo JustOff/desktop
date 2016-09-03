@@ -234,7 +234,7 @@ justoff.sstart.Thumbnail = function () {
 			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE, function () {
 				icon.style.backgroundImage = "url(moz-anno:favicon:" + iconURI.spec + ")";
 				Cache.clearCache();
-			}, null, loadPrincipal);
+			}, loadPrincipal);
 		} else {
 			fis.setAndFetchFaviconForPage(bookmarkURI, iconURI, true, fis.FAVICON_LOAD_NON_PRIVATE, null, loadPrincipal);
 		}
