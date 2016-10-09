@@ -34,11 +34,11 @@
 	  </Description>
 	</em:targetApplication>
 	<em:targetApplication>
-	  <em:Description>
+	  <Description>
 		<em:id>{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}</em:id>
 		<em:minVersion>2.24</em:minVersion>
 		<em:maxVersion>*</em:maxVersion>
-	  </em:Description>
+	  </Description>
 	</em:targetApplication>
   </Description>
 </RDF>
