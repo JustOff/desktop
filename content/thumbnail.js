@@ -298,6 +298,9 @@ justoff.sstart.Thumbnail = function () {
 			url = url + "&internal=yes"
 		}
 		iframe.setAttribute("src", url);
+		if (Prefs.getBool("thumbnail.blockjs")) {
+			iframe.docShell.allowJavascript = false;
+		}
 	}
 
 	function createImage (iframe, imageWidth, imageHeight) {
