@@ -9,5 +9,9 @@ skin sstart-os classic/1.0 skin/unix/ os=OpenBSD
 skin sstart-os classic/1.0 skin/unix/ os=NetBSD
 
 locale sstart en-US locale/en-US/
+locale sstart es locale/es/
+locale sstart fr locale/fr/
+locale sstart pt locale/pt/
 locale sstart ru-RU locale/ru-RU/
+locale sstart sv-SE locale/sv-SE/
 locale sstart uk-UA locale/uk-UA/

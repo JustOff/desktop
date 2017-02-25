@@ -1,0 +1,54 @@
+<!ENTITY sstart.Preferences "Speed Start Inställningar">
+<!ENTITY sstart.MinWidth "350px">
+
+<!ENTITY sstart.PageTab "Generellt">
+<!ENTITY sstart.WidgetsTab "Widgetar">
+<!ENTITY sstart.ExtraTab "Extra">
+
+<!ENTITY sstart.Main "Allmänt">
+<!ENTITY sstart.Misc "Diverse">
+
+<!ENTITY sstart.OpenInNewTabs "Använd som 'Ny flik'">
+<!ENTITY sstart.UseAsHomePage "Använd som hemsida">
+<!ENTITY sstart.DisableSysThumbs "Inaktivera 'about:newtab' miniatyrer">
+<!ENTITY sstart.newtabOpen "Öppna i ny flik">
+<!ENTITY sstart.newtabOnLockDrag "vid dra">
+<!ENTITY sstart.newtabAlways "alltid">
+<!ENTITY sstart.autoZoom "Zooma ut automatiskt för att anpassa till ramar">
+<!ENTITY sstart.bottomHeader "Visa widget-rubriker i underkant">
+<!ENTITY sstart.hideDecorations "Dölj widget-rubriker och ramar">
+<!ENTITY sstart.hideContextMenu "Visa inte i kontextmenyn">
+<!ENTITY sstart.Positioning "Justering">
+<!ENTITY sstart.GridSize "Fästrutestorlek">
+<!ENTITY sstart.showGridOnUnlock "Visa fästrutor när sidan är upplåst">
+<!ENTITY sstart.DefSize "Standardstorlek">
+<!ENTITY sstart.AutoUpdSize "Uppdatera automatiskt vid storleksändring">
+
+<!ENTITY sstart.Properties "Egenskaper">
+<!ENTITY sstart.SearchEngine "Sökmotor">
+
+<!ENTITY sstart.Page "Sidbakgrund">
+<!ENTITY sstart.Color "Färg">
+<!ENTITY sstart.UseMainImage "Använd bild från förstasidan">
+<!ENTITY sstart.BackgroundImage "Bild">
+<!ENTITY sstart.BackgroundStyle "Stil">
+<!ENTITY sstart.BackgroundTile "Ruta">
+<!ENTITY sstart.BackgroundStretch "Sträck ut">
+<!ENTITY sstart.Header "Rubrikfärger">
+<!ENTITY sstart.titleColor "Titel">
+<!ENTITY sstart.headerColor "Bakgrund">
+
+<!ENTITY sstart.Name "Namn">
+<!ENTITY sstart.URL "URL">
+<!ENTITY sstart.Width "Bredd">
+<!ENTITY sstart.Height "Höjd">
+<!ENTITY sstart.Delay "Fördröjning, ms">
+<!ENTITY sstart.CustomImage "Anpassad bild">
+<!ENTITY sstart.BackgroundColor "Bakgrund">
+
+<!ENTITY sstart.GiveFocus "Fokusera vid start">
+
+<!ENTITY sstart.Backup "Säkerhetskopia">
+<!ENTITY sstart.Data "Data">
+<!ENTITY sstart.Export "Spara">
+<!ENTITY sstart.Import "Återställ">

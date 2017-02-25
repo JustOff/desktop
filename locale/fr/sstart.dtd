@@ -1,0 +1,54 @@
+<!ENTITY sstart.Preferences "Options de Speed Start">
+<!ENTITY sstart.MinWidth "350px">
+
+<!ENTITY sstart.PageTab "Général">
+<!ENTITY sstart.WidgetsTab "Widgets">
+<!ENTITY sstart.ExtraTab "Extra">
+
+<!ENTITY sstart.Main "Principal">
+<!ENTITY sstart.Misc "Divers">
+
+<!ENTITY sstart.OpenInNewTabs "Charger dans un nouvel onglet">
+<!ENTITY sstart.UseAsHomePage "Utiliser comme page d’accueil">
+<!ENTITY sstart.DisableSysThumbs "Désactiver les miniatures « about:newtab »">
+<!ENTITY sstart.newtabOpen "Ouvrir dans un nouvel onglet">
+<!ENTITY sstart.newtabOnLockDrag "au glissé">
+<!ENTITY sstart.newtabAlways "toujours">
+<!ENTITY sstart.autoZoom "Zoom arrière auto. pour ajuster les bordures">
+<!ENTITY sstart.bottomHeader "Afficher les entêtes de widgets en bas">
+<!ENTITY sstart.hideDecorations "Masquer les entêtes et bordures de widgets">
+<!ENTITY sstart.hideContextMenu "Ne pas afficher dans le menu contextuel">
+<!ENTITY sstart.Positioning "Alignement">
+<!ENTITY sstart.GridSize "Taille de la grille">
+<!ENTITY sstart.showGridOnUnlock "Afficher la grille lorsque la page est déverrouillé">
+<!ENTITY sstart.DefSize "Taille par défaut">
+<!ENTITY sstart.AutoUpdSize "Actualiser auto. lors du redimensionnement">
+
+<!ENTITY sstart.Properties "Propriétés">
+<!ENTITY sstart.SearchEngine "Moteur de recherche">
+
+<!ENTITY sstart.Page "Fond de page">
+<!ENTITY sstart.Color "Couleur ">
+<!ENTITY sstart.UseMainImage "Utiliser l'image de la page principale">
+<!ENTITY sstart.BackgroundImage "Image ">
+<!ENTITY sstart.BackgroundStyle "Style ">
+<!ENTITY sstart.BackgroundTile "Tuile">
+<!ENTITY sstart.BackgroundStretch "Étiré">
+<!ENTITY sstart.Header "Couleurs d’entête">
+<!ENTITY sstart.titleColor "Titre ">
+<!ENTITY sstart.headerColor "Arrière-plan ">
+
+<!ENTITY sstart.Name "Nom ">
+<!ENTITY sstart.URL "URL ">
+<!ENTITY sstart.Width "Largeur ">
+<!ENTITY sstart.Height "Hauteur ">
+<!ENTITY sstart.Delay "Délai (ms) ">
+<!ENTITY sstart.CustomImage "Image personnalisée ">
+<!ENTITY sstart.BackgroundColor "Arrière-plan ">
+
+<!ENTITY sstart.GiveFocus "Donner le focus au démarrage">
+
+<!ENTITY sstart.Backup "Sauvegarde">
+<!ENTITY sstart.Data "Données ">
+<!ENTITY sstart.Export "Sauvegarder">
+<!ENTITY sstart.Import "Restaurer">

@@ -1,0 +1,54 @@
+<!ENTITY sstart.Preferences "Opções do Speed Start">
+<!ENTITY sstart.MinWidth "350px">
+
+<!ENTITY sstart.PageTab "Geral">
+<!ENTITY sstart.WidgetsTab "Widgets">
+<!ENTITY sstart.ExtraTab "Extra">
+
+<!ENTITY sstart.Main "Principal">
+<!ENTITY sstart.Misc "Outras">
+
+<!ENTITY sstart.OpenInNewTabs "Abrir em novo separador">
+<!ENTITY sstart.UseAsHomePage "Definir como página inicial">
+<!ENTITY sstart.DisableSysThumbs "Desativar miniaturas 'about:newtab'">
+<!ENTITY sstart.newtabOpen "Abrir em novo separador">
+<!ENTITY sstart.newtabOnLockDrag "ao arrastar">
+<!ENTITY sstart.newtabAlways "sempre">
+<!ENTITY sstart.autoZoom "Tamanho automático para ajustar às margens">
+<!ENTITY sstart.bottomHeader "Mostrar título dos widgets em baixo">
+<!ENTITY sstart.hideDecorations "Ocultar título e contornos dos widgets">
+<!ENTITY sstart.hideContextMenu "Não mostrar no menu de contexto">
+<!ENTITY sstart.Positioning "Alinhamento">
+<!ENTITY sstart.GridSize "Tamanho da grelha">
+<!ENTITY sstart.showGridOnUnlock "Mostrar grelha se a página estiver desbloqueada">
+<!ENTITY sstart.DefSize "Tamanho padrão">
+<!ENTITY sstart.AutoUpdSize "Atualizar ao redimensionar">
+
+<!ENTITY sstart.Properties "Propriedades">
+<!ENTITY sstart.SearchEngine "Motor de pesquisa">
+
+<!ENTITY sstart.Page "Fundo da página">
+<!ENTITY sstart.Color "Cor">
+<!ENTITY sstart.UseMainImage "Utilizar imagem da página principal">
+<!ENTITY sstart.BackgroundImage "Imagem">
+<!ENTITY sstart.BackgroundStyle "Estilo">
+<!ENTITY sstart.BackgroundTile "Mosaico">
+<!ENTITY sstart.BackgroundStretch "Esticar">
+<!ENTITY sstart.Header "Cor dos cabeçalhos">
+<!ENTITY sstart.titleColor "Título">
+<!ENTITY sstart.headerColor "Fundo">
+
+<!ENTITY sstart.Name "Nome">
+<!ENTITY sstart.URL "URL">
+<!ENTITY sstart.Width "Largura">
+<!ENTITY sstart.Height "Altura">
+<!ENTITY sstart.Delay "Atraso (ms)">
+<!ENTITY sstart.CustomImage "Imagem personalizada">
+<!ENTITY sstart.BackgroundColor "Fundo">
+
+<!ENTITY sstart.GiveFocus "Focar ao iniciar">
+
+<!ENTITY sstart.Backup "Backup">
+<!ENTITY sstart.Data "Dados">
+<!ENTITY sstart.Export "Guardar">
+<!ENTITY sstart.Import "Restaurar">

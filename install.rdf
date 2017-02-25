@@ -2,7 +2,7 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#">
   <Description about="urn:mozilla:install-manifest">
 	<em:id>SStart@Off.JustOff</em:id>
-	<em:version>2.1.0b1</em:version>
+	<em:version>2.1.0b2</em:version>
 	<em:type>2</em:type>
 	<em:bootstrap>true</em:bootstrap>
 	<em:name>Speed Start</em:name>
@@ -14,9 +14,48 @@
 	<em:optionsURL>chrome://sstart/content/options.xul</em:optionsURL>
 	<em:localized>
 		<Description>
+			<em:locale>es</em:locale>
+			<em:name>Speed Start</em:name>
+			<em:description>Una página de inicio con diseño personalizable para un rápido acceso a sitios web mediante marcadores visuales</em:description>
+			<em:translator>José Labán de la Vega</em:translator>
+		</Description>
+	</em:localized>
+	<em:localized>
+		<Description>
+			<em:locale>fr</em:locale>
+			<em:name>Speed Start</em:name>
+			<em:description>Speed Dial et Start Page avec un agencement modulable pour un accès rapide aux sites par des marque-pages visuels</em:description>
+			<em:translator>TMTisFree</em:translator>
+		</Description>
+	</em:localized>
+	<em:localized>
+		<Description>
+			<em:locale>pt</em:locale>
+			<em:name>Speed Start</em:name>
+			<em:description>Ligação rápida e página inicial com disposição flexível para um acesso mas rápido aos sites através de marcadores visíveis</em:description>
+			<em:translator>Sérgio Marques</em:translator>
+		</Description>
+	</em:localized>
+	<em:localized>
+		<Description>
 			<em:locale>ru</em:locale>
 			<em:name>Speed Start</em:name>
 			<em:description>Стартовая страница с настраиваемым дизайном для быстрого доступа к сайтам с помощью визуальных закладок (Speed Dial &amp; Start Page)</em:description>
+		</Description>
+	</em:localized>
+	<em:localized>
+		<Description>
+			<em:locale>sv-SE</em:locale>
+			<em:name>Speed Start</em:name>
+			<em:description>Startsida med flexibel layout, för snabb åtkomst till webbplatser via visuella bokmärken</em:description>
+			<em:translator>Åke Engelbrektson</em:translator>
+		</Description>
+	</em:localized>
+	<em:localized>
+		<Description>
+			<em:locale>uk-UA</em:locale>
+			<em:name>Speed Start</em:name>
+			<em:description>Стартова сторінка з гнучким дизайном для швидкого доступу до сайтів за допомогою візуальних закладок (Speed Dial &amp; Start Page)</em:description>
 		</Description>
 	</em:localized>
 	<em:targetApplication>

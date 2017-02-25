@@ -1,0 +1,54 @@
+<!ENTITY sstart.Preferences "Opciones de Speed Start">
+<!ENTITY sstart.MinWidth "350px">
+
+<!ENTITY sstart.PageTab "General">
+<!ENTITY sstart.WidgetsTab "Adminículos">
+<!ENTITY sstart.ExtraTab "Extra">
+
+<!ENTITY sstart.Main "Principal">
+<!ENTITY sstart.Misc "Varios">
+
+<!ENTITY sstart.OpenInNewTabs "Cargar en pestaña nueva">
+<!ENTITY sstart.UseAsHomePage "Usar como página de inicio">
+<!ENTITY sstart.DisableSysThumbs "Deshabilitar las miniaturas de 'about:newtab'">
+<!ENTITY sstart.newtabOpen "Abrir en pestaña nueva">
+<!ENTITY sstart.newtabOnLockDrag "al arrastrar">
+<!ENTITY sstart.newtabAlways "siempre">
+<!ENTITY sstart.autoZoom "Ajustar automáticamente para caber en los bordes">
+<!ENTITY sstart.bottomHeader "Mostrar cabeceras de los adminículos por debajo">
+<!ENTITY sstart.hideDecorations "Ocultar cabeceras y bordes de los adminículos">
+<!ENTITY sstart.hideContextMenu "No mostrar en el menú contextual">
+<!ENTITY sstart.Positioning "Alineación">
+<!ENTITY sstart.GridSize "Tamaño de cuadrícula">
+<!ENTITY sstart.showGridOnUnlock "Mostrar cuadrícula cuando la página está desbloqueada">
+<!ENTITY sstart.DefSize "Tamaño predeterminado">
+<!ENTITY sstart.AutoUpdSize "Actualizar automáticamente al modificar tamaño">
+
+<!ENTITY sstart.Properties "Propiedades">
+<!ENTITY sstart.SearchEngine "Motor de búsqueda">
+
+<!ENTITY sstart.Page "Fondo de página">
+<!ENTITY sstart.Color "Color">
+<!ENTITY sstart.UseMainImage "Usar imagen de la página principal">
+<!ENTITY sstart.BackgroundImage "Imagen">
+<!ENTITY sstart.BackgroundStyle "Estilo">
+<!ENTITY sstart.BackgroundTile "Mosaico">
+<!ENTITY sstart.BackgroundStretch "Ajustado">
+<!ENTITY sstart.Header "Color de cabeceras">
+<!ENTITY sstart.titleColor "Título">
+<!ENTITY sstart.headerColor "Fondo">
+
+<!ENTITY sstart.Name "Nombre">
+<!ENTITY sstart.URL "URL">
+<!ENTITY sstart.Width "Ancho">
+<!ENTITY sstart.Height "Alto">
+<!ENTITY sstart.Delay "Retraso, ms">
+<!ENTITY sstart.CustomImage "Imagen propia">
+<!ENTITY sstart.BackgroundColor "Fondo">
+
+<!ENTITY sstart.GiveFocus "Enfocar al empezar">
+
+<!ENTITY sstart.Backup "Respaldo">
+<!ENTITY sstart.Data "Datos">
+<!ENTITY sstart.Export "Guardar">
+<!ENTITY sstart.Import "Recuperar">
