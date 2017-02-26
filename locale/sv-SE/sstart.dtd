@@ -19,8 +19,8 @@
 <!ENTITY sstart.hideDecorations "Dölj widget-rubriker och ramar">
 <!ENTITY sstart.hideContextMenu "Visa inte i kontextmenyn">
 <!ENTITY sstart.Positioning "Justering">
-<!ENTITY sstart.GridSize "Fästrutestorlek">
-<!ENTITY sstart.showGridOnUnlock "Visa fästrutor när sidan är upplåst">
+<!ENTITY sstart.GridSize "Stödrastrets storlek">
+<!ENTITY sstart.showGridOnUnlock "Visa stödraster när sidan är upplåst">
 <!ENTITY sstart.DefSize "Standardstorlek">
 <!ENTITY sstart.AutoUpdSize "Uppdatera automatiskt vid storleksändring">
 
