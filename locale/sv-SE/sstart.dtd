@@ -9,7 +9,7 @@
 <!ENTITY sstart.Misc "Diverse">
 
 <!ENTITY sstart.OpenInNewTabs "Använd som 'Ny flik'">
-<!ENTITY sstart.UseAsHomePage "Använd som hemsida">
+<!ENTITY sstart.UseAsHomePage "Använd som startsida">
 <!ENTITY sstart.DisableSysThumbs "Inaktivera 'about:newtab' miniatyrer">
 <!ENTITY sstart.newtabOpen "Öppna i ny flik">
 <!ENTITY sstart.newtabOnLockDrag "vid dra">
@@ -17,7 +17,7 @@
 <!ENTITY sstart.autoZoom "Zooma ut automatiskt för att anpassa till ramar">
 <!ENTITY sstart.bottomHeader "Visa widget-rubriker i underkant">
 <!ENTITY sstart.hideDecorations "Dölj widget-rubriker och ramar">
-<!ENTITY sstart.hideContextMenu "Visa inte i kontextmenyn">
+<!ENTITY sstart.hideContextMenu "Visa inte i snabbmenyn">
 <!ENTITY sstart.Positioning "Justering">
 <!ENTITY sstart.GridSize "Stödrastrets storlek">
 <!ENTITY sstart.showGridOnUnlock "Visa stödraster när sidan är upplåst">
