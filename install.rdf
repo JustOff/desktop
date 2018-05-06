@@ -10,7 +10,7 @@
 	<em:creator>Off JustOff &lt;Off.Just.Off@gmail.com&gt;</em:creator>
 	<em:contributor>telega</em:contributor>
 	<em:contributor>rtimush</em:contributor>
-	<em:homepageURL>https://addons.mozilla.org/addon/speed-start/</em:homepageURL>
+	<em:homepageURL>https://github.com/JustOff/speed-start</em:homepageURL>
 	<em:optionsURL>chrome://sstart/content/options.xul</em:optionsURL>
 	<em:localized>
 		<Description>
@@ -62,14 +62,14 @@
 	  <Description>
 		<em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
 		<em:minVersion>24.0</em:minVersion>
-		<em:maxVersion>*</em:maxVersion>
+		<em:maxVersion>56.*</em:maxVersion>
 	  </Description>
 	</em:targetApplication>
 	<em:targetApplication>
 	  <Description>
 		<em:id>{8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}</em:id>
 		<em:minVersion>24.0</em:minVersion>
-		<em:maxVersion>*</em:maxVersion>
+		<em:maxVersion>28.*</em:maxVersion>
 	  </Description>
 	</em:targetApplication>
 	<em:targetApplication>
