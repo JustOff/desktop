@@ -41,7 +41,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 			var bookmarks = Bookmark.getBookmarks();
 			for (var i in bookmarks) {
 				if (bookmarks[i].isFolder && bookmarks[i].title == ROOT_TITLE) {
-					data["params"] = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
+					data["params"] = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION) || "";
 					var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"]
 						.getService(Ci.nsINavBookmarksService);
 					var callback = {
@@ -104,7 +104,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 			item[bookmarks[i].id] = {};
 			item[bookmarks[i].id]["title"] = bookmarks[i].title;
 			item[bookmarks[i].id]["url"] = bookmarks[i].url;
-			item[bookmarks[i].id]["params"] = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION);
+			item[bookmarks[i].id]["params"] = Bookmark.getAnnotation(bookmarks[i].id, ANNOTATION) || "";
 			item[bookmarks[i].id]["isFolder"] = bookmarks[i].isFolder;
 			if (bookmarks[i].isFolder) {
 				exportFolder(bookmarks[i].id, item, false);
@@ -172,7 +172,7 @@ justoff.sstart.SStartOptionsXul = new function () {
 				if (typeof data["prefs"]["hcm"] != "undefined") Prefs.setBool("hideContextMenu", data["prefs"]["hcm"]);
 				if (typeof data["prefs"]["eld"] != "undefined") Prefs.setInt("enlargeDialogs", data["prefs"]["eld"]);
 				var newId = Bookmark.createFolder(dstFolder);
-				Bookmark.setAnnotation(newId, ANNOTATION, data["params"]);
+				Bookmark.setAnnotation(newId, ANNOTATION, data["params"] || "");
 				var bookmarksService = Cc["@mozilla.org/browser/nav-bookmarks-service;1"]
 					.getService(Ci.nsINavBookmarksService);
 				var callback = {
@@ -231,12 +231,12 @@ justoff.sstart.SStartOptionsXul = new function () {
 			if (!(key in {title:1, url:1, params:1, isFolder:1})) {
 				if (data[key]["isFolder"]) {
 					newId = Bookmark.createFolder(data[key]["title"], srcId);
-					Bookmark.setAnnotation(newId, ANNOTATION, data[key]["params"]);
+					Bookmark.setAnnotation(newId, ANNOTATION, data[key]["params"] || "");
 					importImage(srcDir, dstDir, newId, key, data[key]["params"]);
 					importFolder(data[key], newId, srcDir, dstDir);
 				} else {
 					newId = Bookmark.createBookmark(data[key]["url"], data[key]["title"], srcId);
-					Bookmark.setAnnotation(newId, ANNOTATION, data[key]["params"]);
+					Bookmark.setAnnotation(newId, ANNOTATION, data[key]["params"] || "");
 					importImage(srcDir, dstDir, newId, key, data[key]["params"]);
 				}
 			}
