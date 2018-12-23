@@ -4,6 +4,7 @@ justoff.sstart.Search = function () {
 	var SStart = justoff.sstart.SStart
 	var Prefs = justoff.sstart.Prefs
 
+	Components.utils.import("resource://gre/modules/Services.jsm");
 	Components.utils.import("chrome://sstart/content/cache.js");
 	Components.utils.import("chrome://sstart/content/utils.js");
 	Components.utils.import("chrome://sstart/content/dom.js");
@@ -22,8 +23,11 @@ justoff.sstart.Search = function () {
 	}
 
 	this.updateView = function () {
-		Search.prototype.updateView.call(this);
-		this.properties.title = SStart.getSearchEngine(this.properties.title).name;
+		var that = this;
+		Services.search.init(function () {
+			Search.prototype.updateView.call(that);
+			that.properties.title = SStart.getSearchEngine(that.properties.title).name;
+		});
 	}
 
 	this.renderView = function () {
