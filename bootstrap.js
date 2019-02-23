@@ -445,7 +445,7 @@ function startup (params, reason)
 
 	var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
 	Utils.isFirefox = (appInfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}");
-	Utils.isSeaMonkey = (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
+	Utils.isSeaMonkey = (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}" || appInfo.ID == "{a3210b97-8e8a-4737-9aa0-aa0e607640b9}");
 
 	if (Utils.isFirefox) {
 		newtabAPI.init();
