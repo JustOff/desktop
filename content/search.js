@@ -23,10 +23,19 @@ justoff.sstart.Search = function () {
 	}
 
 	this.updateView = function () {
+		Search.prototype.updateView.call(this);
+		SStart.incFVC();
 		var that = this;
 		Services.search.init(function () {
-			Search.prototype.updateView.call(that);
-			that.properties.title = SStart.getSearchEngine(that.properties.title).name;
+			var searchEngine = SStart.getSearchEngine(that.properties.title);
+			that.properties.title = searchEngine.name;
+			var icon = Dom.child(that.view, "icon");
+			icon.style.backgroundImage = "url(" + searchEngine.iconURI.spec + ")";
+			if (SStart.decFVC() == 0) {
+				var factory = document.getElementById("factory");
+				var event = new Event("savecache");
+				factory.dispatchEvent(event);
+			}
 		});
 	}
 

@@ -25,18 +25,16 @@ justoff.sstart.Widget = function () {
 		this.view.style.width = this.properties.width || "";
 		this.view.style.height = this.properties.height || "";
 
-		var icon = Dom.child(this.view, "icon");
-
 		if (this.properties.url != SEARCH_URL && this.properties.background) {
 			var body = Dom.child(this.view, "body");
 			body.style.backgroundColor = this.properties.background;
 		}
 
 		if (this.properties.isFolder) {
+			var icon = Dom.child(this.view, "icon");
 			icon.style.backgroundImage = "url(chrome://sstart/skin/folder.png)";
-		} else if (this.properties.url == SEARCH_URL) {
-			icon.style.backgroundImage = "url(" + SStart.getSearchEngine(this.properties.title).iconURI.spec + ")";
-		} else if (this.properties.url) {
+		} else if (this.properties.url != SEARCH_URL) {
+			var icon = Dom.child(this.view, "icon");
 			SStart.incFVC();
 			var uri = ios.newURI(this.properties.url, null, null);
 			fis.getFaviconURLForPage(uri, 
