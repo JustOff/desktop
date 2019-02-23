@@ -12,7 +12,7 @@ var SSTART_MODULES = [
 
 Cu.import("resource://gre/modules/Services.jsm");
 
-var gWindowListener = null, linkToSStart, pageToSStart, isFirefox, isSeaMonkey;
+var gWindowListener = null, linkToSStart, pageToSStart;
 var sstartTabURI = "chrome://sstart/content/sstart.html";
 var styleSheetService = Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
 var hideSStart = Services.io.newURI("chrome://sstart/skin/hidesstart.css", null, null);
@@ -67,7 +67,7 @@ function browserWindowStartup (aWindow) {
 	smitem.addEventListener("click", addPage, false);
 	cmenu.insertBefore(smitem, csp);
 	cmenu.addEventListener("popupshowing", cPopupShowingListener, false);
-	if (isSeaMonkey) {
+	if (Utils.isSeaMonkey) {
 		aWindow.gBrowser || aWindow.getBrowser();
 		aWindow.gBrowserOrigAddTab = aWindow.gBrowser.addTab;
 		aWindow.gBrowser.addTab = function () {
@@ -94,7 +94,7 @@ function browserWindowShutdown (aWindow) {
 		&& aWindow.gInitialPages.has(sstartTabURI)) {
 		aWindow.gInitialPages.delete(sstartTabURI);
 	}
-	if (isSeaMonkey) {
+	if (Utils.isSeaMonkey) {
 		aWindow.gBrowser.addTab = aWindow.gBrowserOrigAddTab;
 		aWindow.gBrowserOrigAddTab = null;
 	}
@@ -278,7 +278,7 @@ function browserPref (pref, cmd) {
 					PageThumbsStorage.wipe();
 				}
 			} else {
-				if (isFirefox && pref == "newtab.url") {
+				if (Utils.isFirefox && pref == "newtab.url") {
 					newtabAPI.set();
 				}
 				try {
@@ -293,7 +293,7 @@ function browserPref (pref, cmd) {
 					bprefs.clearUserPref("pagethumbnails.capturing_disabled");
 				} catch (e) {}
 			} else {
-				if (isFirefox && pref == "newtab.url") {
+				if (Utils.isFirefox && pref == "newtab.url") {
 					newtabAPI.reset();
 				}
 				try {
@@ -444,10 +444,10 @@ function startup (params, reason)
 	}
 
 	var appInfo = Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULAppInfo);
-	isFirefox = (appInfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}");
-	isSeaMonkey = (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}");
+	Utils.isFirefox = (appInfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}");
+	Utils.isSeaMonkey = (appInfo.ID == "{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}";
 
-	if (isFirefox) {
+	if (Utils.isFirefox) {
 		newtabAPI.init();
 	}
 

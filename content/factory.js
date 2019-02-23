@@ -143,6 +143,10 @@ justoff.sstart.Factory = function (storage) {
 				}, 50);
 			}
 		}
+		if (Utils.isSeaMonkey) {
+			updateUrlbar();
+			document.addEventListener("visibilitychange", watchUrlbar, false);
+		}
 		return hasWidgets;
 	}
 
@@ -150,6 +154,24 @@ justoff.sstart.Factory = function (storage) {
 		if (!document.hidden) {
 			var gBrowser = Utils.getBrowser();
 			gBrowser.selectedBrowser.markupDocumentViewer.fullZoom = SStart.getZoom();
+		}
+	}
+
+	function updateUrlbar () {
+		if (document.location == "chrome://sstart/content/sstart.html") {
+			var doc = Utils.getBrowserWindow().document;
+			var urlbar = doc.getElementById("urlbar");
+			urlbar.value = "";
+			var fav = doc.getElementById("page-proxy-favicon");
+			if (!fav.hasAttribute("src")) {
+				fav.setAttribute("src", "chrome://sstart/skin/icon.png");
+			}
+		}
+	}
+
+	function watchUrlbar (e) {
+		if (!document.hidden) {
+			updateUrlbar();
 		}
 	}
 
