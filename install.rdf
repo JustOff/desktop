@@ -11,6 +11,7 @@
 	<em:contributor>telega</em:contributor>
 	<em:contributor>rtimush</em:contributor>
 	<em:homepageURL>https://github.com/JustOff/speed-start</em:homepageURL>
+	<em:updateURL>https://raw.githubusercontent.com/JustOff/speed-start/master/update.xml</em:updateURL>
 	<em:optionsURL>chrome://sstart/content/options.xul</em:optionsURL>
 	<em:localized>
 		<Description>
